@@ -17,13 +17,13 @@ import ApiService from "./api-service";
 // };
 //
 
-const getAuth = () => {
+const getAuthStatus = () => {
     const CookieServices = new CookieService();
     const authToken = CookieServices.getCookie('Authorization')
     let userAuthStatus = false
     if (authToken !== undefined)
         userAuthStatus = true
-    return [userAuthStatus, authToken]
+    return userAuthStatus
 }
 
 const getUserData = () => {
@@ -45,8 +45,6 @@ const UserLoginForm = ({value}) => {
             <div className="form-group">
                 <label htmlFor="exampleInputEmail1">Email address</label>
                 <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
-                <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone
-                    else.</small>
             </div>
             <div className="form-group">
                 <label htmlFor="exampleInputPassword1">Password</label>
@@ -65,8 +63,7 @@ const UserLoginForm = ({value}) => {
 
 
 function App() {
-    const [authStatus, authToken] = getAuth()
-    const [userAuthStatus, SetUserAuthStatus] = useState(authStatus)
+    const [userAuthStatus, SetUserAuthStatus] = useState(getAuthStatus())
     const [userDataState, SetUserData] = useState(null);
 
 

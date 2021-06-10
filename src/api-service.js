@@ -5,7 +5,7 @@ export default class ApiService {
 
     CookieServices = new CookieService()
 
-    async getResource(url, method) {
+    async getResource(url) {
         let headers = {}
 
         let auth_token = this.CookieServices.getCookie('Authorization')
@@ -14,7 +14,7 @@ export default class ApiService {
             headers.Authorization = auth_token
         }
         const res = await fetch(`${this._apiBase}${url}`, {
-            method: `${method}`,
+            method: 'GET',
             mode: 'cors',
             headers: headers,
         })
@@ -28,6 +28,29 @@ export default class ApiService {
         return [await res.json(), res.ok];
     }
 
+    async postResource(url, data) {
+        let headers = {}
+
+        let auth_token = this.CookieServices.getCookie('Authorization')
+
+        if (auth_token !== undefined) {
+            headers.Authorization = auth_token
+        }
+        const res = await fetch(`${this._apiBase}${url}`, {
+            method: 'post',
+            mode: 'cors',
+            headers: headers,
+        })
+
+        // if (!res.ok) {
+        //     if (res.status === 403) {
+        //         this.CookieServices.deleteCookie('Authorization')
+        //     }
+        //     // throw new Error(`Could not fetch ${url}, receved ${res.status}`)
+        // }
+        return [await res.json(), res.ok];
+    }
+
     // getUserData = async () => {
     //     const res = await this.getResource('/user/', 'GET')
     //     console.log(res)
@@ -37,7 +60,7 @@ export default class ApiService {
 
 
     async getUserData() {
-        const [res, status] = await this.getResource('/user/', 'GET')
+        const [res, status] = await this.getResource('/user/')
         if (status) {
             return this._transformUserData(res)
         } else {
