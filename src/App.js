@@ -31,11 +31,13 @@ const getUserData = () => {
     return ApiServices.getUserData()
 }
 
+const loginTest = () => {
+    const ApiServices = new ApiService()
+    return ApiServices.postUserLogin('admin@mail.ru', 'admin')
+
+}
+
 const UserData = ({value}) => {
-    // useEffect(() => {
-    //     console.log('user data load')
-    //     return () => console.log('clear')
-    // }, [value])
     return <p> {value} </p>
 }
 
@@ -77,6 +79,18 @@ function App() {
                 } else {
                     const msg = `${data.lastName} ${data.firstName} ${data.patronymic}`
                     SetUserData(msg)
+                }
+            })
+        } else {
+            loginTest().then((res) => {
+                const [data, status] = res
+                console.log(data)
+                if (!status) {
+                    console.log(status)
+                } else {
+                    const CookieServices = new CookieService();
+                    CookieServices.setCookie('Authorization',  `Token ${data.token}`);
+                    SetUserAuthStatus(true)
                 }
             })
         }

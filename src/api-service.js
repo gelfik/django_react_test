@@ -1,11 +1,11 @@
 import CookieService from "./cookie-service";
 
 export default class ApiService {
-    _apiBase = 'http://localhost:8000/api/users'
+    _apiBase = 'https://busservice.gelfik.dev/api/users'
 
     CookieServices = new CookieService()
 
-    async getResource(url) {
+    async getResource(url = '') {
         let headers = {}
 
         let auth_token = this.CookieServices.getCookie('Authorization')
@@ -28,7 +28,7 @@ export default class ApiService {
         return [await res.json(), res.ok];
     }
 
-    async postResource(url, data) {
+    async postResource(url = '', data = {}) {
         let headers = {}
 
         let auth_token = this.CookieServices.getCookie('Authorization')
@@ -36,18 +36,14 @@ export default class ApiService {
         if (auth_token !== undefined) {
             headers.Authorization = auth_token
         }
+        headers['Content-Type'] = 'application/json'
         const res = await fetch(`${this._apiBase}${url}`, {
             method: 'post',
             mode: 'cors',
             headers: headers,
+            body: JSON.stringify(data)
         })
 
-        // if (!res.ok) {
-        //     if (res.status === 403) {
-        //         this.CookieServices.deleteCookie('Authorization')
-        //     }
-        //     // throw new Error(`Could not fetch ${url}, receved ${res.status}`)
-        // }
         return [await res.json(), res.ok];
     }
 
@@ -56,7 +52,6 @@ export default class ApiService {
     //     console.log(res)
     //     return res
     // }
-
 
 
     async getUserData() {
@@ -68,6 +63,10 @@ export default class ApiService {
         }
     }
 
+    async postUserLogin(email, password) {
+        const [res, status] = await this.postResource('/login/', {email:email, password:password})
+        return [res, status]
+    }
 
     _transformErrorMsg(msg) {
         return {error: msg.detail}
