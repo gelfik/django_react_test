@@ -1,24 +1,40 @@
-import {action, computed, makeObservable, observable} from "mobx"
+import {action, computed, makeObservable, observable, toJS} from "mobx"
 import RequestsService from "../utils/RequestsService";
 import CookieService from "../utils/CookieService";
 
 export default class UserStore {
+    requestService = new RequestsService()
+    cookieService = new CookieService()
+
+    _userAuthStatus = false;
+    _userData = {}
+
+
     constructor() {
         makeObservable(this, {
             _userAuthStatus: observable,
             _userData: observable,
             userAuthStatus: computed,
             setUserAuthStatus: action,
+            fetchUser: action,
             userData: computed,
             setUserData: action,
         })
+        this.fetchUser().then(r => console.log('USER FETCHED'))
     }
 
-    requestService = new RequestsService()
-    cookieService = new CookieService()
-
-    _userAuthStatus = false;
-    _userData = {}
+    fetchUser = async () => {
+        await this.getUserData().then(response => {
+            if (response.username) {
+                this.setUserAuthStatus(true)
+                this.setUserData(response)
+            } else {
+                console.log(window.location)
+                if (window.location.pathname !== '/login/')
+                    window.location.href = '/login/'
+            }
+        })
+    }
 
 
     get userAuthStatus() {
@@ -30,7 +46,10 @@ export default class UserStore {
     }
 
     get userData() {
-        return this._userData;
+        return toJS(this._userData); // Чтобы не разбираться с обсервер элементами можно обернуть такой функцией,
+        // так в консоли будет видно весь контент нормально.
+        // Так же в некотором роде убирает сайд эффекты.
+        // toJS = observer value => js value
     }
 
     setUserData = (value) => {

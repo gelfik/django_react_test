@@ -1,22 +1,8 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {Link} from "react-router-dom";
 import {inject, observer} from "mobx-react";
 
 const Header = inject('userStore')(observer((props) => {
-    useEffect(() => {
-        if (!props.userStore.userAuthStatus) {
-            props.userStore.getUserData().then((req) => {
-                if (req.username) {
-                    props.userStore.setUserAuthStatus(true)
-                    props.userStore.setUserData(req)
-                }
-            })
-        }
-    }, [ ])
-
-    console.log(props.userStore.userAuthStatus)
-    console.log(props.userStore.userData)
-
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <Link className="navbar-brand" to="/">MainPage</Link>

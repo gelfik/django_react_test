@@ -3,6 +3,7 @@ import {inject, observer} from "mobx-react";
 import ErrorAlert from "../ErrorAlert";
 import RedirectService from "../utils/RedirectService";
 import {validateEmail} from "../utils/ValidatorService";
+import {Link} from "react-router-dom";
 
 const LoginPage = inject('userStore')(observer((props) => {
         const [emailState, setEmail] = useState('')
@@ -46,7 +47,7 @@ const LoginPage = inject('userStore')(observer((props) => {
             }
             props.userStore.login(content).then(([res, status]) => {
                     if (status) {
-                        RedirectService('/')
+                        RedirectService('/user')
                     } else {
                         if (res?.errors?.error[0]) {
                             setError(res?.errors?.error[0])
@@ -56,6 +57,14 @@ const LoginPage = inject('userStore')(observer((props) => {
             )
         }
 
+        if (props.userStore.userAuthStatus) {
+            return (
+                <div className={'container'}>
+                    <h2 className={'h2'}>Login Page</h2>
+                    <p>You already login. Wanna to <Link to={'/deauth'}>exit?</Link></p>
+                </div>
+            )
+        }
 
         return (
             <div className="container">
