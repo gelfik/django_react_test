@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {inject, observer} from "mobx-react";
-import ErrorAlert from "../ErrorAlert";
+import ErrorAlert from "../components/ErrorAlert";
 import RedirectService from "../utils/RedirectService";
 import {validateEmail} from "../utils/ValidatorService";
 import {Link} from "react-router-dom";

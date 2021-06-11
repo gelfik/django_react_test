@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
-import Spinner from "../Spinner";
+import Spinner from "../components/Spinner";
 
 const UserPage = inject('userStore')(observer((props) => {
     const [loading, setLoading] = useState(true)

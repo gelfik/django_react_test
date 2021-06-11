@@ -1,12 +1,12 @@
 import React from 'react'
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import {observer, Provider} from "mobx-react";
-import RootStore from "../stores"
-import MainPage from "../pages/main-page";
-import LoginPage from "../pages/login-page";
-import RegisterPage from "../pages/register-page";
-import Page404 from "../pages/404-page";
-import UserPage from "../pages/user-page";
+import RootStore from "../../stores"
+import MainPage from "../../pages/main-page";
+import LoginPage from "../../pages/login-page";
+import RegisterPage from "../../pages/register-page";
+import Page404 from "../../pages/404-page";
+import UserPage from "../../pages/user-page";
 import Header from "../Header";
 
 const App = observer(() => {
