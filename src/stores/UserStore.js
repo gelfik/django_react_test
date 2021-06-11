@@ -8,14 +8,17 @@ export default class UserStore {
 
     _userAuthStatus = false;
     _userData = {}
-
+    _userAuthToken = this.cookieService.getCookie('Authorization')
 
     constructor() {
         makeObservable(this, {
             _userAuthStatus: observable,
             _userData: observable,
+            _userAuthToken: observable,
             userAuthStatus: computed,
             setUserAuthStatus: action,
+            userAuthToken: computed,
+            setUserAuthToken: action,
             fetchUser: action,
             userData: computed,
             setUserData: action,
@@ -24,16 +27,18 @@ export default class UserStore {
     }
 
     fetchUser = async () => {
-        await this.getUserData().then(response => {
-            if (response.username) {
-                this.setUserAuthStatus(true)
-                this.setUserData(response)
-            } else {
-                console.log(window.location)
-                if (window.location.pathname !== '/login/')
-                    window.location.href = '/login/'
-            }
-        })
+        if (this.userAuthToken) {
+            await this.getUserData().then(response => {
+                if (response.username) {
+                    this.setUserAuthStatus(true)
+                    this.setUserData(response)
+                }
+            })
+        } else {
+            console.log(window.location)
+            if (window.location.pathname !== '/login')
+                window.location.href = '/login'
+        }
     }
 
 
@@ -56,11 +61,20 @@ export default class UserStore {
         this._userData = value;
     }
 
+    get userAuthToken() {
+        return this._userAuthToken;
+    }
+
+    setUserAuthToken = (value) => {
+        this._userAuthToken = value;
+    }
+
     login = data => {
         return this.requestService._post('/login/', data).then(([response, status]) => {
             if (status) {
                 const {token} = response;
                 this.cookieService.setCookie('Authorization', `Token ${token}`)
+                this.setUserAuthToken(this.cookieService.getCookie('Authorization'))
                 this.setUserAuthStatus(true)
             }
             return [response, status]
@@ -73,15 +87,25 @@ export default class UserStore {
         })
     }
 
+    logout = () => {
+        this._clearUserData()
+    }
+
     async getUserData() {
         const [res, status] = await this.requestService._get('/user/')
         if (status) {
             return this._transformUserData(res)
         } else {
-            this.setUserAuthStatus(false)
-            this.cookieService.deleteCookie('Authorization')
+            this._clearUserData()
             return this._transformErrorMsg(res)
         }
+    }
+
+    _clearUserData() {
+        this.setUserAuthStatus(false)
+        this.cookieService.deleteCookie('Authorization')
+        this.setUserAuthToken(this.cookieService.getCookie('Authorization'))
+        this.setUserData({})
     }
 
     _transformErrorMsg(msg) {

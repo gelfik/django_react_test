@@ -20,6 +20,9 @@ const Header = inject('userStore')(observer((props) => {
                     <li className="nav-item active">
                         <Link className="nav-link" to="/register">Register</Link>
                     </li>
+                    <li className="nav-item active">
+                        <Link className="nav-link" to="/logout">Logout</Link>
+                    </li>
                 </ul>
             </div>
         </nav>

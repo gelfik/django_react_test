@@ -8,6 +8,7 @@ import RegisterPage from "../../pages/register-page";
 import Page404 from "../../pages/404-page";
 import UserPage from "../../pages/user-page";
 import Header from "../Header";
+import LogoutPage from "../../pages/logout-page";
 
 const App = observer(() => {
     const rootStore = new RootStore();
@@ -23,6 +24,7 @@ const App = observer(() => {
                     <Route path='/' component={MainPage} exact/>
                     <Route path='/user' component={UserPage} exact/>
                     <Route path='/login' component={LoginPage} exact/>
+                    <Route path='/logout' component={LogoutPage} exact/>
                     <Route path='/register' component={RegisterPage} exact/>
                     <Route component={Page404}/>
                 </Switch>
