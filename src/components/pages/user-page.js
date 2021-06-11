@@ -6,6 +6,7 @@ const UserPage = inject('userStore')(observer((props) => {
     if (!props.userStore.userAuthStatus) {
         return <Redirect to='/login'/>
     }
+
     return (
         <div>{props.userStore.userData.lastName} {props.userStore.userData.firstName} {props.userStore.userData.patronymic}</div>
     )

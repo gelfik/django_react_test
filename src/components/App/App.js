@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import {observer, Provider} from "mobx-react";
 import RootStore from "../stores"
