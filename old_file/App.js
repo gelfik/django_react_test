@@ -31,9 +31,9 @@ const getUserData = () => {
     return ApiServices.getUserData()
 }
 
-const loginTest = () => {
+const loginTest = (email='', password = '') => {
     const ApiServices = new ApiService()
-    return ApiServices.postUserLogin('admin@mail.ru', 'admin')
+    return ApiServices.postUserLogin(email, password)
 
 }
 
@@ -41,32 +41,62 @@ const UserData = ({value}) => {
     return <p> {value} </p>
 }
 
-const UserLoginForm = ({value}) => {
-    if (!value) {
-        return <form>
-            <div className="form-group">
-                <label htmlFor="exampleInputEmail1">Email address</label>
-                <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
-            </div>
-            <div className="form-group">
-                <label htmlFor="exampleInputPassword1">Password</label>
-                <input type="password" className="form-control" id="exampleInputPassword1"/>
-            </div>
-            <div className="form-group form-check">
-                <input type="checkbox" className="form-check-input" id="exampleCheck1"/>
-                <label className="form-check-label" htmlFor="exampleCheck1">Check me out</label>
-            </div>
-            <button type="submit" className="btn btn-primary">Submit</button>
-        </form>
-    } else {
-        return null
-    }
-}
-
 
 function App() {
     const [userAuthStatus, SetUserAuthStatus] = useState(getAuthStatus())
     const [userDataState, SetUserData] = useState(null);
+
+    const [labelEmailState, SetLabelEmail] = useState('')
+    const [labelPasswordState, SetLabelPassword] = useState('')
+
+    const onChangeLabelEmail = (e) => {
+        console.log(e.target.value)
+        SetLabelEmail(e.target.value)
+    }
+
+    const onChangeLabelPassword = (e) => {
+        console.log(e.target.value)
+        // SetLabelPassword(e.target.value)
+    }
+
+    const onSubmitLogin = (e) => {
+        e.preventDefault()
+        loginTest(labelEmailState, labelPasswordState).then((res) => {
+            const [data, status] = res
+            console.log(data)
+            if (!status) {
+                console.log(status)
+            } else {
+                const CookieServices = new CookieService();
+                CookieServices.setCookie('Authorization', `Token ${data.token}`);
+                SetUserAuthStatus(true)
+            }
+        })
+    }
+
+    const UserLoginForm = ({value}) => {
+        if (!value) {
+            return <form onSubmit={onSubmitLogin}>
+                <div className="form-group">
+                    <label htmlFor="exampleInputEmail1">Email address</label>
+                    <input onChange={onChangeLabelEmail} type="email" className="form-control" id="exampleInputEmail1"
+                           aria-describedby="emailHelp" value={labelEmailState}/>
+                </div>
+                <div className="form-group">
+                    <label htmlFor="exampleInputPassword1">Password</label>
+                    <input onChange={onChangeLabelPassword} type="password" className="form-control"
+                           id="exampleInputPassword1" value={labelPasswordState}/>
+                </div>
+                <div className="form-group form-check">
+                    <input type="checkbox" className="form-check-input" id="exampleCheck1"/>
+                    <label className="form-check-label" htmlFor="exampleCheck1">Check me out</label>
+                </div>
+                <button className="btn btn-primary">Submit</button>
+            </form>
+        } else {
+            return null
+        }
+    }
 
 
     useEffect(() => {
@@ -76,21 +106,10 @@ function App() {
 
                 if (typeof (data.error) !== 'undefined') {
                     SetUserData(data.error)
+                    SetUserAuthStatus(false)
                 } else {
                     const msg = `${data.lastName} ${data.firstName} ${data.patronymic}`
                     SetUserData(msg)
-                }
-            })
-        } else {
-            loginTest().then((res) => {
-                const [data, status] = res
-                console.log(data)
-                if (!status) {
-                    console.log(status)
-                } else {
-                    const CookieServices = new CookieService();
-                    CookieServices.setCookie('Authorization',  `Token ${data.token}`);
-                    SetUserAuthStatus(true)
                 }
             })
         }
