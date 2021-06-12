@@ -1,20 +1,25 @@
 import {action, computed, makeObservable, observable, toJS} from "mobx"
 import RequestsService from "../utils/RequestsService";
 import CookieService from "../utils/CookieService";
+import SpinnerStore from "./SpinnerStore";
 
 export default class UserStore {
     requestService = new RequestsService()
     cookieService = new CookieService()
 
+    _spinnerStore = new SpinnerStore()
+    _firstSpinerStore = new SpinnerStore()
     _userAuthStatus = false;
     _userData = {}
     _userAuthToken = this.cookieService.getCookie('Authorization')
+    _userCheckStatus = false;
 
     constructor() {
         makeObservable(this, {
             _userAuthStatus: observable,
             _userData: observable,
             _userAuthToken: observable,
+            _userCheckStatus: observable,
             userAuthStatus: computed,
             setUserAuthStatus: action,
             userAuthToken: computed,
@@ -22,6 +27,8 @@ export default class UserStore {
             fetchUser: action,
             userData: computed,
             setUserData: action,
+            userCheckStatus: computed,
+            setUserCheckStatus: action,
         })
         this.fetchUser().then(r => console.log('USER FETCHED'))
     }
@@ -34,20 +41,26 @@ export default class UserStore {
                     this.setUserData(response)
                 }
             })
+            // setTimeout(()=>{this.firstSpinnerStore.setSpinnerStatus(false)}, 1000)
+            this.firstSpinnerStore.setSpinnerStatus(false)
         } else {
-            console.log(window.location)
-            if (window.location.pathname !== '/login')
-                window.location.href = '/login'
+            this.firstSpinnerStore.setSpinnerStatus(false)
+
+            // if (window.location.pathname !== '/login')
+            //     window.location.href = '/login'
         }
     }
 
+    get spinnerStore() {
+        return this._spinnerStore;
+    }
+
+    get firstSpinnerStore() {
+        return this._firstSpinerStore;
+    }
 
     get userAuthStatus() {
         return this._userAuthStatus;
-    }
-
-    setUserAuthStatus = (value) => {
-        this._userAuthStatus = value;
     }
 
     get userData() {
@@ -57,16 +70,29 @@ export default class UserStore {
         // toJS = observer value => js value
     }
 
-    setUserData = (value) => {
-        this._userData = value;
-    }
-
     get userAuthToken() {
         return this._userAuthToken;
     }
 
+    get userCheckStatus() {
+        return this._userCheckStatus;
+    }
+
+    setUserAuthStatus = (value) => {
+        this._userAuthStatus = value;
+    }
+
+
+    setUserData = (value) => {
+        this._userData = value;
+    }
+
     setUserAuthToken = (value) => {
         this._userAuthToken = value;
+    }
+
+    setUserCheckStatus = (value) => {
+        this._userCheckStatus = value
     }
 
     login = data => {

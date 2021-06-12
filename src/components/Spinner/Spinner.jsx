@@ -15,8 +15,42 @@ const Spinner = () => {
             justifyContent: 'center',
             backgroundColor: 'white'
         }}>
-        <div className={'Spinner'}>
-            <img src={"http://cdn.onlinewebfonts.com/svg/img_444888.png"} alt="spinner" width={64} height={64}/>
+        <div className="loadingio-spinner-spin-6tftrxot815">
+            <div className="ldio-o5bejnrq56">
+                <div>
+                    <div></div>
+                </div>
+                <div>
+                    <div></div>
+                </div>
+                <div>
+                    <div></div>
+                </div>
+                <div>
+                    <div></div>
+                </div>
+                <div>
+                    <div></div>
+                </div>
+                <div>
+                    <div></div>
+                </div>
+                <div>
+                    <div></div>
+                </div>
+                <div>
+                    <div></div>
+                </div>
+                <div>
+                    <div></div>
+                </div>
+                <div>
+                    <div></div>
+                </div>
+                <div>
+                    <div></div>
+                </div>
+            </div>
         </div>
     </div>
 }

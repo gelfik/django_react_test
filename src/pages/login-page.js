@@ -57,15 +57,6 @@ const LoginPage = inject('userStore')(observer((props) => {
             )
         }
 
-        if (props.userStore.userAuthStatus) {
-            return (
-                <div className={'container'}>
-                    <h2 className={'h2'}>Login Page</h2>
-                    <p>You already login. Wanna to <Link to={'/deauth'}>exit?</Link></p>
-                </div>
-            )
-        }
-
         return (
             <div className="container">
                 <h2 className={'h2'}>Login Page</h2>
