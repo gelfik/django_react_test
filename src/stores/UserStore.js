@@ -14,11 +14,14 @@ export default class UserStore {
     _userAuthStatus = false
     _userData = {}
     _client = undefined
+    _errors = undefined
 
     constructor(tokenStore, $client) {
         makeObservable(this, {
             // _client: observable,
             _userAuthStatus: observable,
+            _errors: observable,
+            errors: computed,
             _userData: observable,
             client: computed,
             setClient: action,
@@ -87,6 +90,10 @@ export default class UserStore {
         // toJS = observer value => js value
     }
 
+    get errors() {
+        return toJS(this._errors)
+    }
+
 
     setClient = (value) => {
         this._client = value
@@ -119,7 +126,25 @@ export default class UserStore {
             this.getUserData().then(userData => {
                 this.setUserData(userData);
             });
+        }).catch(errors => {
+            this.setErrors(this.checkErrors(errors.response.data))
         })
+    }
+
+    setErrors = (value) => {
+        this._errors = value;
+    }
+
+    checkErrors = (errors, localErrors = {}, parent = null) => {
+        for (const [key, value] of Object.entries(errors)) {
+            if (typeof value === 'string') {
+                Object.assign(localErrors, {[parent ? parent : key]: value})
+            }
+            if (typeof value === 'object' && value !== null) {
+                this.checkErrors(value, localErrors, key)
+            }
+        }
+        return localErrors;
     }
 
     registration = data => {

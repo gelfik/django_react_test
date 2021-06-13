@@ -4,14 +4,14 @@ import ErrorAlert from "../components/ErrorAlert";
 import {validateEmail} from "../utils/ValidatorService";
 import {Redirect} from "react-router-dom";
 
-const LoginPage = inject('userStore')(observer((props) => {
+const LoginPage = inject('userStore')(observer((stores) => {
+        const {userStore} = stores
         const [emailState, setEmail] = useState('')
         const [emailValidState, setEmailValid] = useState('')
         const [passwordState, setPassword] = useState('')
         const [passwordValidState, setPasswordValid] = useState('')
-        const [errorState, setError] = useState('')
 
-        if (props.userStore.userAuthStatus) {
+        if (userStore.userAuthStatus) {
             return <Redirect to="/user"/>
         }
 
@@ -34,7 +34,6 @@ const LoginPage = inject('userStore')(observer((props) => {
             } else if (e.target.value.length < 6) {
                 setPasswordValid('is-invalid')
             } else {
-                console.log(e.target.value.length)
                 setPasswordValid('is-valid')
             }
         }
@@ -47,8 +46,8 @@ const LoginPage = inject('userStore')(observer((props) => {
                 password: data.get('password'),
                 // isChecked: data.get('isCheck')
             }
-            props.userStore.login(content)
-            // props.userStore.login(content).then(([res, status]) => {
+            userStore.login(content)
+            // userStore.login(content).then(([res, status]) => {
             //         if (status) {
             //             RedirectService('/user')
             //         } else {
@@ -72,6 +71,8 @@ const LoginPage = inject('userStore')(observer((props) => {
                                name={'email'}
                                value={emailState} required
                         />
+                        {userStore.errors?.email &&
+                        <ErrorAlert type={'text-only'} error={userStore.errors.email}/>}
                     </div>
                     <div className="form-group">
                         <label htmlFor="exampleInputPassword1">Password</label>
@@ -80,8 +81,11 @@ const LoginPage = inject('userStore')(observer((props) => {
                                id="exampleInputPassword1" name={'password'}
                                value={passwordState} required
                         />
+                        {userStore.errors?.password &&
+                        <ErrorAlert type={'text-only'} error={userStore.errors.password}/>}
                     </div>
-                    {errorState && <ErrorAlert error={errorState}/>}
+                    {userStore.errors?.error && <ErrorAlert error={userStore.errors?.error}/>}
+                    {userStore.errors?.detail && <ErrorAlert error={userStore.errors?.detail}/>}
                     <button type="submit" className="btn btn-primary">Submit</button>
                 </form>
             </div>
