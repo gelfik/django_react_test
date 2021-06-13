@@ -1,9 +1,8 @@
 import React, {useState} from "react";
 import {inject, observer} from "mobx-react";
 import ErrorAlert from "../components/ErrorAlert";
-import RedirectService from "../utils/RedirectService";
 import {validateEmail} from "../utils/ValidatorService";
-import {Link} from "react-router-dom";
+import {Redirect} from "react-router-dom";
 
 const LoginPage = inject('userStore')(observer((props) => {
         const [emailState, setEmail] = useState('')
@@ -12,6 +11,9 @@ const LoginPage = inject('userStore')(observer((props) => {
         const [passwordValidState, setPasswordValid] = useState('')
         const [errorState, setError] = useState('')
 
+        if (props.userStore.userAuthStatus) {
+            return <Redirect to="/user"/>
+        }
 
         const onChangeEmailLabel = (e) => {
             setEmail(e.target.value)
@@ -45,16 +47,17 @@ const LoginPage = inject('userStore')(observer((props) => {
                 password: data.get('password'),
                 // isChecked: data.get('isCheck')
             }
-            props.userStore.login(content).then(([res, status]) => {
-                    if (status) {
-                        RedirectService('/user')
-                    } else {
-                        if (res?.errors?.error[0]) {
-                            setError(res?.errors?.error[0])
-                        }
-                    }
-                }
-            )
+            props.userStore.login(content)
+            // props.userStore.login(content).then(([res, status]) => {
+            //         if (status) {
+            //             RedirectService('/user')
+            //         } else {
+            //             if (res?.errors?.error[0]) {
+            //                 setError(res?.errors?.error[0])
+            //             }
+            //         }
+            //     }
+            // )
         }
 
         return (

@@ -2,70 +2,53 @@ import {action, computed, makeObservable, observable, toJS} from "mobx"
 import RequestsService from "../utils/RequestsService";
 import CookieService from "../utils/CookieService";
 import SpinnerStore from "./SpinnerStore";
-import TokenStore from "./TokenStore";
 
 export default class UserStore {
     requestService = new RequestsService()
     cookieService = new CookieService()
-    tokenStore = TokenStore
 
     _spinnerStore = new SpinnerStore()
     _firstSpinerStore = new SpinnerStore()
-    _userAuthStatus = false
+    _userAuthStatus = false;
     _userData = {}
-    _client = undefined
+    _userAuthToken = this.cookieService.getCookie('Authorization')
+    _userCheckStatus = false;
 
-    constructor(tokenStore, $client) {
+    constructor() {
         makeObservable(this, {
-            // _client: observable,
             _userAuthStatus: observable,
             _userData: observable,
-            client: computed,
-            setClient: action,
+            _userAuthToken: observable,
+            _userCheckStatus: observable,
             userAuthStatus: computed,
             setUserAuthStatus: action,
+            userAuthToken: computed,
+            setUserAuthToken: action,
+            fetchUser: action,
             userData: computed,
             setUserData: action,
-            fetchUser: action,
-            getUserData: action,
+            userCheckStatus: computed,
+            setUserCheckStatus: action,
         })
-        this.tokenStore = tokenStore
-        this.setClient($client)
         this.fetchUser().then(r => console.log('USER FETCHED'))
     }
 
-    getAllMethods(object) {
-        return Object.getOwnPropertyNames(object).filter(function (property) {
-            return typeof object[property] == 'function';
-        });
-    }
-
     fetchUser = async () => {
-        if (this.tokenStore.token.value) {
+        if (this.userAuthToken) {
             await this.getUserData().then(response => {
                 if (response.username) {
                     this.setUserAuthStatus(true)
                     this.setUserData(response)
-                    return this.userData
                 }
-            }).catch(error => {
-                if (error.response?.status === 401 || error.response?.status === 403) {
-                    this._clearUserData()
-                }
-                return new Promise((resolve => {
-                    this.setUserData({})
-                    resolve(null)
-                }))
             })
             // setTimeout(()=>{this.firstSpinnerStore.setSpinnerStatus(false)}, 1000)
             this.firstSpinnerStore.setSpinnerStatus(false)
         } else {
             this.firstSpinnerStore.setSpinnerStatus(false)
-        }
-    }
 
-    get client() {
-        return this._client;
+            // if (window.location.pathname !== '/login')
+            //     window.location.href = '/login'
+        }
     }
 
     get spinnerStore() {
@@ -81,15 +64,18 @@ export default class UserStore {
     }
 
     get userData() {
-        return this._transformUserData(toJS(this._userData)); // Чтобы не разбираться с обсервер элементами можно обернуть такой функцией,
+        return toJS(this._userData); // Чтобы не разбираться с обсервер элементами можно обернуть такой функцией,
         // так в консоли будет видно весь контент нормально.
         // Так же в некотором роде убирает сайд эффекты.
         // toJS = observer value => js value
     }
 
+    get userAuthToken() {
+        return this._userAuthToken;
+    }
 
-    setClient = (value) => {
-        this._client = value
+    get userCheckStatus() {
+        return this._userCheckStatus;
     }
 
     setUserAuthStatus = (value) => {
@@ -101,24 +87,23 @@ export default class UserStore {
         this._userData = value;
     }
 
-    // login = data => {
-    //     return this.requestService._post('/login/', data).then(([response, status]) => {
-    //         if (status) {
-    //             const {token} = response;
-    //             this.tokenStore.setToken(`Token ${token}`)
-    //             this.setUserAuthStatus(true)
-    //         }
-    //         return [response, status]
-    //     })
-    // }
+    setUserAuthToken = (value) => {
+        this._userAuthToken = value;
+    }
 
-    login = (data) => {
-        return this.client.post('/login/', data).then((response) => {
-            this.tokenStore.setToken(`Token ${response.data.token}`)
-            this.setUserAuthStatus(true)
-            this.getUserData().then(userData => {
-                this.setUserData(userData);
-            });
+    setUserCheckStatus = (value) => {
+        this._userCheckStatus = value
+    }
+
+    login = data => {
+        return this.requestService._post('/login/', data).then(([response, status]) => {
+            if (status) {
+                const {token} = response;
+                this.cookieService.setCookie('Authorization', `Token ${token}`)
+                this.setUserAuthToken(this.cookieService.getCookie('Authorization'))
+                this.setUserAuthStatus(true)
+            }
+            return [response, status]
         })
     }
 
@@ -132,19 +117,25 @@ export default class UserStore {
         this._clearUserData()
     }
 
-    getUserData = () => {
-        return this.client.get('/user/')
-            .then(response => {
-                this.setUserAuthStatus(true)
-                return response.data
-            })
+    async getUserData() {
+        const [res, status] = await this.requestService._get('/user/')
+        if (status) {
+            return this._transformUserData(res)
+        } else {
+            this._clearUserData()
+            return this._transformErrorMsg(res)
+        }
     }
-
 
     _clearUserData() {
         this.setUserAuthStatus(false)
-        this.tokenStore.removeToken()
+        this.cookieService.deleteCookie('Authorization')
+        this.setUserAuthToken(this.cookieService.getCookie('Authorization'))
         this.setUserData({})
+    }
+
+    _transformErrorMsg(msg) {
+        return {error: msg.detail}
     }
 
     _transformUserData(userData) {

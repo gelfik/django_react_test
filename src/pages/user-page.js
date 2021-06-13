@@ -1,7 +1,5 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {inject, observer} from "mobx-react";
-import RedirectService from "../utils/RedirectService";
-import {Redirect} from "react-router-dom";
 
 const UserPage = inject('userStore')(observer((props) => {
     // const [loading, setLoading] = useState(true)
