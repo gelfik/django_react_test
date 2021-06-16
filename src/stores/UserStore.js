@@ -21,7 +21,6 @@ export default class UserStore {
             _userAuthStatus: observable,
             _userData: observable,
             client: computed,
-            setClient: action,
             userAuthStatus: computed,
             setUserAuthStatus: action,
             userData: computed,
@@ -30,7 +29,7 @@ export default class UserStore {
             getUserData: action,
         })
         this.tokenStore = tokenStore
-        this.setClient($client)
+        this._client = $client
         this.fetchUser().then(r => console.log('USER FETCHED'))
     }
 
@@ -88,10 +87,6 @@ export default class UserStore {
     }
 
 
-    setClient = (value) => {
-        this._client = value
-    }
-
     setUserAuthStatus = (value) => {
         this._userAuthStatus = value;
     }
@@ -113,7 +108,7 @@ export default class UserStore {
     // }
 
     login = (data) => {
-        return this.client.post('/login/', data).then((response) => {
+        return this.client.post('/users/login/', data).then((response) => {
             this.tokenStore.setToken(`Token ${response.data.token}`)
             this.setUserAuthStatus(true)
             this.getUserData().then(userData => {
@@ -123,7 +118,7 @@ export default class UserStore {
     }
 
     registration = data => {
-        return this.requestService._post('/register/', data).then(([response, status]) => {
+        return this.requestService._post('/users/register/', data).then(([response, status]) => {
             return [response, status]
         })
     }
@@ -133,7 +128,7 @@ export default class UserStore {
     }
 
     getUserData = () => {
-        return this.client.get('/user/')
+        return this.client.get('/users/user/')
             .then(response => {
                 this.setUserAuthStatus(true)
                 return response.data
