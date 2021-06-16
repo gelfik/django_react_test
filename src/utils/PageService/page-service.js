@@ -9,6 +9,7 @@ import LogoutPage from "../../pages/logout-page";
 import {inject, observer} from "mobx-react";
 import Header from "../../components/Header";
 import Spinner from "../../components/Spinner";
+import LoadImagePage from "../../pages/load-image-page";
 
 const PageService = inject('userStore')(observer((props) => {
     if (props.userStore.firstSpinnerStore.spinerStatus) {
@@ -20,6 +21,7 @@ const PageService = inject('userStore')(observer((props) => {
             <Header/>
             <Switch>
                 <Route path='/' component={MainPage} exact/>
+                <Route path='/test' component={LoadImagePage} exact/>
                 <Route path='/user' render={() => !props.userStore.userAuthStatus ? <Redirect to='/login'/> : <UserPage/>}/>
                 <Route path='/logout' render={() => !props.userStore.userAuthStatus ? <Redirect to='/'/> : <LogoutPage/>} exact/>
                 <Route path='/login' render={() => props.userStore.userAuthStatus ? <Redirect to='/'/> : <LoginPage/>} exact/>
