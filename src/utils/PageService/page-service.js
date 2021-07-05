@@ -10,6 +10,7 @@ import {inject, observer} from "mobx-react";
 import Header from "../../components/Header";
 import Spinner from "../../components/Spinner";
 import LoadImagePage from "../../pages/load-image-page";
+import Footer from "../../components/Footer";
 
 const PageService = inject('userStore')(observer((props) => {
     if (props.userStore.firstSpinnerStore.spinerStatus) {
@@ -28,6 +29,7 @@ const PageService = inject('userStore')(observer((props) => {
                 <Route path='/register' render={() => props.userStore.userAuthStatus ? <Redirect to='/'/> : <RegisterPage/>} exact/>
                 <Route component={Page404}/>
             </Switch>
+            <Footer/>
         </Router>
     )
 }))

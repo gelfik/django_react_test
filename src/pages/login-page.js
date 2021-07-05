@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {inject, observer} from "mobx-react";
 import ErrorAlert from "../components/ErrorAlert";
 import {validateEmail} from "../utils/ValidatorService";
-import {Redirect} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 
 const LoginPage = inject('userStore')(observer((stores) => {
         const {userStore} = stores
@@ -60,34 +60,66 @@ const LoginPage = inject('userStore')(observer((stores) => {
         }
 
         return (
-            <div className="container">
-                <h2 className={'h2'}>Login Page</h2>
-                <form className={'d-flex flex-column'} onSubmit={onSubmit}>
-                    <div className="form-group">
-                        <label htmlFor="exampleInputEmail1">Email address</label>
-                        <input onChange={onChangeEmailLabel} type="email" className={`form-control ${emailValidState}`}
-                               id="exampleInputEmail1"
-                               aria-describedby="emailHelp"
-                               name={'email'}
-                               value={emailState} required
-                        />
-                        {userStore.errors?.email &&
-                        <ErrorAlert type={'text-only'} error={userStore.errors.email}/>}
+            <div className="my-parent-center">
+                <div className="container my-block-center">
+                    <div className="row justify-content-center">
+                        <div className={'col'}/>
+                        <div className={'col-lg-5'}>
+                            <h2 className={'h2'}>Вход в систему</h2>
+                            <form className={'d-flex flex-column'} onSubmit={onSubmit}>
+                                {/*<div className="form-group">*/}
+                                {/*    <input onChange={onChangeEmailLabel} type="email" className={`form-control ${emailValidState}`}*/}
+                                {/*           id="InputEmail"*/}
+                                {/*           aria-describedby="emailHelp"*/}
+                                {/*           name={'email'}*/}
+                                {/*           value={emailState} required*/}
+                                {/*           placeholder={'Email'}*/}
+                                {/*    />*/}
+                                {/*    {userStore.errors?.email &&*/}
+                                {/*    <ErrorAlert type={'text-only'} error={userStore.errors.email}/>}*/}
+                                {/*</div>*/}
+
+                                <div className="form-floating">
+                                    <input onChange={onChangeEmailLabel} type="email"
+                                           className={`form-control ${emailValidState}`}
+                                           id="floatingInput" name={'email'} value={emailState} required
+                                           placeholder="name@example.com"/>
+                                    <label htmlFor="floatingInput">Email</label>
+                                    {userStore.errors?.email &&
+                                    <ErrorAlert type={'text-only'} error={userStore.errors.email}/>}
+                                </div>
+
+
+                                {/*<div className="form-group">*/}
+                                {/*    <input onChange={onChangePasswordLabel} type="password"*/}
+                                {/*           className={`form-control ${passwordValidState}`}*/}
+                                {/*           id="InputPassword" name={'password'}*/}
+                                {/*           value={passwordState} required*/}
+                                {/*           placeholder={'Пароль'}*/}
+                                {/*    />*/}
+                                {/*    {userStore.errors?.password &&*/}
+                                {/*    <ErrorAlert type={'text-only'} error={userStore.errors.password}/>}*/}
+                                {/*</div>*/}
+
+                                <div className="form-floating">
+                                    <input onChange={onChangePasswordLabel} type="password"
+                                           className={`form-control ${passwordValidState}`} id="floatingInput"
+                                           name={'password'} value={passwordState} required
+                                           placeholder="name@example.com"/>
+                                    <label htmlFor="floatingInput">Пароль</label>
+                                    {userStore.errors?.password &&
+                                    <ErrorAlert type={'text-only'} error={userStore.errors.password}/>}
+                                </div>
+
+                                {userStore.errors?.error && <ErrorAlert error={userStore.errors?.error}/>}
+                                {userStore.errors?.detail && <ErrorAlert error={userStore.errors?.detail}/>}
+                                <p className="text-center">Нет учетной записи? <Link to="/register">Регистрация</Link></p>
+                                <button type="submit" className="btn btn-secondary">Войти</button>
+                            </form>
+                        </div>
+                        <div className={'col'}/>
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="exampleInputPassword1">Password</label>
-                        <input onChange={onChangePasswordLabel} type="password"
-                               className={`form-control ${passwordValidState}`}
-                               id="exampleInputPassword1" name={'password'}
-                               value={passwordState} required
-                        />
-                        {userStore.errors?.password &&
-                        <ErrorAlert type={'text-only'} error={userStore.errors.password}/>}
-                    </div>
-                    {userStore.errors?.error && <ErrorAlert error={userStore.errors?.error}/>}
-                    {userStore.errors?.detail && <ErrorAlert error={userStore.errors?.detail}/>}
-                    <button type="submit" className="btn btn-primary">Submit</button>
-                </form>
+                </div>
             </div>
         )
     }
