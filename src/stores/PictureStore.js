@@ -9,7 +9,7 @@ export default class PictureStore {
     }
 
     loadImage = (data) => {
-        return this.client.put('/file/load/', data).then((response) => {
+        return this.client.put('/users/setAvatar/', data).then((response) => {
             return response
         })
     }

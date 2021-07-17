@@ -3,7 +3,8 @@ import axios from "axios";
 
 const initAxios = (tokenStore) => {
     const $axios = axios.create({
-        baseURL: 'https://busservice.gelfik.dev/api'
+        // baseURL: 'https://busservice.gelfik.dev/api'
+        baseURL: 'http://127.0.0.1:8000/api'
     })
     $axios.defaults.headers.post['Content-Type'] = 'application/json';
     $axios.defaults.headers.put['Content-Type'] = 'multipart/form-data';

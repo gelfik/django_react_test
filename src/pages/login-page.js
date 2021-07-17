@@ -82,7 +82,7 @@ const LoginPage = inject('userStore')(observer((stores) => {
                                 <div className="form-floating">
                                     <input onChange={onChangeEmailLabel} type="email"
                                            className={`form-control ${emailValidState}`}
-                                           id="floatingInput" name={'email'} value={emailState} required
+                                           id="floatingInputEmail" name={'email'} value={emailState} required
                                            placeholder="name@example.com"/>
                                     <label htmlFor="floatingInput">Email</label>
                                     {userStore.errors?.email &&
@@ -106,7 +106,7 @@ const LoginPage = inject('userStore')(observer((stores) => {
                                            className={`form-control ${passwordValidState}`} id="floatingInput"
                                            name={'password'} value={passwordState} required
                                            placeholder="name@example.com"/>
-                                    <label htmlFor="floatingInput">Пароль</label>
+                                    <label htmlFor="floatingInputPassword">Пароль</label>
                                     {userStore.errors?.password &&
                                     <ErrorAlert type={'text-only'} error={userStore.errors.password}/>}
                                 </div>

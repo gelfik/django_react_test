@@ -30,6 +30,7 @@ export default class UserStore {
             setUserData: action,
             fetchUser: action,
             getUserData: action,
+            updateUser: action,
         })
         this.tokenStore = tokenStore
         this._client = $client
@@ -148,6 +149,19 @@ export default class UserStore {
         })
     }
 
+
+    updateUser = (data) => {
+        return this.client.post('/users/edit/', data).then((response) => {
+            this.setUserData(response.data)
+            // this.getUserData().then(userData => {
+            //     this.setUserData(userData)
+            // });
+        }).catch(errors => {
+            this.setErrors(this.checkErrors(errors.response.data))
+        })
+    }
+
+
     logout = () => {
         this._clearUserData()
     }
@@ -167,13 +181,35 @@ export default class UserStore {
         this.setUserData({})
     }
 
+    _transformAvatarData(avatarData) {
+        if (avatarData) {
+            return {
+                small: avatarData.url + avatarData.small,
+                profile: avatarData.url + avatarData.profile,
+                medium: avatarData.url + avatarData.medium,
+                large: avatarData.url + avatarData.large
+            }
+        } else {
+            return {
+                small: null,
+                profile: null,
+                medium: null,
+                large: null
+            }
+        }
+    }
+
     _transformUserData(userData) {
         return {
             email: userData.email,
             username: userData.username,
-            lastName: userData.last_name,
-            firstName: userData.first_name,
+            phone: userData.phone,
+            vkLink: userData.vkLink,
+            lastName: userData.lastName,
+            firstName: userData.firstName,
             patronymic: userData.patronymic,
+            avatar: this._transformAvatarData(userData.avatar),
+            // avatar: userData.avatar,
             isActive: userData.is_active
         }
     }
