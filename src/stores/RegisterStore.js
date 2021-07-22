@@ -2,7 +2,7 @@ import {action, computed, makeObservable, observable, toJS} from "mobx";
 import {validateEmail, validatePhone} from "../utils/ValidatorService";
 
 export default class RegisterStore {
-    constructor($client) {
+    constructor($client, $userStore) {
         makeObservable(this, {
             _regData: observable,
             setKeyRegData: action,
@@ -11,6 +11,7 @@ export default class RegisterStore {
             isValid: action,
         })
         this.client = $client;
+        this.userStore = $userStore;
     }
 
     _regData = {
@@ -27,6 +28,10 @@ export default class RegisterStore {
             return this.charAt(0).toUpperCase() + this.slice(1);
         }
 
+        if (this.userStore?.errors?.hasOwnProperty(key)) {
+            this.userStore?.setErrorByKey(key, undefined)
+        }
+
         if (key.toLowerCase().indexOf('name') !== -1)
             this._regData[key] = value.capitalize();
         else this._regData[key] = value;
@@ -41,6 +46,10 @@ export default class RegisterStore {
     }
 
     isValid = (key) => {
+        if (this.userStore?.errors?.hasOwnProperty(key)) {
+            if (this.userStore?.errors[key])
+                return 'is-invalid'
+        }
         if (!this.regData[key]) {
             return ''
         }

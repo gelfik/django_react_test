@@ -54,7 +54,6 @@ const RegisterModal = inject('userStore', 'modalStore', 'registerStore')(observe
 
 const RegisterInput = inject('userStore', 'registerStore')(observer((props) => {
     const {fieldName, labelText, type = 'text', userStore, registerStore} = props
-    console.log(userStore)
     return (
         <div className="col-lg-6 col-12 mb-3">
             <div className="form-floating ">
@@ -66,8 +65,8 @@ const RegisterInput = inject('userStore', 'registerStore')(observer((props) => {
                        required placeholder={labelText}/>
                 <label htmlFor={fieldName}>{labelText}</label>
             </div>
-            {/*{userStore?.errors[fieldName] && <ErrorAlert error={userStore?.errors[fieldName]}/>}*/}
-            {userStore?.errors && userStore?.errors[fieldName] && <ErrorAlert error={userStore?.errors[fieldName]}/>}
+            {userStore?.errors && userStore?.errors[fieldName] &&
+            <p className={'custom-alert-danger-text'}>{userStore?.errors[fieldName]}</p>}
         </div>
     )
 }))

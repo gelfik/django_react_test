@@ -16,7 +16,7 @@ class RootStore {
         this.spinnerStore = new SpinnerStore();
         this.pictureStore = new PictureStore(this.$axios)
         this.modalStore = new ModalStore();
-        this.registerStore = new RegisterStore(this.$axios);
+        this.registerStore = new RegisterStore(this.$axios, this.userStore);
         this.loginStore = new LoginStore(this.$axios);
     }
 }

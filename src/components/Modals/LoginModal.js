@@ -62,7 +62,8 @@ const LoginInput = inject('userStore','loginStore')(observer((props) => {
                        required placeholder={labelText}/>
                 <label htmlFor={fieldName}>{labelText}</label>
             </div>
-            {userStore?.errors[fieldName] && <ErrorAlert error={userStore?.errors[fieldName]}/>}
+            {userStore?.errors && userStore?.errors[fieldName] &&
+            <p className={'custom-alert-danger-text'}>{userStore?.errors[fieldName]}</p>}
         </div>
     )
 }))

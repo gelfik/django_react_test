@@ -31,6 +31,7 @@ export default class UserStore {
             fetchUser: action,
             getUserData: action,
             updateUser: action,
+            setErrorByKey: action,
         })
         this.tokenStore = tokenStore
         this._client = $client
@@ -129,6 +130,10 @@ export default class UserStore {
 
     setErrors = (value) => {
         this._errors = value;
+    }
+
+    setErrorByKey = (key, value) => {
+        this._errors[key] = value;
     }
 
     checkErrors = (errors, localErrors = {}, parent = null) => {
