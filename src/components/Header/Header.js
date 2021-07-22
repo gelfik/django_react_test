@@ -2,20 +2,21 @@ import React, {useState} from "react";
 import {Link} from "react-router-dom";
 import {inject, observer} from "mobx-react";
 
-const Header = inject('userStore')(observer((props) => {
+const Header = inject('userStore', 'modalStore')(observer((stores) => {
+    const {userStore, modalStore} = stores
     const [isOpen, setIsOpen] = useState(false)
     const loginMenu = () => {
         const toggleOpen = () => {
             setIsOpen(!isOpen)
         }
-        if (props.userStore.userData.avatar) {
+        if (userStore.userData.avatar) {
             return (<li className="nav-item dropdown" onClick={toggleOpen}>
                 <button className="btn btn-dark dropdown-toggle" type="button" id="navbarDropdownMenuLink"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                    {props.userStore.userData.firstName} <img src={props.userStore.userData.avatar.small}
-                                                             alt={props.userStore.userData.lastName} width="32"
-                                                             height="32"
-                                                             className="rounded-circle"></img>
+                    {userStore.userData.firstName} <img src={userStore.userData.avatar.small}
+                                                              alt={userStore.userData.lastName} width="32"
+                                                              height="32"
+                                                              className="rounded-circle"></img>
                 </button>
                 <ul className={`dropdown-menu dropdown-menu-right dropdown-menu-dark ${isOpen ? " show" : ""}`}
                     aria-labelledby="navbarDropdownMenuLink">
@@ -31,10 +32,18 @@ const Header = inject('userStore')(observer((props) => {
         }
     }
 
+
     const guestMenu = () => {
         return (<>
             <li className="nav-item active">
-                <Link className="nav-link" to="/login">Войти</Link>
+                {/*<Link className="nav-link" to="/login">Войти</Link>*/}
+                {/*<button type="button" className="btn btn-primary" data-bs-toggle="modal"*/}
+                {/*        data-bs-target="#ModalLogin">*/}
+                {/*    Launch static backdrop modal*/}
+                {/*</button>*/}
+                <a className="nav-link" onClick={modalStore.LoginModalShow}>
+                    Войти
+                </a>
             </li>
             {/*<li className="nav-item active">*/}
             {/*    <Link className="nav-link" to="/register">Регистрация</Link>*/}
@@ -54,8 +63,8 @@ const Header = inject('userStore')(observer((props) => {
                     </button>
                     <div className="collapse navbar-collapse d-flex flex-row-reverse" id="navbarNav">
                         <ul className="navbar-nav">
-                            {props.userStore.userAuthStatus ? loginMenu() : guestMenu()}
-                            {/*{!props.userStore.userAuthStatus && guestMenu()}*/}
+                            {userStore.userAuthStatus ? loginMenu() : guestMenu()}
+                            {/*{!userStore.userAuthStatus && guestMenu()}*/}
                         </ul>
                     </div>
                 </div>

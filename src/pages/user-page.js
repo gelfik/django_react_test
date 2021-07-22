@@ -112,7 +112,7 @@ const UserPage = inject('userStore', 'pictureStore')(observer((stores) => {
                 <img src={userStore.userData.avatar.profile}
                      alt={userStore.userData.lastName}
                      className="rounded-circle"/>
-                <input type="file" name={'file'} id={'fileLoadInput'} ref={fileRef} onChange={loadfile} multiple={false}
+                <input type="file" accept=".png,.jpg,.jpeg" name={'file'} id={'fileLoadInput'} ref={fileRef} onChange={loadfile} multiple={false}
                        className={'fileLoadInput'}/>
                 {imgHoverState && <div className={'fileLoadInputOverlay'}>
                     <svg fill="none" height="48" viewBox="0 0 32 32" width="48"
@@ -158,7 +158,13 @@ const UserPage = inject('userStore', 'pictureStore')(observer((stores) => {
     const usernameVklinkBlock = () => {
         return <div className="row ">
             <div className="col-lg-6 col-12 mb-3">
-                {globalInput('username', 'Логин')}
+                <div className="form-floating">
+                    <input type={`text`}
+                           className={`form-control`}
+                           id={`floatingInputusername`} name={`username`} value={formValue['username']}
+                           required disabled={true}/>
+                    <label htmlFor={`floatingInputusername`}>{`Логин`}</label>
+                </div>
             </div>
             <div className="col-lg-6 col-12 mb-3">
                 {globalInput('vkLink', 'Ссылка Вк')}
@@ -180,7 +186,7 @@ const UserPage = inject('userStore', 'pictureStore')(observer((stores) => {
             <div className="modal-dialog">
                 <div className="modal-content">
                     <div className="modal-header">
-                        <h5 className="modal-title">Профиль</h5>
+                        <h5 className="modal-title">Профиль - @{formValue['username']}</h5>
                         <button type="button" className={'btn'}
                                 aria-label="Edit" onClick={() => toggleEdit()}>
                             <svg fill="none" height="24" viewBox="0 0 24 24" width="24"

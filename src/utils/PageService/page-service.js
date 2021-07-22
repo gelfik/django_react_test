@@ -12,6 +12,7 @@ import Spinner from "../../components/Spinner";
 import LoadImagePage from "../../pages/load-image-page";
 import Footer from "../../components/Footer";
 import NewPageTest from "../../pages/new-page-test";
+import AuthenticationBlock from "../../components/AuthenticationBlock";
 
 const PageService = inject('userStore')(observer((props) => {
     if (props.userStore.firstSpinnerStore.spinerStatus) {
@@ -23,7 +24,6 @@ const PageService = inject('userStore')(observer((props) => {
             <Header/>
             <div className="container">
                 <Switch>
-
                     <Route path='/' component={MainPage} exact/>
                     <Route path='/test' component={LoadImagePage} exact/>
                     <Route path='/test1' component={NewPageTest} exact/>
@@ -40,8 +40,10 @@ const PageService = inject('userStore')(observer((props) => {
                 </Switch>
             </div>
             <Footer/>
+            {!props.userStore.userAuthStatus ? <AuthenticationBlock/> : console.log(1111)}
         </Router>
     )
-}))
+}
+))
 
 export default PageService;
