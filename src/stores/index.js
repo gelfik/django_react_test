@@ -4,6 +4,7 @@ import TokenStore from "./TokenStore";
 import initAxios from "../utils/AxiosService";
 import PictureStore from "./PictureStore";
 import ModalStore from "./ModalStore";
+import RegisterStore from "./RegisterStore";
 
 
 class RootStore {
@@ -14,6 +15,7 @@ class RootStore {
         this.spinnerStore = new SpinnerStore();
         this.pictureStore = new PictureStore(this.$axios)
         this.modalStore = new ModalStore();
+        this.registerStore = new RegisterStore(this.$axios);
     }
 }
 

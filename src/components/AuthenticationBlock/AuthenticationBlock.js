@@ -4,6 +4,7 @@ import Modal from 'react-bootstrap/Modal'
 // import {Redirect} from "react-router-dom";
 import {validateEmail, validatePhone} from "../../utils/ValidatorService";
 import ErrorAlert from "../ErrorAlert";
+import RegisterModal from "./RegisterModal";
 
 const AuthenticationBlock = inject('userStore', 'modalStore')(observer((stores) => {
     String.prototype.capitalize = function () {
@@ -163,87 +164,8 @@ const AuthenticationBlock = inject('userStore', 'modalStore')(observer((stores) 
             </Modal.Body>
         </Modal>
 
+        <RegisterModal/>
 
-        <Modal show={modalStore.RegisterModalStatus} centered onHide={modalStore.RegisterModalClose}>
-            <Modal.Header>
-                <Modal.Title>Регистрация</Modal.Title>
-                <button type="button" className="btn-close" aria-label="Close" onClick={modalStore.RegisterModalClose}/>
-            </Modal.Header>
-            <Modal.Body>
-                <form className={'d-flex flex-column'} onSubmit={onSubmitLogin} action={'/register'} ref={formRef}>
-                    <div className="row mt-3">
-                        <div className="col-lg-6 col-12 mb-3 ">
-                            <div className="form-floating">
-                                <input type={`text`} onChange={changeFormValue}
-                                       className={`form-control ${isValid('lastName')}`}
-                                       id={`floatingInputLastName`} name={`lastName`} value={formValue['lastName']}
-                                       required/>
-                                <label htmlFor={`floatingInputLastName`}>{`Фамилия`}</label>
-                            </div>
-                            {/*{globalInput('lastName', 'Фамилия')}*/}
-                        </div>
-                        <div className="col-lg-6 col-12 mb-3">
-                            <div className="form-floating">
-                                <input type={`text`} onChange={changeFormValue}
-                                       className={`form-control ${isValid('firstName')}`}
-                                       id={`floatingInputFirstName`} name={`firstName`} value={formValue['firstName']}
-                                       required/>
-                                <label htmlFor={`floatingInputFirstName`}>{`Имя`}</label>
-                            </div>
-                            {/*{globalInput('firstName', 'Имя')}*/}
-                        </div>
-                    </div>
-                    <div className="row">
-                        <div className="col-lg-6 col-12 mb-3">
-                            <div className="form-floating">
-                                <input type={`email`} onChange={changeFormValue}
-                                       className={`form-control ${isValid('email')}`}
-                                       id={`floatingInputEmail`} name={`email`} value={formValue['email']}
-                                       required/>
-                                <label htmlFor={`floatingInputEmail`}>{`Email`}</label>
-                            </div>
-                            {/*{globalInput('email', 'Email', 'email')}*/}
-                        </div>
-                        <div className="col-lg-6 col-12 mb-3">
-                            <div className="form-floating">
-                                <input type={`text`} onChange={changeFormValue}
-                                       className={`form-control ${isValid('vkLink')}`}
-                                       id={`floatingVkLink`} name={`vkLink`} value={formValue['vkLink']}
-                                       required/>
-                                <label htmlFor={`floatingVkLink`}>{`Ссылка Вк`}</label>
-                            </div>
-                            {/*{globalInput('vkLink', 'Ссылка Вк')}*/}
-                        </div>
-                    </div>
-                    <div className="row ">
-                        <div className="col-lg-6 col-12 mb-3">
-                            <div className="form-floating">
-                                <input type={`text`} onChange={changeFormValue}
-                                       className={`form-control ${isValid('password')}`}
-                                       id={`floatingPassword`} name={`password`} value={formValue['password']}
-                                       required/>
-                                <label htmlFor={`floatingPassword`}>{`Пароль`}</label>
-                            </div>
-                            {/*{globalInput('password', 'Пароль')}*/}
-                        </div>
-                        <div className="col-lg-6 col-12 mb-3">
-                            <div className="form-floating">
-                                <input type={`text`} onChange={changeFormValue}
-                                       className={`form-control ${isValid('password2')}`}
-                                       id={`floatingPasswor2`} name={`password2`} value={formValue['password2']}
-                                       required/>
-                                <label htmlFor={`floatingPasswor2`}>{`Повтор пароля`}</label>
-                            </div>
-                            {/*{globalInput('password2', 'Повтор пароля')}*/}
-                        </div>
-                    </div>
-
-                    <p className="text-center">Есть учетная запись? <a onClick={openLoginModal}
-                                                                       className={'link'}>Войти</a></p>
-                    <button type="submit" className="btn btn-dark" disabled={!registerStatus}>Регистрация</button>
-                </form>
-            </Modal.Body>
-        </Modal>
     </>)
 }))
 
