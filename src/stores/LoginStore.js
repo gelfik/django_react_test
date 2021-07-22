@@ -1,7 +1,7 @@
 import {action, computed, makeObservable, observable, toJS} from "mobx";
-import {validateEmail, validatePhone} from "../utils/ValidatorService";
+import {validateEmail} from "../utils/ValidatorService";
 
-export default class RegisterStore {
+export default class LoginStore {
     constructor($client) {
         makeObservable(this, {
             _regData: observable,
@@ -14,22 +14,12 @@ export default class RegisterStore {
     }
 
     _regData = {
-        lastName: null,
-        firstName: null,
         email: null,
-        vkLink: null,
         password: null,
-        password2: null,
     };
 
     setKeyRegData = (key, value) => {
-        String.prototype.capitalize = function () {
-            return this.charAt(0).toUpperCase() + this.slice(1);
-        }
-
-        if (key.toLowerCase().indexOf('name') !== -1)
-            this._regData[key] = value.capitalize();
-        else this._regData[key] = value;
+        this._regData[key] = value;
     }
 
     setRegData = (value) => {
@@ -45,16 +35,10 @@ export default class RegisterStore {
             return ''
         }
         switch (key) {
-            case "vkLink":
-                return this.regData[key]?.length >= 8 ? 'is-valid' : 'is-invalid'
             case "email":
                 return validateEmail(this.regData[key]) ? 'is-valid' : 'is-invalid'
-            case "phone":
-                return validatePhone(this.regData[key]) && (this.regData[key]?.length >= 11) ? 'is-valid' : 'is-invalid'
             case "password":
-                return this.regData[key]?.length >= 8 ? 'is-valid' : 'is-invalid'
-            case "password2":
-                return (this.regData[key] === this.regData['password']) && (this.regData[key]?.length >= 8) ? 'is-valid' : 'is-invalid'
+                return this.regData[key]?.length >= 5 ? 'is-valid' : 'is-invalid'
             default:
                 return this.regData[key]?.length >= 3 ? 'is-valid' : 'is-invalid'
         }

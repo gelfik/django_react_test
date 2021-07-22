@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from "./components/App";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Comment from "./components/Comment";
 
 // ReactDOM.render(
 //   <React.StrictMode>
@@ -11,6 +12,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // );
 
 ReactDOM.render(
-    <App />,
-  document.getElementById('root')
+    <>
+        <Comment text={'Content'}/>
+        <App/>
+    </>,
+    document.getElementById('root')
 );

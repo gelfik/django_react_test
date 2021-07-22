@@ -76,7 +76,7 @@ const LoginPage = inject('userStore')(observer((stores) => {
                                 {/*           placeholder={'Email'}*/}
                                 {/*    />*/}
                                 {/*    {userStore.errors?.email &&*/}
-                                {/*    <ErrorAlert type={'text-only'} error={userStore.errors.email}/>}*/}
+                                {/*    <Comment type={'text-only'} error={userStore.errors.email}/>}*/}
                                 {/*</div>*/}
 
                                 <div className="form-floating">
@@ -98,7 +98,7 @@ const LoginPage = inject('userStore')(observer((stores) => {
                                 {/*           placeholder={'Пароль'}*/}
                                 {/*    />*/}
                                 {/*    {userStore.errors?.password &&*/}
-                                {/*    <ErrorAlert type={'text-only'} error={userStore.errors.password}/>}*/}
+                                {/*    <Comment type={'text-only'} error={userStore.errors.password}/>}*/}
                                 {/*</div>*/}
 
                                 <div className="form-floating">

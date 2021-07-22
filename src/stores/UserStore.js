@@ -144,8 +144,13 @@ export default class UserStore {
     }
 
     registration = data => {
-        return this.requestService._post('/users/register/', data).then(([response, status]) => {
-            return [response, status]
+        return this.client.post('/users/register/', data).then((response) => {
+            // console.log(response)
+            this.tokenStore.setToken(`Token ${response.data.token}`)
+            this.setUserAuthStatus(true)
+            this.setUserData(response.data)
+        }).catch(errors => {
+            this.setErrors(this.checkErrors(errors.response.data))
         })
     }
 
