@@ -11,3 +11,10 @@
   @extend .mb-0;
 }
 
+.vipadashka {
+  display: flex;
+
+  @media screen and (max-width: 540px) {
+    display: none;
+  }
+}

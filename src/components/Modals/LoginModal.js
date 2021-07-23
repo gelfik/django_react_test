@@ -36,11 +36,7 @@ const LoginModal = inject('userStore', 'modalStore', 'loginStore')(observer((sto
                         <p className="text-center">Нет учетной записи?</p>
                         <a onClick={openRegisterModal} className={'link ms-2'}>Регистрация</a>
                     </div>
-                    <button
-                        onClick={() => {
-                            console.log(loginStore.regData)
-                        }}
-                        type="submit" className="btn btn-dark" disabled={!loginStore.isButtonDisabled}>Войти
+                    <button type="submit" className="btn btn-dark" disabled={!loginStore.isButtonDisabled}>Войти
                     </button>
                 </form>
             </Modal.Body>
@@ -49,7 +45,7 @@ const LoginModal = inject('userStore', 'modalStore', 'loginStore')(observer((sto
 }))
 
 
-const LoginInput = inject('userStore','loginStore')(observer((props) => {
+const LoginInput = inject('userStore', 'loginStore')(observer((props) => {
     const {fieldName, labelText, type = 'text', userStore, loginStore} = props
     return (
         <div className="col-lg-12 col-12 mb-3">
