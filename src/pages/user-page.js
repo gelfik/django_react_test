@@ -182,7 +182,7 @@ const UserPage = inject('userStore', 'pictureStore')(observer((stores) => {
     }
 
     return (
-        <>
+        <div className={'section'}>
             <div className="modal-dialog">
                 <div className="modal-content">
                     <div className="modal-header">
@@ -212,7 +212,7 @@ const UserPage = inject('userStore', 'pictureStore')(observer((stores) => {
                     </form>
                 </div>
             </div>
-        </>
+        </div>
     )
 }))
 

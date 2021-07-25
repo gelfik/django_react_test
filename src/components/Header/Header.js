@@ -43,7 +43,7 @@ const Header = inject('userStore', 'modalStore')(observer((stores) => {
     return (
         <header>
             {/*<Navbar variant="dark" bg="dark" expand="lg" expanded={false}>*/}
-            <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+            <nav className="navbar navbar-expand-lg navbar-dark bg-dark p-0 fixed-top">
                 <Container>
                     <Navbar.Brand as={Link} to={'/'}>IZZIBRAIN</Navbar.Brand>
                     {/*<Navbar.Toggle aria-controls="navbar"/>*/}

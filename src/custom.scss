@@ -1,5 +1,44 @@
 //$danger: purple;
 
+@import "../node_modules/bootstrap/scss/functions";
+@import "../node_modules/bootstrap/scss/variables";
+@import "../node_modules/bootstrap/scss/utilities";
+
+//$utilities: map-merge(
+//                $utilities,
+//                (
+//                        "rounded": (
+//                                property: border-radius,
+//                                class: rounded,
+//                                values: (
+//                                        null: $border-radius,
+//                                        0: 0,
+//                                        1: $border-radius-sm,
+//                                        2: $border-radius,
+//                                        3: $border-radius-lg,
+//                                        4: 2rem,
+//                                        circle: 50%,
+//                                        pill: $border-radius-pill
+//                                )
+//                        ),
+//                )
+//);
+
+$utilities: map-merge(
+                $utilities,
+                (
+                        "rounded": map-merge(
+                                        map-get($utilities, "rounded"),
+                                        (
+                                                values: map-merge(
+                                                                map-get(map-get($utilities, "rounded"), "values"),
+                                                                (4: 2rem,),
+                                                ),
+                                        ),
+                        ),
+                )
+);
+
 @import "../node_modules/bootstrap/scss/bootstrap";
 
 .custom-alert-danger-text {
@@ -17,4 +56,8 @@
   @media screen and (max-width: 540px) {
     display: none;
   }
+}
+
+.section {
+  height: 100vh; /* высота секции равна высоте области просмотра */
 }

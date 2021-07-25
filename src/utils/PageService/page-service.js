@@ -1,6 +1,6 @@
 import React from "react";
 import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom";
-import MainPage from "../../pages/main-page";
+import MainPage from "../../pages/mainPage";
 import LoginPage from "../../pages/login-page";
 import RegisterPage from "../../pages/register-page";
 import Page404 from "../../pages/404-page";
