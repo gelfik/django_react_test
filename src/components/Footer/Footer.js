@@ -2,7 +2,7 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 
 const Footer = inject('userStore')(observer((props) => {
-    return (<footer className="bg-light row m-0 mt-auto">
+    return (<footer className="bg-light row footer-margin">
         <div className="col">
             <div className="container">
                 <div className={'row'}>

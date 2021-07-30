@@ -7,6 +7,8 @@ import ModalStore from "./ModalStore";
 import RegisterStore from "./RegisterStore";
 import LoginStore from "./LoginStore";
 import MainPageStore from "./MainPageStore";
+import UiStore from "./UiStore";
+import CoursesPageStore from "./CoursesPageStore";
 
 
 class RootStore {
@@ -19,7 +21,9 @@ class RootStore {
         this.modalStore = new ModalStore();
         this.registerStore = new RegisterStore(this.$axios, this.userStore);
         this.loginStore = new LoginStore(this.$axios);
-        this.mainPageStore = new MainPageStore(this.$axios)
+        this.mainPageStore = new MainPageStore(this.$axios);
+        this.coursesPageStore = new CoursesPageStore(this.$axios);
+        this.uiStore = new UiStore();
     }
 }
 

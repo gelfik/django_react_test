@@ -24,9 +24,9 @@ export default class RegisterStore {
     };
 
     setKeyRegData = (key, value) => {
-        String.prototype.capitalize = function () {
-            return this.charAt(0).toUpperCase() + this.slice(1);
-        }
+        // String.prototype.capitalize = function () {
+        //     return this.charAt(0).toUpperCase() + this.slice(1);
+        // }
 
         if (this.userStore?.errors?.hasOwnProperty(key)) {
             this.userStore?.setErrorByKey(key, undefined)
