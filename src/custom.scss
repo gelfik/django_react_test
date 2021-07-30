@@ -68,6 +68,87 @@ $utilities: map-merge(
 );
 
 @import "../node_modules/bootstrap/scss/bootstrap";
+@import "mixins";
+
+.pointer {
+  cursor: pointer;
+}
+
+.Custom-nav-bar {
+  height: calc(100vh - 56px);
+  font-size: 36px;
+  @include moreThanTablet() {
+    height: auto;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  &-items {
+    margin-top: auto;
+    margin-bottom: 50px;
+    @include moreThanTablet() {
+      margin-top: initial;
+      margin-bottom: initial;
+      margin-left: auto;
+    }
+
+    &-login {
+      &-mobile {
+        @include moreThanTablet() {
+          display: none;
+        }
+      }
+
+      &-desktop {
+        &-logo {
+          display: flex;
+          align-items: center;
+          @include beMobile() {
+            display: none;
+          }
+
+          button {
+            font-size: 16px;
+            padding: 0.5rem;
+            align-items: center;
+            display: flex;
+            flex-direction: row;
+          }
+        }
+      }
+    }
+  }
+}
+
+.MobileUserIcon {
+  display: flex;
+  align-items: center;
+  @include moreThanTablet() {
+    display: none;
+  }
+
+  &_Image {
+    width: 20%;
+
+  }
+
+  &_Data {
+    display: flex;
+    flex-direction: column;
+
+    &_Name {
+      font-size: 24px;
+
+    }
+
+    &_Profile {
+      font-size: 18px;
+
+    }
+  }
+}
 
 .custom-alert-danger-text {
   font-size: 12px;
@@ -112,7 +193,7 @@ $utilities: map-merge(
 
 
 .footer-margin {
-  margin-top: 100px;
+  margin-top: auto;
   margin-left: auto;
   margin-right: auto;
   width: 100%;
@@ -637,6 +718,7 @@ $utilities: map-merge(
 }
 
 .trainings__item:hover {
+  transition: .2s ease-in-out;
   background: #f2f3f5
 }
 
@@ -937,6 +1019,12 @@ li a {
   text-decoration: none;
 }
 
-li a:hover {
-  color: #5452ff
+li {
+  a {
+    transition: .2s ease-in-out;
+
+    &:hover {
+      color: initial;
+    }
+  }
 }
