@@ -46,7 +46,7 @@ body, html {
     position: absolute;
     height: 100%;
     width: 100%;
-    background: rgba(0,0,0,0.2);
+    background: rgba(0, 0, 0, 0.2);
     left: 0;
     top: 0;
     border-radius: 50%;

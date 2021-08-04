@@ -40,7 +40,7 @@ const RegisterModal = inject('userStore', 'modalStore', 'registerStore')(observe
                     {userStore.errors?.detail && <ErrorAlert error={userStore.errors?.detail}/>}
                     <div className={'w-100 d-flex justify-content-center'}>
                         <p className="text-center">Есть учетная запись?</p>
-                        <a onClick={openLoginModal} className={'link ms-2'}>Войти</a>
+                        <div onClick={openLoginModal} className={'link ms-2'}>Войти</div>
                     </div>
                     <button type="submit" className="btn btn-dark"
                             disabled={!registerStore.isButtonDisabled}>Регистрация

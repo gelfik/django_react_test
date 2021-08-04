@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {inject, observer} from "mobx-react";
-import {FloatingLabel, Form} from "react-bootstrap";
 import {Link} from "react-router-dom";
+import Spinner from "../../../components/Spinner";
 
 const CoursesBlock = inject('userStore', 'coursesPageStore')(observer((store) => {
     const {coursesPageStore} = store
@@ -13,7 +13,10 @@ const CoursesBlock = inject('userStore', 'coursesPageStore')(observer((store) =>
     // }, [coursesPageStore.coursesData])
 
     useEffect(() => {
-        coursesPageStore.loadFilterRequest()
+        if (!coursesPageStore.spinner.spinnerStatus) {
+            coursesPageStore.loadFilterRequest()
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [coursesPageStore.filterRequest])
 
     const getCoursesList = () => {
@@ -34,7 +37,7 @@ const CoursesBlock = inject('userStore', 'coursesPageStore')(observer((store) =>
                     <Link className={'card-training'} to={`courses/${item.id}`}>
                         <div className="card-training__info">
                             <div className="card-training__title">
-                                <h3>{item.predmet} {item.courseExamType}. {item.courseName}</h3>
+                                <h3>{item.predmet} {item.courseExamType}. {item.courseType}</h3>
                             </div>
                             <div className="card-training__desc">
                                 <div className="card-training__lesson-wrap">
@@ -58,9 +61,10 @@ const CoursesBlock = inject('userStore', 'coursesPageStore')(observer((store) =>
                                 </div>
                                 <div className="card-training__author">
                                     <div className="card-training__author-img">
-                                        <img src={`${item.teacher.avatar.url}${item.teacher.avatar.small}`}
-                                             alt={`${item.teacher.lastName} ${item.teacher.firstName}`} width={40}
-                                             height={40}/>
+                                        {item.teacher.avatar.file?.small && <img src={`${item.teacher.avatar.file?.small}`}
+                                                                                 alt={`${item.teacher.lastName} ${item.teacher.firstName}`}
+                                                                                 width={40}
+                                                                                 height={40}/>}
                                     </div>
                                     <div className="card-training__author-name">
                                         <p>{item.teacher.firstName}</p>
@@ -75,10 +79,11 @@ const CoursesBlock = inject('userStore', 'coursesPageStore')(observer((store) =>
             // </div>
         )
     }
+    // {coursesPageStore.spinner.spinnerStatus ? <Spinner type={'local'}/> : <CoursesBlock/>}
 
     return (
         <>
-            {getCoursesList()}
+            {coursesPageStore.spinner.spinnerStatus ? <Spinner type={'local'}/> : getCoursesList()}
         </>
     )
 }))

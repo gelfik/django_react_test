@@ -1,21 +1,21 @@
 import {action, computed, makeObservable, observable } from "mobx"
 
 export default class SpinnerStore {
-    _spinerStatus = true;
+    _spinnerStatus = false;
 
     constructor() {
         makeObservable(this, {
-            _spinerStatus: observable,
-            spinerStatus: computed,
+            _spinnerStatus: observable,
+            spinnerStatus: computed,
             setSpinnerStatus: action,
         })
     }
 
-    get spinerStatus() {
-        return this._spinerStatus;
+    get spinnerStatus() {
+        return this._spinnerStatus;
     }
 
     setSpinnerStatus = (value) => {
-        this._spinerStatus = value;
+        this._spinnerStatus = value;
     }
 }

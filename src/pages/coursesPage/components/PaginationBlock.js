@@ -60,7 +60,7 @@ const PaginationBlock = inject('userStore', 'coursesPageStore')(observer((store)
             data.push(step);
         }
         return data?.map((item, i) =>
-            <li key={i} className="page-item" onClick={() => coursesPageStore.setFilterRequest('page', item)}>
+            <li key={i} className={`page-item ${item===coursesPageStore?.coursesData?.curent && 'active'}`} onClick={() => coursesPageStore.setFilterRequest('page', item)}>
                 <div className="page-link">{item}</div>
             </li>
         )

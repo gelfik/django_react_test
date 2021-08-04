@@ -40,3 +40,9 @@ $desktop: 1201;
     @content
   }
 }
+
+@mixin moreThanMobile {
+    @media (max-width: $tablet + 1px) {
+    @content
+  }
+}

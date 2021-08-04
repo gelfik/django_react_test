@@ -6,6 +6,10 @@ const UserPage = inject('userStore', 'pictureStore')(observer((stores) => {
     // String.prototype.capitalize = function () {
     //     return this.charAt(0).toUpperCase() + this.slice(1);
     // }
+    useEffect(() => {
+        document.title = "Профиль"
+        document.body.className = 'bg-light min-vh-100'
+    }, []);
 
     const {userStore, pictureStore} = stores;
     const formRef = useRef()
@@ -116,13 +120,8 @@ const UserPage = inject('userStore', 'pictureStore')(observer((stores) => {
                        onChange={loadfile} multiple={false}
                        className={'fileLoadInput'}/>
                 {imgHoverState && <div className={'fileLoadInputOverlay'}>
-                    <svg fill="none" height="48" viewBox="0 0 32 32" width="48"
-                         xmlns="http://www.w3.org/2000/svg">
-                        <rect height="20" rx="5" stroke="white" strokeWidth="2" width="26" x="3" y="7"/>
-                        <path
-                            d="M11.8114 4.40345C12.0723 3.5685 12.8456 3 13.7204 3H18.2796C19.1544 3 19.9277 3.5685 20.1886 4.40345L21 7H11L11.8114 4.40345Z"
-                            fill="white">&gt;</path>
-                        <circle cx="16" cy="17" r="5" stroke="white" strokeWidth="2"/>
+                    <svg fill="none" height="48" width="48">
+                        <use xlinkHref={'#icon-photocam'}/>
                     </svg>
                 </div>}
             </label>
@@ -183,35 +182,30 @@ const UserPage = inject('userStore', 'pictureStore')(observer((stores) => {
     }
 
     return (
-        <div className="modal-dialog">
-            <div className="modal-content">
-                <div className="modal-header">
-                    <h5 className="modal-title">Профиль - @{formValue['username']}</h5>
-                    <button type="button" className={'btn'}
-                            aria-label="Edit" onClick={() => toggleEdit()}>
-                        <svg fill="none" height="24" viewBox="0 0 24 24" width="24"
-                             xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M4.28363 15.5735L13.4234 6.43374L17.6146 10.625L8.47484 19.7647C8.29454 19.945 8.05219 20.0496 7.79733 20.0571L7.82693 21.0567L7.79733 20.0571L3.87501 20.1733L3.99117 16.251C3.99872 15.9961 4.10333 15.7538 4.28363 15.5735Z"
-                                stroke="#101010" strokeWidth="2"/>
-                            <path
-                                d="M17.3125 10.9294L13.1212 6.7382L15.6876 4.1718C16.0782 3.78127 16.7113 3.78128 17.1019 4.1718L19.8789 6.94879C20.2694 7.33932 20.2694 7.97249 19.8789 8.36301L17.3125 10.9294Z"
-                                stroke="#101010" strokeWidth="2"/>
-                            <path d="M9 20L4 15V20H9Z" fill="#101010"/>
-                        </svg>
-                    </button>
-                </div>
-                <form className={'d-flex flex-column'} onSubmit={submitForm} ref={formRef}>
-                    <div className="modal-body">
-                        {avatarBlock()}
-                        {nameBlock()}
-                        {emailPhoneBlock()}
-                        {usernameVklinkBlock()}
+        <main className={'bg-content mt_navbar'}>
+            <div className="modal-dialog">
+                <div className="modal-content">
+                    <div className="modal-header">
+                        <h5 className="modal-title">Профиль - @{formValue['username']}</h5>
+                        <button type="button" className={'btn'}
+                                aria-label="Edit" onClick={() => toggleEdit()}>
+                            <svg fill="none" height="24"  width="24">
+                                <use xlinkHref={'#icon-pencil'}/>
+                            </svg>
+                        </button>
                     </div>
-                    {acceptEditBlock()}
-                </form>
+                    <form className={'d-flex flex-column'} onSubmit={submitForm} ref={formRef}>
+                        <div className="modal-body">
+                            {avatarBlock()}
+                            {nameBlock()}
+                            {emailPhoneBlock()}
+                            {usernameVklinkBlock()}
+                        </div>
+                        {acceptEditBlock()}
+                    </form>
+                </div>
             </div>
-        </div>
+        </main>
     )
 }))
 

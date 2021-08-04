@@ -46,6 +46,7 @@ export default class UserStore {
 
     fetchUser = async () => {
         if (this.tokenStore.token.value) {
+            this.firstSpinnerStore.setSpinnerStatus(true)
             await this.getUserData().then(response => {
                 if (response.username) {
                     this.setUserAuthStatus(true)
@@ -194,10 +195,10 @@ export default class UserStore {
     _transformAvatarData(avatarData) {
         if (avatarData) {
             return {
-                small: avatarData.url + avatarData.small,
-                profile: avatarData.url + avatarData.profile,
-                medium: avatarData.url + avatarData.medium,
-                large: avatarData.url + avatarData.large
+                small: avatarData.small,
+                profile: avatarData.profile,
+                medium: avatarData.medium,
+                large: avatarData.large
             }
         } else {
             return {
@@ -218,7 +219,7 @@ export default class UserStore {
             lastName: userData.lastName,
             firstName: userData.firstName,
             patronymic: userData.patronymic,
-            avatar: this._transformAvatarData(userData.avatar),
+            avatar: this._transformAvatarData(userData.avatar?.file),
             // avatar: userData.avatar,
             isActive: userData.is_active
         }

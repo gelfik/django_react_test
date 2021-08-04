@@ -6,9 +6,11 @@ import PictureStore from "./PictureStore";
 import ModalStore from "./ModalStore";
 import RegisterStore from "./RegisterStore";
 import LoginStore from "./LoginStore";
-import MainPageStore from "./MainPageStore";
+import MainPageStore from "./pageStores/MainPageStore";
 import UiStore from "./UiStore";
-import CoursesPageStore from "./CoursesPageStore";
+import CoursesPageStore from "./pageStores/CoursesPageStore";
+import CoursePageStore from "./pageStores/CoursePageStore";
+import PurchasePageStore from "./pageStores/PurchasePageStore";
 
 
 class RootStore {
@@ -21,8 +23,12 @@ class RootStore {
         this.modalStore = new ModalStore();
         this.registerStore = new RegisterStore(this.$axios, this.userStore);
         this.loginStore = new LoginStore(this.$axios);
+
         this.mainPageStore = new MainPageStore(this.$axios);
         this.coursesPageStore = new CoursesPageStore(this.$axios);
+        this.coursePageStore = new CoursePageStore(this.$axios)
+        this.purchasePageStore = new PurchasePageStore(this.$axios)
+
         this.uiStore = new UiStore();
     }
 }

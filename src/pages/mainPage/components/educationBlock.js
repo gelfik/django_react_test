@@ -17,6 +17,7 @@ const EducationBlock = inject(
       if (mainPageStore.educationData.length === 0) {
         mainPageStore.loadEducationData();
       }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [mainPageStore.educationData]);
 
     useEffect(() => {
@@ -24,6 +25,7 @@ const EducationBlock = inject(
         setDeviceType(false);
       }
       console.log(uiStore.deviceType, deviceType);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [uiStore.deviceType]);
 
     const responsive = {
@@ -49,7 +51,7 @@ const EducationBlock = inject(
           key={i}
         >
           <a className={"card-format card-format--neon-blue"} href={"/"}>
-            <p className="display-3 text-white">{item?.course}</p>
+            <p className="display-3 text-white">{item?.name}</p>
             <h3 className={"card-format__title"}>{item?.shortDescription}</h3>
             <p className="card-format__desc">{item?.description}</p>
             <p className="card-format__term position-relative">
@@ -89,7 +91,7 @@ const EducationBlock = inject(
             autoPlaySpeed={10000}
             partialVisible={true}
             centerMode={false}
-            containerClass={!deviceType && "container"}
+            containerClass={!deviceType && "container scroll_y_off"}
             itemClass={deviceType && "px-3"}
             renderArrowsWhenDisabled={true}
             showDots={false}
