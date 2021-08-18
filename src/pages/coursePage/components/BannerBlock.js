@@ -17,62 +17,6 @@ const BannerBlock = inject('userStore', 'coursePageStore', 'modalStore')(observe
 
     return (
         <>
-            {/*<section className={'banner'}>*/}
-            {/*    <div className="banner__wrapper">*/}
-            {/*        <div className="purchased__sidebar_base-info">*/}
-            {/*            <div className="purchased__avatar_wrapper">*/}
-            {/*                <img src={`${coursePageStore?.courseData?.coursePicture}`} alt=""*/}
-            {/*                     className="purchased__info_avatar"/>*/}
-            {/*            </div>*/}
-            {/*            <div className="purchased__text_wrapper">*/}
-            {/*                <div className="purchased__text_title">*/}
-            {/*                    {coursePageStore?.courseData?.predmet} {coursePageStore?.courseData?.courseExamType}.{coursePageStore?.courseData?.courseType?.name}*/}
-            {/*                </div>*/}
-            {/*                <div className="purchased__chips_wrapper">*/}
-            {/*                    <div className="chips-subject">*/}
-            {/*                        {coursePageStore?.courseData?.predmet}*/}
-            {/*                        <span className="chips-subject__notification" style={{background: '#12DA67'}}/>*/}
-            {/*                    </div>*/}
-            {/*                    <div className="chips-subject">*/}
-            {/*                        {coursePageStore?.courseData?.courseExamType}*/}
-            {/*                    </div>*/}
-            {/*                    <div className="chips-subject">*/}
-            {/*                        {coursePageStore?.courseData?.courseType?.name}*/}
-            {/*                    </div>*/}
-            {/*                </div>*/}
-            {/*                <div className="banner__description">*/}
-            {/*                    {coursePageStore?.courseData?.shortDescription}*/}
-            {/*                </div>*/}
-            {/*                <div className="buy-course__info_items">*/}
-            {/*                    <div className="course__footer_item buy__course">*/}
-            {/*                        <svg className="course__footer_item_img" width="16" height="16">*/}
-            {/*                            <use xlinkHref={'#icon-course-arrow'}/>*/}
-            {/*                        </svg>*/}
-            {/*                        <p className="course__footer_item_title">длительность курса</p>*/}
-            {/*                        <p className="course__footer_item_date">{coursePageStore?.courseData?.courseType?.duration}</p>*/}
-            {/*                    </div>*/}
-            {/*                    <div className="course__footer_item">*/}
-            {/*                        <div className="footer__account">*/}
-            {/*                            <img*/}
-            {/*                                src={`${coursePageStore?.courseData?.teacher?.avatar?.url}${coursePageStore?.courseData?.teacher?.avatar?.orig}`}*/}
-            {/*                                alt=""/>*/}
-            {/*                            <div className="course__footer_name">*/}
-            {/*                                <p>{coursePageStore?.courseData?.teacher?.firstName} {coursePageStore?.courseData?.teacher?.lastName}</p>*/}
-            {/*                                <span>преподаватель</span>*/}
-            {/*                            </div>*/}
-            {/*                        </div>*/}
-            {/*                    </div>*/}
-            {/*                </div>*/}
-            {/*                <div className="banner__buttons">*/}
-            {/*                    <div className="buy__course">приобрести курс</div>*/}
-            {/*                    <span className="price">*/}
-            {/*                    <p>{coursePageStore?.courseData?.price} ₽/мес</p>*/}
-            {/*                </span>*/}
-            {/*                </div>*/}
-            {/*            </div>*/}
-            {/*        </div>*/}
-            {/*    </div>*/}
-            {/*</section>*/}
             <section className={'BannerCourse'}>
                 <div className="BannerCourse__Wrapper">
                     {coursePageStore.spinner.spinnerStatus ? <Spinner type={'local'}/> :

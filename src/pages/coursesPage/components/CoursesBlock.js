@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import {inject, observer} from "mobx-react";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import Spinner from "../../../components/Spinner";
 
 const CoursesBlock = inject('userStore', 'coursesPageStore')(observer((store) => {
@@ -11,6 +11,14 @@ const CoursesBlock = inject('userStore', 'coursesPageStore')(observer((store) =>
     //         coursesPageStore.loadCoursesData()
     //     }
     // }, [coursesPageStore.coursesData])
+
+    function useQuery() {
+        return new URLSearchParams(window.location.search);
+    }
+
+    let query = useQuery().get('type');
+
+    console.log(query)
 
     useEffect(() => {
         if (!coursesPageStore.spinner.spinnerStatus) {

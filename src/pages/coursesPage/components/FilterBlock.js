@@ -1,8 +1,23 @@
 import React, {useEffect} from "react";
 import {inject, observer} from "mobx-react";
 import {FloatingLabel, Form} from "react-bootstrap";
+import {Link} from "react-router-dom";
+import { Redirect } from 'react-router';
+
 const FilterBlock = inject('userStore', 'coursesPageStore')(observer((store) => {
     const {coursesPageStore} = store
+
+    function useQuery() {
+        return new URLSearchParams(window.location.search);
+    }
+
+    let query = useQuery().get('type');
+
+    useEffect(() => {
+        if (query) {
+            coursesPageStore.setFilterRequest('type', query)
+        }
+    }, []);
 
     useEffect(() => {
         if (coursesPageStore.filterData.length === 0) {
@@ -31,11 +46,10 @@ const FilterBlock = inject('userStore', 'coursesPageStore')(observer((store) => 
     }
 
     return (
-
         <div className={'row pb-3'}>
             <div className="col-lg-4 col-12">
                 <FloatingLabel controlId="floatingSelectCourseName" label="Курс">
-                    <Form.Select aria-label="Выберите курс" onChange={e => {
+                    <Form.Select value={query && query} aria-label="Выберите курс" onChange={e => {
                         coursesPageStore.setFilterRequest('type', e.target.value)
                     }}>
                         <option value={'Все курсы'}>Все курсы</option>
@@ -46,7 +60,7 @@ const FilterBlock = inject('userStore', 'coursesPageStore')(observer((store) => 
             <div className="col-lg-4 col-12">
                 <FloatingLabel controlId="floatingSelectPredmet" label="Предмет">
                     <Form.Select aria-label="Выберите предмет" onChange={e => {
-                       coursesPageStore.setFilterRequest('predmet', e.target.value)
+                        coursesPageStore.setFilterRequest('predmet', e.target.value)
                     }}>
                         <option value={'Все предметы'}>Все предметы</option>
                         {getItemPredmet()}

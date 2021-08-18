@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { inject, observer } from "mobx-react";
 import Carousel from "react-multi-carousel";
+import {Link} from "react-router-dom";
 
 const EducationBlock = inject(
   "userStore",
@@ -50,7 +51,7 @@ const EducationBlock = inject(
           style={{ minHeight: "400px" }}
           key={i}
         >
-          <a className={"card-format card-format--neon-blue"} href={"/"}>
+          <Link className={"card-format card-format--neon-blue"} to={`/courses?type=${item?.name}`}>
             <p className="display-3 text-white">{item?.name}</p>
             <h3 className={"card-format__title"}>{item?.shortDescription}</h3>
             <p className="card-format__desc">{item?.description}</p>
@@ -65,7 +66,7 @@ const EducationBlock = inject(
                 </span>
               )}
             </p>
-          </a>
+          </Link>
         </div>
       ));
     };

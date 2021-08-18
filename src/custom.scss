@@ -1096,6 +1096,10 @@ li {
   }
 }
 
+.LogoFonts {
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
+}
+
 .scroll_y_off {
   -ms-touch-action: pan-y;
   touch-action: pan-y;
@@ -1566,6 +1570,165 @@ li {
           }
         }
       }
+    }
+
+    .CoursePay {
+      background: #fff;
+      -webkit-box-shadow: 0 1px 2px #ebeced;
+      box-shadow: 0 1px 2px #ebeced;
+      border-radius: 8px;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      margin-left: 32px;
+      max-width: 304px;
+      width: 100%;
+      padding: 24px;
+
+      @media (max-width: 767px) {
+        max-width: none;
+        margin-left: 0;
+      }
+
+      &__Title {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 28px;
+        letter-spacing: .02em;
+      }
+
+      &__Info {
+        margin-top: 10px;
+        padding-bottom: 10px;
+
+        @media (max-width: 767px) {
+          border-bottom: 2px dashed #f2f3f5;
+        }
+
+        ul {
+          list-style-type: none;
+          padding: 0;
+
+          li {
+            display: flex;
+            -webkit-box-align: center;
+            align-items: center;
+            -webkit-box-pack: justify;
+            justify-content: space-between;
+            margin-bottom: 8px;
+
+            .price {
+              margin-top: auto;
+              display: flex;
+              -webkit-box-align: center;
+              align-items: center;
+              -webkit-box-pack: justify;
+              justify-content: space-between;
+            }
+          }
+
+          .discount {
+              color: #ff613f !important;
+            }
+        }
+
+      }
+
+      &__Promocode {
+        padding: 20px 0 14px;
+        display: grid;
+        grid-template-columns: 160px auto;
+        grid-template-rows: 40px 18px;
+        grid-gap: 8px 2px;
+        -webkit-box-align: center;
+        align-items: center;
+        -webkit-box-pack: justify;
+        justify-content: space-between;
+        margin-bottom: 22px;
+
+        //@media (max-width: 767px) {
+        //  max-width: 256px;
+        //}
+
+        input {
+          max-width: 160px;
+          padding: 10px 0 10px 15px;
+          font-size: 16px;
+          line-height: 18px;
+          letter-spacing: .02em;
+          border: 2px solid #f2f3f5;
+          -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+          border-radius: 8px;
+          outline: none;
+          -webkit-transition: all .3s ease;
+          transition: all .3s ease;
+          color: #565656;
+        }
+
+        button {
+          width: 100px;
+          padding: 10px 8px;
+          font-size: 16px;
+          line-height: 18px;
+          letter-spacing: .02em;
+          cursor: pointer;
+          border: 2px solid #8e919c;
+          color: #565656;
+          -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+          border-radius: 8px;
+          background: transparent;
+          outline: none;
+          -webkit-transition: all .3s ease;
+          transition: all .3s ease;
+          text-transform: lowercase;
+        }
+
+        &__Valid {
+          grid-column: 1/3;
+          grid-row: 2/3;
+          font-style: normal;
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 18px;
+          letter-spacing: .02em;
+          color: #19cd1f !important;
+        }
+
+        &__Error {
+          grid-column: 1/3;
+          grid-row: 2/3;
+          font-style: normal;
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 18px;
+          letter-spacing: .02em;
+          color: #ff613f !important;
+        }
+      }
+
+      &__BuyButton {
+        button {
+          cursor: pointer;
+          padding: 10px 16px 14px;
+          border-radius: 8px;
+          width: 100%;
+          background-color: #101010;
+          color: #fff;
+          border: none;
+          outline: none;
+          display: flex;
+          -webkit-box-align: center;
+          align-items: center;
+          -webkit-box-pack: justify;
+          justify-content: space-between;
+          margin-bottom: 14px;
+          font-size: 18px;
+          line-height: 20px;
+        }
+      }
+
     }
   }
 }

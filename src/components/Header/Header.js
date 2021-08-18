@@ -68,7 +68,7 @@ const Header = inject("userStore", "modalStore")(observer((stores) => {
     return (
         <Navbar fixed={"top"} variant={headerType} bg={headerType} expand="lg" expanded={expanded}>
             <Container className={"container__wrapper"}>
-                <Navbar.Brand as={Link} to="/">
+                <Navbar.Brand as={Link} to="/" className={'LogoFonts'}>
                     IZZIBRAIN
                 </Navbar.Brand>
                 <Navbar.Toggle
