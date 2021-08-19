@@ -1,22 +1,26 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
 import {FloatingLabel, Form} from "react-bootstrap";
-import {Link} from "react-router-dom";
-import { Redirect } from 'react-router';
+import {useHistory} from "react-router-dom";
 
 const FilterBlock = inject('userStore', 'coursesPageStore')(observer((store) => {
     const {coursesPageStore} = store
+
+    const [selectorDefault, setSelectorDefault] = useState({})
 
     function useQuery() {
         return new URLSearchParams(window.location.search);
     }
 
     let query = useQuery().get('type');
+    let history = useHistory();
 
     useEffect(() => {
         if (query) {
             coursesPageStore.setFilterRequest('type', query)
+            setSelectorDefault({value: query})
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -49,8 +53,16 @@ const FilterBlock = inject('userStore', 'coursesPageStore')(observer((store) => 
         <div className={'row pb-3'}>
             <div className="col-lg-4 col-12">
                 <FloatingLabel controlId="floatingSelectCourseName" label="Курс">
-                    <Form.Select value={query && query} aria-label="Выберите курс" onChange={e => {
+                    <Form.Select {...selectorDefault} aria-label="Выберите курс" onChange={e => {
                         coursesPageStore.setFilterRequest('type', e.target.value)
+                        if (query) {
+                            query = undefined
+                            history.push('/courses')
+                            // history.replace('/courses')
+                        }
+                        if (coursesPageStore?.filterRequest?.type) {
+                            setSelectorDefault({value: coursesPageStore?.filterRequest?.type})
+                        }
                     }}>
                         <option value={'Все курсы'}>Все курсы</option>
                         {getItemCourseName()}

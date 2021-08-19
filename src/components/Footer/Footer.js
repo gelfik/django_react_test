@@ -13,9 +13,9 @@ const Footer = inject('userStore')(observer((props) => {
                 <div className={'footer__Col footer__Col__Right'}>
                     <ul className="footer__SocialLink">
                         <li>
-                            <a className="footer__SocialLink__Item">
+                            <div className="footer__SocialLink__Item">
                                 Вконтакте
-                            </a>
+                            </div>
                         </li>
                         <li>
                             <div className="footer__SocialLink__Item">
@@ -42,9 +42,9 @@ const Footer = inject('userStore')(observer((props) => {
 
                     <ul className="footer__Document">
                         <li>
-                            <a className="footer__Document__Item">
+                            <div className="footer__Document__Item">
                                 договор оферты
-                            </a>
+                            </div>
                         </li>
                         <li>
                             <div className="footer__Document__Item">

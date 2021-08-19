@@ -3,19 +3,12 @@ import {inject, observer} from "mobx-react";
 import FilterBlock from "./components/FilterBlock";
 import CoursesBlock from "./components/CoursesBlock";
 import PaginationBlock from "./components/PaginationBlock";
-import Spinner from "../../components/Spinner";
 
 const CoursesPage = inject('userStore', 'coursesPageStore', 'spinnerStore')(observer((store) => {
-    const {userStore, coursesPageStore, spinnerStore} = store
-
     useEffect(() => {
         document.title = "Курсы"
         document.body.className = 'bg-light min-vh-100'
     }, []);
-
-    // useEffect(() => {
-    //     coursesPageStore.loadData()
-    // }, [])
 
     return (
         <main className={'mt_navbar bg-content'}>
