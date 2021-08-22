@@ -34,10 +34,10 @@ const CoursesBlock = inject('userStore', 'coursesPageStore')(observer((store) =>
         return coursesPageStore?.coursesData?.results?.map((item, i) =>
                 // <div key={i} className="col-lg-4 col-12">
                 <li key={i} className="trainings__item rounded-4">
-                    <Link className={'card-training'} to={`courses/${item.id}`}>
+                    <Link className={'card-training'} to={`/courses/${item.id}`}>
                         <div className="card-training__info">
                             <div className="card-training__title">
-                                <h3>{item.predmet} {item.courseExamType}. {item.courseType}</h3>
+                                <h3>{item.name}</h3>
                             </div>
                             <div className="card-training__desc">
                                 <div className="card-training__lesson-wrap">
@@ -61,14 +61,14 @@ const CoursesBlock = inject('userStore', 'coursesPageStore')(observer((store) =>
                                 </div>
                                 <div className="card-training__author">
                                     <div className="card-training__author-img">
-                                        {item.teacher.avatar.file?.small && <img src={`${item.teacher.avatar.file?.small}`}
-                                                                                 alt={`${item.teacher.lastName} ${item.teacher.firstName}`}
+                                        {item.teacher?.user?.avatar?.file?.small && <img src={`${item.teacher?.user?.avatar?.file?.small}`}
+                                                                                 alt={`${item.teacher?.user?.lastName} ${item.teacher?.user?.firstName}`}
                                                                                  width={40}
                                                                                  height={40}/>}
                                     </div>
                                     <div className="card-training__author-name">
-                                        <p>{item.teacher.firstName}</p>
-                                        <p>{item.teacher.lastName}</p>
+                                        <p>{item.teacher?.user?.firstName}</p>
+                                        <p>{item.teacher?.user?.lastName}</p>
                                     </div>
                                 </div>
                             </div>

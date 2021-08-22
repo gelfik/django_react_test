@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import {inject, observer} from "mobx-react";
-import {validateEmail, validatePhone} from "../utils/ValidatorService";
+import {validateEmail, validatePhone} from "../../utils/ValidatorService";
 
 const UserPage = inject('userStore', 'pictureStore')(observer((stores) => {
     // String.prototype.capitalize = function () {

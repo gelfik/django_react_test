@@ -48,14 +48,14 @@ export default class ApiService {
     }
 
     // getUserData = async () => {
-    //     const res = await this.getResource('/user/', 'GET')
+    //     const res = await this.getResource('/User/', 'GET')
     //     console.log(res)
     //     return res
     // }
 
 
     async getUserData() {
-        const [res, status] = await this.getResource('/user/')
+        const [res, status] = await this.getResource('/User/')
         if (status) {
             return this._transformUserData(res)
         } else {

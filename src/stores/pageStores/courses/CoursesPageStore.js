@@ -1,5 +1,5 @@
 import {action, computed, makeObservable, observable, toJS} from "mobx";
-import SpinnerStore from "../SpinnerStore";
+import SpinnerStore from "../../SpinnerStore";
 
 
 export default class CoursesPageStore {

@@ -8,9 +8,12 @@ import RegisterStore from "./RegisterStore";
 import LoginStore from "./LoginStore";
 import MainPageStore from "./pageStores/MainPageStore";
 import UiStore from "./UiStore";
-import CoursesPageStore from "./pageStores/CoursesPageStore";
-import CoursePageStore from "./pageStores/CoursePageStore";
-import PurchasePageStore from "./pageStores/PurchasePageStore";
+import CoursesPageStore from "./pageStores/courses/CoursesPageStore";
+import CoursePageStore from "./pageStores/courses/CoursePageStore";
+import PurchasePageStore from "./pageStores/courses/PurchasePageStore";
+import BuyCourseStore from "./BuyCourseStore";
+import CourseStore from "./CourseStore";
+import PurchasesListStore from "./PurchasesListStore";
 
 
 class RootStore {
@@ -24,10 +27,14 @@ class RootStore {
         this.registerStore = new RegisterStore(this.$axios, this.userStore);
         this.loginStore = new LoginStore(this.$axios);
 
+        this.courseStore = new CourseStore(this.$axios)
+        this.buyCourseStore = new BuyCourseStore(this.$axios)
+        this.purchasesListStore = new PurchasesListStore(this.$axios)
+
         this.mainPageStore = new MainPageStore(this.$axios);
         this.coursesPageStore = new CoursesPageStore(this.$axios);
-        this.coursePageStore = new CoursePageStore(this.$axios)
-        this.purchasePageStore = new PurchasePageStore(this.$axios)
+        this.coursePageStore = new CoursePageStore(this.$axios, this.buyCourseStore)
+        this.purchasePageStore = new PurchasePageStore(this.$axios, this.buyCourseStore)
 
         this.uiStore = new UiStore();
     }

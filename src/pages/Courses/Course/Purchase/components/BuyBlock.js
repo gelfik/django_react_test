@@ -1,30 +1,38 @@
 import React, {useEffect, useRef} from "react";
 import {inject, observer} from "mobx-react";
-import {useParams} from "react-router-dom";
-import Spinner from "../../../components/Spinner";
+import {useHistory, useParams} from "react-router-dom";
+import Spinner from "../../../../../components/Spinner";
 
-const BuyBlock = inject('purchasePageStore')(observer((store) => {
-    const {purchasePageStore} = store
+const BuyBlock = inject('purchasePageStore', 'courseStore')(observer((store) => {
+    const {purchasePageStore, courseStore} = store
     const queryParams = useParams()
+    const history = useHistory();
 
     const inputPromo = useRef(null)
 
-    let totalPriceFull = (purchasePageStore?.courseData?.price * purchasePageStore?.courseData?.courseType?.durationCount) - ((purchasePageStore?.courseData?.price * purchasePageStore?.courseData?.discountDuration / 100) * purchasePageStore?.courseData?.courseType?.durationCount)
-
+    let totalPriceFull = (courseStore?.courseData?.price * courseStore?.courseData?.courseType?.durationCount) - ((courseStore?.courseData?.price * courseStore?.courseData?.discountDuration / 100) * courseStore?.courseData?.courseType?.durationCount)
 
     useEffect(() => {
         purchasePageStore.setPromocodeData('', '', 0)
         purchasePageStore.setPromoText('', '')
+
+        purchasePageStore.loadCheckBuy(queryParams?.courseID).then(() => {
+            if (purchasePageStore.buyStatus) {
+                history.push(`/purchases/${queryParams?.courseID}`)
+            } else {
+                if ((courseStore.courseData.length === 0) || (Number(courseStore?.courseData?.id) !== Number(queryParams?.courseID))) {
+                    courseStore.loadCourseData(queryParams?.courseID)
+                }
+            }
+        })
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
-        if ((purchasePageStore.courseData.length === 0) || (Number(purchasePageStore?.courseData?.id) !== Number(queryParams?.courseID))) {
-            purchasePageStore.loadCourseData(queryParams?.courseID)
-        }
-        purchasePageStore.setPrice(purchasePageStore?.courseData?.price, totalPriceFull)
+        purchasePageStore.setPrice(courseStore?.courseData?.price, totalPriceFull)
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [purchasePageStore.courseData])
+    }, [courseStore.courseData])
 
     useEffect(() => {
         if (purchasePageStore?.promocodeData?.promocode !== '') {
@@ -44,44 +52,54 @@ const BuyBlock = inject('purchasePageStore')(observer((store) => {
             }
             purchasePageStore.setPrice(localPrice, localTotalPrice)
         } else {
-            purchasePageStore.setPrice(purchasePageStore?.courseData?.price, totalPriceFull)
+            purchasePageStore.setPrice(courseStore?.courseData?.price, totalPriceFull)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [purchasePageStore.promocodeData])
 
     const promocodeAccept = () => {
-        purchasePageStore.setPrice(purchasePageStore?.courseData?.price, totalPriceFull)
+        purchasePageStore.setPrice(courseStore?.courseData?.price, totalPriceFull)
         if (inputPromo.current.value !== '') {
             // purchasePageStore.setPromocodeData(inputPromo.current.value, 'procent', 10)
-            purchasePageStore.loadPromocodeData(inputPromo.current.value, Number(queryParams?.courseID), purchasePageStore?.courseData?.courseType?.name)
+            purchasePageStore.loadPromocodeData(inputPromo.current.value, Number(queryParams?.courseID), courseStore?.courseData?.courseType?.name)
         } else {
-            purchasePageStore.setPrice(purchasePageStore?.courseData?.price, totalPriceFull)
+            purchasePageStore.setPrice(courseStore?.courseData?.price, totalPriceFull)
             purchasePageStore.setPromoText('упссссс, вы не ввели промокод', '')
         }
     }
 
+
+    const buySubmit = () => {
+        purchasePageStore.buyData(queryParams?.courseID).then(() => {
+            if (purchasePageStore.buyCourseStore.buyText.valid !== '') {
+                history.push(`/purchases/${queryParams?.courseID}`)
+            }
+        })
+    }
+
+
     return (
         <div className="purchase__Wrapper">
-            {purchasePageStore.spinner.spinnerStatus ? <Spinner type={'local'}/> : <>
+            {courseStore.spinner.spinnerStatus ? <Spinner type={'local'}/> : <>
                 <div className="CourseInfo">
                     <div className="CourseInfo__Title">
                         <div className="CourseInfo__Title__Content">
                             <div className="CourseInfo__Title__Content__Avatar">
-                                {purchasePageStore?.courseData?.coursePicture &&
-                                <img src={`${purchasePageStore?.courseData?.coursePicture}`} alt=""/>}
+                                {courseStore?.courseData?.coursePicture &&
+                                <img src={`${courseStore?.courseData?.coursePicture}`} alt=""/>}
                             </div>
                             <div className="CourseInfo__Title__Content__Data">
-                                <p>{purchasePageStore?.courseData?.predmet} {purchasePageStore?.courseData?.courseExamType}.{purchasePageStore?.courseData?.courseType?.name}</p>
+                                <p>{courseStore?.courseData?.name}</p>
                                 <div className="Chips">
                                     <div className="Chips__Item">
-                                        {purchasePageStore?.courseData?.predmet}
+                                        {courseStore?.courseData?.predmet}
                                         <span/>
                                     </div>
                                     <div className="Chips__Item">
-                                        {purchasePageStore?.courseData?.courseExamType}
+                                        {courseStore?.courseData?.courseExamType}
                                     </div>
                                     {/*<div className="Chips__Item">*/}
-                                    {/*    {purchasePageStore?.courseData?.courseType?.name}*/}
+                                    {/*    {courseStore?.courseData?.courseType?.name}*/}
                                     {/*</div>*/}
                                 </div>
                             </div>
@@ -94,21 +112,22 @@ const BuyBlock = inject('purchasePageStore')(observer((store) => {
                                     <use xlinkHref={'#icon-course-arrow'}/>
                                 </svg>
                                 <p className="DetailCourse__Item__Title">длительность курса</p>
-                                <p className="DetailCourse__Item__Date">{purchasePageStore?.courseData?.courseType?.duration}</p>
+                                <p className="DetailCourse__Item__Date">{courseStore?.courseData?.courseType?.duration}</p>
                             </div>
                             <div className="DetailCourse__Item">
                                 <div className="DetailCourse__Item__Teacher">
-                                    {purchasePageStore?.courseData?.teacher?.avatar?.file?.original && <img
-                                        src={`${purchasePageStore?.courseData?.teacher?.avatar?.file?.original}`}
+                                    {courseStore?.courseData?.teacher?.user?.avatar?.file?.original && <img
+                                        src={`${courseStore?.courseData?.teacher?.user?.avatar?.file?.original}`}
                                         alt=""/>}
                                     <div className="DetailCourse__Item__Teacher__Name">
-                                        <p>{purchasePageStore?.courseData?.teacher?.firstName} {purchasePageStore?.courseData?.teacher?.lastName}</p>
-                                        <span>преподаватель</span>
+                                        <p>{courseStore?.courseData?.teacher?.user?.firstName} {courseStore?.courseData?.teacher?.user?.lastName}</p>
+                                        <span>{courseStore?.courseData?.teacher?.role}</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    {courseStore?.courseData?.courseType?.durationCount > 1 &&
                     <div className="CourseInfo__PaymentType">
                         <h3>выберите тип оплаты</h3>
                         <div className="CourseInfo__PaymentType__Data">
@@ -120,11 +139,11 @@ const BuyBlock = inject('purchasePageStore')(observer((store) => {
                                     }}>
                                     <div className="CourseInfo__PaymentType__Data__Wrapper__Item__Price">
                                         <p className="Price">
-                                            {purchasePageStore?.courseData?.price - (purchasePageStore?.courseData?.price * purchasePageStore?.courseData?.discountDuration / 100)} ₽
+                                            {courseStore?.courseData?.price - (courseStore?.courseData?.price * courseStore?.courseData?.discountDuration / 100)} ₽
                                             <span>/мес</span>
                                         </p>
                                         <p className="Free">
-                                            {purchasePageStore?.courseData?.price} ₽/мес
+                                            {courseStore?.courseData?.price} ₽/мес
                                         </p>
                                     </div>
                                     <div className="CourseInfo__PaymentType__Data__Wrapper__Item__Condition">при
@@ -135,13 +154,13 @@ const BuyBlock = inject('purchasePageStore')(observer((store) => {
                                         <svg style={{width: 104, height: 56}}>
                                             <use xlinkHref={'#icon-economy-banner'}/>
                                         </svg>
-                                        <p>экономите {purchasePageStore?.courseData?.price * purchasePageStore?.courseData?.discountDuration / 100} ₽</p>
+                                        <p>экономите {courseStore?.courseData?.price * courseStore?.courseData?.discountDuration / 100} ₽</p>
                                     </div>
                                 </div>
                                 <div
                                     className="CourseInfo__PaymentType__Data__Wrapper__Description CourseInfo__PaymentType__Data__Sale__Description">
                                     вы
-                                    потратите <s>{purchasePageStore?.courseData?.price * purchasePageStore?.courseData?.courseType?.durationCount} ₽</s> {totalPriceFull}₽
+                                    потратите <s>{courseStore?.courseData?.price * courseStore?.courseData?.courseType?.durationCount} ₽</s> {totalPriceFull}₽
                                     за весь курс при единовременной оплате
                                 </div>
                             </div>
@@ -153,7 +172,7 @@ const BuyBlock = inject('purchasePageStore')(observer((store) => {
                                     }}>
                                     <div className="CourseInfo__PaymentType__Data__Wrapper__Item__Price">
                                         <p className="Price">
-                                            {purchasePageStore?.courseData?.price} ₽
+                                            {courseStore?.courseData?.price} ₽
                                             <span>/мес</span>
                                         </p>
                                     </div>
@@ -163,12 +182,13 @@ const BuyBlock = inject('purchasePageStore')(observer((store) => {
                                 </div>
                                 <div className="CourseInfo__PaymentType__Data__Wrapper__Description">
                                     вы
-                                    потратите {purchasePageStore?.courseData?.price * purchasePageStore?.courseData?.courseType?.durationCount} ₽
+                                    потратите {courseStore?.courseData?.price * courseStore?.courseData?.courseType?.durationCount} ₽
                                     за весь курс при ежемесячной оплате
                                 </div>
                             </div>
                         </div>
                     </div>
+                    }
                 </div>
                 <div className="CoursePay">
                     <h3 className="CoursePay__Title">к оплате</h3>
@@ -177,12 +197,12 @@ const BuyBlock = inject('purchasePageStore')(observer((store) => {
                         <ul>
                             <li>
                                 <span>{!purchasePageStore.payType ? 'месяц' : 'полный курс'}</span>
-                                <span>{!purchasePageStore.payType ? purchasePageStore?.courseData?.price : totalPriceFull} ₽</span>
+                                <span>{!purchasePageStore.payType ? courseStore?.courseData?.price : totalPriceFull} ₽</span>
                             </li>
                             {purchasePageStore.promoText.valid &&
                             <li className="discount">
                                 <span>промокод</span>
-                                <span>-{!purchasePageStore.payType ? purchasePageStore?.courseData?.price - purchasePageStore.price.price : totalPriceFull - purchasePageStore.price.totalPrice} ₽</span>
+                                <span>-{!purchasePageStore.payType ? courseStore?.courseData?.price - purchasePageStore.price.price : totalPriceFull - purchasePageStore.price.totalPrice} ₽</span>
                             </li>
                             }
                         </ul>
@@ -197,7 +217,9 @@ const BuyBlock = inject('purchasePageStore')(observer((store) => {
                         <p className="CoursePay__Promocode__Error">{purchasePageStore.promoText.error}</p>}
                     </div>
 
-                    <div className="CoursePay__BuyButton">
+                    <div className="CoursePay__BuyButton" onClick={() => {
+                        buySubmit()
+                    }}>
                         <button>
                             перейти к оплате
                             <span>{!purchasePageStore.payType ? purchasePageStore.price.price : purchasePageStore.price.totalPrice} ₽</span>
@@ -207,6 +229,7 @@ const BuyBlock = inject('purchasePageStore')(observer((store) => {
             </>}
         </div>
     )
-}))
+}
+))
 
 export default BuyBlock;

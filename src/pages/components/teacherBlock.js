@@ -54,16 +54,16 @@ const TeacherBlock = inject(
                 >
                     <img
                         className="d-block w-100 rounded-top-5"
-                        src={`${item.avatar?.file?.original}`}
-                        alt={`${item.lastName} ${item.firstName} ${item.subject}`}
+                        src={`${item.user?.avatar?.file?.original}`}
+                        alt={`${item.user?.lastName} ${item.user?.firstName} ${item.subject}`}
                     />
                     {/*<Carousel.Caption>*/}
                     <div className={"carousel-caption-my"}>
                         <p className={"carousel-caption-p text-dark fw-bold"}>
-                            <span className={"bg-white"}>{`${item.lastName}`}</span>
+                            <span className={"bg-white"}>{`${item.user?.lastName}`}</span>
                         </p>
                         <p className={"carousel-caption-p text-dark fw-bold"}>
-                            <span className={"bg-white"}>{`${item.firstName}`}</span>
+                            <span className={"bg-white"}>{`${item.user?.firstName}`}</span>
                         </p>
                     </div>
                     {/*<div className="carousel-social">*/}

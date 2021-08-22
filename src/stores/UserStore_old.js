@@ -118,7 +118,7 @@ export default class UserStore {
     }
 
     async getUserData() {
-        const [res, status] = await this.requestService._get('/user/')
+        const [res, status] = await this.requestService._get('/User/')
         if (status) {
             return this._transformUserData(res)
         } else {

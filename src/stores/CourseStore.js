@@ -1,10 +1,12 @@
 import {action, computed, makeObservable, observable, toJS} from "mobx";
-import SpinnerStore from "../SpinnerStore";
+import SpinnerStore from "./SpinnerStore";
 
-export default class CoursePageStore {
+export default class CourseStore {
     _courseData = []
 
     _spinner = new SpinnerStore()
+
+    _courseError = false
 
     constructor($client) {
         makeObservable(this, {
@@ -15,9 +17,21 @@ export default class CoursePageStore {
 
             _spinner: observable,
             spinner: computed,
+
+            _courseError: observable,
+            courseError: computed,
+            setCourseError: action,
         })
+
         this.client = $client;
-        // this.loadTeacherData()
+    }
+
+    get courseError() {
+        return this._courseError;
+    }
+
+    setCourseError(value) {
+        this._courseError = value
     }
 
     get spinner() {
@@ -36,7 +50,11 @@ export default class CoursePageStore {
         this.spinner.setSpinnerStatus(true)
         return this.client.get(`/courses/course${CourseID}`)
             .then(response => {
+                this.setCourseError(false)
                 this.setCourseData(response.data)
+                this.spinner.setSpinnerStatus(false)
+            }).catch(reason => {
+                this.setCourseError(true)
                 this.spinner.setSpinnerStatus(false)
             })
     }

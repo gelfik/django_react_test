@@ -1,25 +1,20 @@
 import {action, computed, makeObservable, observable, toJS} from "mobx";
-import SpinnerStore from "../SpinnerStore";
+import SpinnerStore from "../../SpinnerStore";
 
 export default class PurchasePageStore {
-    _courseData = []
     _payType = false
     _spinner = new SpinnerStore()
     _promocodeData = {promocode: '', type: '', count: 0}
     _price = {price: 0, totalPrice: 0}
-
     _promoText = {
         error: '',
         valid: ''
     }
 
-    constructor($client) {
-        makeObservable(this, {
-            _courseData: observable,
-            setCourseData: action,
-            loadCourseData: action,
-            courseData: computed,
+    _buyStatus = false
 
+    constructor($client, $buyCourseSore) {
+        makeObservable(this, {
             _payType: observable,
             setPayType: action,
             payType: computed,
@@ -40,8 +35,51 @@ export default class PurchasePageStore {
             _promoText: observable,
             promoText: computed,
             setPromoText: action,
+
+            _buyStatus: observable,
+            buyStatus: computed,
+            setBuyStatus: action,
+            loadCheckBuy: action,
         })
+        this.buyCourseStore = $buyCourseSore;
         this.client = $client;
+    }
+
+    get courseError() {
+        return this._courseError;
+    }
+
+    setCourseError(value) {
+        this._courseError = value
+    }
+
+    buyData = (courseID) => {
+        const data = {}
+        data.courseID=courseID
+        if (this.promocodeData.promocode !== '') {
+            data.promocode=this.promocodeData.promocode
+        }
+        if (this.payType) {
+            data.buyAll=this.payType
+        }
+        return this.buyCourseStore.loadBuyData(data)
+    }
+
+    get buyStatus() {
+        return this._buyStatus;
+    }
+
+    setBuyStatus(value) {
+        this._buyStatus = value
+    }
+
+    loadCheckBuy = (courseID) => {
+        this.spinner.setSpinnerStatus(true)
+        return this.client.post(`/purchase/checkbuy/`, {courseID: courseID})
+            .then(response => {
+                this.setBuyStatus(response?.data?.status)
+                this.spinner.setSpinnerStatus(false)
+            })
     }
 
     get promoText() {
@@ -91,23 +129,6 @@ export default class PurchasePageStore {
 
     get spinner() {
         return this._spinner;
-    }
-
-    get courseData() {
-        return toJS(this._courseData);
-    }
-
-    setCourseData = (value) => {
-        this._courseData = value
-    }
-
-    loadCourseData = (CourseID) => {
-        this.spinner.setSpinnerStatus(true)
-        return this.client.get(`/courses/course${CourseID}`)
-            .then(response => {
-                this.setCourseData(response.data)
-                this.spinner.setSpinnerStatus(false)
-            })
     }
 
     get payType() {

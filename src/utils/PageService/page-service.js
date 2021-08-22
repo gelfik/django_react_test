@@ -1,20 +1,21 @@
 import React from "react";
 import {BrowserRouter as Router, Redirect, Route, Switch} from "react-router-dom";
 import {inject, observer} from "mobx-react";
-import MainPage from "../../pages/mainPage";
+import MainPage from "../../pages";
 // import LoginPage from "../../pages/login-page";
 // import RegisterPage from "../../pages/register-page";
-import Page404 from "../../pages/404-page";
-import UserPage from "../../pages/user-page";
-import LogoutPage from "../../pages/logout-page";
+import Page404 from "../../pages/404";
+import UserPage from "../../pages/User";
+import LogoutPage from "../../pages/Logout";
 import Header from "../../components/Header";
 import Spinner from "../../components/Spinner";
 import Footer from "../../components/Footer";
 import RootModal from "../../components/Modals";
-import CoursesPage from "../../pages/coursesPage";
-import CoursePage from "../../pages/coursePage";
+import CoursesPage from "../../pages/Courses";
+import CoursesCoursePage from "../../pages/Courses/Course";
+import CoursesCoursePurchasePage from "../../pages/Courses/Course/Purchase";
 import SVG from "../../components/SVG";
-import PurchasePage from "../../pages/purchasePage";
+import PurchasesPage from "../../pages/Purchases";
 
 const PageService = inject('userStore')(observer((store) => {
         const {userStore} = store
@@ -26,9 +27,14 @@ const PageService = inject('userStore')(observer((store) => {
                 <Header/>
                 <Switch>
                     <Route path='/' component={MainPage} exact/>
+
+                    <Route path='/purchases' exact render={() => !userStore.userAuthStatus ? <Redirect to='/'/> : <PurchasesPage/>}/>
+                    <Route path='/purchases/:purchaseID' render={() => !userStore.userAuthStatus ? <Redirect to='/'/> : <PurchasesPage/>}/>
+
                     <Route path='/courses' component={CoursesPage} exact/>
-                    <Route path='/courses/:courseID/purchase' render={() => !userStore.userAuthStatus ? <Redirect to='/'/> : <PurchasePage/>}/>
-                    <Route path='/courses/:courseID' component={CoursePage}/>
+                    <Route path='/courses/:courseID/purchase' render={() => !userStore.userAuthStatus ? <Redirect to='/'/> : <CoursesCoursePurchasePage/>}/>
+                    <Route path='/courses/:courseID' component={CoursesCoursePage}/>
+
                     <Route path='/user'
                            render={() => !userStore.userAuthStatus ? <Redirect to='/'/> : <UserPage/>}/>
                     <Route path='/logout'
