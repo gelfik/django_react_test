@@ -14,6 +14,7 @@ import PurchasePageStore from "./pageStores/courses/PurchasePageStore";
 import BuyCourseStore from "./BuyCourseStore";
 import CourseStore from "./CourseStore";
 import PurchasesListStore from "./PurchasesListStore";
+import PurchaseStore from "./PurchaseStore";
 
 
 class RootStore {
@@ -30,6 +31,7 @@ class RootStore {
         this.courseStore = new CourseStore(this.$axios)
         this.buyCourseStore = new BuyCourseStore(this.$axios)
         this.purchasesListStore = new PurchasesListStore(this.$axios)
+        this.purchaseStore = new PurchaseStore(this.$axios)
 
         this.mainPageStore = new MainPageStore(this.$axios);
         this.coursesPageStore = new CoursesPageStore(this.$axios);

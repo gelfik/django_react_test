@@ -88,7 +88,7 @@ const SVG = inject('userStore')(observer((props) => {
         </symbol>
 
         <symbol id="check-valid" viewBox="0 0 16 16">
-            <path xmlns="http://www.w3.org/2000/svg" d="M3 7.33333C3.92593 9 6 12.3333 6.88889 12.3333C7.77778 12.3333 11.3333 6.77778 13 4" stroke="#101010" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"/>
+            <path xmlns="http://www.w3.org/2000/svg" d="M3 7.33333C3.92593 9 6 12.3333 6.88889 12.3333C7.77778 12.3333 11.3333 6.77778 13 4" stroke="#101010" strokeWidth="2.7" strokeLinecap="round" strokeLinejoin="round"/>
         </symbol>
 
     </svg>)

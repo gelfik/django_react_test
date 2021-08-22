@@ -3,17 +3,22 @@ import {action, computed, makeObservable, observable} from "mobx"
 export default class ModalStore {
     _showLoginModalStatus = false
     _showRegisterModalStatus = false
+    _showPurchaseDetailModalStatus = false
 
     constructor() {
         makeObservable(this, {
             _showLoginModalStatus: observable,
             _showRegisterModalStatus: observable,
+            _showPurchaseDetailModalStatus: observable,
             LoginModalStatus: computed,
             RegisterModalStatus: computed,
+            PurchaseDetailModalStatus: computed,
             LoginModalClose: action,
             LoginModalShow: action,
             RegisterModalClose: action,
             RegisterModalShow: action,
+            PurchaseDetailModalClose: action,
+            PurchaseDetailModalShow: action,
         })
     }
 
@@ -23,6 +28,10 @@ export default class ModalStore {
 
     get RegisterModalStatus() {
         return this._showRegisterModalStatus;
+    }
+
+    get PurchaseDetailModalStatus() {
+        return this._showPurchaseDetailModalStatus;
     }
 
     LoginModalClose = () => {
@@ -37,5 +46,12 @@ export default class ModalStore {
     }
     RegisterModalShow = () => {
         this._showRegisterModalStatus = true;
+    }
+
+    PurchaseDetailModalClose = () => {
+        this._showPurchaseDetailModalStatus = false;
+    }
+    PurchaseDetailModalShow = () => {
+        this._showPurchaseDetailModalStatus = true;
     }
 }

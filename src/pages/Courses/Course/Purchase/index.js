@@ -23,11 +23,7 @@ const CoursesCoursePurchasePage = inject('userStore', 'courseStore')(observer((s
                 <h1 className="purchase__Title">
                     покупка курса
                 </h1>
-
-                {courseStore.courseError ?
-                    <h1 className="display-3 fw-bold pb-3">курс не найден</h1>:
-                    <BuyBlock/>
-                }
+                <BuyBlock/>
             </div>
         </main>
     )

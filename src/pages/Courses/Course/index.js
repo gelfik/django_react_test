@@ -18,10 +18,7 @@ const CoursesCoursePage = inject('userStore', 'courseStore')(observer((store) =>
     return (
         <main className={'bg-content mt_navbar'}>
             <div className="container-banner">
-                {courseStore.courseError ?
-                    <h1 className="display-3 fw-bold pb-3">курс не найден</h1>:
-                    <BannerBlock/>
-                }
+                <BannerBlock/>
             </div>
         </main>
     )

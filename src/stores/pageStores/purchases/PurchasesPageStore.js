@@ -1,4 +1,4 @@
-import {computed, makeObservable, observable} from "mobx";
+import {action, computed, makeObservable, observable, toJS} from "mobx";
 import SpinnerStore from "../../SpinnerStore";
 
 
@@ -16,6 +16,4 @@ export default class PurchasesPageStore {
     get spinner() {
         return this._spinner;
     }
-
-
 }

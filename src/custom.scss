@@ -1759,7 +1759,7 @@ li {
   margin-left: 12px;
 }
 
-.PurchaseList {
+.Purchase {
   height: auto;
 
   &__Item {
@@ -1913,6 +1913,7 @@ li {
         margin-top: 6px;
         color: #5452ff;
         text-decoration: none;
+        cursor: pointer;
 
         @media (max-width: 767px) {
           font-size: 14px;
@@ -1924,6 +1925,113 @@ li {
 
   }
 }
+
+.PurchasePayDetailModal {
+  position: relative;
+  max-width: 568px;
+  //padding: 40px;
+  background-color: #fff;
+  width: 100%;
+  border-radius: 8px;
+  padding: 20px 30px;
+
+  .Purchase__Item {
+    padding: 0;
+    box-shadow: none;
+    border-radius: 0;
+
+    &__Header {
+      display: block;
+    }
+
+    &__Link {
+      width: 100%;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    &__PayInfo {
+      &__PayStatus {
+        margin-left: 80px;
+        margin-top: 10px;
+        @media (max-width: 767px) {
+          margin-left: 0;
+        }
+      }
+
+      &__Link {
+        margin-left: 80px;
+        margin-top: 10px;
+        @media (max-width: 767px) {
+          margin-left: 0;
+        }
+      }
+    }
+
+    &__PayHistory {
+      margin-top: 28px;
+
+      &__Title {
+        font-size: 20px;
+        line-height: 24px;
+        letter-spacing: .02em;
+        color: #000;
+      }
+
+      &__HistoryData {
+
+      }
+    }
+  }
+}
+
+.Table {
+  padding-top: 16px;
+
+  &__Header {
+    border-bottom: 2px solid #f2f3f5;
+
+    .Table__Row {
+      .Table__Col {
+        padding: 8px 0;
+        color: #8e919c;
+      }
+    }
+  }
+
+
+  &__Row {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    border-bottom: 2px solid #f2f3f5;
+
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &__Col {
+    padding: 19px 0;
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: .02em;
+    color: #101010;
+    width: 100%;
+
+    &:last-child {
+      text-align: right;
+    }
+  }
+
+}
+
 
 .Chips {
   margin-top: 15px;

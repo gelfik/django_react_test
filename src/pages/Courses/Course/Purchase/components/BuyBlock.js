@@ -21,7 +21,11 @@ const BuyBlock = inject('purchasePageStore', 'courseStore')(observer((store) => 
                 history.push(`/purchases/${queryParams?.courseID}`)
             } else {
                 if ((courseStore.courseData.length === 0) || (Number(courseStore?.courseData?.id) !== Number(queryParams?.courseID))) {
-                    courseStore.loadCourseData(queryParams?.courseID)
+                    courseStore.loadCourseData(queryParams?.courseID).then(()=>{
+                        if (courseStore.courseError) {
+                            history.push(`/courses`)
+                        }
+                    })
                 }
             }
         })

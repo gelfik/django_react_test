@@ -10,7 +10,11 @@ const BannerBlock = inject('userStore', 'coursePageStore', 'modalStore', 'course
 
         useEffect(() => {
             if ((courseStore.courseData.length === 0) || (Number(courseStore?.courseData?.id) !== Number(queryParams?.courseID))) {
-                courseStore.loadCourseData(queryParams?.courseID)
+                courseStore.loadCourseData(queryParams?.courseID).then(() => {
+                    if (courseStore.courseError) {
+                        history.push(`/courses`)
+                    }
+                })
             }
             // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [])
