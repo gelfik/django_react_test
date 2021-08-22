@@ -88,7 +88,13 @@ const SVG = inject('userStore')(observer((props) => {
         </symbol>
 
         <symbol id="check-valid" viewBox="0 0 16 16">
-            <path xmlns="http://www.w3.org/2000/svg" d="M3 7.33333C3.92593 9 6 12.3333 6.88889 12.3333C7.77778 12.3333 11.3333 6.77778 13 4" stroke="#101010" strokeWidth="2.7" strokeLinecap="round" strokeLinejoin="round"/>
+            <path xmlns="http://www.w3.org/2000/svg"
+                  d="M3 7.33333C3.92593 9 6 12.3333 6.88889 12.3333C7.77778 12.3333 11.3333 6.77778 13 4"
+                  stroke="#101010" strokeWidth="2.7" strokeLinecap="round" strokeLinejoin="round"/>
+        </symbol>
+
+        <symbol id="icon-close" viewBox="0 0 20 20">
+            <path d="M.293 18.291a1 1 0 101.414 1.414L10 11.413l8.292 8.292a1 1 0 101.414-1.414l-8.292-8.292 8.292-8.292A1 1 0 1018.291.293L9.999 8.585 1.707.293A1 1 0 10.293 1.707L8.585 10 .293 18.291z"/>
         </symbol>
 
     </svg>)

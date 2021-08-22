@@ -13,10 +13,10 @@ const PurchaseDetailModal = inject('userStore', 'modalStore', 'purchaseStore')(o
                     {item.date}
                 </div>
                 <div className="Table__Col">
-                    {item.sumPay===0 ? 'бесплатно' : 'онлайн оплата'}
+                    {item.sumPay === 0 ? 'бесплатно' : 'онлайн оплата'}
                 </div>
                 <div className="Table__Col">
-                    {item.sumPay===0 ? '-' : `${item.sumPay} ₽`}
+                    {item.sumPay === 0 ? '-' : `${item.sumPay} ₽`}
                 </div>
             </div>
         )
@@ -25,6 +25,11 @@ const PurchaseDetailModal = inject('userStore', 'modalStore', 'purchaseStore')(o
     return (
         <Modal show={modalStore.PurchaseDetailModalStatus} centered onHide={modalStore.PurchaseDetailModalClose}>
             <div className="PurchasePayDetailModal">
+                <button type="button" className="CloseButton" aria-label="Close" onClick={modalStore.PurchaseDetailModalClose}>
+                    <svg height="28" width="28">
+                        <use xlinkHref={'#icon-close'}/>
+                    </svg>
+                </button>
                 <div className="Purchase__Item">
                     <div className="Purchase__Item__Content">
                         <div className="Purchase__Item__Header">

@@ -1935,6 +1935,46 @@ li {
   border-radius: 8px;
   padding: 20px 30px;
 
+  .CloseButton {
+    -webkit-transform: none;
+    transform: none;
+    -webkit-transition: -webkit-transform .3s ease;
+    transition: -webkit-transform .3s ease;
+    position: absolute;
+    top: 0;
+    right: -48px;
+    z-index: 1;
+    padding: 0;
+    background: hsla(0, 0%, 100%, 0);
+    border: none;
+    cursor: pointer;
+
+    @media (max-width: 767px) {
+      width: 16px;
+      height: 16px;
+      top: 20px;
+      right: 20px;
+    }
+
+    &:focus-visible, &:hover {
+      -webkit-transform: scale(1.2);
+      transform: scale(1.2);
+    }
+
+    svg {
+      display: block;
+      fill: #8e919c;
+      width: 24px;
+      height: 24px;
+
+      @media (max-width: 767px) {
+        fill: #101010;
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+
   .Purchase__Item {
     padding: 0;
     box-shadow: none;
