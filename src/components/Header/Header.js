@@ -90,9 +90,10 @@ const Header = inject("userStore", "modalStore")(observer((stores) => {
                         <Nav.Link as={Link} to={"/courses"}>
                             Все курсы
                         </Nav.Link>
+                        {userStore.userAuthStatus &&
                         <Nav.Link as={Link} to={"/purchases"}>
                             Мои курсы
-                        </Nav.Link>
+                        </Nav.Link>}
                         <div className={"Custom-nav-bar-items"}>
                             {userStore.userAuthStatus &&
                             <div className={"Custom-nav-bar-items-login-mobile"}>
