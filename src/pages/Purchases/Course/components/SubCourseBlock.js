@@ -1,6 +1,5 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
-import StickyBox from "react-sticky-box";
 import LessonBlock from "./LessonBlock";
 import LessonListBlock from "./LessonListBlock";
 

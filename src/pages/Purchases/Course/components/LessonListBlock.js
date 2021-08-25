@@ -2,7 +2,6 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 import {dayText, mounthText} from "../../../../utils/DateService";
 import Moment from 'moment';
-import {logDOM} from "@testing-library/react";
 
 const LessonListBlock = inject('purchaseStore', 'purCoursePageStore', 'subCourseStore')(observer((store) => {
     const {purCoursePageStore, subCourseStore} = store
