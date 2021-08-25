@@ -25,7 +25,7 @@ const PurchasesBlock = inject('userStore', 'purchasesListStore', 'modalStore', '
             <div className="Purchase__Item" key={item?.id}>
                 <div className="Purchase__Item__Content">
                     <div className="Purchase__Item__Header">
-                        <Link to={`/purchases/${item?.id}`} className="Purchase__Item__Link">
+                        <Link to={`/purchases/${item?.id}`} className="Purchase__Item__Data">
                             <div className="Purchase__Item__Avatar">
                                 <img src={`${item?.course?.coursePicture}`} alt=''/>
                             </div>

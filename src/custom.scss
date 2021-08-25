@@ -1306,6 +1306,7 @@ li {
   }
 }
 
+
 .purchase {
   display: block;
 
@@ -1759,6 +1760,31 @@ li {
   margin-left: 12px;
 }
 
+.TabsButton {
+  font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+  font-size: 24px;
+  line-height: 28px;
+  letter-spacing: .02em;
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.Purchase, .PurchasePage {
+  padding: 40px 0;
+
+  @media (max-width: 767px) {
+    padding: 20px 0;
+  }
+
+  .Purchase__Item {
+    &__Data {
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+}
+
 .Purchase {
   height: auto;
 
@@ -1802,7 +1828,7 @@ li {
       display: flex;
     }
 
-    &__Link {
+    &__Data {
       display: -webkit-box;
       display: flex;
       width: calc(100% - 246px);
@@ -1984,7 +2010,7 @@ li {
       display: block;
     }
 
-    &__Link {
+    &__Data {
       width: 100%;
 
       &:hover {
@@ -2026,6 +2052,179 @@ li {
     }
   }
 }
+
+.SubCourses {
+  width: 100%;
+  margin-bottom: 16px;
+  padding: 24px 24px;
+  background-color: #fff;
+  box-shadow: 0 1px 2px #ebeced;
+  border-radius: 8px;
+
+  &__ButtonSubActive {
+    margin-right: 10px;
+  }
+}
+
+
+.LessonList {
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  width: 100%;
+
+  @media (max-width: 767px) {
+    display: block;
+  }
+
+  &__Left {
+    width: 30%;
+
+    @media (max-width: 767px) {
+      width: 100%;
+    }
+
+    &__Item {
+      margin-top: 16px;
+      width: 100%;
+      cursor: pointer;
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      &__Date {
+        position: sticky;
+        z-index: 9;
+        display: flex;
+        align-items: baseline;
+        min-height: 26px;
+        font-size: 20px;
+        line-height: 22px;
+        letter-spacing: .02em;
+        color: #101010;
+        background-color: #f2f3f5;
+        transition: all .3s ease;
+        padding-bottom: 3px;
+      }
+
+      &__Panel {
+        padding: 0;
+        overflow: hidden;
+        -webkit-transition: all .3s ease-out;
+        transition: all .3s ease-out;
+      }
+
+      &__Wrapper &__Content {
+        display: grid;
+        -ms-grid-columns: 67px auto;
+        grid-template-columns: 67px auto;
+        grid-gap: 4px;
+        gap: 4px;
+        padding: 17px 20px;
+        background-color: #fff;
+        margin-bottom: 2px;
+      }
+
+      &__Wrapper {
+        -webkit-box-shadow: 0 1px 2px #ebeced;
+        box-shadow: 0 1px 2px #ebeced;
+        border-radius: 8px;
+        overflow: hidden;
+        margin-top: 8px;
+      }
+
+      &__Content {
+        position: relative;
+        z-index: 1;
+
+        &:before {
+          content: "";
+          position: absolute;
+          top: 6px;
+          left: 6px;
+          z-index: -1;
+          width: calc(100% - 12px);
+          height: calc(100% - 12px);
+          background-color: transparent;
+          border-radius: 6px;
+        }
+      }
+
+      &__Active {
+        &:before {
+          background-color: #f2f3f5;
+        }
+      }
+
+      &__Time {
+        grid-column-start: 1;
+        grid-column-end: 2;
+        display: -webkit-box;
+        display: flex;
+        -webkit-box-align: baseline;
+        align-items: baseline;
+        font-size: 16px;
+        line-height: 20px;
+        letter-spacing: .02em;
+        color: #101010;
+      }
+
+      &__Data {
+        grid-column-start: 2;
+        grid-column-end: 3;
+
+        &__Chips {
+          display: -webkit-box;
+          display: flex;
+          -webkit-box-align: center;
+          align-items: center;
+          -webkit-box-pack: start;
+          -ms-flex-pack: start;
+          justify-content: flex-start;
+          flex-wrap: wrap;
+          margin-top: -8px;
+
+          &__Item {
+            margin: 8px 8px 8px 0;
+            padding: 1px 8px 3px;
+            display: -webkit-box;
+            display: flex;
+            -webkit-box-align: start;
+            align-items: flex-start;
+            //background-color: rgba(255, 86, 63, .2);
+            background-color: #e7e9ed;
+            border-radius: 22px;
+            font-size: 14px;
+            line-height: 18px;
+            letter-spacing: .02em;
+          }
+        }
+
+        &__Title {
+          display: -webkit-box;
+          display: flex;
+          -webkit-box-align: center;
+          align-items: center;
+          font-size: 16px;
+          line-height: 20px;
+          letter-spacing: .02em;
+          color: #101010;
+        }
+      }
+    }
+  }
+
+
+  &__Right {
+    width: 65%;
+
+    @media (max-width: 767px) {
+      width: 100%;
+    }
+  }
+}
+
 
 .Table {
   padding-top: 16px;
@@ -2071,7 +2270,6 @@ li {
   }
 
 }
-
 
 .Chips {
   margin-top: 15px;

@@ -33,7 +33,7 @@ const PurchaseDetailModal = inject('userStore', 'modalStore', 'purchaseStore')(o
                 <div className="Purchase__Item">
                     <div className="Purchase__Item__Content">
                         <div className="Purchase__Item__Header">
-                            <div className="Purchase__Item__Link">
+                            <div className="Purchase__Item__Data">
                                 <div className="Purchase__Item__Avatar">
                                     <img src={`${purchaseStore?.purchaseData?.course?.coursePicture}`} alt=''/>
                                 </div>
@@ -64,7 +64,7 @@ const PurchaseDetailModal = inject('userStore', 'modalStore', 'purchaseStore')(o
                                 }
                                 {!purchaseStore?.purchaseData?.courseSubAll &&
                                 <Link to={`/purchases/${purchaseStore?.purchaseData?.id}/purchase`}
-                                      className="Purchase__Item__PayInfo__Link">Докупить
+                                      className="Purchase__Item__PayInfo__Link"  onClick={modalStore.PurchaseDetailModalClose}>Докупить
                                     курс</Link>}
                             </div>
                         </div>

@@ -17,8 +17,8 @@ const BuyBlock = inject('purchasePageStore', 'courseStore')(observer((store) => 
         purchasePageStore.setPromoText('', '')
 
         purchasePageStore.loadCheckBuy(queryParams?.courseID).then(() => {
-            if (purchasePageStore.buyStatus) {
-                history.push(`/purchases/${queryParams?.courseID}`)
+            if (purchasePageStore.buyStatus.status) {
+                history.push(`/purchases/${purchasePageStore.buyStatus?.id}`)
             } else {
                 if ((courseStore.courseData.length === 0) || (Number(courseStore?.courseData?.id) !== Number(queryParams?.courseID))) {
                     courseStore.loadCourseData(queryParams?.courseID).then(()=>{

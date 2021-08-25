@@ -11,7 +11,10 @@ export default class PurchasePageStore {
         valid: ''
     }
 
-    _buyStatus = false
+    _buyStatus = {
+        status: false,
+        id: undefined
+    }
 
     constructor($client, $buyCourseSore) {
         makeObservable(this, {
@@ -77,7 +80,7 @@ export default class PurchasePageStore {
         this.spinner.setSpinnerStatus(true)
         return this.client.post(`/purchase/checkbuy/`, {courseID: courseID})
             .then(response => {
-                this.setBuyStatus(response?.data?.status)
+                this.setBuyStatus(response?.data)
                 this.spinner.setSpinnerStatus(false)
             })
     }

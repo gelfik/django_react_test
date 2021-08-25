@@ -12,11 +12,9 @@ const PurchasesPage = inject('userStore', 'purchasesListStore')(observer((store)
 
     return (
         <main className={'mt_navbar bg-content'}>
-            <div className="container__noflex">
+            <div className="container-banner">
                 <div className="display-3 fw-bold pb-3">мои курсы <span className={'SpanPurchaseCount'}>{purchasesListStore?.purchasesListData?.length>0 && purchasesListStore?.purchasesListData?.length}</span></div>
-
                 <PurchasesBlock/>
-
             </div>
         </main>
     )

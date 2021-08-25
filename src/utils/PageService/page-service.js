@@ -16,6 +16,7 @@ import CoursesCoursePage from "../../pages/Courses/Course";
 import CoursesCoursePurchasePage from "../../pages/Courses/Course/Purchase";
 import SVG from "../../components/SVG";
 import PurchasesPage from "../../pages/Purchases";
+import PurchasesCoursePage from "../../pages/Purchases/Course";
 
 const PageService = inject('userStore')(observer((store) => {
         const {userStore} = store
@@ -29,7 +30,7 @@ const PageService = inject('userStore')(observer((store) => {
                     <Route path='/' component={MainPage} exact/>
 
                     <Route path='/purchases' exact render={() => !userStore.userAuthStatus ? <Redirect to='/'/> : <PurchasesPage/>}/>
-                    <Route path='/purchases/:purchaseID' render={() => !userStore.userAuthStatus ? <Redirect to='/'/> : <PurchasesPage/>}/>
+                    <Route path='/purchases/:purchaseID' render={() => !userStore.userAuthStatus ? <Redirect to='/'/> : <PurchasesCoursePage/>}/>
 
                     <Route path='/courses' component={CoursesPage} exact/>
                     <Route path='/courses/:courseID/purchase' render={() => !userStore.userAuthStatus ? <Redirect to='/'/> : <CoursesCoursePurchasePage/>}/>

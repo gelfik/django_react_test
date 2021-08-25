@@ -15,8 +15,6 @@ const ErrorAlert = ({error, styles = null, classes = null, type = null}) => {
                 {error}
             </div>
     }
-
-
 }
 
 export default ErrorAlert;
