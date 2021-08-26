@@ -28,7 +28,6 @@ export default class PurCoursePageStore {
     }
 
     setActiveLesson = (value) => {
-        console.log(this._activeLesson)
         this._activeLesson = value
     }
 

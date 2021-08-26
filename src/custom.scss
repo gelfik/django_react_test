@@ -2276,6 +2276,14 @@ li {
         box-shadow: 0 1px 2px #ebeced;
         border-radius: 8px;
         white-space: pre-wrap;
+
+        p {
+          margin: 0;
+
+          a {
+            color: #101010;
+          }
+        }
       }
 
       &__Description {

@@ -13,7 +13,7 @@ const LessonBlock = inject('purchaseStore', 'purCoursePageStore', 'lessonStore')
                 <div className="LessonList__Right__Data__Title">
                     {lessonStore.lessonData?.homework && lessonStore.lessonData?.homework?.name}
                     {lessonStore.lessonData?.video && lessonStore.lessonData?.video?.name}
-                    {lessonStore.lessonData?.files && 'Файл'}
+                    {lessonStore.lessonData?.files && lessonStore.lessonData?.files?.name}
                 </div>
                 {lessonStore.lessonData?.video && <LessonVideoBlock/>}
                 {lessonStore.lessonData?.files && <LessonFileBlock/>}
