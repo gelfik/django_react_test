@@ -34,6 +34,10 @@ const LessonListBlock = inject('purchaseStore', 'purCoursePageStore', 'subCourse
                             {item.homework && 'Домашка'}
                             {item.files && 'Файл'}
                         </div>
+                        {item.homework &&
+                        <div className="LessonList__Left__Item__Data__Chips__Item">
+                            {item.homework.homeworkType}
+                        </div>}
                     </div>
                     <div className="LessonList__Left__Item__Data__Title">
                         {item.video && item.video?.name}
