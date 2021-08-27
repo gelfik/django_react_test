@@ -1,16 +1,18 @@
 import React, {useEffect} from "react";
 import {inject, observer} from "mobx-react";
-import Spinner from "../../../components/Spinner";
-import PurchaseBlock from "./components/PurchaseBlock";
-import SubCoursesButtonBlock from "./components/SubCoursesButtonBlock";
+import Spinner from "../../../../../components/Spinner";
+import SubCourseBlock from "./components/SubCourseBlock";
+import PurchaseBlock from "../../components/PurchaseBlock";
+import SubCoursesButtonBlock from "../../components/SubCoursesButtonBlock";
 
-const PurchasesCoursePage = inject('userStore', 'purchaseStore')(observer((store) => {
-    const {purchaseStore} = store
+const PurchasesLessonPage = inject('userStore', 'purchaseStore', 'purCoursePageStore', 'subCourseStore', 'lessonStore')(observer((store) => {
+    const {purchaseStore, subCourseStore} = store
 
     useEffect(() => {
         // document.title = `${courseStore?.courseData?.predmet ?? 'Курс'} ${courseStore?.courseData?.courseExamType ?? ''}.${courseStore?.courseData?.courseType?.name ?? ''}`
         document.body.className = 'bg-light min-vh-100'
     }, [purchaseStore?.purchaseData]);
+
 
     return (
         <main className={'bg-content mt_navbar'}>
@@ -19,6 +21,7 @@ const PurchasesCoursePage = inject('userStore', 'purchaseStore')(observer((store
                     {!purchaseStore.loadError && <>
                         <PurchaseBlock/>
                         <SubCoursesButtonBlock/>
+                        {subCourseStore.spinner.spinnerStatus ? <Spinner type={'local'}/> :  <SubCourseBlock/>}
                     </>}
                 </>}
             </div>
@@ -26,4 +29,4 @@ const PurchasesCoursePage = inject('userStore', 'purchaseStore')(observer((store
     )
 }))
 
-export default PurchasesCoursePage;
+export default PurchasesLessonPage;

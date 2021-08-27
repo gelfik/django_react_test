@@ -1,9 +1,24 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {inject, observer} from "mobx-react";
-import {Link} from "react-router-dom";
+import {Link, useHistory, useParams} from "react-router-dom";
 
 const PurchaseBlock = inject('purchaseStore', 'modalStore')(observer((store) => {
     const {purchaseStore, modalStore} = store
+
+    const history = useHistory();
+    const queryParams = useParams()
+
+    useEffect(() => {
+        console.log(111)
+        if ((purchaseStore.purchaseData.length === 0) || (purchaseStore?.purchaseData?.id !== Number(queryParams?.purchaseID))) {
+            purchaseStore.loadPurchaseData(queryParams?.purchaseID).then(() => {
+                if (purchaseStore.loadError) {
+                    history.push(`/purchases`)
+                }
+            })
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [queryParams?.purchaseID])
 
     return (
         <section className={'Purchase PurchasePage'}>

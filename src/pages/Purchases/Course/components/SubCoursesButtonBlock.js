@@ -1,15 +1,18 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
+import {useHistory, useParams} from "react-router-dom";
 
-const SubCoursesButtonBlock = inject('purchaseStore', 'purCoursePageStore')(observer((store) => {
-    const {purchaseStore, purCoursePageStore} = store
+const SubCoursesButtonBlock = inject('purchaseStore', 'purCoursePageStore', 'subCourseStore')(observer((store) => {
+    const {purchaseStore} = store
+    const history = useHistory();
+    const queryParams = useParams()
 
     const getButtonSubCourses = () => {
         return purchaseStore?.purchaseData?.courseSub?.map((item, i) =>
             <button type="button"
-                    className={`btn btn-outline-dark SubCourses__ButtonSubActive ${item.id === purCoursePageStore.activeSub ? 'active' : ''}`}
+                    className={`btn btn-outline-dark SubCourses__ButtonSubActive ${item.id === Number(queryParams?.subID) ? 'active' : ''}`}
                     key={i} onClick={() => {
-                purCoursePageStore.setActiveSub(item.id)
+                history.push(`/purchases/${queryParams?.purchaseID}/sub/${item.id}`)
             }}>
                 {item.name}
             </button>

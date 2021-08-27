@@ -1,10 +1,26 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {inject, observer} from "mobx-react";
-import {dayText, mounthText} from "../../../../utils/DateService";
+import {dayText, mounthText} from "../../../../../utils/DateService";
 import Moment from 'moment';
+import StickyBox from "react-sticky-box";
+import {useHistory, useParams} from "react-router-dom";
 
-const LessonListBlock = inject('purchaseStore', 'purCoursePageStore', 'subCourseStore')(observer((store) => {
-    const {purCoursePageStore, subCourseStore} = store
+const LessonListBlock = inject('purchaseStore', 'subCourseStore')(observer((store) => {
+    const {purchaseStore, subCourseStore} = store
+    const history = useHistory();
+    const queryParams = useParams()
+
+    useEffect(() => {
+        if (purchaseStore?.purchaseData?.courseSub?.length > 0) {
+            if (Number(queryParams?.subID) !== subCourseStore.subCourseData?.id)
+                subCourseStore.loadSubCourseData(queryParams?.purchaseID, queryParams?.subID).then(() => {
+                    if (subCourseStore.subCourseError) {
+                        history.push(`/purchases`)
+                    }
+                })
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [queryParams?.subID])
 
     const getDate = (date) => {
         const newDate = Moment(date, "DD.MM.YYYY H:m")
@@ -21,9 +37,9 @@ const LessonListBlock = inject('purchaseStore', 'purCoursePageStore', 'subCourse
     const getLessons = (data, lessonDate) => {
         return data?.map((item, i) =>
             <div key={i} onClick={() => {
-                purCoursePageStore.setActiveLesson(item.id)
+                history.push(`/purchases/${queryParams?.purchaseID}/sub/${queryParams?.subID}/lesson/${item.id}`)
             }}
-                 className={`LessonList__Left__Item__Content ${item.id === purCoursePageStore.activeLesson ? 'LessonList__Left__Item__Active' : ''}`}>
+                 className={`LessonList__Left__Item__Content ${item.id === Number(queryParams?.lessonID) ? 'LessonList__Left__Item__Active' : ''}`}>
                 <div className="LessonList__Left__Item__Time">
                     {item.video && `${getTime(lessonDate)}мск`}
                 </div>
@@ -51,10 +67,10 @@ const LessonListBlock = inject('purchaseStore', 'purCoursePageStore', 'subCourse
 
     const getItemsLeasons = () => {
         return subCourseStore?.subCourseData?.lessons?.map((item, i) =>
-            <div className={'LessonList__Left__Item'} key={i}>
-                <div className="LessonList__Left__Item__Date">
+            <div className="LessonList__Left__Item" key={i}>
+                <StickyBox offsetTop={66} offsetBottom={20} className="LessonList__Left__Item__Date">
                     {getDate(item.lessonDate)}
-                </div>
+                </StickyBox>
                 <div className="LessonList__Left__Item__Panel">
                     <div className="LessonList__Left__Item__Wrapper">
                         {getLessons(item.lessonList, item.lessonDate)}
