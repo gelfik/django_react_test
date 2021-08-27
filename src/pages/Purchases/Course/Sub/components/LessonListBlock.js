@@ -80,8 +80,9 @@ const LessonListBlock = inject('purchaseStore', 'subCourseStore')(observer((stor
         )
     }
 
-    return (
-        <>{getItemsLeasons()}</>
+    return (<div className="LessonList__Left">
+            {getItemsLeasons()}
+        </div>
     )
 }))
 

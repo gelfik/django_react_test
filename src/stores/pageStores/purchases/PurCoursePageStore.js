@@ -4,25 +4,14 @@ import SpinnerStore from "../../SpinnerStore";
 
 export default class PurCoursePageStore {
     _spinner = new SpinnerStore()
-    _activeSub = undefined
-    _activeLesson = undefined
     _askActive = undefined
     _askCount = undefined
     _askAnswerCount = undefined
-
 
     constructor($client) {
         makeObservable(this, {
             _spinner: observable,
             spinner: computed,
-
-            _activeSub: observable,
-            activeSub: computed,
-            setActiveSub: action,
-
-            _activeLesson: observable,
-            activeLesson: computed,
-            setActiveLesson: action,
 
             _askActive: observable,
             askActive: computed,
@@ -61,22 +50,6 @@ export default class PurCoursePageStore {
 
     setAskActive = (value) => {
         this._askActive = value
-    }
-
-    get activeLesson() {
-        return this._activeLesson;
-    }
-
-    setActiveLesson = (value) => {
-        this._activeLesson = value
-    }
-
-    get activeSub() {
-        return this._activeSub;
-    }
-
-    setActiveSub = (value) => {
-        this._activeSub = value
     }
 
     get spinner() {

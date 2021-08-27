@@ -1,10 +1,11 @@
 import React, {useEffect} from "react";
 import {inject, observer} from "mobx-react";
+import {useHistory, useParams} from "react-router-dom";
+import StickyBox from "react-sticky-box";
 import Spinner from "../../../../../../components/Spinner";
 import LessonVideoBlock from "./LessonVideoBlock";
 import LessonFileBlock from "./LessonFileBlock";
 import LessonHomeworkBlock from "./LessonHomeworkBlock";
-import {useHistory, useParams} from "react-router-dom";
 
 const LessonBlock = inject('subCourseStore', 'lessonStore')(observer((store) => {
     const {subCourseStore, lessonStore} = store
@@ -26,7 +27,7 @@ const LessonBlock = inject('subCourseStore', 'lessonStore')(observer((store) => 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [queryParams?.lessonID])
 
-    return (<>
+    return (<StickyBox offsetTop={98} offsetBottom={20} className="LessonList__Right">
         {lessonStore.spinner.spinnerStatus ? <Spinner type={'local'}/> : <>
             <div className="LessonList__Right__Data">
                 <div className="LessonList__Right__Data__Title">
@@ -43,7 +44,7 @@ const LessonBlock = inject('subCourseStore', 'lessonStore')(observer((store) => 
                 </div>}
             </div>
         </>}
-    </>)
+    </StickyBox>)
 }))
 
 export default LessonBlock;

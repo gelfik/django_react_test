@@ -58,7 +58,9 @@ const LessonHomeworkBlock = inject('purchaseStore', 'purCoursePageStore', 'lesso
         return lessonStore.lessonData?.homework?.askList?.map((item, i) => (
             <div
                 className={`LessonList__Right__Data__Homework__Step__Wrapper ${purCoursePageStore.askActive === item.id ? 'active' : ''}`}
-                onClick={()=> {purCoursePageStore.setAskActive(item.id)}}>
+                onClick={() => {
+                    purCoursePageStore.setAskActive(item.id)
+                }}>
                     <span>
                         {i + 1}
                     </span>

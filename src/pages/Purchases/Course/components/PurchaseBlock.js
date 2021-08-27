@@ -9,7 +9,6 @@ const PurchaseBlock = inject('purchaseStore', 'modalStore')(observer((store) => 
     const queryParams = useParams()
 
     useEffect(() => {
-        console.log(111)
         if ((purchaseStore.purchaseData.length === 0) || (purchaseStore?.purchaseData?.id !== Number(queryParams?.purchaseID))) {
             purchaseStore.loadPurchaseData(queryParams?.purchaseID).then(() => {
                 if (purchaseStore.loadError) {
