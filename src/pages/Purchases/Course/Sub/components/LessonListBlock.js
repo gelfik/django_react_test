@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {inject, observer} from "mobx-react";
 import {dayText, mounthText} from "../../../../../utils/DateService";
 import Moment from 'moment';
@@ -6,7 +6,7 @@ import StickyBox from "react-sticky-box";
 import {useHistory, useParams} from "react-router-dom";
 
 const LessonListBlock = inject('purchaseStore', 'subCourseStore')(observer((store) => {
-    const {purchaseStore, subCourseStore} = store
+    const { subCourseStore} = store
     const history = useHistory();
     const queryParams = useParams()
 

@@ -1,20 +1,11 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef} from "react";
 import {inject, observer} from "mobx-react";
 import Carousel from "react-multi-carousel";
 
-const LessonHomeworkBlock = inject('purchaseStore', 'purCoursePageStore', 'lessonStore', 'uiStore')(observer((store) => {
-    const {purCoursePageStore, lessonStore, uiStore} = store
-
-    const [deviceType, setDeviceType] = useState(true);
+const LessonHomeworkBlock = inject('purchaseStore', 'purCoursePageStore', 'lessonStore')(observer((store) => {
+    const {purCoursePageStore, lessonStore} = store
 
     const carouselRef = useRef();
-
-    useEffect(() => {
-        if (uiStore.deviceType === "mobile") {
-            setDeviceType(false);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [uiStore.deviceType]);
 
 
     useEffect(() => {
@@ -29,14 +20,6 @@ const LessonHomeworkBlock = inject('purchaseStore', 'purCoursePageStore', 'lesso
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-
-    // const getItemFiles = (fileList) => {
-    //     return fileList?.map((item, i) =>
-    //         <p key={i}>
-    //             <a href={`${item.file}`} rel="noreferrer" target="_blank">{item.name}</a>
-    //         </p>
-    //     )
-    // }
 
     const responsive = {
         desktop: {

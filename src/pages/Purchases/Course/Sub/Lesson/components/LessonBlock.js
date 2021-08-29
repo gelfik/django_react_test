@@ -1,6 +1,5 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {inject, observer} from "mobx-react";
-import {useHistory, useParams} from "react-router-dom";
 import StickyBox from "react-sticky-box";
 import Spinner from "../../../../../../components/Spinner";
 import LessonVideoBlock from "./LessonVideoBlock";
