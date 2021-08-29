@@ -9,6 +9,7 @@ const UserPage = inject('userStore', 'pictureStore')(observer((stores) => {
     useEffect(() => {
         document.title = "Профиль"
         document.body.className = 'bg-light min-vh-100'
+        window.scrollTo(0, 0)
     }, []);
 
     const {userStore, pictureStore} = stores;

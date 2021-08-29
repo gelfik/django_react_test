@@ -34,6 +34,7 @@ class RootStore {
         this.courseStore = new CourseStore(this.$axios)
         this.buyCourseStore = new BuyCourseStore(this.$axios)
         this.purchasesListStore = new PurchasesListStore(this.$axios)
+
         this.purchaseStore = new PurchaseStore(this.$axios)
         this.subCourseStore = new SubCourseStore(this.$axios)
         this.lessonStore = new LessonStore(this.$axios)

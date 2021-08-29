@@ -9,6 +9,8 @@ export default class LessonStore {
 
     _loadError = false
 
+    _lessonID = undefined
+
     constructor($client) {
         makeObservable(this, {
             _lessonData: observable,
@@ -22,8 +24,23 @@ export default class LessonStore {
             _loadError: observable,
             loadError: computed,
             setLoadError: action,
+
+            _lessonID: observable,
+            lessonID: computed,
+            setLessonID: action,
         })
         this.client = $client;
+    }
+
+    get lessonID() {
+        return this._lessonID;
+    }
+
+    setLessonID = (purchaseID, subID, value) => {
+        if (this.lessonID !== value) {
+            this._lessonID = value
+            this.loadLessonData(purchaseID, subID, this.lessonID)
+        }
     }
 
     get loadError() {

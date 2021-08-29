@@ -10,18 +10,6 @@ const LessonListBlock = inject('purchaseStore', 'subCourseStore')(observer((stor
     const history = useHistory();
     const queryParams = useParams()
 
-    useEffect(() => {
-        if (purchaseStore?.purchaseData?.courseSub?.length > 0) {
-            if (Number(queryParams?.subID) !== subCourseStore.subCourseData?.id)
-                subCourseStore.loadSubCourseData(queryParams?.purchaseID, queryParams?.subID).then(() => {
-                    if (subCourseStore.subCourseError) {
-                        history.push(`/purchases`)
-                    }
-                })
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [queryParams?.subID])
-
     const getDate = (date) => {
         const newDate = Moment(date, "DD.MM.YYYY H:m")
         return `${newDate.date()} ${mounthText(newDate.month())}, ${dayText(newDate.day())}`

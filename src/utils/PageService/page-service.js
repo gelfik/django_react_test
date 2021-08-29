@@ -27,17 +27,24 @@ const PageService = inject('userStore')(observer((store) => {
         }
         return (
             <Router>
+                {/*<ScrollToTop/>*/}
                 <Header/>
                 <Switch>
                     <Route path='/' component={MainPage} exact/>
 
-                    <Route path='/purchases' exact render={() => !userStore.userAuthStatus ? <Redirect to='/'/> : <PurchasesPage/>}/>
-                    <Route path='/purchases/:purchaseID/sub/:subID/lesson/:lessonID' render={() => !userStore.userAuthStatus ? <Redirect to='/'/> : <PurchasesLessonPage/>}/>
-                    <Route path='/purchases/:purchaseID/sub/:subID' render={() => !userStore.userAuthStatus ? <Redirect to='/'/> : <PurchasesSubPage/>}/>
-                    <Route path='/purchases/:purchaseID' render={() => !userStore.userAuthStatus ? <Redirect to='/'/> : <PurchasesCoursePage/>}/>
+                    <Route path='/purchases/:purchaseID/sub/:subID/lesson/:lessonID' exact
+                           render={() => !userStore.userAuthStatus ? <Redirect to='/'/> : <PurchasesLessonPage/>}/>
+                    <Route path='/purchases/:purchaseID/sub/:subID'
+                           render={() => !userStore.userAuthStatus ? <Redirect to='/'/> : <PurchasesSubPage/>}/>
+                    <Route path='/purchases/:purchaseID'
+                           render={() => !userStore.userAuthStatus ? <Redirect to='/'/> : <PurchasesCoursePage/>}/>
+                    <Route path='/purchases' exact
+                           render={() => !userStore.userAuthStatus ? <Redirect to='/'/> : <PurchasesPage/>}/>
 
                     <Route path='/courses' component={CoursesPage} exact/>
-                    <Route path='/courses/:courseID/purchase' render={() => !userStore.userAuthStatus ? <Redirect to='/'/> : <CoursesCoursePurchasePage/>}/>
+                    <Route path='/courses/:courseID/purchase'
+                           render={() => !userStore.userAuthStatus ? <Redirect to='/'/> :
+                               <CoursesCoursePurchasePage/>}/>
                     <Route path='/courses/:courseID' component={CoursesCoursePage}/>
 
                     <Route path='/user'

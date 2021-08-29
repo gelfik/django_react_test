@@ -8,32 +8,7 @@ import LessonFileBlock from "./LessonFileBlock";
 import LessonHomeworkBlock from "./LessonHomeworkBlock";
 
 const LessonBlock = inject('subCourseStore', 'lessonStore', 'purchaseStore')(observer((store) => {
-    const {subCourseStore, lessonStore, purchaseStore} = store
-
-    const history = useHistory();
-    const queryParams = useParams()
-
-
-    useEffect(() => {
-        if (subCourseStore?.subCourseData?.lessons?.length > 0) {
-            if (subCourseStore?.subCourseData?.lessons[0]?.lessonList?.length > 0) {
-                if (Number(queryParams?.lessonID) !== lessonStore.lessonData?.id)
-                    lessonStore.loadLessonData(queryParams?.purchaseID, queryParams?.subID, queryParams?.lessonID).then(() => {
-                        if (lessonStore.loadError) {
-                            history.push(`/purchases`)
-                        }
-                    })
-            }
-        } else {
-            if (Number(queryParams?.subID) !== subCourseStore.subCourseData?.id)
-                subCourseStore.loadSubCourseData(queryParams?.purchaseID, queryParams?.subID).then(() => {
-                    if (subCourseStore.subCourseError) {
-                        history.push(`/purchases`)
-                    }
-                })
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [queryParams?.lessonID])
+    const {lessonStore} = store
 
     return (<StickyBox offsetTop={98} offsetBottom={20} className="LessonList__Right">
         {lessonStore.spinner.spinnerStatus ? <Spinner type={'local'}/> : <>

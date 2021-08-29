@@ -8,6 +8,7 @@ const CoursesPage = inject('userStore', 'coursesPageStore', 'spinnerStore')(obse
     useEffect(() => {
         document.title = "Курсы"
         document.body.className = 'bg-light min-vh-100'
+        window.scrollTo(0, 0)
     }, []);
 
     return (

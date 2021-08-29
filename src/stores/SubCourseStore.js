@@ -8,6 +8,8 @@ export default class SubCourseStore {
 
     _subCourseError = false
 
+    _subCourseID = undefined
+
     constructor($client) {
         makeObservable(this, {
             _subCourseData: observable,
@@ -21,9 +23,24 @@ export default class SubCourseStore {
             _subCourseError: observable,
             subCourseError: computed,
             setSubCourseError: action,
+
+            _subCourseID: observable,
+            subCourseID: computed,
+            setSubCourseID: action,
         })
 
         this.client = $client;
+    }
+
+    get subCourseID() {
+        return this._subCourseID;
+    }
+
+    setSubCourseID = (purchaseID, value) => {
+        if (this.subCourseID !== value) {
+            this._subCourseID = value
+            this.loadSubCourseData(purchaseID, this.subCourseID)
+        }
     }
 
     get subCourseError() {

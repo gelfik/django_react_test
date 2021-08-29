@@ -9,6 +9,8 @@ export default class PurchaseStore {
 
     _loadError = false
 
+    _purchaseID = undefined
+
     constructor($client) {
         makeObservable(this, {
             _purchaseData: observable,
@@ -19,11 +21,27 @@ export default class PurchaseStore {
             _spinner: observable,
             spinner: computed,
 
+
             _loadError: observable,
             loadError: computed,
             setLoadError: action,
+
+            _purchaseID: observable,
+            purchaseID: computed,
+            setPurchaseID: action,
         })
         this.client = $client;
+    }
+
+    get purchaseID() {
+        return this._purchaseID;
+    }
+
+    setPurchaseID = (value) => {
+        if ((this.purchaseData.length === 0) || (this.purchaseID !== value)) {
+            this._purchaseID = value
+            this.loadPurchaseData(this.purchaseID)
+        }
     }
 
     get loadError() {

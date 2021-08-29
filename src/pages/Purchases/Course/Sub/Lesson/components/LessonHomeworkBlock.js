@@ -13,7 +13,6 @@ const LessonHomeworkBlock = inject('purchaseStore', 'purCoursePageStore', 'lesso
         if (uiStore.deviceType === "mobile") {
             setDeviceType(false);
         }
-        console.log(uiStore.deviceType, deviceType);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [uiStore.deviceType]);
 

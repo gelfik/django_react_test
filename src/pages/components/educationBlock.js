@@ -25,7 +25,6 @@ const EducationBlock = inject(
       if (uiStore.deviceType === "mobile") {
         setDeviceType(false);
       }
-      console.log(uiStore.deviceType, deviceType);
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [uiStore.deviceType]);
 

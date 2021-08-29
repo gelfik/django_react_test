@@ -7,6 +7,7 @@ const CoursesCoursePage = inject('userStore', 'courseStore')(observer((store) =>
 
     useEffect(() => {
         courseStore.setCourseError(false)
+        window.scrollTo(0, 0)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

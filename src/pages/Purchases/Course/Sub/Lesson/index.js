@@ -8,7 +8,7 @@ import LessonBlock from "./components/LessonBlock";
 import {Link, useHistory, useParams} from "react-router-dom";
 
 const PurchasesLessonPage = inject('userStore', 'purchaseStore', 'purCoursePageStore', 'subCourseStore', 'lessonStore', 'uiStore')(observer((store) => {
-    const {purchaseStore, subCourseStore, uiStore} = store
+    const {purchaseStore, subCourseStore, lessonStore, uiStore} = store
     const history = useHistory();
     const queryParams = useParams()
 
@@ -18,42 +18,37 @@ const PurchasesLessonPage = inject('userStore', 'purchaseStore', 'purCoursePageS
     }, [purchaseStore?.purchaseData]);
 
     useEffect(() => {
-        if (uiStore.deviceType === 'mobile') {
-            if ((purchaseStore.purchaseData.length === 0) || (purchaseStore?.purchaseData?.id !== Number(queryParams?.purchaseID))) {
-                purchaseStore.loadPurchaseData(queryParams?.purchaseID).then(() => {
-                    if (purchaseStore.loadError) {
-                        history.push(`/purchases`)
-                    }
-                })
+        if (queryParams?.purchaseID) {
+            purchaseStore.setPurchaseID(queryParams?.purchaseID)
+            if (purchaseStore.loadError) {
+                history.push(`/purchases`)
             }
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [queryParams?.purchaseID])
-
-    useEffect(() => {
-        if (uiStore.deviceType === 'mobile') {
-            if (purchaseStore?.purchaseData?.courseSub?.length > 0) {
-                if (Number(queryParams?.subID) !== subCourseStore.subCourseData?.id)
-                    subCourseStore.loadSubCourseData(queryParams?.purchaseID, queryParams?.subID).then(() => {
-                        if (subCourseStore.subCourseError) {
-                            history.push(`/purchases`)
-                        }
-                    })
+        if (queryParams?.subID) {
+            subCourseStore.setSubCourseID(queryParams?.purchaseID, queryParams?.subID)
+            if (subCourseStore.loadError) {
+                history.push(`/purchases`)
             }
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [queryParams?.subID])
+        if (queryParams?.lessonID) {
+            lessonStore.setLessonID(queryParams?.purchaseID, queryParams?.subID, queryParams?.lessonID)
+            if (lessonStore.loadError) {
+                history.push(`/purchases`)
+            }
+        }
 
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [queryParams?.purchaseID, queryParams?.subID, queryParams.lessonID])
 
     return (
         <main className={'bg-content mt_navbar'}>
             <div className="container-banner">
                 {purchaseStore.spinner.spinnerStatus ? <Spinner type={'local'}/> : <>
                     {!purchaseStore.loadError && <>
-                        <PurchaseBlock/>
+                        {uiStore.deviceType !== 'mobile' && <PurchaseBlock/>}
                         {uiStore.deviceType === 'mobile' && <section className={'BackButton'}>
                             <Link to={`/purchases/${queryParams.purchaseID}/sub/${queryParams.subID}`}
-                                  className={'btn btn-dark'}>Назад</Link>
+                                  className={'btn btn-dark'}>к списку уроков</Link>
                         </section>}
                         {uiStore.deviceType !== 'mobile' && <SubCoursesButtonBlock/>}
                         {subCourseStore.spinner.spinnerStatus ? <Spinner type={'local'}/> :
