@@ -7,11 +7,12 @@ import LessonVideoBlock from "./LessonVideoBlock";
 import LessonFileBlock from "./LessonFileBlock";
 import LessonHomeworkBlock from "./LessonHomeworkBlock";
 
-const LessonBlock = inject('subCourseStore', 'lessonStore')(observer((store) => {
-    const {subCourseStore, lessonStore} = store
+const LessonBlock = inject('subCourseStore', 'lessonStore', 'purchaseStore')(observer((store) => {
+    const {subCourseStore, lessonStore, purchaseStore} = store
 
     const history = useHistory();
     const queryParams = useParams()
+
 
     useEffect(() => {
         if (subCourseStore?.subCourseData?.lessons?.length > 0) {
@@ -23,6 +24,13 @@ const LessonBlock = inject('subCourseStore', 'lessonStore')(observer((store) => 
                         }
                     })
             }
+        } else {
+            if (Number(queryParams?.subID) !== subCourseStore.subCourseData?.id)
+                subCourseStore.loadSubCourseData(queryParams?.purchaseID, queryParams?.subID).then(() => {
+                    if (subCourseStore.subCourseError) {
+                        history.push(`/purchases`)
+                    }
+                })
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [queryParams?.lessonID])

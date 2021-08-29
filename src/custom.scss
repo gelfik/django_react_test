@@ -2089,6 +2089,22 @@ li {
   transition-property: transform, -webkit-transform;
 }
 
+.BackButton {
+  width: 100%;
+  margin-bottom: 16px;
+  padding: 24px 24px;
+  background-color: #fff;
+  box-shadow: 0 1px 2px #ebeced;
+  border-radius: 8px;
+
+  @media (max-width: 767px) {
+    display: grid;
+  }
+
+  &__ButtonSubActive {
+    margin-right: 10px;
+  }
+}
 
 .SubCourses {
   width: 100%;
@@ -2097,6 +2113,10 @@ li {
   background-color: #fff;
   box-shadow: 0 1px 2px #ebeced;
   border-radius: 8px;
+
+  @media (max-width: 767px) {
+    display: grid;
+  }
 
   &__ButtonSubActive {
     margin-right: 10px;
@@ -2325,6 +2345,8 @@ li {
 
           a {
             color: #101010;
+            overflow-wrap: break-word;
+
           }
         }
       }
