@@ -1141,7 +1141,9 @@ li {
 }
 
 .LogoFonts {
-  font-family: "Comic Sans MS", "Comic Sans", cursive;
+  //font-family: "Comic Sans MS", "Comic Sans", cursive;
+  @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+  font-family: 'Roboto', sans-serif;
 }
 
 .scroll_y_off {
@@ -2457,15 +2459,39 @@ li {
             margin: 10px 6px;
             border: 2px solid transparent;
 
-            span {
-              font-size: 16px;
-              line-height: 20px;
+
+            &__AskNum {
               font-style: normal;
               font-weight: 400;
               text-align: center;
               letter-spacing: .02em;
               color: #101010;
+              font-size: 16px;
+              line-height: 20px;
             }
+
+            &__Pointer {
+              min-width: 32px;
+              position: absolute;
+              bottom: -15px;
+              z-index: 10;
+              white-space: nowrap;
+              background: #f2f3f5;
+              border: 1px solid #e0e2e7;
+              -webkit-box-sizing: border-box;
+              box-sizing: border-box;
+              border-radius: 24px;
+              padding: 2px 5px 3px 4px;
+              font-size: 10px;
+              line-height: 11px;
+              font-style: normal;
+            }
+
+            //span {
+            //  font-size: 16px;
+            //  line-height: 20px;
+            //}
+
           }
 
           .SuccesAnswer {
@@ -2486,6 +2512,7 @@ li {
               background: transparent;
             }
           }
+
           .active {
             background: #fff;
 
@@ -2547,6 +2574,11 @@ li {
 
             @media (max-width: 767px) {
               padding: 16px;
+            }
+
+            &:not(:last-child) {
+              margin-bottom: 2px;
+              border-radius: 8px 8px 0 0;
             }
           }
 
@@ -2618,7 +2650,42 @@ li {
             .form-floating {
               width: 100%;
             }
+          }
 
+          .Valid {
+            :checked {
+              background-color: #12da67;
+              border-color: #12da67;
+            }
+          }
+
+          .Error {
+            :checked {
+              background-color: #ff613f;
+              border-color: #ff613f;
+            }
+          }
+
+          .Block {
+
+            &__Title {
+              margin: 0 0 8px;
+              font-weight: 400;
+              font-size: 16px;
+              line-height: 20px;
+              letter-spacing: .02em;
+              color: #8e919c;
+            }
+
+            .IsValid {
+              color: #12da67;
+              margin: 0;
+            }
+
+            .IsInValid {
+              color: #ff613f;
+              margin: 0;
+            }
           }
 
           &__SuccesButton {

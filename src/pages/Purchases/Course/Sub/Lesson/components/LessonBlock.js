@@ -5,6 +5,7 @@ import Spinner from "../../../../../../components/Spinner";
 import LessonVideoBlock from "./LessonVideoBlock";
 import LessonFileBlock from "./LessonFileBlock";
 import LessonHomeworkBlock from "./LessonHomeworkBlock";
+import LessonHomeworkAnswerBlock from "./LessonHomeworkAnswerBlock";
 
 const LessonBlock = inject('subCourseStore', 'lessonStore', 'purchaseStore')(observer((store) => {
     const {lessonStore} = store
@@ -19,7 +20,11 @@ const LessonBlock = inject('subCourseStore', 'lessonStore', 'purchaseStore')(obs
                 </div>
                 {lessonStore.lessonData?.video && <LessonVideoBlock/>}
                 {lessonStore.lessonData?.files && <LessonFileBlock/>}
-                {lessonStore.lessonData?.homework && <LessonHomeworkBlock/>}
+                {lessonStore.lessonData?.homework && <>
+                    {lessonStore.lessonData?.homeworkAnswer && <LessonHomeworkAnswerBlock/>}
+                    {!lessonStore.lessonData?.homeworkAnswer && <LessonHomeworkBlock/>}
+                </>}
+
                 {lessonStore.lessonData?.description &&
                 <div className="LessonList__Right__Data__Description">
                     {lessonStore.lessonData?.description}

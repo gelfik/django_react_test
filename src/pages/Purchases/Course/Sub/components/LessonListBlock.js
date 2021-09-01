@@ -6,7 +6,7 @@ import StickyBox from "react-sticky-box";
 import {useHistory, useParams} from "react-router-dom";
 
 const LessonListBlock = inject('purchaseStore', 'subCourseStore')(observer((store) => {
-    const { subCourseStore} = store
+    const {subCourseStore} = store
     const history = useHistory();
     const queryParams = useParams()
 
@@ -21,6 +21,7 @@ const LessonListBlock = inject('purchaseStore', 'subCourseStore')(observer((stor
         let minute = newDate.minute(newDate.minutes()).format('mm')
         return `${hour}:${minute}`
     }
+
 
     const getLessons = (data, lessonDate) => {
         return data?.map((item, i) =>
@@ -37,10 +38,12 @@ const LessonListBlock = inject('purchaseStore', 'subCourseStore')(observer((stor
                             {item.video && 'Видео'}
                             {item.homework && 'Домашка'}
                             {item.files && 'Файл'}
+
                         </div>
                         {item.homework &&
                         <div className="LessonList__Left__Item__Data__Chips__Item">
-                            {item.homework.homeworkType}
+                            {item.homework?.answerStatus && 'решена'}
+                            {!item.homework?.answerStatus && 'не решена'}
                         </div>}
                     </div>
                     <div className="LessonList__Left__Item__Data__Title">

@@ -17,6 +17,7 @@ export default class LessonStore {
             lessonData: computed,
             setLessonData: action,
             loadLessonData: action,
+            loadHomeworkData: action,
 
             _spinner: observable,
             spinner: computed,
@@ -31,6 +32,8 @@ export default class LessonStore {
         })
         this.client = $client;
     }
+
+
 
     get lessonID() {
         return this._lessonID;
@@ -76,4 +79,19 @@ export default class LessonStore {
                 this.spinner.setSpinnerStatus(false)
             })
     }
+
+
+    loadHomeworkData = (purchaseID, subID, lessonID, homeworkID, data) => {
+        this.spinner.setSpinnerStatus(true)
+        return this.client.post(`/purchase/${purchaseID}/homework/${homeworkID}/`, data)
+            .then(response => {
+                this.setLoadError(false)
+                this.spinner.setSpinnerStatus(false)
+                this.loadLessonData(purchaseID, subID, lessonID)
+            }).catch(reason => {
+                this.setLoadError(true)
+                this.spinner.setSpinnerStatus(false)
+            })
+    }
+
 }
