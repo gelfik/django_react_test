@@ -79,7 +79,7 @@ const LessonHomeworkAnswerBlock = inject('purchaseStore', 'purCoursePageStore', 
                         </div>
 
                         {item.ask.askPicture && <div className="LessonList__Right__Data__Homework__Test__Ask">
-                            <img src={`http://192.168.1.64:8000${item?.ask.askPicture}`} alt={item.ask.ask}/>
+                            <img src={item?.ask.askPicture} alt={item.ask.ask}/>
                         </div>}
 
                         {/*<button className={'LessonList__Right__Data__Homework__Test__SuccesButton'} type={'button'}*/}

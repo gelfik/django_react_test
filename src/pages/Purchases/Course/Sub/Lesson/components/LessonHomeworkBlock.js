@@ -108,7 +108,7 @@ const LessonHomeworkBlock = inject('purchaseStore', 'purCoursePageStore', 'lesso
                         </div>
 
                         {item?.askPicture && <div className="LessonList__Right__Data__Homework__Test__Ask">
-                            <img src={`http://192.168.1.64:8000${item?.askPicture}`} alt={item.ask}/>
+                            <img src={item?.askPicture} alt={item.ask}/>
                         </div>}
                     </div>
                 </div>

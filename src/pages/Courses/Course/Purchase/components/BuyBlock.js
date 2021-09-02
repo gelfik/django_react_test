@@ -10,7 +10,7 @@ const BuyBlock = inject('purchasePageStore', 'courseStore')(observer((store) => 
 
     const inputPromo = useRef(null)
 
-    let totalPriceFull = (courseStore?.courseData?.price * courseStore?.courseData?.courseType?.durationCount) - ((courseStore?.courseData?.price * courseStore?.courseData?.discountDuration / 100) * courseStore?.courseData?.courseType?.durationCount)
+    let totalPriceFull = (courseStore?.courseData?.price * courseStore?.courseData?.countDuration) - ((courseStore?.courseData?.price * courseStore?.courseData?.discountDuration / 100) * courseStore?.courseData?.countDuration)
 
     useEffect(() => {
         purchasePageStore.setPromocodeData('', '', 0)
@@ -131,7 +131,7 @@ const BuyBlock = inject('purchasePageStore', 'courseStore')(observer((store) => 
                             </div>
                         </div>
                     </div>
-                    {courseStore?.courseData?.courseType?.durationCount > 1 &&
+                    {courseStore?.courseData?.countDuration > 1 &&
                     <div className="CourseInfo__PaymentType">
                         <h3>выберите тип оплаты</h3>
                         <div className="CourseInfo__PaymentType__Data">
@@ -164,7 +164,7 @@ const BuyBlock = inject('purchasePageStore', 'courseStore')(observer((store) => 
                                 <div
                                     className="CourseInfo__PaymentType__Data__Wrapper__Description CourseInfo__PaymentType__Data__Sale__Description">
                                     вы
-                                    потратите <s>{courseStore?.courseData?.price * courseStore?.courseData?.courseType?.durationCount} ₽</s> {totalPriceFull}₽
+                                    потратите <s>{courseStore?.courseData?.price * courseStore?.courseData?.countDuration} ₽</s> {totalPriceFull}₽
                                     за весь курс при единовременной оплате
                                 </div>
                             </div>
@@ -186,7 +186,7 @@ const BuyBlock = inject('purchasePageStore', 'courseStore')(observer((store) => 
                                 </div>
                                 <div className="CourseInfo__PaymentType__Data__Wrapper__Description">
                                     вы
-                                    потратите {courseStore?.courseData?.price * courseStore?.courseData?.courseType?.durationCount} ₽
+                                    потратите {courseStore?.courseData?.price * courseStore?.courseData?.countDuration} ₽
                                     за весь курс при ежемесячной оплате
                                 </div>
                             </div>
