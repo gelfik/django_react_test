@@ -12,6 +12,7 @@ export default class BuyCourseStore {
             buyText: computed,
             setBuyText: action,
             loadBuyData: action,
+            loadPurchaseBuyData: action,
         })
         this.client = $client;
     }
@@ -26,6 +27,18 @@ export default class BuyCourseStore {
 
     loadBuyData = (data) => {
         return this.client.post(`/purchase/buy/`, data)
+            .then(response => {
+                if (response?.data?.result === 'succes') {
+                    this.setBuyText('', response?.data?.message)
+                }
+                if (response?.data?.result === 'error') {
+                    this.setBuyText(response?.data?.message, '')
+                }
+            })
+    }
+
+    loadPurchaseBuyData = (data) => {
+        return this.client.post(`/purchase/purchaseBuy/`, data)
             .then(response => {
                 if (response?.data?.result === 'succes') {
                     this.setBuyText('', response?.data?.message)

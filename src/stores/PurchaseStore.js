@@ -37,8 +37,8 @@ export default class PurchaseStore {
         return this._purchaseID;
     }
 
-    setPurchaseID = (value) => {
-        if ((this.purchaseData.length === 0) || (this.purchaseID !== value)) {
+    setPurchaseID = (value, force=true) => {
+        if ((this.purchaseData.length === 0) || (this.purchaseID !== value) || (force)) {
             this._purchaseID = value
             this.loadPurchaseData(this.purchaseID)
         }

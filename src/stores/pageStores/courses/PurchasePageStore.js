@@ -16,6 +16,11 @@ export default class PurchasePageStore {
         id: undefined
     }
 
+    _buySub = {
+        text: '',
+        id: 0
+    }
+
     constructor($client, $buyCourseSore) {
         makeObservable(this, {
             _payType: observable,
@@ -43,29 +48,39 @@ export default class PurchasePageStore {
             buyStatus: computed,
             setBuyStatus: action,
             loadCheckBuy: action,
+
+            _buySub: observable,
+            buySub: computed,
+            setBuySub: action,
+
         })
         this.buyCourseStore = $buyCourseSore;
         this.client = $client;
     }
 
-    get courseError() {
-        return this._courseError;
+    get buySub() {
+        return this._buySub;
     }
 
-    setCourseError(value) {
-        this._courseError = value
+    setBuySub(text, id) {
+        this._buySub = {text: text, id: id}
     }
 
-    buyData = (courseID) => {
+    buyData = (purchaseID) => {
         const data = {}
-        data.courseID=courseID
+        data.purchaseID=purchaseID
         if (this.promocodeData.promocode !== '') {
             data.promocode=this.promocodeData.promocode
         }
         if (this.payType) {
             data.buyAll=this.payType
         }
-        return this.buyCourseStore.loadBuyData(data)
+
+        if ((this.buySub.name !== '') && !this.payType) {
+            data.subID=this.buySub.id
+        }
+
+        return this.buyCourseStore.loadPurchaseBuyData(data)
     }
 
     get buyStatus() {

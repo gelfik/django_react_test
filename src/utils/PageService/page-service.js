@@ -19,6 +19,7 @@ import PurchasesPage from "../../pages/Purchases";
 import PurchasesCoursePage from "../../pages/Purchases/Course";
 import PurchasesSubPage from "../../pages/Purchases/Course/Sub";
 import PurchasesLessonPage from "../../pages/Purchases/Course/Sub/Lesson";
+import PurchasesPurchasePage from "../../pages/Purchases/Course/Purchase";
 
 const PageService = inject('userStore')(observer((store) => {
         const {userStore} = store
@@ -36,6 +37,8 @@ const PageService = inject('userStore')(observer((store) => {
                            render={() => !userStore.userAuthStatus ? <Redirect to='/'/> : <PurchasesLessonPage/>}/>
                     <Route path='/purchases/:purchaseID/sub/:subID'
                            render={() => !userStore.userAuthStatus ? <Redirect to='/'/> : <PurchasesSubPage/>}/>
+                    <Route path='/purchases/:purchaseID/purchase'
+                           render={() => !userStore.userAuthStatus ? <Redirect to='/'/> : <PurchasesPurchasePage/>}/>
                     <Route path='/purchases/:purchaseID'
                            render={() => !userStore.userAuthStatus ? <Redirect to='/'/> : <PurchasesCoursePage/>}/>
                     <Route path='/purchases' exact
