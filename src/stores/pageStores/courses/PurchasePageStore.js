@@ -66,9 +66,9 @@ export default class PurchasePageStore {
         this._buySub = {text: text, id: id}
     }
 
-    buyData = (purchaseID) => {
+    buyData = (courseID) => {
         const data = {}
-        data.purchaseID=purchaseID
+        data.courseID=courseID
         if (this.promocodeData.promocode !== '') {
             data.promocode=this.promocodeData.promocode
         }

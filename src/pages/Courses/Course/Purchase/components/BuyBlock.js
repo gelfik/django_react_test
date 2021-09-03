@@ -75,8 +75,9 @@ const BuyBlock = inject('purchasePageStore', 'courseStore')(observer((store) => 
 
     const buySubmit = () => {
         purchasePageStore.buyData(queryParams?.courseID).then(() => {
+            console.log(purchasePageStore.buyCourseStore.buyText)
             if (purchasePageStore.buyCourseStore.buyText.valid !== '') {
-                history.push(`/purchases/${queryParams?.courseID}`)
+                history.push(`/purchases`)
             }
         })
     }

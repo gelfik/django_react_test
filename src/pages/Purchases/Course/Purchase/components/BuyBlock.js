@@ -25,7 +25,7 @@ const BuyBlock = inject('purchasePageStore', 'purchaseCourseStore', 'purchaseSto
                 }
                 else {
                     let data = purchaseCourseStore.courseData?.courseSub[0]
-                purchasePageStore.setBuySub(data?.name, data?.id)
+                    purchasePageStore.setBuySub(data?.name, data?.id)
                 }
 
             })
