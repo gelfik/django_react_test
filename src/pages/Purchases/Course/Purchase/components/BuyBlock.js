@@ -23,8 +23,11 @@ const BuyBlock = inject('purchasePageStore', 'purchaseCourseStore', 'purchaseSto
                 if (purchaseCourseStore.courseError) {
                     history.push(`/purchases`)
                 }
-                let data = purchaseCourseStore.courseData?.courseSub[0]
+                else {
+                    let data = purchaseCourseStore.courseData?.courseSub[0]
                 purchasePageStore.setBuySub(data?.name, data?.id)
+                }
+
             })
         }
 
