@@ -76,6 +76,20 @@ export default class PurchasePageStore {
             data.buyAll=this.payType
         }
 
+        return this.buyCourseStore.loadBuyData(data)
+    }
+
+
+    buyPurchaseData = (purchaseID) => {
+        const data = {}
+        data.purchaseID=purchaseID
+        if (this.promocodeData.promocode !== '') {
+            data.promocode=this.promocodeData.promocode
+        }
+        if (this.payType) {
+            data.buyAll=this.payType
+        }
+
         if ((this.buySub.name !== '') && !this.payType) {
             data.subID=this.buySub.id
         }
