@@ -22,7 +22,7 @@ const BannerBlock = inject('userStore', 'coursePageStore', 'modalStore', 'course
         const buyFreeSubmit = () => {
             coursePageStore.buyFreeData(queryParams?.courseID).then(() => {
                 if (coursePageStore.buyCourseStore.buyText.valid !== '') {
-                    history.push(`/purchases/${queryParams?.courseID}`)
+                    history.push(`/purchases`)
                 }
             })
         }
