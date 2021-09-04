@@ -91,7 +91,7 @@ const EducationBlock = inject(
                     <Carousel
                         responsive={responsive}
                         ref={carouselRef}
-                        arrows={false}
+                        arrows={true}
                         infinite={true}
                         autoPlay={true}
                         autoPlaySpeed={10000}
