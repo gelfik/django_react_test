@@ -19,37 +19,23 @@ const PurchasesSubPage = inject('userStore', 'purchaseStore', 'subCourseStore', 
     }, [purchaseStore?.purchaseData]);
 
     useEffect(() => {
-        if (queryParams?.purchaseID) {
-            purchaseStore.setPurchaseID(queryParams?.purchaseID)
-            if (purchaseStore.loadError) {
-                history.push(`/purchases`)
-            }
-        }
+        purchaseStore.setLoadError(false)
+        subCourseStore.setSubCourseError(false)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
-        if (queryParams?.subID) {
-            subCourseStore.setSubCourseID(queryParams?.purchaseID, queryParams?.subID)
-            if (subCourseStore.loadError) {
-                history.push(`/purchases`)
-            }
+    useEffect(() => {
+        if ((purchaseStore.loadError) || (subCourseStore.subCourseError)) {
+            history.push(`/purchases`)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [purchaseStore.loadError, subCourseStore.subCourseError])
 
+    useEffect(() => {
+        purchaseStore.setPurchaseID(queryParams?.purchaseID)
+        subCourseStore.setSubCourseID(queryParams?.purchaseID, queryParams?.subID)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [queryParams?.purchaseID, queryParams?.subID])
-
-    // useEffect(() => {
-    //     if (queryParams?.subID) {
-    //         if (purchaseStore?.purchaseData?.courseSub?.length > 0) {
-    //             if (Number(queryParams?.subID) !== subCourseStore.subCourseData?.id)
-    //                 subCourseStore.loadSubCourseData(queryParams?.purchaseID, queryParams?.subID).then(() => {
-    //                     if (subCourseStore.subCourseError) {
-    //                         history.push(`/purchases`)
-    //                     }
-    //                 })
-    //         }
-    //     }
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [queryParams?.subID])
-
 
     return (
         <main className={'bg-content mt_navbar'}>

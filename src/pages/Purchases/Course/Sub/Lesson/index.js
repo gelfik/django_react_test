@@ -17,26 +17,26 @@ const PurchasesLessonPage = inject('userStore', 'purchaseStore', 'purCoursePageS
         document.body.className = 'bg-light min-vh-100'
     }, [purchaseStore?.purchaseData]);
 
-    useEffect(() => {
-        if (queryParams?.purchaseID) {
-            purchaseStore.setPurchaseID(queryParams?.purchaseID)
-            if (purchaseStore.loadError) {
-                history.push(`/purchases`)
-            }
-        }
-        if (queryParams?.subID) {
-            subCourseStore.setSubCourseID(queryParams?.purchaseID, queryParams?.subID)
-            if (subCourseStore.loadError) {
-                history.push(`/purchases`)
-            }
-        }
-        if (queryParams?.lessonID) {
-            lessonStore.setLessonID(queryParams?.purchaseID, queryParams?.subID, queryParams?.lessonID)
-            if (lessonStore.loadError) {
-                history.push(`/purchases`)
-            }
-        }
 
+    useEffect(() => {
+        purchaseStore.setLoadError(false)
+        subCourseStore.setSubCourseError(false)
+        lessonStore.setLoadError(false)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    useEffect(() => {
+        if ((purchaseStore.loadError) || (subCourseStore.subCourseError) || (lessonStore.loadError)) {
+            history.push(`/purchases`)
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [purchaseStore.loadError, subCourseStore.subCourseError, lessonStore.loadError])
+
+
+    useEffect(() => {
+        purchaseStore.setPurchaseID(queryParams?.purchaseID)
+        subCourseStore.setSubCourseID(queryParams?.purchaseID, queryParams?.subID)
+        lessonStore.setLessonID(queryParams?.purchaseID, queryParams?.subID, queryParams?.lessonID)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [queryParams?.purchaseID, queryParams?.subID, queryParams.lessonID])
 

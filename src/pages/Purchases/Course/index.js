@@ -17,21 +17,20 @@ const PurchasesCoursePage = inject('userStore', 'purchaseStore')(observer((store
         window.scrollTo(0, 0)
     }, [purchaseStore?.purchaseData]);
 
+    useEffect(() => {
+        purchaseStore.setLoadError(false)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     useEffect(() => {
-        if (queryParams?.purchaseID) {
-            purchaseStore.setPurchaseID(queryParams?.purchaseID)
-            if (purchaseStore.loadError) {
-                history.push(`/purchases`)
-            }
-            // if ((purchaseStore.purchaseData.length === 0) || (purchaseStore?.purchaseData?.id !== Number(queryParams?.purchaseID))) {
-            //     purchaseStore.loadPurchaseData(queryParams?.purchaseID).then(() => {
-            //         if (purchaseStore.loadError) {
-            //             history.push(`/purchases`)
-            //         }
-            //     })
-            // }
+        if (purchaseStore.loadError) {
+            history.push(`/purchases`)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [purchaseStore.loadError])
+
+    useEffect(() => {
+        purchaseStore.setPurchaseID(queryParams?.purchaseID)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [queryParams?.purchaseID])
 
