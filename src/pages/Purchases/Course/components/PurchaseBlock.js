@@ -7,20 +7,20 @@ const PurchaseBlock = inject('purchaseStore', 'modalStore')(observer((store) => 
 
     const getMentors = () => {
         return purchaseStore?.purchaseData?.course?.mentors?.map((item, i) =>
-            <div className="Purchase__Contact__Item Purchase__Contact__Mentors__Item">
+            <div className="Course__Contact__Item Course__Contact__Mentors__Item">
                 <img src={`${item?.avatar?.file?.small}`}
                      alt={`${item?.firstName} ${item?.lastName}`}/>
-                <div className="Purchase__Contact__Item__Content">
-                    <div className="Purchase__Contact__Item__Content__Name">
+                <div className="Course__Contact__Item__Content">
+                    <div className="Course__Contact__Item__Content__Name">
                         <p>
                             {item?.firstName} {item?.lastName}
                         </p>
                     </div>
 
-                    <div className="Purchase__Contact__Item__Content__Links">
+                    <div className="Course__Contact__Item__Content__Links">
                         <a href={item?.vkLink}
                            rel="noreferrer"
-                           className={"Purchase__Contact__Item__Content__Links__Button"}
+                           className={"Course__Contact__Item__Content__Links__Button"}
                            target="_blank">
                             <svg aria-hidden="true" height="20" width="20">
                                 <use xlinkHref={'#icon-vk-2'}/>
@@ -36,15 +36,15 @@ const PurchaseBlock = inject('purchaseStore', 'modalStore')(observer((store) => 
     }
 
     return (
-        <section className={'Purchase PurchasePage'}>
-            <div className="Purchase__Item Purchase__Left">
-                <div className="Purchase__Item__Content">
-                    <div className="Purchase__Item__Header">
-                        <div className="Purchase__Item__Data">
-                            <div className="Purchase__Item__Avatar">
+        <section className={'Course CoursePage'}>
+            <div className="Course__Item Course__Left">
+                <div className="Course__Item__Content">
+                    <div className="Course__Item__Header">
+                        <div className="Course__Item__Data">
+                            <div className="Course__Item__Avatar">
                                 <img src={`${purchaseStore?.purchaseData?.course?.coursePicture}`} alt=''/>
                             </div>
-                            <div className="Purchase__Item__Title">
+                            <div className="Course__Item__Title">
                                 <p>{purchaseStore?.purchaseData?.course?.name}</p>
                                 <div className="Chips">
                                     <div className="Chips__Item">
@@ -60,9 +60,9 @@ const PurchaseBlock = inject('purchaseStore', 'modalStore')(observer((store) => 
                                 </div>
                             </div>
                         </div>
-                        <div className="Purchase__Item__PayInfo">
+                        <div className="Course__Item__PayInfo">
                             {purchaseStore?.purchaseData?.courseSubAll &&
-                            <span className="Purchase__Item__PayInfo__PayStatus">
+                            <span className="Course__Item__PayInfo__PayStatus">
                                         <svg fill="none" height="16" width="16">
                                             <use xlinkHref={'#check-valid'}/>
                                         </svg>
@@ -71,9 +71,9 @@ const PurchaseBlock = inject('purchaseStore', 'modalStore')(observer((store) => 
                             }
                             {!purchaseStore?.purchaseData?.courseSubAll &&
                             <Link to={`/purchases/${purchaseStore?.purchaseData?.id}/purchase`}
-                                  className="Purchase__Item__PayInfo__Link">Докупить
+                                  className="Course__Item__PayInfo__Link">Докупить
                                 курс</Link>}
-                            <div className="Purchase__Item__PayInfo__Link" onClick={() => {
+                            <div className="Course__Item__PayInfo__Link" onClick={() => {
                                 modalStore.PurchaseDetailModalShow();
                             }}>история платежей
                             </div>
@@ -81,22 +81,22 @@ const PurchaseBlock = inject('purchaseStore', 'modalStore')(observer((store) => 
                     </div>
                 </div>
             </div>
-            <div className="Purchase__Contact Purchase__Right">
-                <div className="Purchase__Contact__Teacher">
-                    <div className="Purchase__Contact__Title">
+            <div className="Course__Contact Course__Right">
+                <div className="Course__Contact__Teacher">
+                    <div className="Course__Contact__Title">
                         преподаватель
                     </div>
-                    <div className="Purchase__Contact__Item">
+                    <div className="Course__Contact__Item">
                         <img src={`${purchaseStore?.purchaseData?.course?.teacher?.user?.avatar?.file?.small}`}
                              alt={`${purchaseStore?.purchaseData?.course?.teacher?.user?.firstName} ${purchaseStore?.purchaseData?.course?.teacher?.user?.lastName}`}/>
-                        <div className="Purchase__Contact__Item__Content">
-                            <div className="Purchase__Contact__Item__Content__Name">
+                        <div className="Course__Contact__Item__Content">
+                            <div className="Course__Contact__Item__Content__Name">
                                 <p>
                                     {purchaseStore?.purchaseData?.course?.teacher?.user?.firstName} {purchaseStore?.purchaseData?.course?.teacher?.user?.lastName}
                                 </p>
                             </div>
 
-                            <div className="Purchase__Contact__Item__Content__Links">
+                            <div className="Course__Contact__Item__Content__Links">
 
                                 {purchaseStore?.purchaseData?.course?.teacher?.teacherLink?.vk && (
                                     <TeacherSocial
@@ -130,8 +130,8 @@ const PurchaseBlock = inject('purchaseStore', 'modalStore')(observer((store) => 
                 </div>
 
                 {purchaseStore?.purchaseData?.course?.mentors?.length > 0 &&
-                <div className="Purchase__Contact__Teacher Purchase__Contact__Mentors">
-                    <div className="Purchase__Contact__Title">
+                <div className="Course__Contact__Teacher Course__Contact__Mentors">
+                    <div className="Course__Contact__Title">
                         наставник
                     </div>
                     {getMentors()}
@@ -177,7 +177,7 @@ const TeacherSocial = ({type, teacher}) => {
     return (
         <a href={teacher.teacherLink[type]}
            rel="noreferrer"
-           className={"Purchase__Contact__Item__Content__Links__Button"}
+           className={"Course__Contact__Item__Content__Links__Button"}
            target="_blank">
             {svgType()}
         </a>

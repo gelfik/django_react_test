@@ -5,20 +5,26 @@ export default class ModalStore {
     _showRegisterModalStatus = false
     _showPurchaseDetailModalStatus = false
 
+    _showCourseAddModalStatus = false
+
     constructor() {
         makeObservable(this, {
             _showLoginModalStatus: observable,
             _showRegisterModalStatus: observable,
             _showPurchaseDetailModalStatus: observable,
+            _showCourseAddModalStatus: observable,
             LoginModalStatus: computed,
             RegisterModalStatus: computed,
             PurchaseDetailModalStatus: computed,
+            CourseAddModalStatus: computed,
             LoginModalClose: action,
             LoginModalShow: action,
             RegisterModalClose: action,
             RegisterModalShow: action,
             PurchaseDetailModalClose: action,
             PurchaseDetailModalShow: action,
+            CourseAddModalClose: action,
+            CourseAddModalShow: action,
         })
     }
 
@@ -32,6 +38,10 @@ export default class ModalStore {
 
     get PurchaseDetailModalStatus() {
         return this._showPurchaseDetailModalStatus;
+    }
+
+    get CourseAddModalStatus() {
+        return this._showCourseAddModalStatus;
     }
 
     LoginModalClose = () => {
@@ -53,5 +63,12 @@ export default class ModalStore {
     }
     PurchaseDetailModalShow = () => {
         this._showPurchaseDetailModalStatus = true;
+    }
+
+    CourseAddModalClose = () => {
+        this._showCourseAddModalStatus = false;
+    }
+    CourseAddModalShow = () => {
+        this._showCourseAddModalStatus = true;
     }
 }

@@ -211,7 +211,7 @@ export default class UserStore {
     }
 
     _transformUserData(userData) {
-        return {
+        let data = {
             email: userData.email,
             username: userData.username,
             phone: userData.phone,
@@ -221,7 +221,14 @@ export default class UserStore {
             patronymic: userData.patronymic,
             avatar: this._transformAvatarData(userData.avatar?.file),
             // avatar: userData.avatar,
-            isActive: userData.is_active
+            isActive: userData.is_active,
         }
+        if (userData.isTeacher) {
+            data['isTeacher'] = userData.isTeacher
+        }
+        if (userData.isMentor) {
+            data['isMentor'] = userData.isMentor
+        }
+        return data
     }
 }
