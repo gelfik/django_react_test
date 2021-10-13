@@ -8,9 +8,6 @@ const LessonHomeworkAnswerBlock = inject('purchaseStore', 'purCoursePageStore', 
 
     const carouselRef = useRef();
 
-
-
-
     useEffect(() => {
         purCoursePageStore.setAskActive(undefined)
         purCoursePageStore.setAskCount(undefined)

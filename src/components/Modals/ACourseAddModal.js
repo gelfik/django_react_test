@@ -4,42 +4,42 @@ import Modal from "react-bootstrap/Modal";
 import {useHistory} from "react-router-dom";
 import {useForm} from "react-hook-form";
 
-const CourseAddModal = inject('userStore', 'modalStore', 'acoursesStore')(observer((stores) => {
-    const {modalStore, acoursesStore} = stores;
+const CourseAddModal = inject('userStore', 'modalStore', 'acoursesListStore')(observer((stores) => {
+    const {modalStore, acoursesListStore} = stores;
 
     const {register, handleSubmit} = useForm();
     const history = useHistory();
 
     const onSubmitAdd = (data) => {
-        acoursesStore.loadCourseAdd(data).then(()=> {
-            if (acoursesStore.courseAddData?.status) {
+        acoursesListStore.loadCourseAdd(data).then(()=> {
+            if (acoursesListStore.courseAddData?.status) {
                 modalStore.CourseAddModalClose()
-                history.push(`/apanel/courses/${acoursesStore.courseAddData?.id}`)
+                history.push(`/apanel/course/${acoursesListStore.courseAddData?.id}`)
             }
         })
     }
 
     useEffect(() => {
-        acoursesStore.setErrorAdd(undefined)
-        acoursesStore.setCourseAddData({})
+        acoursesListStore.setErrorAdd(undefined)
+        acoursesListStore.setCourseAddData({})
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [acoursesStore])
+    }, [acoursesListStore])
 
 
     const getItemCourseName = () => {
-        return acoursesStore?.filterData?.courseType?.map((item, i) =>
+        return acoursesListStore?.filterData?.courseType?.map((item, i) =>
             <option key={i} value={item.id}>{item.name}</option>
         )
     }
 
     const getItemPredmet = () => {
-        return acoursesStore?.filterData?.predmet?.map((item, i) =>
+        return acoursesListStore?.filterData?.predmet?.map((item, i) =>
             <option key={i} value={item.id}>{item.name}</option>
         )
     }
 
     const getItemExameType = () => {
-        return acoursesStore?.filterData?.examType?.map((item, i) =>
+        return acoursesListStore?.filterData?.examType?.map((item, i) =>
             <option key={i} value={item.id}>{item.name}</option>
         )
     }
@@ -62,8 +62,8 @@ const CourseAddModal = inject('userStore', 'modalStore', 'acoursesStore')(observ
                                    required placeholder={'Название'}/>
                             <label htmlFor={'name'}>Название</label>
                         </div>
-                        {acoursesStore?.errorsAdd && acoursesStore?.errorsAdd['name'] &&
-                        <p className={'custom-alert-danger-text'}>{acoursesStore?.errorsAdd['name']}</p>}
+                        {acoursesListStore?.errorsAdd && acoursesListStore?.errorsAdd['name'] &&
+                        <p className={'custom-alert-danger-text'}>{acoursesListStore?.errorsAdd['name']}</p>}
                     </div>
 
                     <div className="col-lg-12 col-12 mb-3">
@@ -73,8 +73,8 @@ const CourseAddModal = inject('userStore', 'modalStore', 'acoursesStore')(observ
                                       required placeholder={'Краткое описание'}/>
                             <label htmlFor={'shortDescription'}>Краткое описание</label>
                         </div>
-                        {acoursesStore?.errorsAdd && acoursesStore?.errorsAdd['shortDescription'] &&
-                        <p className={'custom-alert-danger-text'}>{acoursesStore?.errorsAdd['shortDescription']}</p>}
+                        {acoursesListStore?.errorsAdd && acoursesListStore?.errorsAdd['shortDescription'] &&
+                        <p className={'custom-alert-danger-text'}>{acoursesListStore?.errorsAdd['shortDescription']}</p>}
                     </div>
 
                     <div className="col-lg-12 col-12 mb-3">
@@ -84,8 +84,8 @@ const CourseAddModal = inject('userStore', 'modalStore', 'acoursesStore')(observ
                                       required placeholder={'Полное описание'}/>
                             <label htmlFor={'description'}>Полное описание</label>
                         </div>
-                        {acoursesStore?.errorsAdd && acoursesStore?.errorsAdd['description'] &&
-                        <p className={'custom-alert-danger-text'}>{acoursesStore?.errorsAdd['description']}</p>}
+                        {acoursesListStore?.errorsAdd && acoursesListStore?.errorsAdd['description'] &&
+                        <p className={'custom-alert-danger-text'}>{acoursesListStore?.errorsAdd['description']}</p>}
                     </div>
 
                     <div className="row g-2 mb-3">
@@ -97,8 +97,8 @@ const CourseAddModal = inject('userStore', 'modalStore', 'acoursesStore')(observ
                                 </select>
                                 <label htmlFor={'predmet'}>Предмет</label>
                             </div>
-                            {acoursesStore?.errorsAdd && acoursesStore?.errorsAdd['predmet'] &&
-                            <p className={'custom-alert-danger-text'}>{acoursesStore?.errorsAdd['predmet']}</p>}
+                            {acoursesListStore?.errorsAdd && acoursesListStore?.errorsAdd['predmet'] &&
+                            <p className={'custom-alert-danger-text'}>{acoursesListStore?.errorsAdd['predmet']}</p>}
                         </div>
 
                         <div className="col-md">
@@ -109,8 +109,8 @@ const CourseAddModal = inject('userStore', 'modalStore', 'acoursesStore')(observ
                                 </select>
                                 <label htmlFor={'courseType'}>Курс</label>
                             </div>
-                            {acoursesStore?.errorsAdd && acoursesStore?.errorsAdd['courseType'] &&
-                            <p className={'custom-alert-danger-text'}>{acoursesStore?.errorsAdd['courseType']}</p>}
+                            {acoursesListStore?.errorsAdd && acoursesListStore?.errorsAdd['courseType'] &&
+                            <p className={'custom-alert-danger-text'}>{acoursesListStore?.errorsAdd['courseType']}</p>}
                         </div>
 
                         <div className="col-md">
@@ -121,8 +121,8 @@ const CourseAddModal = inject('userStore', 'modalStore', 'acoursesStore')(observ
                                 </select>
                                 <label htmlFor={'courseExamType'}>Экзамен</label>
                             </div>
-                            {acoursesStore?.errorsAdd && acoursesStore?.errorsAdd['courseExamType'] &&
-                            <p className={'custom-alert-danger-text'}>{acoursesStore?.errorsAdd['courseExamType']}</p>}
+                            {acoursesListStore?.errorsAdd && acoursesListStore?.errorsAdd['courseExamType'] &&
+                            <p className={'custom-alert-danger-text'}>{acoursesListStore?.errorsAdd['courseExamType']}</p>}
                         </div>
                     </div>
 
@@ -144,8 +144,8 @@ const CourseAddModal = inject('userStore', 'modalStore', 'acoursesStore')(observ
                                        required placeholder={'Цена за месяц'}/>
                                 <label htmlFor={'price'}>Цена за месяц</label>
                             </div>
-                            {acoursesStore?.errorsAdd && acoursesStore?.errorsAdd['price'] &&
-                            <p className={'custom-alert-danger-text'}>{acoursesStore?.errorsAdd['price']}</p>}
+                            {acoursesListStore?.errorsAdd && acoursesListStore?.errorsAdd['price'] &&
+                            <p className={'custom-alert-danger-text'}>{acoursesListStore?.errorsAdd['price']}</p>}
                         </div>
 
                         <div className="col-md">
@@ -155,8 +155,8 @@ const CourseAddModal = inject('userStore', 'modalStore', 'acoursesStore')(observ
                                        required placeholder={'Скидка в % за весь курс'}/>
                                 <label htmlFor={'discountDuration'}>Скидка в % за весь курс</label>
                             </div>
-                            {acoursesStore?.errorsAdd && acoursesStore?.errorsAdd['discountDuration'] &&
-                            <p className={'custom-alert-danger-text'}>{acoursesStore?.errorsAdd['discountDuration']}</p>}
+                            {acoursesListStore?.errorsAdd && acoursesListStore?.errorsAdd['discountDuration'] &&
+                            <p className={'custom-alert-danger-text'}>{acoursesListStore?.errorsAdd['discountDuration']}</p>}
                         </div>
                     </div>
 
@@ -168,8 +168,8 @@ const CourseAddModal = inject('userStore', 'modalStore', 'acoursesStore')(observ
                                 <label className={'form-check-label'} htmlFor={'buyAllSubCourses'}>Покупка всего
                                     курса</label>
                             </div>
-                            {acoursesStore?.errorsAdd && acoursesStore?.errorsAdd['buyAllSubCourses'] &&
-                            <p className={'custom-alert-danger-text'}>{acoursesStore?.errorsAdd['buyAllSubCourses']}</p>}
+                            {acoursesListStore?.errorsAdd && acoursesListStore?.errorsAdd['buyAllSubCourses'] &&
+                            <p className={'custom-alert-danger-text'}>{acoursesListStore?.errorsAdd['buyAllSubCourses']}</p>}
                     </div>
 
 

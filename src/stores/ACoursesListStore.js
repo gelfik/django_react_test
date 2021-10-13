@@ -2,7 +2,7 @@ import {action, computed, makeObservable, observable, toJS} from "mobx";
 import SpinnerStore from "./SpinnerStore";
 
 
-export default class ACoursesStore {
+export default class ACoursesListStore {
     _filterData = []
     _coursesData = []
     _filterRequest = {
@@ -73,7 +73,7 @@ export default class ACoursesStore {
     }
 
     loadFilterData = () => {
-        return this.client.get('/apanel/courses/metadata/')
+        return this.client.get('/apanel/course/metadata/')
             .then(response => {
                 this.setFilterData(response.data)
             })
@@ -88,7 +88,7 @@ export default class ACoursesStore {
     }
 
     loadCoursesData = () => {
-        return this.client.get('/apanel/courses/list/')
+        return this.client.get('/apanel/course/list/')
             .then(response => {
                 this.setCoursesData(response.data)
             })
@@ -150,7 +150,7 @@ export default class ACoursesStore {
         // }
         this.spinner.setSpinnerStatus(true)
         this.setFilterRequestOld(data)
-        return this.client.get(`/apanel/courses/list/`, {params: data})
+        return this.client.get(`/apanel/course/list/`, {params: data})
             .then(response => {
                 this.setCoursesData(response.data)
                 this.spinner.setSpinnerStatus(false)
@@ -181,12 +181,12 @@ export default class ACoursesStore {
 
 
     loadCourseAdd = (data) => {
-        return this.client.post('/apanel/courses/add/', data).then((response) => {
+        return this.client.post('/apanel/course/add/', data).then((response) => {
             // console.log(response.data.status)
             this.setCourseAddData(response.data)
             this.setErrorAdd(undefined)
         }).catch(errors => {
-            console.log(errors.response.data?.errors)
+            this.setCourseAddData({})
             if (errors.response.data?.errors) {
                 this.setErrorAdd(errors.response.data?.errors)
             }

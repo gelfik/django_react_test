@@ -2,7 +2,6 @@ import React, {useEffect} from "react";
 import {inject, observer} from "mobx-react";
 import Spinner from "../../../../../components/Spinner";
 import PurchaseBlock from "../../components/PurchaseBlock";
-import SubCoursesButtonBlock from "../../components/SubCoursesButtonBlock";
 import LessonListBlock from "../components/LessonListBlock";
 import LessonBlock from "./components/LessonBlock";
 import {Link, useHistory, useParams} from "react-router-dom";
@@ -50,7 +49,6 @@ const PurchasesLessonPage = inject('userStore', 'purchaseStore', 'purCoursePageS
                             <Link to={`/purchases/${queryParams.purchaseID}/sub/${queryParams.subID}`}
                                   className={'btn btn-dark'}>к списку уроков</Link>
                         </section>}
-                        {uiStore.deviceType !== 'mobile' && <SubCoursesButtonBlock/>}
                         {subCourseStore.spinner.spinnerStatus ? <Spinner type={'local'}/> :
                             <section className={'LessonList'}>
                                 {uiStore.deviceType !== 'mobile' && <LessonListBlock/>}

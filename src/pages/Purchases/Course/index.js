@@ -2,7 +2,6 @@ import React, {useEffect} from "react";
 import {inject, observer} from "mobx-react";
 import Spinner from "../../../components/Spinner";
 import PurchaseBlock from "./components/PurchaseBlock";
-import SubCoursesButtonBlock from "./components/SubCoursesButtonBlock";
 import {useHistory, useParams} from "react-router-dom";
 
 const PurchasesCoursePage = inject('userStore', 'purchaseStore')(observer((store) => {
@@ -40,7 +39,7 @@ const PurchasesCoursePage = inject('userStore', 'purchaseStore')(observer((store
                 {purchaseStore.spinner.spinnerStatus ? <Spinner type={'local'}/> : <>
                     {!purchaseStore.loadError && <>
                         <PurchaseBlock/>
-                        <SubCoursesButtonBlock/>
+                        {/*<SubCoursesButtonBlock/>*/}
                     </>}
                 </>}
             </div>

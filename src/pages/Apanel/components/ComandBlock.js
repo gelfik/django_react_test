@@ -7,9 +7,9 @@ const ComandBlock = inject('userStore')(observer((store) => {
     const history = useHistory();
 
     return (
-        <div className="Navigation-Wrapper">
+        // <div className="Navigation-Wrapper">
             <div className="Navigation">
-                <Link to={'/user'} className="Navigation__User" >
+                <Link to={'/apanel'} className="Navigation__User" >
                     <img src={userStore.userData.avatar?.small} alt={`${userStore.userData.lastName} ${userStore.userData.firstName}`}/>
                     
                     <div className="Navigation__User__Name">
@@ -20,7 +20,7 @@ const ComandBlock = inject('userStore')(observer((store) => {
                         {userStore.userData.isMentor && 'Наставник'}
                     </div>
                 </Link>
-                <Link to={'/apanel/courses'} className={`Navigation__Item ${history.location.pathname.startsWith('/apanel/courses') && 'Active'}`} >
+                <Link to={'/apanel/course'} className={`Navigation__Item ${history.location.pathname.startsWith('/apanel/course') && 'Active'}`} >
                     <svg width="32" height="32">
                         <use xlinkHref={'#icon-course'}/>
                     </svg>
@@ -33,7 +33,7 @@ const ComandBlock = inject('userStore')(observer((store) => {
                     <span>пользователи</span>
                 </Link>
             </div>
-        </div>
+        // </div>
     )
 }))
 

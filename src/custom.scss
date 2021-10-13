@@ -1878,7 +1878,7 @@ li {
   margin-bottom: 10px;
 }
 
-.Course, .CoursePage {
+.CoursePage {
   padding: 40px 0;
 
   @media (max-width: 767px) {
@@ -1894,6 +1894,10 @@ li {
   }
 }
 
+.CursorPointer {
+  cursor: pointer;
+}
+
 .Course {
   height: auto;
   width: 100%;
@@ -1903,22 +1907,23 @@ li {
   //grid-row-gap: 24px;
 
   &__Left {
-    grid-column: 1/2;
+    grid-column: 1/4;
     grid-row: 1;
 
     @media (max-width: 767px) {
       grid-column: 1;
-      grid-row: 1/2;
+      grid-row: 1/4;
     }
   }
 
   &__Right {
-    grid-column: 2/2;
+    grid-column: 4/4;
     grid-row: 1;
+    //max-width: 300px;
 
     @media (max-width: 767px) {
       grid-column: 1;
-      grid-row: 2/2;
+      grid-row: 4/4;
     }
   }
 
@@ -1934,6 +1939,7 @@ li {
     -webkit-box-shadow: 0 1px 2px #ebeced;
     box-shadow: 0 1px 2px #ebeced;
     border-radius: 8px;
+    height: max-content;
 
     &__Content {
       -webkit-box-orient: vertical;
@@ -2130,7 +2136,7 @@ li {
 
         & p {
           font-size: 18px;
-              font-weight: 600;
+          font-weight: 600;
           line-height: 18px;
           letter-spacing: .02em;
           margin: 0;
@@ -2177,6 +2183,10 @@ li {
 
     }
 
+    &__PurchaseUser, &__Item {
+      margin-bottom: 10px;
+    }
+
     &__Title {
       font-size: 20px;
       line-height: 24px;
@@ -2209,7 +2219,7 @@ li {
           flex-direction: column;
           margin-bottom: 5px;
 
-          p {
+          &__User {
             margin: 0 0 2px;
             font-weight: 400;
             font-size: 16px;
@@ -2283,6 +2293,10 @@ li {
 
   .Navigation-Wrapper {
     align-self: flex-start;
+
+    @media (max-width: 767px) {
+      display: none;
+    }
   }
 
   .Navigation {
@@ -2386,7 +2400,7 @@ li {
   }
 
   .Content-Wrapper {
-
+    align-self: flex-start;
   }
 
 
@@ -2417,6 +2431,48 @@ li {
     }
   }
 
+  .SubCourses {
+    //margin: 0;
+    //padding: 0;
+    //padding-top: 24px;
+    //box-shadow: none;
+    //border-radius: 0;
+
+    @media (max-width: 767px) {
+      display: grid;
+    }
+
+    &__ButtonSubActive {
+      margin-right: 10px;
+
+    }
+  }
+
+  .LessonList__Left {
+    width: 35%;
+
+    &__Item {
+      &__Date {
+        display: flex;
+        justify-content: space-between;
+
+        p {
+          margin: 0;
+        }
+
+        &__Admin {
+          svg {
+            margin-left: 5px;
+          }
+        }
+
+      }
+    }
+  }
+
+  .LessonList__Right {
+    width: 60%;
+  }
 }
 
 //.react-multiple-carousel__arrow {
@@ -2536,6 +2592,34 @@ li {
 
       }
     }
+
+    &__SubCourse {
+      //margin-top: 28px;
+
+      &__Title {
+        font-size: 20px;
+        line-height: 24px;
+        letter-spacing: .02em;
+        color: #000;
+      }
+
+      &__Data {
+        padding-top: 16px;
+        flex-wrap: wrap;
+
+        &__Name {
+          margin-right: 10px;
+          font-size: 20px;
+          font-family: Platform LC Web, sans-serif;
+          font-style: normal;
+          font-weight: 600;
+          color: #101010;
+          display: inline-flex;
+        }
+
+      }
+    }
+
   }
 }
 
@@ -2606,9 +2690,9 @@ li {
 
   &__ButtonSubActive {
     margin-right: 10px;
+    margin-bottom: 10px;
   }
 }
-
 
 .LessonList {
   display: flex;
@@ -2745,6 +2829,36 @@ li {
             align-items: flex-start;
             //background-color: rgba(255, 86, 63, .2);
             background-color: #e7e9ed;
+            border-radius: 22px;
+            font-size: 14px;
+            line-height: 18px;
+            letter-spacing: .02em;
+          }
+
+          &__ItemClose {
+            background-color: #ff613f;
+            color: #101010;
+            margin: 8px 8px 8px 0;
+            padding: 1px 8px 3px;
+            display: -webkit-box;
+            display: flex;
+            -webkit-box-align: start;
+            align-items: flex-start;
+            border-radius: 22px;
+            font-size: 14px;
+            line-height: 18px;
+            letter-spacing: .02em;
+          }
+
+          &__ItemOpen {
+            background-color: #12da67;
+            color: #101010;
+            margin: 8px 8px 8px 0;
+            padding: 1px 8px 3px;
+            display: -webkit-box;
+            display: flex;
+            -webkit-box-align: start;
+            align-items: flex-start;
             border-radius: 22px;
             font-size: 14px;
             line-height: 18px;
@@ -3176,7 +3290,6 @@ li {
     }
   }
 }
-
 
 .Table {
   padding-top: 16px;

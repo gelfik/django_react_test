@@ -79,7 +79,7 @@ const CoursesBlock = inject('userStore', 'coursesPageStore')(observer((store) =>
             // </div>
         )
     }
-    // {coursesPageStore.spinner.spinnerStatus ? <Spinner type={'local'}/> : <CoursesBlock/>}
+    // {coursesPageStore.spinner.spinnerStatus ? <Spinner type={'local'}/> : <CourseBlock/>}
 
     return (
         <>

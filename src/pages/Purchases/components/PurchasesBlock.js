@@ -22,7 +22,7 @@ const PurchasesBlock = inject('userStore', 'purchasesListStore', 'modalStore', '
 
     const getItemPurchases = () => {
         return purchasesListStore?.purchasesListData?.map((item, i) =>
-            <div className="Course__Item" key={item?.id}>
+            <div className="Course__Item" key={i}>
                 <div className="Course__Item__Content">
                     <div className="Course__Item__Header">
                         <Link to={`/purchases/${item?.id}`} className="Course__Item__Data">

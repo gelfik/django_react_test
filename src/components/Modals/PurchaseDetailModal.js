@@ -8,7 +8,7 @@ const PurchaseDetailModal = inject('userStore', 'modalStore', 'purchaseStore')(o
 
     const getPayData = () => {
         return purchaseStore?.purchaseData?.purchasePay?.map((item, i) =>
-            <div key={item} className="Table__Row">
+            <div key={i} className="Table__Row">
                 <div className="Table__Col">
                     {item.date}
                 </div>

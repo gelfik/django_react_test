@@ -1,13 +1,15 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
-import {Link} from "react-router-dom";
+import {Link, useHistory, useParams} from "react-router-dom";
 
 const PurchaseBlock = inject('purchaseStore', 'modalStore')(observer((store) => {
     const {purchaseStore, modalStore} = store
+    const history = useHistory();
+    const queryParams = useParams()
 
     const getMentors = () => {
         return purchaseStore?.purchaseData?.course?.mentors?.map((item, i) =>
-            <div className="Course__Contact__Item Course__Contact__Mentors__Item">
+            <div key={i} className="Course__Contact__Item Course__Contact__Mentors__Item">
                 <img src={`${item?.avatar?.file?.small}`}
                      alt={`${item?.firstName} ${item?.lastName}`}/>
                 <div className="Course__Contact__Item__Content">
@@ -35,50 +37,69 @@ const PurchaseBlock = inject('purchaseStore', 'modalStore')(observer((store) => 
         )
     }
 
+
+    const getButtonSubCourses = () => {
+        return purchaseStore?.purchaseData?.courseSub?.map((item, i) =>
+            <button type="button"
+                    className={`btn btn-outline-dark SubCourses__ButtonSubActive ${item.id === Number(queryParams?.subID) ? 'active' : ''}`}
+                    key={i} onClick={() => {
+                history.push(`/purchases/${queryParams?.purchaseID}/sub/${item.id}`)
+            }}>
+                {item.name}
+            </button>
+        )
+    }
+
     return (
         <section className={'Course CoursePage'}>
-            <div className="Course__Item Course__Left">
-                <div className="Course__Item__Content">
-                    <div className="Course__Item__Header">
-                        <div className="Course__Item__Data">
-                            <div className="Course__Item__Avatar">
-                                <img src={`${purchaseStore?.purchaseData?.course?.coursePicture}`} alt=''/>
-                            </div>
-                            <div className="Course__Item__Title">
-                                <p>{purchaseStore?.purchaseData?.course?.name}</p>
-                                <div className="Chips">
-                                    <div className="Chips__Item">
-                                        {purchaseStore?.purchaseData?.course?.predmet}
-                                        <span/>
-                                    </div>
-                                    <div className="Chips__Item">
-                                        {purchaseStore?.purchaseData?.course?.courseExamType}
-                                    </div>
-                                    <div className="Chips__Item">
-                                        {purchaseStore?.purchaseData?.course?.courseType}
+            <div className="Course__Left">
+                <div className="Course__Item">
+                    <div className="Course__Item__Content">
+                        <div className="Course__Item__Header">
+                            <div className="Course__Item__Data">
+                                <div className="Course__Item__Avatar">
+                                    <img src={`${purchaseStore?.purchaseData?.course?.coursePicture}`} alt=''/>
+                                </div>
+                                <div className="Course__Item__Title">
+                                    <p>{purchaseStore?.purchaseData?.course?.name}</p>
+                                    <div className="Chips">
+                                        <div className="Chips__Item">
+                                            {purchaseStore?.purchaseData?.course?.predmet}
+                                            <span/>
+                                        </div>
+                                        <div className="Chips__Item">
+                                            {purchaseStore?.purchaseData?.course?.courseExamType}
+                                        </div>
+                                        <div className="Chips__Item">
+                                            {purchaseStore?.purchaseData?.course?.courseType}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="Course__Item__PayInfo">
-                            {purchaseStore?.purchaseData?.courseSubAll &&
-                            <span className="Course__Item__PayInfo__PayStatus">
+                            <div className="Course__Item__PayInfo">
+                                {purchaseStore?.purchaseData?.courseSubAll &&
+                                <span className="Course__Item__PayInfo__PayStatus">
                                         <svg fill="none" height="16" width="16">
                                             <use xlinkHref={'#check-valid'}/>
                                         </svg>
                                         <p>Курс куплен полностью</p>
                                     </span>
-                            }
-                            {!purchaseStore?.purchaseData?.courseSubAll &&
-                            <Link to={`/purchases/${purchaseStore?.purchaseData?.id}/purchase`}
-                                  className="Course__Item__PayInfo__Link">Докупить
-                                курс</Link>}
-                            <div className="Course__Item__PayInfo__Link" onClick={() => {
-                                modalStore.PurchaseDetailModalShow();
-                            }}>история платежей
+                                }
+                                {!purchaseStore?.purchaseData?.courseSubAll &&
+                                <Link to={`/purchases/${purchaseStore?.purchaseData?.id}/purchase`}
+                                      className="Course__Item__PayInfo__Link">Докупить
+                                    курс</Link>}
+                                <div className="Course__Item__PayInfo__Link" onClick={() => {
+                                    modalStore.PurchaseDetailModalShow();
+                                }}>история платежей
+                                </div>
                             </div>
                         </div>
                     </div>
+                </div>
+                 <div className={'SubCourses'}>
+                    <h3>подкурсы</h3>
+                    {getButtonSubCourses()}
                 </div>
             </div>
             <div className="Course__Contact Course__Right">
