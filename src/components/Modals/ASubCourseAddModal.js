@@ -8,7 +8,7 @@ const ASubCourseAddModal = inject('userStore', 'modalStore')(observer((stores) =
     return (
         <Modal show={modalStore.ASubCourseModalStatus} centered onHide={modalStore.ASubCourseModalClose}>
             <Modal.Header>
-                <Modal.Title>Вход</Modal.Title>
+                <Modal.Title>Добавление подкурса</Modal.Title>
                 <button type="button" className="btn-close" aria-label="Close" onClick={modalStore.ASubCourseModalClose}/>
             </Modal.Header>
             <Modal.Body>
