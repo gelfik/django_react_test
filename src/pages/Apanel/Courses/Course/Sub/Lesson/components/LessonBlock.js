@@ -6,7 +6,6 @@ import LessonVideoBlock from "./LessonVideoBlock";
 import LessonFileBlock from "./LessonFileBlock";
 import LessonHomeworkBlock from "./LessonHomeworkBlock";
 
-
 const LessonBlock = inject('userStore', 'alessonStore')(observer((store) => {
     const {alessonStore} = store
 
