@@ -12,7 +12,7 @@ const ASubCourseAddModal = inject('userStore', 'modalStore')(observer((stores) =
                 <button type="button" className="btn-close" aria-label="Close" onClick={modalStore.ASubCourseModalClose}/>
             </Modal.Header>
             <Modal.Body>
-                Privetik =)
+                Privetik :)
             </Modal.Body>
         </Modal>
     )
