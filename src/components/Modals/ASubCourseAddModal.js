@@ -1,10 +1,9 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 import Modal from "react-bootstrap/Modal";
-import ErrorAlert from "../ErrorAlert";
 
 const ASubCourseAddModal = inject('userStore', 'modalStore')(observer((stores) => {
-    const {userStore, modalStore} = stores;
+    const {modalStore} = stores;
 
     return (
         <Modal show={modalStore.ASubCourseModalStatus} centered onHide={modalStore.ASubCourseModalClose}>
