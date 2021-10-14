@@ -9,17 +9,19 @@ import APurchaseUserModal from "./APurchaseUserModal";
 const RootModal = inject('userStore')(observer((stores) => {
     const {userStore} = stores
     return (<>
-        {!userStore.userAuthStatus && <LoginModal/>}
-        {!userStore.userAuthStatus && <RegisterModal/>}
-        {userStore.userAuthStatus && <PurchaseDetailModal/>}
+        {!userStore.userAuthStatus && <>
+            <LoginModal/>
+            <RegisterModal/>
+        </>
+        }
         {userStore.userAuthStatus && <>
+            <PurchaseDetailModal/>
             {userStore.userData.isTeacher && <>
                 <ACourseAddModal/>
                 <APurchaseUserModal/>
             </>}
         </>}
     </>)
-}
-))
+}))
 
 export default RootModal;

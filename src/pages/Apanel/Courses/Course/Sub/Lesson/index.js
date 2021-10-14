@@ -4,7 +4,6 @@ import ComandBlock from "../../../../components/ComandBlock";
 import CourseBlock from "../../components/CourseBlock";
 import {useHistory, useParams} from "react-router-dom";
 import Spinner from "../../../../../../components/Spinner";
-import PurchaseListBlock from "../../components/PurchaseBlock";
 import SubCourseButtonsBlock from "../../components/SubCourseButtonsBlock";
 import LessonListBlock from "../components/LessonListBlock";
 import LessonBlock from "./components/LessonBlock";

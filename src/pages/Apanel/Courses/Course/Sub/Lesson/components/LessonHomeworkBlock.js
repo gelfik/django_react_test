@@ -3,14 +3,13 @@ import {inject, observer} from "mobx-react";
 import Carousel from "react-multi-carousel";
 import {useForm} from "react-hook-form";
 import {Form, FloatingLabel} from "react-bootstrap";
-import {useParams} from "react-router-dom";
 
 const LessonHomeworkBlock = inject('aCoursePageStore', 'alessonStore')(observer((store) => {
     const {aCoursePageStore, alessonStore} = store
     // const queryParams = useParams()
     const carouselRef = useRef();
 
-    const {register, getValues, handleSubmit} = useForm();
+    const {register, getValues} = useForm();
     // const onSubmit = (data) => {
     //     console.log(JSON.stringify(data));
     //     alessonStore.loadHomeworkData(queryParams?.purchaseID, queryParams?.subID, queryParams?.lessonID, alessonStore.lessonData?.homework?.id, data)
