@@ -2,8 +2,8 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 import {useHistory, useParams} from "react-router-dom";
 
-const SubCourseButtonsBlock = inject('userStore', 'acourseStore')(observer((store) => {
-    const {acourseStore} = store
+const SubCourseButtonsBlock = inject('userStore', 'acourseStore', 'modalStore')(observer((store) => {
+    const {acourseStore, modalStore} = store
     const queryParams = useParams()
     const history = useHistory();
 
@@ -22,6 +22,9 @@ const SubCourseButtonsBlock = inject('userStore', 'acourseStore')(observer((stor
     return (
         <div className={'SubCourses'}>
             <h3>подкурсы</h3>
+            <svg aria-hidden="true" height="20" width="20" className={'SubCourses__PlusButton'} onClick={modalStore.ASubCourseModalShow}>
+                        <use xlinkHref={'#icon-plus'}/>
+                    </svg>
             {getButtonSubCourses()}
         </div>
     )
