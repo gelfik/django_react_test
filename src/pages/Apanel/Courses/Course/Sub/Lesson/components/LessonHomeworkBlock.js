@@ -4,7 +4,6 @@ import Carousel from "react-multi-carousel";
 import {useForm} from "react-hook-form";
 import {Form, FloatingLabel} from "react-bootstrap";
 
-
 const LessonHomeworkBlock = inject('aCoursePageStore', 'alessonStore')(observer((store) => {
     const {aCoursePageStore, alessonStore} = store
     // const queryParams = useParams()
