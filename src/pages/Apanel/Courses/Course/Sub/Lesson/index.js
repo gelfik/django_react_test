@@ -9,6 +9,7 @@ import LessonListBlock from "../components/LessonListBlock";
 import LessonBlock from "./components/LessonBlock";
 import MentorBlock from "../../components/MentorsBlock";
 
+
 const ApanelLessonPage = inject('userStore', 'acourseStore', 'acoursesListStore', 'asubCourseStore', 'alessonStore')(observer((store) => {
     useEffect(() => {
         document.title = "Курсы"
