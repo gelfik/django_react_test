@@ -1161,178 +1161,213 @@ li {
     padding: 0 12px;
   }
 
-  .BannerCourse {
-    margin: 32px auto;
+}
+
+.BannerCourse {
+  margin: 32px auto;
+  border-radius: 8px;
+  overflow: hidden;
+  padding-top: 0 !important;
+  display: block;
+
+  @media (min-width: 767px) {
+    //position: fixed;
+    //padding-top: 66px;
+  }
+
+  &__Wrapper {
+    width: 100%;
+    background-color: $white;
     border-radius: 8px;
-    overflow: hidden;
-    padding-top: 0 !important;
-    display: block;
 
-    @media (min-width: 767px) {
-      //position: fixed;
-      //padding-top: 66px;
-    }
+    &__SidebarInfo {
+      padding: 48px;
+      display: grid;
+      grid-row: 1/2;
+      grid-column-gap: 32px;
+      grid-template-columns: 88px auto;
+      @media (max-width: 767px) {
+        padding: 16px;
+      }
 
-    &__Wrapper {
-      width: 100%;
-      background-color: $white;
-      border-radius: 8px;
-
-      &__SidebarInfo {
-        padding: 48px;
-        display: grid;
-        grid-row: 1/2;
-        grid-column-gap: 32px;
-        grid-template-columns: 88px auto;
+      &__Avatar {
+        grid-row: 1/end;
         @media (max-width: 767px) {
-          padding: 16px;
+          grid-column: 1/2;
         }
 
-        &__Avatar {
+        img {
+          display: inline-block;
+          width: 88px;
+          height: 88px;
+          border-radius: 50%;
+          max-width: 100%;
+          @media (max-width: 767px) {
+            width: 56px;
+            height: 56px;
+          }
+        }
+      }
+
+      &__Items {
+        grid-column: 2/3;
+        align-items: flex-start;
+        @media (max-width: 767px) {
+          display: grid;
+          grid-template-columns: 56px auto;
+          grid-column-gap: 16px;
+          grid-column: 1/3;
           grid-row: 1/end;
-          @media (max-width: 767px) {
-            grid-column: 1/2;
-          }
-
-          img {
-            display: inline-block;
-            width: 88px;
-            height: 88px;
-            border-radius: 50%;
-            max-width: 100%;
-            @media (max-width: 767px) {
-              width: 56px;
-              height: 56px;
-            }
-          }
         }
 
-        &__Items {
-          grid-column: 2/3;
-          align-items: flex-start;
+        .Title {
+          font-size: 28px;
+          line-height: 34px;
+          letter-spacing: .02em;
+          color: #101010;
+          display: grid;
           @media (max-width: 767px) {
-            display: grid;
-            grid-template-columns: 56px auto;
-            grid-column-gap: 16px;
-            grid-column: 1/3;
-            grid-row: 1/end;
+            grid-column: 2/3;
+            font-size: 24px;
+            line-height: 28px;
           }
 
-          .Title {
-            font-size: 28px;
-            line-height: 34px;
-            letter-spacing: .02em;
+
+          &__Price {
+            grid-column: 3/3;
             color: #101010;
-            display: grid;
+            font-size: 32px;
+            line-height: 36px;
+            letter-spacing: .02em;
+            white-space: nowrap;
+            text-align: right;
+            font-style: normal;
             @media (max-width: 767px) {
-              grid-column: 2/3;
-              font-size: 24px;
-              line-height: 28px;
-            }
-
-
-            &__Price {
-              grid-column: 3/3;
-              color: #101010;
-              font-size: 32px;
-              line-height: 36px;
-              letter-spacing: .02em;
-              white-space: nowrap;
-              text-align: right;
-              font-style: normal;
-              @media (max-width: 767px) {
-                display: none;
-              }
-            }
-          }
-
-
-          .Description {
-            position: relative;
-            margin-top: 23px;
-            white-space: break-spaces;
-            @media (max-width: 767px) {
-              grid-column: 1/3;
-              margin-top: 10px;
-
-              &:before {
-                content: "";
-                position: absolute;
-                bottom: -24px;
-                width: calc(100% + 32px);
-                margin-left: -16px;
-                height: 2px;
-                background-color: #f2f3f5;
-              }
-            }
-          }
-
-          .DetailCourse {
-            margin-top: 40px;
-            @media (max-width: 767px) {
-              margin-top: 50px;
-              grid-column: 1/3;
-            }
-          }
-
-          .BuyData {
-            margin-top: 48px;
-            display: flex;
-            -webkit-box-align: center;
-            align-items: center;
-            -webkit-box-pack: start;
-            justify-content: flex-end;
-            @media (max-width: 767px) {
-              justify-content: flex-start;
-              grid-column: 2/3;
-              font-size: 24px;
-              line-height: 28px;
-            }
-
-            &__Button {
-              padding: 8px 24px 12px;
-              font-family: Platform LC Web, Arial, sans-serif;
-              font-style: normal;
-              font-weight: 400;
-              font-size: 16px;
-              line-height: 20px;
-              letter-spacing: .02em;
-              text-transform: lowercase;
-              color: #fff;
-              background-color: #101010;
-              border-radius: 8px;
-              border: none;
-              outline: none;
-              cursor: pointer;
-              text-decoration: none;
-              @media (max-width: 767px) {
-                width: calc(100% - 32px);
-                position: fixed;
-                bottom: 20px;
-                left: 50%;
-                z-index: 5;
-                transform: translateX(-50%);
-                padding: 15px 24px 17px;
-                font-size: 20px;
-                line-height: 24px;
-                box-shadow: 0 3px 6px rgba(16, 16, 16, .15), 0 10px 32px rgba(16, 16, 16, .45)
-              }
-            }
-
-            &__Price {
-              position: relative;
-              margin-left: 60px;
-              font-size: 32px;
-              line-height: 36px;
-              letter-spacing: .02em;
-              white-space: nowrap;
-              @media (max-width: 767px) {
-                margin-left: 0;
-                margin-bottom: 28px;
-              }
+              display: none;
             }
           }
         }
+
+
+        .Description {
+          position: relative;
+          margin-top: 23px;
+          white-space: break-spaces;
+          @media (max-width: 767px) {
+            grid-column: 1/3;
+            margin-top: 10px;
+
+            &:before {
+              content: "";
+              position: absolute;
+              bottom: -24px;
+              width: calc(100% + 32px);
+              margin-left: -16px;
+              height: 2px;
+              background-color: #f2f3f5;
+            }
+          }
+        }
+
+        .DetailCourse {
+          margin-top: 40px;
+          @media (max-width: 767px) {
+            margin-top: 50px;
+            grid-column: 1/3;
+          }
+        }
+
+        .BuyData {
+          margin-top: 48px;
+          display: flex;
+          -webkit-box-align: center;
+          align-items: center;
+          -webkit-box-pack: start;
+          justify-content: flex-end;
+          @media (max-width: 767px) {
+            justify-content: flex-start;
+            grid-column: 2/3;
+            font-size: 24px;
+            line-height: 28px;
+          }
+
+          &__Button {
+            padding: 8px 24px 12px;
+            font-family: Platform LC Web, Arial, sans-serif;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 20px;
+            letter-spacing: .02em;
+            text-transform: lowercase;
+            color: #fff;
+            background-color: #101010;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            text-decoration: none;
+            @media (max-width: 767px) {
+              width: calc(100% - 32px);
+              position: fixed;
+              bottom: 20px;
+              left: 50%;
+              z-index: 5;
+              transform: translateX(-50%);
+              padding: 15px 24px 17px;
+              font-size: 20px;
+              line-height: 24px;
+              box-shadow: 0 3px 6px rgba(16, 16, 16, .15), 0 10px 32px rgba(16, 16, 16, .45)
+            }
+          }
+
+          &__Price {
+            position: relative;
+            margin-left: 60px;
+            font-size: 32px;
+            line-height: 36px;
+            letter-spacing: .02em;
+            white-space: nowrap;
+            @media (max-width: 767px) {
+              margin-left: 0;
+              margin-bottom: 28px;
+            }
+          }
+        }
+
+        .EditData {
+          margin-top: 48px;
+          display: flex;
+          -webkit-box-align: center;
+          align-items: center;
+          -webkit-box-pack: start;
+          justify-content: flex-end;
+          @media (max-width: 767px) {
+            justify-content: flex-start;
+            grid-column: 2/3;
+            font-size: 24px;
+            line-height: 28px;
+          }
+
+          &__Button {
+            padding: 8px 24px 12px;
+            font-family: Platform LC Web, Arial, sans-serif;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 20px;
+            letter-spacing: .02em;
+            text-transform: lowercase;
+            color: #fff;
+            background-color: #101010;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            text-decoration: none;
+          }
+        }
+
       }
     }
   }
@@ -1914,6 +1949,7 @@ li {
       grid-column: 1;
       grid-row: 1/4;
     }
+
   }
 
   &__Right {
@@ -2161,7 +2197,7 @@ li {
     flex-direction: column;
     width: 100%;
     margin-bottom: 16px;
-    padding: 24px 24px 40px;
+    padding: 24px 24px 24px;
     background-color: #fff;
     box-shadow: 0 1px 2px #ebeced;
     border-radius: 8px;
@@ -2290,6 +2326,18 @@ li {
   @media (max-width: 767px) {
     display: flex;
   }
+
+  .Course__Contact__Title, .SubCourses__Title{
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+  }
+
+  .BannerCourse {
+    margin: 0;
+    margin-bottom: 16px;
+  }
+
 
   .Navigation-Wrapper {
     align-self: flex-start;
@@ -2437,9 +2485,18 @@ li {
     //padding-top: 24px;
     //box-shadow: none;
     //border-radius: 0;
+    display: grid;
 
     @media (max-width: 767px) {
       display: grid;
+    }
+
+    &__Title {
+      font-size: 20px;
+      line-height: 24px;
+      letter-spacing: .02em;
+      color: #101010;
+      margin-bottom: 10px;
     }
 
     &__ButtonSubActive {

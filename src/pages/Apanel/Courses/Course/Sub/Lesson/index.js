@@ -8,6 +8,7 @@ import SubCourseButtonsBlock from "../../components/SubCourseButtonsBlock";
 import LessonListBlock from "../components/LessonListBlock";
 import LessonBlock from "./components/LessonBlock";
 import MentorBlock from "../../components/MentorsBlock";
+import {Col, Container, Row} from "react-bootstrap";
 
 const ApanelLessonPage = inject('userStore', 'acourseStore', 'acoursesListStore', 'asubCourseStore', 'alessonStore')(observer((store) => {
     useEffect(() => {
@@ -58,33 +59,54 @@ const ApanelLessonPage = inject('userStore', 'acourseStore', 'acoursesListStore'
                         {acourseStore.spinner.spinnerStatus ? <Spinner type={'local'}/> : <>
                             {/*{!acourseStore.courseData?.draft && <CourseBlock/>}*/}
 
-                            {!acourseStore.courseData?.draft &&
-                            <div className="Course">
-                                <div className="Course__Left">
-                                    <CourseBlock/>
-                                    <SubCourseButtonsBlock/>
-                                </div>
-                                <div className="Course__Right">
-                                    <MentorBlock/>
-                                </div>
-                            </div>}
+                            {!acourseStore.courseData?.draft && <>
+                                <Container>
+                                    <Row>
+                                        <Col md={9}>
+                                            <CourseBlock/>
 
-                            {!acourseStore.courseData?.draft && asubCourseStore.spinner.spinnerStatus ?
-                                <Spinner type={'local'}/> :
-                                <section className={'LessonList'}>
-                                    <LessonListBlock/>
-                                    <LessonBlock/>
-                                </section>}
 
-                            {acourseStore.courseData?.draft && <div className="Course">
-                                <div className="Course__Left">
-                                    <CourseBlock/>
-                                    <SubCourseButtonsBlock/>
-                                </div>
-                                <div className="Course__Right">
-                                    <MentorBlock/>
-                                </div>
-                            </div>}
+                                            {asubCourseStore.spinner.spinnerStatus ?
+                                                <Spinner type={'local'}/> :
+                                                <section className={'LessonList'}>
+                                                    <LessonListBlock/>
+                                                    <LessonBlock/>
+                                                </section>}
+
+
+                                        </Col>
+                                        <Col md={3}>
+                                            <MentorBlock/>
+                                            <SubCourseButtonsBlock/>
+                                        </Col>
+                                    </Row>
+                                </Container>
+                            </>}
+
+                            {acourseStore.courseData?.draft && <>
+                                <Container>
+                                    <Row>
+                                        <Col md={9}>
+                                            <CourseBlock/>
+
+
+                                            {asubCourseStore.spinner.spinnerStatus ?
+                                                <Spinner type={'local'}/> :
+                                                <section className={'LessonList'}>
+                                                    <LessonListBlock/>
+                                                    <LessonBlock/>
+                                                </section>}
+
+
+
+                                        </Col>
+                                        <Col md={3}>
+                                            <MentorBlock/>
+                                            <SubCourseButtonsBlock/>
+                                        </Col>
+                                    </Row>
+                                </Container>
+                            </>}
                         </>}
                     </div>
                 </div>
