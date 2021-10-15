@@ -53,33 +53,37 @@ const ApanelSubCoursePage = inject('userStore', 'acourseStore', 'acoursesListSto
                         {acourseStore.spinner.spinnerStatus ? <Spinner type={'local'}/> : <>
                             {/*{!acourseStore.courseData?.draft && <CourseBlock/>}*/}
 
-                            {!acourseStore.courseData?.draft &&
-                            <div className="Course">
-                                <div className="Course__Left">
-                                    <CourseBlock/>
-                                    <SubCourseButtonsBlock/>
+                            {!acourseStore.courseData?.draft && <>
+                                <div className="Course">
+                                    <div className="Course__Left">
+                                        <CourseBlock/>
+                                        <SubCourseButtonsBlock/>
+                                    </div>
+                                    <div className="Course__Right">
+                                        <MentorBlock/>
+                                    </div>
                                 </div>
-                                <div className="Course__Right">
-                                    <MentorBlock/>
-                                </div>
-                            </div>}
 
-                            {!acourseStore.courseData?.draft && asubCourseStore.spinner.spinnerStatus ?
-                                <Spinner type={'local'}/> :
-                                <section className={'LessonList'}>
-                                    <LessonListBlock/>
-                                    {/*<LessonBlock/>*/}
-                                </section>}
+                                {asubCourseStore.spinner.spinnerStatus ?
+                                    <Spinner type={'local'}/> :
+                                    <section className={'LessonList'}>
+                                        <LessonListBlock/>
+                                        {/*<LessonBlock/>*/}
+                                    </section>}
 
-                            {acourseStore.courseData?.draft && <div className="Course">
-                                <div className="Course__Left">
-                                    <CourseBlock/>
-                                    <SubCourseButtonsBlock/>
+                            </>}
+
+                            {acourseStore.courseData?.draft && <>
+                                <div className="Course">
+                                    <div className="Course__Left">
+                                        <CourseBlock/>
+                                        <SubCourseButtonsBlock/>
+                                    </div>
+                                    <div className="Course__Right">
+                                        <MentorBlock/>
+                                    </div>
                                 </div>
-                                <div className="Course__Right">
-                                    <MentorBlock/>
-                                </div>
-                            </div>}
+                            </>}
                         </>}
                     </div>
                 </div>
