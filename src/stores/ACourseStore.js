@@ -15,6 +15,10 @@ export default class ACourseStore {
 
     _subCourseID = undefined
 
+    _errorsAdd = undefined
+
+    _subCourseAddData = {}
+
     constructor($client) {
         makeObservable(this, {
             _courseData: observable,
@@ -41,6 +45,16 @@ export default class ACourseStore {
             purchaseData: computed,
             setPurchaseData: action,
             loadPurchaseData: action,
+
+            _errorsAdd: observable,
+            errorsAdd: computed,
+            setErrorAdd: action,
+
+            loadSubCourseAdd: action,
+
+            _subCourseAddData: observable,
+            subCourseAddData: computed,
+            setSubCourseAddData: action,
         })
 
         this.client = $client;
@@ -119,6 +133,39 @@ export default class ACourseStore {
                 this.setLoadError(true)
                 this.spinner.setSpinnerStatus(false)
             })
+    }
+
+    get errorsAdd() {
+        return toJS(this._errorsAdd);
+    }
+
+    setErrorAdd = (value) => {
+        this._errorsAdd = value;
+    }
+
+    loadSubCourseAdd = (data) => {
+        return this.client.post(`/apanel/course/${this.courseID}/sub/add/`, data).then((response) => {
+            // console.log(response.data.status)
+            this.setSubCourseAddData(response.data)
+            this.setErrorAdd(undefined)
+        }).catch(errors => {
+            this.setSubCourseAddData({})
+            if (errors.response.data?.errors) {
+                this.setErrorAdd(errors.response.data?.errors)
+            }
+            if (errors.response.data?.detail) {
+                this.setErrorAdd(errors.response.data?.detail)
+            }
+            // this.setErroAddrByKey(this.checkErrors(errors.response.data))
+        })
+    }
+
+    get subCourseAddData() {
+        return toJS(this._subCourseAddData);
+    }
+
+    setSubCourseAddData = (value) => {
+        this._subCourseAddData = value;
     }
 
 }

@@ -8,7 +8,7 @@ export default class ModalStore {
     _showCourseAddModalStatus = false
 
     _showAPurchaseUserModalStatus = false
-    _showASubCourseModalStatus = false
+    _showASubCourseAddModalStatus = false
 
     constructor() {
         makeObservable(this, {
@@ -17,13 +17,13 @@ export default class ModalStore {
             _showPurchaseDetailModalStatus: observable,
             _showCourseAddModalStatus: observable,
             _showAPurchaseUserModalStatus: observable,
-            _showASubCourseModalStatus: observable,
+            _showASubCourseAddModalStatus: observable,
             LoginModalStatus: computed,
             RegisterModalStatus: computed,
             PurchaseDetailModalStatus: computed,
             CourseAddModalStatus: computed,
             APurchaseUserModalStatus: computed,
-            ASubCourseModalStatus: computed,
+            ASubCourseAddModalStatus: computed,
             LoginModalClose: action,
             LoginModalShow: action,
             RegisterModalClose: action,
@@ -34,8 +34,8 @@ export default class ModalStore {
             CourseAddModalShow: action,
             APurchaseUserModalClose: action,
             APurchaseUserModalShow: action,
-            ASubCourseModalClose: action,
-            ASubCourseModalShow:action,
+            ASubCourseAddModalClose: action,
+            ASubCourseAddModalShow:action,
         })
     }
 
@@ -59,8 +59,8 @@ export default class ModalStore {
         return this._showAPurchaseUserModalStatus;
     }
 
-    get ASubCourseModalStatus() {
-        return this._showASubCourseModalStatus;
+    get ASubCourseAddModalStatus() {
+        return this._showASubCourseAddModalStatus;
     }
 
     LoginModalClose = () => {
@@ -98,10 +98,10 @@ export default class ModalStore {
         this._showAPurchaseUserModalStatus = true;
     }
 
-    ASubCourseModalClose = () => {
-        this._showASubCourseModalStatus = false;
+    ASubCourseAddModalClose = () => {
+        this._showASubCourseAddModalStatus = false;
     }
-    ASubCourseModalShow = () => {
-        this._showASubCourseModalStatus = true;
+    ASubCourseAddModalShow = () => {
+        this._showASubCourseAddModalStatus = true;
     }
 }
