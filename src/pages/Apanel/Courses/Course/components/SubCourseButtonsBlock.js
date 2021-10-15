@@ -22,7 +22,7 @@ const SubCourseButtonsBlock = inject('userStore', 'acourseStore', 'modalStore')(
     return (
         <div className={'SubCourses'}>
             <h3>подкурсы</h3>
-            <svg aria-hidden="true" height="20" width="20" className={'SubCourses__PlusButton'} onClick={modalStore.ASubCourseModalShow}>
+            <svg aria-hidden="true" height="20" width="20" className={'SubCourses__PlusButton'} onClick={modalStore.ASubCourseAddModalShow}>
                         <use xlinkHref={'#icon-plus'}/>
                     </svg>
             {getButtonSubCourses()}
