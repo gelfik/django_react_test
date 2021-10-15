@@ -83,6 +83,13 @@ const ApanelSubCoursePage = inject('userStore', 'acourseStore', 'acoursesListSto
                                         <MentorBlock/>
                                     </div>
                                 </div>
+
+                                {asubCourseStore.spinner.spinnerStatus ?
+                                    <Spinner type={'local'}/> :
+                                    <section className={'LessonList'}>
+                                        <LessonListBlock/>
+                                        {/*<LessonBlock/>*/}
+                                    </section>}
                             </>}
                         </>}
                     </div>
