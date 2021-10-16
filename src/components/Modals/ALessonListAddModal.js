@@ -15,10 +15,9 @@ const ALessonListAddModal = inject('userStore', 'modalStore', 'acourseStore' ,'a
         asubCourseStore.setErrorAdd(undefined)
         asubCourseStore.setlessonListAddData({})
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [asubCourseStore])
-    //
-    const onSubmitAdd = (data) => {
+    }, [modalStore.ALessonListAddModalStatus])
 
+    const onSubmitAdd = (data) => {
         asubCourseStore.loadLessonListAdd(data, acourseStore.courseID).then(()=> {
             if (asubCourseStore.lessonListAddData?.status) {
                 modalStore.ALessonListAddModalClose()

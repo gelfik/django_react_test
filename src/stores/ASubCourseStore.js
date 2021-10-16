@@ -33,6 +33,10 @@ export default class ASubCourseStore {
             subCourseID: computed,
             setSubCourseID: action,
 
+            _errorsAdd: observable,
+            errorsAdd:computed,
+            setErrorAdd: action,
+
             _lessonListAddData: observable,
             lessonListAddData: computed,
             setlessonListAddData: action

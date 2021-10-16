@@ -15,7 +15,7 @@ const ASubCourseAddModal = inject('userStore', 'modalStore', 'acourseStore')(obs
         acourseStore.setErrorAdd(undefined)
         acourseStore.setSubCourseAddData({})
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [acourseStore])
+    }, [modalStore.ASubCourseAddModalStatus])
 
     const onSubmitAdd = (data) => {
 
