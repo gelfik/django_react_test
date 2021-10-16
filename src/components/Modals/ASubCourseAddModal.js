@@ -3,6 +3,7 @@ import {inject, observer} from "mobx-react";
 import Modal from "react-bootstrap/Modal";
 import {useForm} from "react-hook-form";
 import {useHistory} from "react-router-dom";
+import ErrorAlert from "../ErrorAlert";
 
 const ASubCourseAddModal = inject('userStore', 'modalStore', 'acourseStore')(observer((stores) => {
     const {modalStore, acourseStore} = stores;
@@ -18,12 +19,13 @@ const ASubCourseAddModal = inject('userStore', 'modalStore', 'acourseStore')(obs
 
     const onSubmitAdd = (data) => {
 
-        acourseStore.loadSubCourseAdd(data).then(()=> {
+        acourseStore.loadSubCourseAdd(data).then(() => {
             if (acourseStore.subCourseAddData?.status) {
                 modalStore.ASubCourseAddModalClose()
                 reset()
-                acourseStore.loadCourseData(acourseStore.courseID)
-                history.push(`/apanel/course/${acourseStore.courseID}/sub/${acourseStore.subCourseAddData?.id}`)
+                // acourseStore.loadCourseData(acourseStore.subCourseAddData?.courseID)
+                acourseStore.setCourseID(acourseStore.subCourseAddData?.courseID, true)
+                history.push(`/apanel/course/${acourseStore.subCourseAddData?.courseID}/sub/${acourseStore.subCourseAddData?.subCourseID}`)
             }
         })
     }
@@ -37,6 +39,8 @@ const ASubCourseAddModal = inject('userStore', 'modalStore', 'acourseStore')(obs
             </Modal.Header>
             <Modal.Body>
                 <form className={'d-flex flex-column'} onSubmit={handleSubmit(onSubmitAdd)}>
+                    {acourseStore?.errorsAdd && acourseStore?.errorsAdd['error'] &&
+                    <ErrorAlert error={acourseStore?.errorsAdd['error']}/>}
                     <div className={"row"}>
                         <div className="col-lg-12 col-12 mb-3">
                             <div className="form-floating ">

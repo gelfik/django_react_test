@@ -6,8 +6,8 @@ import StickyBox from "react-sticky-box";
 import {useHistory, useParams} from "react-router-dom";
 import {Col, Row} from "react-bootstrap";
 
-const LessonListBlock = inject('userStore', 'asubCourseStore')(observer((store) => {
-    const {asubCourseStore} = store
+const LessonListBlock = inject('userStore', 'asubCourseStore', 'modalStore')(observer((store) => {
+    const {asubCourseStore, modalStore} = store
 
     const history = useHistory();
     const queryParams = useParams()
@@ -88,7 +88,7 @@ const LessonListBlock = inject('userStore', 'asubCourseStore')(observer((store) 
             <div className="LessonList__Left__RowButton">
                 <Row>
                     <Col>
-                        <button type="button" className={`btn btn-outline-dark`}>
+                        <button type="button" className={`btn btn-outline-dark`} onClick={modalStore.ALessonListAddModalShow}>
                             добавить занятие
                         </button>
                     </Col>
