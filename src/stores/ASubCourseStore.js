@@ -10,6 +10,10 @@ export default class ASubCourseStore {
 
     _subCourseID = undefined
 
+    _errorsAdd = undefined
+
+    _lessonListAddData = {}
+
     constructor($client) {
         makeObservable(this, {
             _subCourseData: observable,
@@ -28,6 +32,10 @@ export default class ASubCourseStore {
             _subCourseID: observable,
             subCourseID: computed,
             setSubCourseID: action,
+
+            _lessonListAddData: observable,
+            lessonListAddData: computed,
+            setlessonListAddData: action
         })
 
         this.client = $client;
@@ -77,4 +85,40 @@ export default class ASubCourseStore {
     get spinner() {
         return this._spinner;
     }
+
+    get errorsAdd() {
+        return toJS(this._errorsAdd);
+    }
+
+    setErrorAdd = (value) => {
+        this._errorsAdd = value;
+    }
+
+    loadLessonListAdd = (data, courseID) => {
+        return this.client.post(`/apanel/course/${courseID}/sub/${this.subCourseID}/lessonList/add/`, data).then((response) => {
+            // console.log(response.data.status)
+            this.setlessonListAddData(response.data)
+            this.setErrorAdd(undefined)
+        }).catch(errors => {
+            this.setlessonListAddData({})
+            if (errors.response.data?.errors) {
+                this.setErrorAdd(errors.response.data?.errors)
+            }
+            if (errors.response.data?.detail) {
+                this.setErrorAdd({error:errors.response.data?.detail})
+            }
+            if (errors.response.data?.error) {
+                this.setErrorAdd({error:errors.response.data?.error})
+            }
+        })
+    }
+
+    get lessonListAddData() {
+        return toJS(this._lessonListAddData);
+    }
+
+    setlessonListAddData = (value) => {
+        this._lessonListAddData = value;
+    }
+
 }

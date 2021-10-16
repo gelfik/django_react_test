@@ -1,7 +1,7 @@
 import {action, computed, makeObservable, observable, toJS} from "mobx";
 import SpinnerStore from "./SpinnerStore";
 
-export default class ALessonStore {
+export default class ALessonListStore {
     _lessonData = {}
 
     _spinner = new SpinnerStore()

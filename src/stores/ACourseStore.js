@@ -154,7 +154,10 @@ export default class ACourseStore {
                 this.setErrorAdd(errors.response.data?.errors)
             }
             if (errors.response.data?.detail) {
-                this.setErrorAdd(errors.response.data?.detail)
+                this.setErrorAdd({error:errors.response.data?.detail})
+            }
+            if (errors.response.data?.error) {
+                this.setErrorAdd({error:errors.response.data?.error})
             }
             // this.setErroAddrByKey(this.checkErrors(errors.response.data))
         })

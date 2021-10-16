@@ -9,6 +9,7 @@ export default class ModalStore {
 
     _showAPurchaseUserModalStatus = false
     _showASubCourseAddModalStatus = false
+    _showALessonListAddModalStatus = false
 
     constructor() {
         makeObservable(this, {
@@ -18,12 +19,14 @@ export default class ModalStore {
             _showCourseAddModalStatus: observable,
             _showAPurchaseUserModalStatus: observable,
             _showASubCourseAddModalStatus: observable,
+            _showALessonListAddModalStatus: observable,
             LoginModalStatus: computed,
             RegisterModalStatus: computed,
             PurchaseDetailModalStatus: computed,
             CourseAddModalStatus: computed,
             APurchaseUserModalStatus: computed,
             ASubCourseAddModalStatus: computed,
+            ALessonListAddModalStatus: computed,
             LoginModalClose: action,
             LoginModalShow: action,
             RegisterModalClose: action,
@@ -36,6 +39,8 @@ export default class ModalStore {
             APurchaseUserModalShow: action,
             ASubCourseAddModalClose: action,
             ASubCourseAddModalShow:action,
+            ALessonListAddModalShow: action,
+            ALessonListAddModalClose: action,
         })
     }
 
@@ -61,6 +66,10 @@ export default class ModalStore {
 
     get ASubCourseAddModalStatus() {
         return this._showASubCourseAddModalStatus;
+    }
+
+    get ALessonListAddModalStatus() {
+        return this._showALessonListAddModalStatus;
     }
 
     LoginModalClose = () => {
@@ -103,5 +112,12 @@ export default class ModalStore {
     }
     ASubCourseAddModalShow = () => {
         this._showASubCourseAddModalStatus = true;
+    }
+
+    ALessonListAddModalClose = () => {
+        this._showALessonListAddModalStatus = false;
+    }
+    ALessonListAddModalShow = () => {
+        this._showALessonListAddModalStatus = true;
     }
 }
