@@ -9,6 +9,7 @@ import LessonListBlock from "../components/LessonListBlock";
 import LessonBlock from "./components/LessonBlock";
 import MentorBlock from "../../components/MentorsBlock";
 import {Col, Container, Row} from "react-bootstrap";
+import StickyBox from "react-sticky-box";
 
 const ApanelLessonPage = inject('userStore', 'acourseStore', 'acoursesListStore', 'asubCourseStore', 'alessonStore')(observer((store) => {
     useEffect(() => {
@@ -52,9 +53,11 @@ const ApanelLessonPage = inject('userStore', 'acourseStore', 'acoursesListStore'
         <main className={'mt_navbar bg-content'}>
             <section className="ContainerContent">
                 <div className="APanel">
-                    <div className="Navigation-Wrapper">
+                    <StickyBox offsetTop={66} offsetBottom={20} className="Navigation-Wrapper">
+                    {/*<div className="Navigation-Wrapper">*/}
                         <ComandBlock/>
-                    </div>
+                    {/*</div>*/}
+                    </StickyBox>
                     <div className="Content-Wrapper">
                         {acourseStore.spinner.spinnerStatus ? <Spinner type={'local'}/> : <>
                             {/*{!acourseStore.courseData?.draft && <CourseBlock/>}*/}
@@ -76,8 +79,10 @@ const ApanelLessonPage = inject('userStore', 'acourseStore', 'acoursesListStore'
 
                                         </Col>
                                         <Col md={3}>
+                                            <StickyBox offsetTop={66} offsetBottom={20} >
                                             <MentorBlock/>
                                             <SubCourseButtonsBlock/>
+                                                </StickyBox>
                                         </Col>
                                     </Row>
                                 </Container>
@@ -100,6 +105,7 @@ const ApanelLessonPage = inject('userStore', 'acourseStore', 'acoursesListStore'
 
 
                                         </Col>
+
                                         <Col md={3}>
                                             <MentorBlock/>
                                             <SubCourseButtonsBlock/>

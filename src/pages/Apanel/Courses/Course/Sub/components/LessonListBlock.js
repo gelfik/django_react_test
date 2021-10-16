@@ -4,6 +4,7 @@ import Moment from "moment";
 import {dayText, mounthText} from "../../../../../../utils/DateService";
 import StickyBox from "react-sticky-box";
 import {useHistory, useParams} from "react-router-dom";
+import {Col, Row} from "react-bootstrap";
 
 const LessonListBlock = inject('userStore', 'asubCourseStore')(observer((store) => {
     const {asubCourseStore} = store
@@ -60,7 +61,7 @@ const LessonListBlock = inject('userStore', 'asubCourseStore')(observer((store) 
     const getItemsLeasons = () => {
         return asubCourseStore?.subCourseData?.lessons?.map((item, i) =>
             <div className="LessonList__Left__Item" key={i}>
-                <StickyBox offsetTop={66} offsetBottom={20} className="LessonList__Left__Item__Date">
+                <StickyBox offsetTop={136} offsetBottom={20} className="LessonList__Left__Item__Date">
                     <p>{getDate(item.lessonDate)}</p>
                     {item?.isOpen && 'Открыт'}
                     {!item?.isOpen && 'Закрыт'}
@@ -84,7 +85,16 @@ const LessonListBlock = inject('userStore', 'asubCourseStore')(observer((store) 
 
     return (
         <div className="LessonList__Left">
-            {getItemsLeasons()}
+            <div className="LessonList__Left__RowButton">
+                <Row>
+                    <Col>
+                        <button type="button" className={`btn btn-outline-dark`}>
+                            добавить занятие
+                        </button>
+                    </Col>
+                </Row>
+            </div>
+                {getItemsLeasons()}
         </div>
     )
 }))

@@ -2327,7 +2327,7 @@ li {
     display: flex;
   }
 
-  .Course__Contact__Title, .SubCourses__Title{
+  .Course__Contact__Title, .SubCourses__Title {
     justify-content: space-between;
     display: flex;
     align-items: center;
@@ -2337,7 +2337,6 @@ li {
     margin: 0;
     margin-bottom: 16px;
   }
-
 
   .Navigation-Wrapper {
     align-self: flex-start;
@@ -2451,7 +2450,6 @@ li {
     align-self: flex-start;
   }
 
-
   &__Right {
     grid-column: 2/2;
     grid-row: 1;
@@ -2512,6 +2510,11 @@ li {
   .LessonList__Left {
     width: 35%;
 
+    @media (max-width: 767px) {
+      width: 100%;
+    }
+
+
     &__Item {
       &__Date {
         display: flex;
@@ -2533,6 +2536,11 @@ li {
 
   .LessonList__Right {
     width: 60%;
+
+    @media (max-width: 767px) {
+      width: 100%;
+      margin-bottom: 16px;
+    }
   }
 }
 
@@ -2768,17 +2776,29 @@ li {
 
   &__Left {
     width: 30%;
-    min-height: 1000px;
+    //min-height: 1000px;
 
 
     @media (max-width: 767px) {
       width: 100%;
     }
 
+    &__RowButton {
+      position: sticky;
+      top: 66px;
+      z-index: 10;
+      background-color: #f2f3f5;
+      padding: 13px 0 20px;
+
+      @media (max-width: 767px) {
+        top: 50px;
+      }
+    }
+
     &__Item {
       margin-top: 16px;
       width: 100%;
-      cursor: pointer;
+      //cursor: pointer;
 
       &:first-child {
         margin-top: 0;
@@ -2800,6 +2820,13 @@ li {
 
         &__Title {
 
+        }
+
+        &__Admin {
+
+          svg {
+            cursor: pointer;
+          }
         }
 
       }
@@ -2833,6 +2860,7 @@ li {
       &__Content {
         position: relative;
         z-index: 1;
+        cursor: pointer;
 
         &:before {
           content: "";
