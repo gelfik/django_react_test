@@ -104,6 +104,7 @@ export default class ASubCourseStore {
             this.setlessonListAddData(response.data)
             this.setErrorAdd(undefined)
         }).catch(errors => {
+            console.log(errors.response.data, this.errorsAdd)
             this.setlessonListAddData({})
             if (errors.response.data?.errors) {
                 this.setErrorAdd(errors.response.data?.errors)
@@ -122,6 +123,10 @@ export default class ASubCourseStore {
     }
 
     setlessonListAddData = (value) => {
+        this._lessonListAddData = value;
+    }
+
+    setPrivet = (value) => {
         this._lessonListAddData = value;
     }
 
