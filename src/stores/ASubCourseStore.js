@@ -125,4 +125,9 @@ export default class ASubCourseStore {
         this._lessonListAddData = value;
     }
 
+
+    drbdrbdrb = () => {
+        console.log(this.errorsAdd)
+    }
+
 }
