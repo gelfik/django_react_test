@@ -125,6 +125,10 @@ export default class ASubCourseStore {
         this._lessonListAddData = value;
     }
 
+    setPrivet = (value) => {
+        this._lessonListAddData = value;
+    }
+
 
     drbdrbdrb = () => {
         console.log(this.errorsAdd)
