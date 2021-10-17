@@ -13,8 +13,6 @@ export default class ACourseStore {
 
     _purchaseUserID = undefined
 
-    _subCourseID = undefined
-
     _errorsAdd = undefined
 
     _subCourseAddData = {}
