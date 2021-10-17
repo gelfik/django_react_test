@@ -7,6 +7,8 @@ import ACourseAddModal from "./ACourseAddModal";
 import APurchaseUserModal from "./APurchaseUserModal";
 import ASubCourseAddModal from "./ASubCourseAddModal";
 import ALessonListAddModal from "./ALessonListAddModal";
+import ALessonAddModal from "./ALessonAddModal";
+import ACourseEditModal from "./ACourseEditModal";
 
 const RootModal = inject('userStore')(observer((stores) => {
     const {userStore} = stores
@@ -20,9 +22,11 @@ const RootModal = inject('userStore')(observer((stores) => {
             <PurchaseDetailModal/>
             {userStore.userData.isTeacher && <>
                 <ACourseAddModal/>
+                <ACourseEditModal/>
                 <APurchaseUserModal/>
                 <ASubCourseAddModal/>
                 <ALessonListAddModal/>
+                <ALessonAddModal/>
             </>}
         </>}
     </>)

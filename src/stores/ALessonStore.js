@@ -1,14 +1,19 @@
 import {action, computed, makeObservable, observable, toJS} from "mobx";
 import SpinnerStore from "./SpinnerStore";
 
-export default class ALessonListStore {
+export default class ALessonStore {
     _lessonData = {}
 
     _spinner = new SpinnerStore()
 
     _loadError = false
 
+    _errorsAdd = undefined
+
     _lessonID = undefined
+    _lessonListID = undefined
+
+    _lessonAddData = {}
 
     constructor($client) {
         makeObservable(this, {
@@ -27,6 +32,19 @@ export default class ALessonListStore {
             _lessonID: observable,
             lessonID: computed,
             setLessonID: action,
+
+            _lessonListID: observable,
+            lessonListID: computed,
+            setLessonListID: action,
+
+            _errorsAdd: observable,
+            errorsAdd:computed,
+            setErrorAdd: action,
+
+            _lessonAddData:observable,
+            lessonAddData:computed,
+            setlessonAddData:action,
+            loadLessonAdd:action,
         })
 
         this.client = $client;
@@ -65,6 +83,14 @@ export default class ALessonListStore {
         }
     }
 
+    get lessonListID() {
+        return this._lessonListID;
+    }
+
+    setLessonListID(value) {
+        this._lessonListID = value
+    }
+
     get loadError() {
         return this._loadError;
     }
@@ -76,4 +102,41 @@ export default class ALessonListStore {
     get spinner() {
         return this._spinner;
     }
+
+    get errorsAdd() {
+        return toJS(this._errorsAdd);
+    }
+
+    setErrorAdd = (value) => {
+        this._errorsAdd = value;
+    }
+
+    loadLessonAdd = (data, courseID, subCourseID) => {
+        return this.client.post(`/apanel/course/${courseID}/sub/${subCourseID}/lessonList/${this.lessonListID}/lesson/add/`, data).then((response) => {
+            // console.log(response.data.status)
+            this.setlessonAddData(response.data)
+            this.setErrorAdd(undefined)
+            this.setLessonID(courseID,subCourseID, this.lessonAddData?.lessonID)
+        }).catch(errors => {
+            this.setlessonAddData({})
+            if (errors.response.data?.errors) {
+                this.setErrorAdd(errors.response.data?.errors)
+            }
+            if (errors.response.data?.detail) {
+                this.setErrorAdd({error:errors.response.data?.detail})
+            }
+            if (errors.response.data?.error) {
+                this.setErrorAdd({error:errors.response.data?.error})
+            }
+        })
+    }
+
+    get lessonAddData() {
+        return toJS(this._lessonListAddData);
+    }
+
+    setlessonAddData = (value) => {
+        this._lessonListAddData = value;
+    }
+
 }

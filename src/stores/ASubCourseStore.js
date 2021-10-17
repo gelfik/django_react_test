@@ -39,7 +39,8 @@ export default class ASubCourseStore {
 
             _lessonListAddData: observable,
             lessonListAddData: computed,
-            setlessonListAddData: action
+            setlessonListAddData: action,
+            loadLessonListAdd: action,
         })
 
         this.client = $client;
@@ -103,6 +104,7 @@ export default class ASubCourseStore {
             // console.log(response.data.status)
             this.setlessonListAddData(response.data)
             this.setErrorAdd(undefined)
+            this.setSubCourseID(courseID, this.subCourseID, true)
         }).catch(errors => {
             this.setlessonListAddData({})
             if (errors.response.data?.errors) {
@@ -123,15 +125,6 @@ export default class ASubCourseStore {
 
     setlessonListAddData = (value) => {
         this._lessonListAddData = value;
-    }
-
-    setPrivet = (value) => {
-        this._lessonListAddData = value;
-    }
-
-
-    drbdrbdrb = () => {
-        console.log(this.errorsAdd)
     }
 
 }

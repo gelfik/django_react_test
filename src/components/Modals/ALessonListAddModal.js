@@ -13,17 +13,17 @@ const ALessonListAddModal = inject('userStore', 'modalStore', 'acourseStore' ,'a
 
     useEffect(() => {
         asubCourseStore.setErrorAdd(undefined)
-        asubCourseStore.setlessonListAddData({})
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [modalStore.ALessonListAddModalStatus])
 
     const onSubmitAdd = (data) => {
+        asubCourseStore.setlessonListAddData({})
         asubCourseStore.loadLessonListAdd(data, acourseStore.courseID).then(()=> {
             if (asubCourseStore.lessonListAddData?.status) {
                 modalStore.ALessonListAddModalClose()
                 reset()
                 asubCourseStore.setSubCourseID(asubCourseStore.lessonListAddData?.courseID, asubCourseStore.lessonListAddData?.subCourseID, true)
-                history.push(`/apanel/course/${acourseStore.courseID}/sub/${asubCourseStore.lessonListAddData?.subCourseID}`)
+                history.push(`/apanel/course/${asubCourseStore.lessonListAddData?.courseID}/sub/${asubCourseStore.lessonListAddData?.subCourseID}`)
             }
         })
     }
