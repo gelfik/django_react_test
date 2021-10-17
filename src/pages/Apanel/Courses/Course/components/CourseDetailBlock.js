@@ -2,8 +2,8 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 import Spinner from "../../../../../components/Spinner";
 
-const CourseDetailBlock = inject('userStore', 'acourseStore')(observer((store) => {
-    const {acourseStore} = store
+const CourseDetailBlock = inject('userStore', 'acourseStore', 'modalStore')(observer((store) => {
+    const {acourseStore, modalStore} = store
 
     return (
         <section className={'BannerCourse'}>
@@ -50,7 +50,7 @@ const CourseDetailBlock = inject('userStore', 'acourseStore')(observer((store) =
                                 ut.
                             </div>
                             <div className="EditData">
-                                <div className={"EditData__Button"}>редактировать</div>
+                                <div className={"EditData__Button"} onClick={modalStore.ACourseEditModalShow}>редактировать</div>
                             </div>
                         </div>
                     </div>

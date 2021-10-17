@@ -6,10 +6,13 @@ export default class ModalStore {
     _showPurchaseDetailModalStatus = false
 
     _showCourseAddModalStatus = false
+    _showACourseEditModalStatus = false
 
     _showAPurchaseUserModalStatus = false
     _showASubCourseAddModalStatus = false
     _showALessonListAddModalStatus = false
+    _showALessonAddModalStatus = false
+
 
     constructor() {
         makeObservable(this, {
@@ -17,16 +20,20 @@ export default class ModalStore {
             _showRegisterModalStatus: observable,
             _showPurchaseDetailModalStatus: observable,
             _showCourseAddModalStatus: observable,
+            _showACourseEditModalStatus: observable,
             _showAPurchaseUserModalStatus: observable,
             _showASubCourseAddModalStatus: observable,
             _showALessonListAddModalStatus: observable,
+            _showALessonAddModalStatus: observable,
             LoginModalStatus: computed,
             RegisterModalStatus: computed,
             PurchaseDetailModalStatus: computed,
             CourseAddModalStatus: computed,
+            ACourseEditModalStatus: computed,
             APurchaseUserModalStatus: computed,
             ASubCourseAddModalStatus: computed,
             ALessonListAddModalStatus: computed,
+            ALessonAddModalStatus: computed,
             LoginModalClose: action,
             LoginModalShow: action,
             RegisterModalClose: action,
@@ -35,12 +42,16 @@ export default class ModalStore {
             PurchaseDetailModalShow: action,
             CourseAddModalClose: action,
             CourseAddModalShow: action,
+            ACourseEditModalClose: action,
+            ACourseEditModalShow: action,
             APurchaseUserModalClose: action,
             APurchaseUserModalShow: action,
             ASubCourseAddModalClose: action,
             ASubCourseAddModalShow:action,
             ALessonListAddModalShow: action,
             ALessonListAddModalClose: action,
+            ALessonAddModalShow: action,
+            ALessonAddModalClose: action,
         })
     }
 
@@ -60,6 +71,10 @@ export default class ModalStore {
         return this._showCourseAddModalStatus;
     }
 
+    get ACourseEditModalStatus() {
+        return this._showACourseEditModalStatus;
+    }
+
     get APurchaseUserModalStatus() {
         return this._showAPurchaseUserModalStatus;
     }
@@ -70,6 +85,10 @@ export default class ModalStore {
 
     get ALessonListAddModalStatus() {
         return this._showALessonListAddModalStatus;
+    }
+
+    get ALessonAddModalStatus() {
+        return this._showALessonAddModalStatus;
     }
 
     LoginModalClose = () => {
@@ -100,6 +119,13 @@ export default class ModalStore {
         this._showCourseAddModalStatus = true;
     }
 
+    ACourseEditModalClose = () => {
+        this._showACourseEditModalStatus = false;
+    }
+    ACourseEditModalShow = () => {
+        this._showACourseEditModalStatus = true;
+    }
+
     APurchaseUserModalClose = () => {
         this._showAPurchaseUserModalStatus = false;
     }
@@ -120,4 +146,12 @@ export default class ModalStore {
     ALessonListAddModalShow = () => {
         this._showALessonListAddModalStatus = true;
     }
+
+    ALessonAddModalClose = () => {
+        this._showALessonAddModalStatus = false;
+    }
+    ALessonAddModalShow = () => {
+        this._showALessonAddModalStatus = true;
+    }
+
 }
