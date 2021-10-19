@@ -23,6 +23,8 @@ export default class ACourseStore {
 
     _courseEditData = {}
 
+    _courseDraftData = {}
+
     constructor($client) {
         makeObservable(this, {
             _courseData: observable,
@@ -69,6 +71,12 @@ export default class ACourseStore {
             _courseEditData: observable,
             courseEditData: computed,
             setCourseEditData: action,
+
+            loadCourseDraft: action,
+
+            _courseDraftData: observable,
+            courseDraftData: computed,
+            setCourseDraftData: action,
         })
 
         this.client = $client;
@@ -221,6 +229,37 @@ export default class ACourseStore {
 
     setCourseEditData = (value) => {
         this._courseEditData = value;
+    }
+
+
+
+    loadCourseDraft = () => {
+        return this.client.post(`/apanel/course/${this.courseID}/edit/`, {draft: true}).then((response) => {
+            // console.log(response.data)
+            this.setCourseDraftData(response.data)
+            this.loadCourseData(this.courseID)
+        }).catch(errors => {
+            // console.log(errors.response)
+            this.setCourseDraftData(errors.response.data)
+            // if (errors.response.data?.errors) {
+            //     this.setErrorEdit(errors.response.data?.errors)
+            // }
+            // if (errors.response.data?.detail) {
+            //     this.setErrorEdit({error:errors.response.data?.detail})
+            // }
+            // if (errors.response.data?.error) {
+            //     this.setErrorEdit({error:errors.response.data?.error})
+            // }
+            // this.setErroAddrByKey(this.checkErrors(errors.response.data))
+        })
+    }
+
+    get courseDraftData() {
+        return toJS(this._courseDraftData);
+    }
+
+    setCourseDraftData = (value) => {
+        this._courseDraftData = value;
     }
 
 }
