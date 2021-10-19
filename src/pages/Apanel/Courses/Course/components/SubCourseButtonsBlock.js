@@ -1,12 +1,14 @@
 import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
 import {useHistory, useParams} from "react-router-dom";
+import {useAlert} from "react-alert";
 
 const SubCourseButtonsBlock = inject('userStore', 'acourseStore', 'modalStore', 'asubCourseStore')(observer((store) => {
         const {acourseStore, modalStore, asubCourseStore} = store
         const queryParams = useParams()
         const history = useHistory();
         const [accordionStatus, SetAccordion] = useState(false);
+        const alert = useAlert();
 
         useEffect(() => {
             SetAccordion(false)
@@ -67,7 +69,8 @@ const SubCourseButtonsBlock = inject('userStore', 'acourseStore', 'modalStore', 
                     {asubCourseStore.subCourseData?.name}
                 </button>
                 <button type="button"
-                        className={`btn btn-outline-dark SubCourses__ButtonSubActive`}>
+                        className={`btn btn-outline-dark SubCourses__ButtonSubActive`}
+                        onClick={modalStore.ASubCourseEditModalShow}>
                     редактировать
                 </button>
                 <button type="button"

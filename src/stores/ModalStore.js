@@ -9,7 +9,10 @@ export default class ModalStore {
     _showACourseEditModalStatus = false
 
     _showAPurchaseUserModalStatus = false
+
     _showASubCourseAddModalStatus = false
+    _showASubCourseEditModalStatus = false
+
     _showALessonListAddModalStatus = false
     _showALessonAddModalStatus = false
 
@@ -23,6 +26,7 @@ export default class ModalStore {
             _showACourseEditModalStatus: observable,
             _showAPurchaseUserModalStatus: observable,
             _showASubCourseAddModalStatus: observable,
+            _showASubCourseEditModalStatus: observable,
             _showALessonListAddModalStatus: observable,
             _showALessonAddModalStatus: observable,
             LoginModalStatus: computed,
@@ -32,6 +36,7 @@ export default class ModalStore {
             ACourseEditModalStatus: computed,
             APurchaseUserModalStatus: computed,
             ASubCourseAddModalStatus: computed,
+            ASubCourseEditModalStatus: computed,
             ALessonListAddModalStatus: computed,
             ALessonAddModalStatus: computed,
             LoginModalClose: action,
@@ -48,6 +53,8 @@ export default class ModalStore {
             APurchaseUserModalShow: action,
             ASubCourseAddModalClose: action,
             ASubCourseAddModalShow:action,
+            ASubCourseEditModalClose: action,
+            ASubCourseEditModalShow:action,
             ALessonListAddModalShow: action,
             ALessonListAddModalClose: action,
             ALessonAddModalShow: action,
@@ -81,6 +88,10 @@ export default class ModalStore {
 
     get ASubCourseAddModalStatus() {
         return this._showASubCourseAddModalStatus;
+    }
+
+    get ASubCourseEditModalStatus() {
+        return this._showASubCourseEditModalStatus;
     }
 
     get ALessonListAddModalStatus() {
@@ -138,6 +149,13 @@ export default class ModalStore {
     }
     ASubCourseAddModalShow = () => {
         this._showASubCourseAddModalStatus = true;
+    }
+
+    ASubCourseEditModalClose = () => {
+        this._showASubCourseEditModalStatus = false;
+    }
+    ASubCourseEditModalShow = () => {
+        this._showASubCourseEditModalStatus = true;
     }
 
     ALessonListAddModalClose = () => {
