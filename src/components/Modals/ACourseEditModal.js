@@ -3,20 +3,31 @@ import {inject, observer} from "mobx-react";
 import Modal from "react-bootstrap/Modal";
 import {useHistory} from "react-router-dom";
 import {useForm} from "react-hook-form";
+import {useAlert} from "react-alert";
 
 const CourseEditModal = inject('userStore', 'modalStore', 'acoursesListStore', 'acourseStore')(observer((stores) => {
     const {modalStore, acoursesListStore, acourseStore} = stores;
 
     const {register, handleSubmit, setValue} = useForm();
     const history = useHistory();
+    const alert = useAlert();
 
-    const onSubmitAdd = (data) => {
+    const onSubmitEdit = (data) => {
         acourseStore.setCourseEditData({})
         acourseStore.loadCourseEdit(data).then(() => {
             if (acourseStore.courseEditData?.status) {
                 modalStore.ACourseEditModalClose()
-                history.push(`/apanel/course/${acourseStore.courseID}`)
+                alert.success(acourseStore.courseEditData?.detail)
+                // history.push(`/apanel/course/${acourseStore.courseID}`)
             }
+        })
+    }
+
+    const onSubmitDelete = () => {
+        acourseStore.loadCourseDelete().then(() => {
+            modalStore.ACourseEditModalClose()
+            alert.success(acourseStore.courseDeleteData?.detail)
+            history.push(`/apanel/course`)
         })
     }
 
@@ -71,7 +82,7 @@ const CourseEditModal = inject('userStore', 'modalStore', 'acoursesListStore', '
                         onClick={modalStore.ACourseEditModalClose}/>
             </Modal.Header>
             <Modal.Body>
-                <form className={'d-flex flex-column'} onSubmit={handleSubmit(onSubmitAdd)}>
+                <form className={'d-flex flex-column'} onSubmit={handleSubmit(onSubmitEdit)}>
 
                     <div className="col-lg-12 col-12 mb-3">
                         <div className="form-floating ">
@@ -192,7 +203,9 @@ const CourseEditModal = inject('userStore', 'modalStore', 'acoursesListStore', '
 
                     <div className="row mb-3">
                         <div className="col-lg-6 col-6">
-                            <button type={"button"} className={'btn btn-danger w-100'}>Удалить</button>
+                            <button type={"button"} className={'btn btn-danger w-100'}
+                                    onClick={() => onSubmitDelete()}>Удалить
+                            </button>
                         </div>
                         <div className="col-lg-6 col-6">
                             <button type={"submit"} className={'btn btn-dark w-100'}>Сохранить</button>

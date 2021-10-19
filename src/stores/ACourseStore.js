@@ -23,6 +23,8 @@ export default class ACourseStore {
 
     _courseDraftData = {}
 
+    _courseDeleteData = {}
+
     constructor($client) {
         makeObservable(this, {
             _courseData: observable,
@@ -75,6 +77,12 @@ export default class ACourseStore {
             _courseDraftData: observable,
             courseDraftData: computed,
             setCourseDraftData: action,
+
+            loadCourseDelete: action,
+
+            _courseDeleteData: observable,
+            courseDeleteData: computed,
+            setCourseDeleteData: action,
         })
 
         this.client = $client;
@@ -260,4 +268,21 @@ export default class ACourseStore {
         this._courseDraftData = value;
     }
 
+    loadCourseDelete = () => {
+        return this.client.delete(`/apanel/course/${this.courseID}/delete/`).then((response) => {
+            // console.log(response.data)
+            this.setCourseDeleteData(response.data)
+        }).catch(errors => {
+            this.setCourseDeleteData(errors.response.data)
+            // this.setErroAddrByKey(this.checkErrors(errors.response.data))
+        })
+    }
+
+    get courseDeleteData() {
+        return toJS(this._courseDeleteData);
+    }
+
+    setCourseDeleteData = (value) => {
+        this._courseDeleteData = value;
+    }
 }
