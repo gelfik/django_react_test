@@ -1,14 +1,12 @@
 import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
 import {useHistory, useParams} from "react-router-dom";
-import {useAlert} from "react-alert";
 
 const SubCourseButtonsBlock = inject('userStore', 'acourseStore', 'modalStore', 'asubCourseStore')(observer((store) => {
         const {acourseStore, modalStore, asubCourseStore} = store
         const queryParams = useParams()
         const history = useHistory();
         const [accordionStatus, SetAccordion] = useState(false);
-        const alert = useAlert();
 
         useEffect(() => {
             SetAccordion(false)
