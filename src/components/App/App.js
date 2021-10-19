@@ -19,20 +19,20 @@ const options = {
 
 const AlertTemplate = ({ style, options, message, close }) => (
   <div style={style}>
-    {options.type === 'info' && <Alert variant="info" onClose={() => close} dismissible>
-        <Alert.Heading>Oh snap! You got an info!</Alert.Heading>
+    {options.type === 'info' && <Alert variant="info" onClose={close} dismissible>
+        {/*<Alert.Heading>Oh snap! You got an info!</Alert.Heading>*/}
         <p>
           {message}
         </p>
       </Alert>}
-    {options.type === 'success' && <Alert variant="success" onClose={() => close} dismissible>
-        <Alert.Heading>Oh snap! You got a success!</Alert.Heading>
+    {options.type === 'success' && <Alert variant="success" onClose={close} dismissible>
+        <Alert.Heading>Успешно</Alert.Heading>
         <p>
           {message}
         </p>
       </Alert>}
-    {options.type === 'error' && <Alert variant="danger" onClose={() => close} dismissible>
-        <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+    {options.type === 'error' && <Alert variant="danger" onClose={close} dismissible>
+        <Alert.Heading>Уппсссс...</Alert.Heading>
         <p>
           {message}
         </p>
