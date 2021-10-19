@@ -50,6 +50,8 @@ const CourseDetailBlock = inject('userStore', 'acourseStore', 'modalStore')(obse
                                 ut.
                             </div>
                             <div className="EditData">
+                                {acourseStore?.courseData?.draft &&
+                                <div className={"EditData__Button"} onClick={modalStore.ACourseEditModalShow}>опубликовать</div>}
                                 <div className={"EditData__Button"} onClick={modalStore.ACourseEditModalShow}>редактировать</div>
                             </div>
                         </div>

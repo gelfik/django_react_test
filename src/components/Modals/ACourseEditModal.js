@@ -4,18 +4,18 @@ import Modal from "react-bootstrap/Modal";
 import {useHistory} from "react-router-dom";
 import {useForm} from "react-hook-form";
 
-const CourseAddModal = inject('userStore', 'modalStore', 'acoursesListStore', 'acourseStore')(observer((stores) => {
+const CourseEditModal = inject('userStore', 'modalStore', 'acoursesListStore', 'acourseStore')(observer((stores) => {
     const {modalStore, acoursesListStore, acourseStore} = stores;
 
     const {register, handleSubmit, setValue} = useForm();
     const history = useHistory();
 
     const onSubmitAdd = (data) => {
-        acoursesListStore.setCourseAddData({})
-        acoursesListStore.loadCourseAdd(data).then(() => {
-            if (acoursesListStore.courseAddData?.status) {
-                modalStore.CourseAddModalClose()
-                history.push(`/apanel/course/${acoursesListStore.courseAddData?.id}`)
+        acourseStore.setCourseEditData({})
+        acourseStore.loadCourseEdit(data).then(() => {
+            if (acourseStore.courseEditData?.status) {
+                modalStore.ACourseEditModalClose()
+                history.push(`/apanel/course/${acourseStore.courseID}`)
             }
         })
     }
@@ -38,7 +38,7 @@ const CourseAddModal = inject('userStore', 'modalStore', 'acoursesListStore', 'a
     const getActiveSelect = (dataType, name) => {
         let pereq = undefined
         // eslint-disable-next-line
-        acoursesListStore?.filterData[dataType]?.filter(function(item){
+        acoursesListStore?.filterData[dataType]?.filter(function (item) {
             if (item.name === name) pereq = item.id
         })
         if (typeof pereq !== undefined) return pereq
@@ -63,7 +63,7 @@ const CourseAddModal = inject('userStore', 'modalStore', 'acoursesListStore', 'a
     }
 
 
-    const addForm = () => {
+    const editForm = () => {
         return <Modal show={modalStore.ACourseEditModalStatus} centered onHide={modalStore.ACourseEditModalClose}>
             <Modal.Header>
                 <Modal.Title>Редактирование курса</Modal.Title>
@@ -190,9 +190,14 @@ const CourseAddModal = inject('userStore', 'modalStore', 'acoursesListStore', 'a
                         <p className={'custom-alert-danger-text'}>{acoursesListStore?.errorsAdd['buyAllSubCourses']}</p>}
                     </div>
 
-
-                    <button type={"submit"} className={'btn btn-dark'}>Добавить</button>
-
+                    <div className="row mb-3">
+                        <div className="col-lg-6 col-6">
+                            <button type={"button"} className={'btn btn-danger w-100'}>Удалить</button>
+                        </div>
+                        <div className="col-lg-6 col-6">
+                            <button type={"submit"} className={'btn btn-dark w-100'}>Сохранить</button>
+                        </div>
+                    </div>
                     {/*<AddFormInput labelText={'Название'} fieldName={'name'} valuesAdd={register}/>*/}
                     {/*/!*<AddFormInput labelText={'Название'} fieldName={'name'} valuesAdd={register}/>*!/*/}
                     {/*<AddFormInput type={'file'} labelText={'Картинка курса'} fieldName={'coursePicture'}*/}
@@ -203,8 +208,8 @@ const CourseAddModal = inject('userStore', 'modalStore', 'acoursesListStore', 'a
     }
 
     return (
-        <>{addForm()}</>
+        <>{editForm()}</>
     )
 }))
 
-export default CourseAddModal;
+export default CourseEditModal;

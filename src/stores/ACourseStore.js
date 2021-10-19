@@ -17,7 +17,11 @@ export default class ACourseStore {
 
     _errorsAdd = undefined
 
+    _errorsEdit = undefined
+
     _subCourseAddData = {}
+
+    _courseEditData = {}
 
     constructor($client) {
         makeObservable(this, {
@@ -55,6 +59,16 @@ export default class ACourseStore {
             _subCourseAddData: observable,
             subCourseAddData: computed,
             setSubCourseAddData: action,
+
+            _errorsEdit: observable,
+            errorsEdit: computed,
+            setErrorEdit: action,
+
+            loadCourseEdit: action,
+
+            _courseEditData: observable,
+            courseEditData: computed,
+            setCourseEditData: action,
         })
 
         this.client = $client;
@@ -169,6 +183,48 @@ export default class ACourseStore {
 
     setSubCourseAddData = (value) => {
         this._subCourseAddData = value;
+    }
+
+
+
+
+
+    get errorsEdit() {
+        return toJS(this._errorsEdit);
+    }
+
+    setErrorEdit = (value) => {
+        this._errorsEdit = value;
+    }
+
+    loadCourseEdit = (data) => {
+        return this.client.post(`/apanel/course/${this.courseID}/edit/`, data).then((response) => {
+            // console.log(response.data)
+            this.setCourseEditData(response.data)
+            this.setErrorEdit(undefined)
+            this.loadCourseData(this.courseID)
+        }).catch(errors => {
+            // console.log(errors.response)
+            this.setCourseEditData({})
+            if (errors.response.data?.errors) {
+                this.setErrorEdit(errors.response.data?.errors)
+            }
+            if (errors.response.data?.detail) {
+                this.setErrorEdit({error:errors.response.data?.detail})
+            }
+            if (errors.response.data?.error) {
+                this.setErrorEdit({error:errors.response.data?.error})
+            }
+            // this.setErroAddrByKey(this.checkErrors(errors.response.data))
+        })
+    }
+
+    get courseEditData() {
+        return toJS(this._courseEditData);
+    }
+
+    setCourseEditData = (value) => {
+        this._courseEditData = value;
     }
 
 }
