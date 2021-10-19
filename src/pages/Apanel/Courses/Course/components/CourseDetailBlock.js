@@ -1,9 +1,11 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 import Spinner from "../../../../../components/Spinner";
+import {useAlert} from "react-alert";
 
 const CourseDetailBlock = inject('userStore', 'acourseStore', 'modalStore')(observer((store) => {
     const {acourseStore, modalStore} = store
+    const alert = useAlert();
 
     return (
         <section className={'BannerCourse'}>
@@ -51,8 +53,12 @@ const CourseDetailBlock = inject('userStore', 'acourseStore', 'modalStore')(obse
                             </div>
                             <div className="EditData">
                                 {acourseStore?.courseData?.draft &&
-                                <div className={"EditData__Button"} onClick={modalStore.ACourseEditModalShow}>опубликовать</div>}
-                                <div className={"EditData__Button"} onClick={modalStore.ACourseEditModalShow}>редактировать</div>
+                                <div className={"EditData__Button"} onClick={() => {
+                                    alert.info("Oh look, an alert!");
+                                }}>опубликовать</div>}
+                                <div className={"EditData__Button"}
+                                     onClick={modalStore.ACourseEditModalShow}>редактировать
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -60,7 +66,8 @@ const CourseDetailBlock = inject('userStore', 'acourseStore', 'modalStore')(obse
             </div>
         </section>
     )
-}))
+}
+))
 
 
 export default CourseDetailBlock;

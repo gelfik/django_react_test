@@ -183,10 +183,6 @@ export default class ACourseStore {
         this._subCourseAddData = value;
     }
 
-
-
-
-
     get errorsEdit() {
         return toJS(this._errorsEdit);
     }
