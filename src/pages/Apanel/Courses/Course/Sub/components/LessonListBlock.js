@@ -29,7 +29,7 @@ const LessonListBlock = inject('userStore', 'asubCourseStore', 'modalStore', 'al
             <div key={i} onClick={() => {
                 history.push(`/apanel/course/${queryParams?.courseID}/sub/${queryParams?.subID}/lesson/${item.id}`)
             }}
-                 className={`LessonList__Left__Item__Content ${item.id === Number(queryParams?.lessonID) ? 'LessonList__Left__Item__Active' : ''}`}>
+                 className={`LessonList__Left__Item__Content ${item.id === Number(queryParams?.lessonID) ? 'LessonList__Left__Item__Active' : ''} ${item.isOpen ? 'LessonList__Left__Item__ItemOpen' : 'LessonList__Left__Item__ItemClose'}`}>
                 <div className="LessonList__Left__Item__Time">
                     {item.video && `${getTime(lessonDate)}мск`}
                 </div>
@@ -40,12 +40,12 @@ const LessonListBlock = inject('userStore', 'asubCourseStore', 'modalStore', 'al
                             {item.homework && 'Домашка'}
                             {item.files && 'Файл'}
                         </div>
-                        {!item.isOpen && <div className="LessonList__Left__Item__Data__Chips__ItemClose">
-                            Черновик
-                        </div>}
-                        {item.isOpen && <div className="LessonList__Left__Item__Data__Chips__ItemOpen">
-                            Опубликован
-                        </div>}
+                        {/*{!item.isOpen && <div className="LessonList__Left__Item__Data__Chips__ItemClose">*/}
+                        {/*    Черновик*/}
+                        {/*</div>}*/}
+                        {/*{item.isOpen && <div className="LessonList__Left__Item__Data__Chips__ItemOpen">*/}
+                        {/*    Опубликован*/}
+                        {/*</div>}*/}
                     </div>
 
                     <div className="LessonList__Left__Item__Data__Title">
@@ -62,9 +62,9 @@ const LessonListBlock = inject('userStore', 'asubCourseStore', 'modalStore', 'al
         return asubCourseStore?.subCourseData?.lessons?.map((item, i) =>
             <div className="LessonList__Left__Item" key={i}>
                 <StickyBox offsetTop={136} offsetBottom={20} className="LessonList__Left__Item__Date">
-                    <p>{getDate(item.lessonDate)}</p>
-                    {item?.isOpen && 'Опубликован'}
-                    {!item?.isOpen && 'Черновик'}
+                    <p className={`${item?.isOpen ? 'Open' : 'Close'}`}>{getDate(item.lessonDate)}</p>
+                    {/*{item?.isOpen && 'Опубликован'}*/}
+                    {/*{!item?.isOpen && 'Черновик'}*/}
                     <div className="LessonList__Left__Item__Date__Admin" onClick={()=>{alessonStore.setLessonListID(item?.id)}}>
                         <svg fill="none" height="20" width="20">
                             <use xlinkHref={'#icon-pencil'}/>
