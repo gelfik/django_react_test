@@ -41,10 +41,10 @@ const LessonListBlock = inject('userStore', 'asubCourseStore', 'modalStore', 'al
                             {item.files && 'Файл'}
                         </div>
                         {!item.isOpen && <div className="LessonList__Left__Item__Data__Chips__ItemClose">
-                            Закрыт
+                            Черновик
                         </div>}
                         {item.isOpen && <div className="LessonList__Left__Item__Data__Chips__ItemOpen">
-                            Открыт
+                            Опубликован
                         </div>}
                     </div>
 
@@ -63,8 +63,8 @@ const LessonListBlock = inject('userStore', 'asubCourseStore', 'modalStore', 'al
             <div className="LessonList__Left__Item" key={i}>
                 <StickyBox offsetTop={136} offsetBottom={20} className="LessonList__Left__Item__Date">
                     <p>{getDate(item.lessonDate)}</p>
-                    {item?.isOpen && 'Открыт'}
-                    {!item?.isOpen && 'Закрыт'}
+                    {item?.isOpen && 'Опубликован'}
+                    {!item?.isOpen && 'Черновик'}
                     <div className="LessonList__Left__Item__Date__Admin" onClick={()=>{alessonStore.setLessonListID(item?.id)}}>
                         <svg fill="none" height="20" width="20">
                             <use xlinkHref={'#icon-pencil'}/>
