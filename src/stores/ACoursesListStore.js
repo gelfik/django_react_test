@@ -73,7 +73,7 @@ export default class ACoursesListStore {
     }
 
     loadFilterData = () => {
-        return this.client.get('/apanel/course/metadata/')
+        return this.client.get('/apanel/course/metadata')
             .then(response => {
                 this.setFilterData(response.data)
             })
@@ -88,7 +88,7 @@ export default class ACoursesListStore {
     }
 
     loadCoursesData = () => {
-        return this.client.get('/apanel/course/list/')
+        return this.client.get('/apanel/course/list')
             .then(response => {
                 this.setCoursesData(response.data)
             })
@@ -150,13 +150,13 @@ export default class ACoursesListStore {
         // }
         this.spinner.setSpinnerStatus(true)
         this.setFilterRequestOld(data)
-        return this.client.get(`/apanel/course/list/`, {params: data})
+        return this.client.get(`/apanel/course/list`, {params: data})
             .then(response => {
                 this.setCoursesData(response.data)
                 this.spinner.setSpinnerStatus(false)
             })
 
-        // return this.client.get(`/courses/list/${query}`)
+        // return this.client.get(`/courseslist/${query}`)
         //     .then(response => {
         //         this.setCoursesData(response.data)
         //     })
@@ -181,7 +181,7 @@ export default class ACoursesListStore {
 
 
     loadCourseAdd = (data) => {
-        return this.client.post('/apanel/course/add/', data).then((response) => {
+        return this.client.post('/apanel/course/add', data).then((response) => {
             // console.log(response.data.status)
             this.setCourseAddData(response.data)
             this.setErrorAdd(undefined)

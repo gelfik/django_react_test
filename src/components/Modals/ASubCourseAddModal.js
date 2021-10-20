@@ -24,7 +24,7 @@ const ASubCourseAddModal = inject('userStore', 'modalStore', 'acourseStore')(obs
                 reset()
                 // acourseStore.loadCourseData(acourseStore.subCourseAddData?.courseID)
                 acourseStore.setCourseID(acourseStore.subCourseAddData?.courseID)
-                history.push(`/apanel/course/${acourseStore.subCourseAddData?.courseID}/sub/${acourseStore.subCourseAddData?.subCourseID}`)
+                history.push(`/apanel/course${acourseStore.subCourseAddData?.courseID}/sub${acourseStore.subCourseAddData?.subCourseID}`)
             }
         })
     }

@@ -78,7 +78,7 @@ const BuyBlock = inject('purchasePageStore', 'purchaseCourseStore', 'purchaseSto
         purchasePageStore.buyPurchaseData(queryParams?.purchaseID).then(() => {
             if (purchasePageStore.buyCourseStore.buyText.valid !== '') {
                 purchaseStore.setPurchaseID(queryParams?.purchaseID, true)
-                history.push(`/purchases/${queryParams?.purchaseID}`)
+                history.push(`/purchases${queryParams?.purchaseID}`)
             }
         })
     }

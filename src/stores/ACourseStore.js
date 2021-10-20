@@ -99,7 +99,7 @@ export default class ACourseStore {
 
     loadPurchaseData = (CourseID) => {
         this.spinner.setSpinnerStatus(true)
-        return this.client.get(`/apanel/course/${CourseID}/purchaseList/`)
+        return this.client.get(`/apanel/course${CourseID}/purchaseList`)
             .then(response => {
                 this.setLoadError(false)
                 this.setPurchaseData(response.data)
@@ -151,7 +151,7 @@ export default class ACourseStore {
 
     loadCourseData = (CourseID) => {
         this.spinner.setSpinnerStatus(true)
-        return this.client.get(`/apanel/course/${CourseID}/`)
+        return this.client.get(`/apanel/course${CourseID}`)
             .then(response => {
                 this.setLoadError(false)
                 this.setCourseData(response.data)
@@ -172,7 +172,7 @@ export default class ACourseStore {
     }
 
     loadSubCourseAdd = (data) => {
-        return this.client.post(`/apanel/course/${this.courseID}/sub/add/`, data).then((response) => {
+        return this.client.post(`/apanel/course${this.courseID}/sub/add`, data).then((response) => {
             // console.log(response.data.status)
             this.setSubCourseAddData(response.data)
             this.setErrorAdd(undefined)
@@ -208,7 +208,7 @@ export default class ACourseStore {
     }
 
     loadCourseEdit = (data) => {
-        return this.client.post(`/apanel/course/${this.courseID}/edit/`, data).then((response) => {
+        return this.client.post(`/apanel/course${this.courseID}/edit`, data).then((response) => {
             // console.log(response.data)
             this.setCourseEditData(response.data)
             this.setErrorEdit(undefined)
@@ -240,7 +240,7 @@ export default class ACourseStore {
 
 
     loadCourseDraft = () => {
-        return this.client.post(`/apanel/course/${this.courseID}/edit/`, {draft: true}).then((response) => {
+        return this.client.post(`/apanel/course${this.courseID}/edit`, {draft: true}).then((response) => {
             // console.log(response.data)
             this.setCourseDraftData(response.data)
             this.loadCourseData(this.courseID)
@@ -269,7 +269,7 @@ export default class ACourseStore {
     }
 
     loadCourseDelete = () => {
-        return this.client.delete(`/apanel/course/${this.courseID}/delete/`).then((response) => {
+        return this.client.delete(`/apanel/course${this.courseID}/delete`).then((response) => {
             // console.log(response.data)
             this.setCourseDeleteData(response.data)
         }).catch(errors => {

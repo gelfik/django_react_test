@@ -67,7 +67,7 @@ export default class PurchaseStore {
 
     loadPurchaseData = (purchaseID) => {
         this.spinner.setSpinnerStatus(true)
-        return this.client.get(`/purchase/${purchaseID}/`)
+        return this.client.get(`/purchase${purchaseID}`)
             .then(response => {
                 this.setLoadError(false)
                 this.spinner.setSpinnerStatus(false)

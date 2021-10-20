@@ -14,7 +14,7 @@ const CourseDetailBlock = inject('userStore', 'acourseStore', 'modalStore')(obse
         acourseStore.loadCourseDraft().then(() => {
             if (acourseStore.courseDraftData?.status) {
                 alert.success(acourseStore.courseDraftData?.detail)
-                history.push(`/apanel/course/${acourseStore.courseID}`)
+                history.push(`/apanel/course${acourseStore.courseID}`)
             }
             if (!acourseStore.courseDraftData?.status) {
                 alert.error(acourseStore.courseDraftData?.detail)

@@ -14,7 +14,7 @@ const CourseAddModal = inject('userStore', 'modalStore', 'acoursesListStore')(ob
         acoursesListStore.loadCourseAdd(data).then(()=> {
             if (acoursesListStore.courseAddData?.status) {
                 modalStore.CourseAddModalClose()
-                history.push(`/apanel/course/${acoursesListStore.courseAddData?.id}`)
+                history.push(`/apanel/course${acoursesListStore.courseAddData?.id}`)
             }
         })
     }

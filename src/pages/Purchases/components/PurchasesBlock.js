@@ -25,7 +25,7 @@ const PurchasesBlock = inject('userStore', 'purchasesListStore', 'modalStore', '
             <div className="Course__Item" key={i}>
                 <div className="Course__Item__Content">
                     <div className="Course__Item__Header">
-                        <Link to={`/purchases/${item?.id}`} className="Course__Item__Data">
+                        <Link to={`/purchases${item?.id}`} className="Course__Item__Data">
                             <div className="Course__Item__Avatar">
                                 <img src={`${item?.course?.coursePicture}`} alt=''/>
                             </div>
@@ -54,7 +54,7 @@ const PurchasesBlock = inject('userStore', 'purchasesListStore', 'modalStore', '
                                 <p>Курс куплен полностью</p>
                             </span>}
                             {!item?.courseSubAll &&
-                            <Link to={`/purchases/${item?.id}/purchase`} className="Course__Item__PayInfo__Link">Докупить
+                            <Link to={`/purchases${item?.id}/purchase`} className="Course__Item__PayInfo__Link">Докупить
                                 курс</Link>}
                             <div className="Course__Item__PayInfo__Link" onClick={()=>{
                                 purchaseStore.setPurchaseData(item)

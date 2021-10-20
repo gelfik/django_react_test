@@ -19,7 +19,7 @@ const SubCourseButtonsBlock = inject('userStore', 'acourseStore', 'modalStore', 
                 <button type="button"
                         className={`btn btn-outline-dark SubCourses__ButtonSubActive ${item.id === Number(queryParams?.subID) ? 'active' : ''}`}
                         key={i} onClick={() => {
-                    history.push(`/apanel/course/${queryParams?.courseID}/sub/${item.id}`)
+                    history.push(`/apanel/course${queryParams?.courseID}/sub${item.id}`)
                 }}>
                     {item.name}
                 </button>
@@ -75,7 +75,7 @@ const SubCourseButtonsBlock = inject('userStore', 'acourseStore', 'modalStore', 
                         className={`btn btn-outline-dark SubCourses__ButtonSubActive`}
                         onClick={() => {
                             SetAccordion(true)
-                            history.push(`/apanel/course/${queryParams?.courseID}`)
+                            history.push(`/apanel/course${queryParams?.courseID}`)
                         }}>
                     сменить подкурс
                 </button>

@@ -12,7 +12,7 @@ const SubCoursesButtonBlock = inject('purchaseStore', 'purCoursePageStore', 'sub
             <button type="button"
                     className={`btn btn-outline-dark SubCourses__ButtonSubActive ${item.id === Number(queryParams?.subID) ? 'active' : ''}`}
                     key={i} onClick={() => {
-                history.push(`/purchases/${queryParams?.purchaseID}/sub/${item.id}`)
+                history.push(`/purchases${queryParams?.purchaseID}/sub${item.id}`)
             }}>
                 {item.name}
             </button>

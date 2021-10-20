@@ -27,7 +27,7 @@ const LessonListBlock = inject('userStore', 'asubCourseStore', 'modalStore', 'al
     const getLessons = (data, lessonDate) => {
         return data?.map((item, i) =>
             <div key={i} onClick={() => {
-                history.push(`/apanel/course/${queryParams?.courseID}/sub/${queryParams?.subID}/lesson/${item.id}`)
+                history.push(`/apanel/course${queryParams?.courseID}/sub${queryParams?.subID}/lesson${item.id}`)
             }}
                  className={`LessonList__Left__Item__Content ${item.id === Number(queryParams?.lessonID) ? 'LessonList__Left__Item__Active' : ''} ${item.isOpen ? 'LessonList__Left__Item__ItemOpen' : 'LessonList__Left__Item__ItemClose'}`}>
                 <div className="LessonList__Left__Item__Time">

@@ -63,7 +63,7 @@ const PurchaseDetailModal = inject('userStore', 'modalStore', 'purchaseStore')(o
                                     </span>
                                 }
                                 {!purchaseStore?.purchaseData?.courseSubAll &&
-                                <Link to={`/purchases/${purchaseStore?.purchaseData?.id}/purchase`}
+                                <Link to={`/purchases${purchaseStore?.purchaseData?.id}/purchase`}
                                       className="Purchase__Item__PayInfo__Link"  onClick={modalStore.PurchaseDetailModalClose}>Докупить
                                     курс</Link>}
                             </div>

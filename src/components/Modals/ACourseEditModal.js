@@ -18,7 +18,7 @@ const CourseEditModal = inject('userStore', 'modalStore', 'acoursesListStore', '
             if (acourseStore.courseEditData?.status) {
                 modalStore.ACourseEditModalClose()
                 alert.success(acourseStore.courseEditData?.detail)
-                // history.push(`/apanel/course/${acourseStore.courseID}`)
+                // history.push(`/apanel/course${acourseStore.courseID}`)
             }
         })
     }

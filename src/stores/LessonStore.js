@@ -69,7 +69,7 @@ export default class LessonStore {
 
     loadLessonData = (purchaseID, subID, lessonID) => {
         this.spinner.setSpinnerStatus(true)
-        return this.client.get(`/purchase/${purchaseID}/sub/${subID}/lesson/${lessonID}/`)
+        return this.client.get(`/purchase${purchaseID}/sub${subID}/lesson${lessonID}`)
             .then(response => {
                 this.setLoadError(false)
                 this.spinner.setSpinnerStatus(false)
@@ -83,7 +83,7 @@ export default class LessonStore {
 
     loadHomeworkData = (purchaseID, subID, lessonID, homeworkID, data) => {
         this.spinner.setSpinnerStatus(true)
-        return this.client.post(`/purchase/${purchaseID}/homework/${homeworkID}/`, data)
+        return this.client.post(`/purchase${purchaseID}/homework${homeworkID}`, data)
             .then(response => {
                 this.setLoadError(false)
                 this.spinner.setSpinnerStatus(false)

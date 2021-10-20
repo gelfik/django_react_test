@@ -28,7 +28,7 @@ const CoursesBlock = inject('userStore', 'acoursesListStore')(observer((store) =
             <div className="Course__Item" key={i}>
                 <div className="Course__Item__Content">
                     <div className="Course__Item__Header">
-                        <Link to={`/apanel/course/${item?.id}`} className="Course__Item__Data">
+                        <Link to={`/apanel/course${item?.id}`} className="Course__Item__Data">
                             <div className="Course__Item__Avatar">
                                 <img src={`${item?.coursePicture}`} alt=''/>
                             </div>

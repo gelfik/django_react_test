@@ -49,7 +49,7 @@ export default class PurchasesListStore {
 
     loadPurchasesListData = () => {
         this.spinner.setSpinnerStatus(true)
-        return this.client.get('/purchase/list/')
+        return this.client.get('/purchase/list')
             .then(response => {
                 this.setLoadError(false)
                 this.spinner.setSpinnerStatus(false)

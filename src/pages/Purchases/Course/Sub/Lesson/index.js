@@ -46,7 +46,7 @@ const PurchasesLessonPage = inject('userStore', 'purchaseStore', 'purCoursePageS
                     {!purchaseStore.loadError && <>
                         {uiStore.deviceType !== 'mobile' && <PurchaseBlock/>}
                         {uiStore.deviceType === 'mobile' && <section className={'BackButton'}>
-                            <Link to={`/purchases/${queryParams.purchaseID}/sub/${queryParams.subID}`}
+                            <Link to={`/purchases${queryParams.purchaseID}/sub${queryParams.subID}`}
                                   className={'btn btn-dark'}>к списку уроков</Link>
                         </section>}
                         {subCourseStore.spinner.spinnerStatus ? <Spinner type={'local'}/> :

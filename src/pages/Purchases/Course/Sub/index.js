@@ -42,7 +42,7 @@ const PurchasesSubPage = inject('userStore', 'purchaseStore', 'subCourseStore', 
                     {!purchaseStore.loadError && <>
                         {uiStore.deviceType !== 'mobile' && <PurchaseBlock/>}
                         {uiStore.deviceType === 'mobile' && <section className={'BackButton'}>
-                            <Link to={`/purchases/${queryParams.purchaseID}`} className={'btn btn-dark'}>к списку подкурсов</Link>
+                            <Link to={`/purchases${queryParams.purchaseID}`} className={'btn btn-dark'}>к списку подкурсов</Link>
                         </section>}
                         {subCourseStore.spinner.spinnerStatus ? <Spinner type={'local'}/> :
                             <section className={'LessonList'}>

@@ -23,7 +23,7 @@ const ALessonListAddModal = inject('userStore', 'modalStore', 'acourseStore' ,'a
                 modalStore.ALessonListAddModalClose()
                 reset()
                 asubCourseStore.setSubCourseID(asubCourseStore.lessonListAddData?.courseID, asubCourseStore.lessonListAddData?.subCourseID, true)
-                history.push(`/apanel/course/${asubCourseStore.lessonListAddData?.courseID}/sub/${asubCourseStore.lessonListAddData?.subCourseID}`)
+                history.push(`/apanel/course${asubCourseStore.lessonListAddData?.courseID}/sub${asubCourseStore.lessonListAddData?.subCourseID}`)
             }
         })
     }

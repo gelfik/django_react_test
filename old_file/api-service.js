@@ -48,14 +48,14 @@ export default class ApiService {
     }
 
     // getUserData = async () => {
-    //     const res = await this.getResource('/User/', 'GET')
+    //     const res = await this.getResource('/User', 'GET')
     //     console.log(res)
     //     return res
     // }
 
 
     async getUserData() {
-        const [res, status] = await this.getResource('/User/')
+        const [res, status] = await this.getResource('/User')
         if (status) {
             return this._transformUserData(res)
         } else {
@@ -64,7 +64,7 @@ export default class ApiService {
     }
 
     async postUserLogin(email, password) {
-        const [res, status] = await this.postResource('/login/', {email:email, password:password})
+        const [res, status] = await this.postResource('/login', {email:email, password:password})
         return [res, status]
     }
 

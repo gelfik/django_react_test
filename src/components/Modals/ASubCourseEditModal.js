@@ -27,7 +27,7 @@ const ASubCourseEditModal = inject('userStore', 'modalStore', 'acourseStore', 'a
                 modalStore.ASubCourseEditModalClose()
                 alert.success(asubCourseStore.subCourseEditData?.detail)
             }
-            // history.push(`/apanel/course/${asubCourseStore.subCourseEditData?.courseID}/sub/${asubCourseStore.subCourseEditData?.subCourseID}`)
+            // history.push(`/apanel/course${asubCourseStore.subCourseEditData?.courseID}/sub${asubCourseStore.subCourseEditData?.subCourseID}`)
         })
     }
 
@@ -36,7 +36,7 @@ const ASubCourseEditModal = inject('userStore', 'modalStore', 'acourseStore', 'a
             modalStore.ASubCourseEditModalClose()
             if (asubCourseStore.subCourseDeleteData?.status) {
                 alert.success(asubCourseStore.subCourseDeleteData?.detail)
-                history.push(`/apanel/course/${acourseStore.courseID}`)
+                history.push(`/apanel/course${acourseStore.courseID}`)
             } else alert.error(asubCourseStore.subCourseDeleteData?.detail)
         })
     }

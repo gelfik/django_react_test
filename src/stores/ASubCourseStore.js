@@ -79,7 +79,7 @@ export default class ASubCourseStore {
 
     loadSubCourseData = (CourseID, SubCourseID) => {
         this.spinner.setSpinnerStatus(true)
-        return this.client.get(`/apanel/course/${CourseID}/sub/${SubCourseID}/`)
+        return this.client.get(`/apanel/course${CourseID}/sub${SubCourseID}`)
             .then(response => {
                 this.setLoadError(false)
                 this.setSubCourseData(response.data)
@@ -122,7 +122,7 @@ export default class ASubCourseStore {
     }
 
     loadLessonListAdd = (data, courseID) => {
-        return this.client.post(`/apanel/course/${courseID}/sub/${this.subCourseID}/lessonList/add/`, data).then((response) => {
+        return this.client.post(`/apanel/course${courseID}/sub${this.subCourseID}/lessonList/add`, data).then((response) => {
             // console.log(response.data.status)
             this.setlessonListAddData(response.data)
             this.setErrorAdd(undefined)
@@ -158,7 +158,7 @@ export default class ASubCourseStore {
     }
 
     loadSubCourseEdit = (data, courseID) => {
-        return this.client.post(`/apanel/course/${courseID}/sub/${this.subCourseID}/edit/`, data).then((response) => {
+        return this.client.post(`/apanel/course${courseID}/sub${this.subCourseID}/edit`, data).then((response) => {
             // console.log(response.data)
             this.setSubCourseEditData(response.data)
             this.setErrorEdit(undefined)
@@ -188,7 +188,7 @@ export default class ASubCourseStore {
     }
 
     loadSubCourseDelete = (courseID) => {
-        return this.client.delete(`/apanel/course/${courseID}/sub/${this.subCourseID}/delete/`).then((response) => {
+        return this.client.delete(`/apanel/course${courseID}/sub${this.subCourseID}/delete`).then((response) => {
             // console.log(response.data)
             this.setSubCourseDeleteData(response.data)
         }).catch(errors => {

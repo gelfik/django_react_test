@@ -61,7 +61,7 @@ export default class ALessonStore {
 
     loadLessonData = (CourseID, SubCourseID, LessonID) => {
         this.spinner.setSpinnerStatus(true)
-        return this.client.get(`/apanel/course/${CourseID}/sub/${SubCourseID}/lesson/${LessonID}/`)
+        return this.client.get(`/apanel/course${CourseID}/sub${SubCourseID}/lesson${LessonID}`)
             .then(response => {
                 this.setLoadError(false)
                 this.setLessonData(response.data)
@@ -112,7 +112,7 @@ export default class ALessonStore {
     }
 
     loadLessonAdd = (data, courseID, subCourseID) => {
-        return this.client.post(`/apanel/course/${courseID}/sub/${subCourseID}/lessonList/${this.lessonListID}/lesson/add/`, data).then((response) => {
+        return this.client.post(`/apanel/course${courseID}/sub${subCourseID}/lessonList${this.lessonListID}/lesson/add`, data).then((response) => {
             // console.log(response.data.status)
             this.setlessonAddData(response.data)
             this.setErrorAdd(undefined)

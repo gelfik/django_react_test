@@ -100,7 +100,7 @@ const BannerBlock = inject('userStore', 'coursePageStore', 'modalStore', 'course
                                                 buyFreeSubmit()
                                             }}>приобрести курс</div>}
                                             {Number(courseStore?.courseData?.price) !== 0 &&
-                                            <Link to={`/courses/${queryParams?.courseID}/purchase`}
+                                            <Link to={`/courses${queryParams?.courseID}/purchase`}
                                                   className="BuyData__Button">приобрести курс</Link>}
                                         </>}
                                         <span className="BuyData__Price desktop-none">
