@@ -11,7 +11,6 @@ import {Col, Container, Row} from "react-bootstrap";
 
 const ApanelSubCoursePage = inject('userStore', 'acourseStore', 'acoursesListStore', 'asubCourseStore')(observer((store) => {
     useEffect(() => {
-        document.title = "Курсы"
         document.body.className = 'bg-light min-vh-100'
         window.scrollTo(0, 0)
     }, []);

@@ -13,7 +13,6 @@ import StickyBox from "react-sticky-box";
 
 const ApanelLessonPage = inject('userStore', 'acourseStore', 'acoursesListStore', 'asubCourseStore', 'alessonStore')(observer((store) => {
     useEffect(() => {
-        document.title = "Курсы"
         document.body.className = 'bg-light min-vh-100'
         window.scrollTo(0, 0)
     }, []);

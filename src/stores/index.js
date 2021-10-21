@@ -24,6 +24,8 @@ import ACourseStore from "./ACourseStore";
 import ASubCourseStore from "./ASubCourseStore";
 import ALessonStore from "./ALessonStore";
 import ACoursePageStore from "./pageStores/apanel/ACoursePageStore";
+import AUsersListStore from "./AUsersListStore";
+import AGroupListStore from "./AGroupListStore";
 
 
 class RootStore {
@@ -57,6 +59,10 @@ class RootStore {
         this.acourseStore = new ACourseStore(this.$axios)
         this.asubCourseStore = new ASubCourseStore(this.$axios)
         this.alessonStore = new ALessonStore(this.$axios)
+
+        this.agroupListStore = new AGroupListStore(this.$axios);
+        this.ausersListStore = new AUsersListStore(this.$axios, this.agroupListStore);
+
 
         this.uiStore = new UiStore();
     }

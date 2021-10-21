@@ -25,6 +25,7 @@ import ApanelCoursesPage from "../../pages/Apanel/Courses";
 import ApanelCoursePage from "../../pages/Apanel/Courses/Course";
 import ApanelSubCoursePage from "../../pages/Apanel/Courses/Course/Sub";
 import ApanelLessonPage from "../../pages/Apanel/Courses/Course/Sub/Lesson";
+import ApanelUsersPage from "../../pages/Apanel/Users";
 
 const PageService = inject('userStore')(observer((store) => {
         const {userStore} = store
@@ -38,51 +39,26 @@ const PageService = inject('userStore')(observer((store) => {
                 <Switch>
                     <Route path='/' component={MainPage} exact/>
 
+                    <Route path='/apanel/users' exact
+                           render={() => userStore.userAuthStatus && userStore.userData?.isTeacher ?
+                               <ApanelUsersPage/> : <Redirect to='/'/>}/>
+
                     <Route path='/apanel/course:courseID/sub:subID/lesson:lessonID' exact
-                           render={() => {
-                               if (userStore.userAuthStatus) {
-                                   return <ApanelLessonPage/>
-                               } else {
-                                   return <Redirect to='/'/>
-                               }
-                           }}/>
-
-
+                           render={() => userStore.userAuthStatus && (userStore.userData?.isTeacher || userStore.userData?.isMentor) ?
+                               <ApanelLessonPage/> : <Redirect to='/'/>}/>
                     <Route path='/apanel/course:courseID/sub:subID' exact
-                           render={() => {
-                               if (userStore.userAuthStatus) {
-                                   return <ApanelSubCoursePage/>
-                               } else {
-                                   return <Redirect to='/'/>
-                               }
-                           }}/>
-
+                           render={() => userStore.userAuthStatus && (userStore.userData?.isTeacher || userStore.userData?.isMentor) ?
+                               <ApanelSubCoursePage/> : <Redirect to='/'/>}/>
                     <Route path='/apanel/course:courseID' exact
-                           render={() => {
-                               if (userStore.userAuthStatus) {
-                                   return <ApanelCoursePage/>
-                               } else {
-                                   return <Redirect to='/'/>
-                               }
-                           }}/>
-
+                           render={() => userStore.userAuthStatus && (userStore.userData?.isTeacher || userStore.userData?.isMentor) ?
+                               <ApanelCoursePage/> : <Redirect to='/'/>}/>
                     <Route path='/apanel/course' exact
-                           render={() => {
-                               if (userStore.userAuthStatus) {
-                                   return <ApanelCoursesPage/>
-                               } else {
-                                   return <Redirect to='/'/>
-                               }
-                           }}/>
+                           render={() => userStore.userAuthStatus && (userStore.userData?.isTeacher || userStore.userData?.isMentor) ?
+                               <ApanelCoursesPage/> : <Redirect to='/'/>}/>
 
                     <Route path='/apanel' exact
-                           render={() => {
-                               if (userStore.userAuthStatus) {
-                                   return <ApanelPage/>
-                               } else {
-                                   return <Redirect to='/'/>
-                               }
-                           }}/>
+                           render={() => userStore.userAuthStatus && (userStore.userData?.isTeacher || userStore.userData?.isMentor) ?
+                               <ApanelPage/> : <Redirect to='/'/>}/>
 
                     <Route path='/purchases:purchaseID/sub:subID/lesson:lessonID' exact
                            render={() => !userStore.userAuthStatus ? <Redirect to='/'/> : <PurchasesLessonPage/>}/>

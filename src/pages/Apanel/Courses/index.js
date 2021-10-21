@@ -8,7 +8,6 @@ const ApanelCoursesPage = inject('userStore', 'acoursesListStore')(observer((sto
     const {acoursesListStore} = store
 
     useEffect(() => {
-        document.title = "Курсы"
         document.body.className = 'bg-light min-vh-100'
         window.scrollTo(0, 0)
     }, []);

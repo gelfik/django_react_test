@@ -14,7 +14,6 @@ const CoursesCoursePurchasePage = inject('userStore', 'courseStore')(observer((s
     }, []);
 
     useEffect(() => {
-        document.title = `${courseStore?.courseData?.predmet ?? 'Курс'} ${courseStore?.courseData?.courseExamType ?? ''}.${courseStore?.courseData?.courseType?.name ?? ''}`
         document.body.className = 'bg-light min-vh-100'
     }, [courseStore?.courseData]);
 

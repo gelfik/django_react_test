@@ -6,7 +6,6 @@ import EducationBlock from "./components/educationBlock";
 const MainPage = inject('userStore')(observer((props) => {
 
     useEffect(() => {
-        document.title = "Главная"
         document.body.className='bg-dark min-vh-100'
         window.scrollTo(0, 0)
     }, []);

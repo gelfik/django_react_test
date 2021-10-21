@@ -10,7 +10,6 @@ import CourseDetailBlock from "./components/CourseDetailBlock";
 
 const ApanelCoursePage = inject('userStore', 'acourseStore', 'acoursesListStore')(observer((store) => {
     useEffect(() => {
-        document.title = "Курсы"
         document.body.className = 'bg-light min-vh-100'
         window.scrollTo(0, 0)
     }, []);

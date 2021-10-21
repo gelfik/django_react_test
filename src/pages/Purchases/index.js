@@ -6,7 +6,6 @@ const PurchasesPage = inject('userStore', 'purchasesListStore')(observer((store)
     const {purchasesListStore} = store
 
     useEffect(() => {
-        document.title = "Мои курсы"
         document.body.className = 'bg-light min-vh-100'
         window.scrollTo(0, 0)
     }, []);
