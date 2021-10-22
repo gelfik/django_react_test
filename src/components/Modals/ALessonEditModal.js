@@ -37,21 +37,22 @@ const ALessonEditModal = inject('userStore', 'modalStore', 'acourseStore', 'asub
             if (alessonStore.lessonEditData?.status) {
                 modalStore.ALessonEditModalClose()
                 alert.success(alessonStore.lessonEditData?.detail)
+                asubCourseStore.loadSubCourseData(acourseStore.courseID, asubCourseStore.subCourseID)
             }
             // history.push(`/apanel/course${asubCourseStore.subCourseEditData?.courseID}/sub${asubCourseStore.subCourseEditData?.subCourseID}`)
         })
     }
 
-    // const onSubmitDelete = () => {
-    //     asubCourseStore.loadSubCourseDelete(acourseStore.courseID).then(() => {
-    //         modalStore.ASubCourseEditModalClose()
-    //         if (asubCourseStore.subCourseDeleteData?.status) {
-    //             alert.success(asubCourseStore.subCourseDeleteData?.detail)
-    //             acourseStore.loadCourseData(acourseStore.courseID)
-    //             history.push(`/apanel/course${acourseStore.courseID}`)
-    //         } else alert.error(asubCourseStore.subCourseDeleteData?.detail)
-    //     })
-    // }
+    const onSubmitDelete = () => {
+        alessonStore.loadLessonDelete(acourseStore.courseID, asubCourseStore.subCourseID).then(() => {
+            modalStore.ALessonEditModalClose()
+            if (alessonStore.lessonDeleteData?.status) {
+                alert.success(alessonStore.lessonDeleteData?.detail)
+                asubCourseStore.loadSubCourseData(acourseStore.courseID, asubCourseStore.subCourseID)
+                history.push(`/apanel/course${acourseStore.courseID}/sub${asubCourseStore.subCourseID}`)
+            } else alert.error(alessonStore.lessonDeleteData?.detail)
+        })
+    }
 
     return (
         <Modal show={modalStore.ALessonEditModalStatus} centered onHide={modalStore.ALessonEditModalClose}>
@@ -80,7 +81,7 @@ const ALessonEditModal = inject('userStore', 'modalStore', 'acourseStore', 'asub
                                 <div className="form-floating ">
                                 <textarea className={`form-control`}
                                           id={'description'} {...register('description')}
-                                          required placeholder={'Название'} style={{height: '100px'}}/>
+                                           placeholder={'Описание'} style={{height: '100px'}}/>
                                     <label htmlFor={'description'}>Описание</label>
                                 </div>
                                 {alessonStore?.errorsLessonEdit && alessonStore?.errorsLessonEdit['description'] &&
@@ -108,7 +109,7 @@ const ALessonEditModal = inject('userStore', 'modalStore', 'acourseStore', 'asub
                         </div>
                         <div className="row mb-3">
                             <div className="col-lg-6 col-6">
-                                <button type={"button"} className={'btn btn-danger w-100'}>Удалить
+                                <button type={"button"} className={'btn btn-danger w-100'} onClick={() => onSubmitDelete()}>Удалить
                                 </button>
                             </div>
                             <div className="col-lg-6 col-6">
