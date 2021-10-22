@@ -36,6 +36,7 @@ const ASubCourseEditModal = inject('userStore', 'modalStore', 'acourseStore', 'a
             modalStore.ASubCourseEditModalClose()
             if (asubCourseStore.subCourseDeleteData?.status) {
                 alert.success(asubCourseStore.subCourseDeleteData?.detail)
+                acourseStore.loadCourseData(acourseStore.courseID)
                 history.push(`/apanel/course${acourseStore.courseID}`)
             } else alert.error(asubCourseStore.subCourseDeleteData?.detail)
         })

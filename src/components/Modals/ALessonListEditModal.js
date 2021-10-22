@@ -40,6 +40,7 @@ const ALessonListEditModal = inject('userStore', 'modalStore', 'acourseStore', '
         alessonStore.loadLessonListDelete(acourseStore.courseID, asubCourseStore.subCourseID).then(() => {
             if (alessonStore.lessonListDeleteData?.status) {
                 alert.success(alessonStore.lessonListDeleteData?.detail)
+                asubCourseStore.loadSubCourseData(acourseStore.courseID, asubCourseStore.subCourseID)
                 history.push(`/apanel/course${acourseStore.courseID}/sub${asubCourseStore.subCourseID}`)
             } else alert.error(alessonStore.lessonListDeleteData?.detail)
         })
