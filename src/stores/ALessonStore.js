@@ -17,6 +17,7 @@ export default class ALessonStore {
 
     _lessonListAddData = {}
     _lessonListEditData = {}
+    _lessonListDeleteData = {}
 
     _errorsEdit = undefined
 
@@ -55,6 +56,11 @@ export default class ALessonStore {
             lessonListEditData: computed,
             setLessonListEditData: action,
             loadLessonListEdit: action,
+
+            _lessonListDeleteData: observable,
+            lessonListDeleteData: computed,
+            setLessonListDeleteData: action,
+            loadLessonListDelete: action,
 
             _errorsEdit: observable,
             errorsEdit: computed,
@@ -190,4 +196,22 @@ export default class ALessonStore {
         this._lessonListEditData = value;
     }
 
+    loadLessonListDelete = (courseID, subCourseID) => {
+        return this.client.delete(`/apanel/course${courseID}/sub${subCourseID}/lessonList${this.lessonListID}/delete`).then((response) => {
+            // console.log(response.data)
+            this.setLessonListDeleteData(response.data)
+        }).catch(errors => {
+            // console.log(errors.response)
+            this.setLessonListDeleteData(errors.response.data)
+            // this.setErroAddrByKey(this.checkErrors(errors.response.data))
+        })
+    }
+
+    get lessonListDeleteData() {
+        return toJS(this._lessonListDeleteData);
+    }
+
+    setLessonListDeleteData = (value) => {
+        this._lessonListDeleteData = value;
+    }
 }
