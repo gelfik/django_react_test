@@ -2,32 +2,28 @@ import React, {useEffect} from "react";
 import {inject, observer} from "mobx-react";
 import Modal from "react-bootstrap/Modal";
 import {useForm} from "react-hook-form";
-import {useHistory} from "react-router-dom";
 import ErrorAlert from "../ErrorAlert";
 import {useAlert} from "react-alert";
 import Moment from "moment";
 
-const ALessonListEditModal = inject('userStore', 'modalStore', 'acourseStore' ,'asubCourseStore', 'alessonStore')(observer((stores) => {
+const ALessonListEditModal = inject('userStore', 'modalStore', 'acourseStore', 'asubCourseStore', 'alessonStore')(observer((stores) => {
     const {modalStore, acourseStore, asubCourseStore, alessonStore} = stores;
-    const {register, handleSubmit, reset, setValue} = useForm();
+    const {register, handleSubmit, setValue} = useForm();
     const alert = useAlert();
-
-    const history = useHistory();
-
     useEffect(() => {
-        alessonStore.setErrorEdit(undefined)
-        asubCourseStore.subCourseData?.lessons?.filter(function (item) {
-            if (item.id === alessonStore.lessonListID) setValue('lessonDate', Moment(item?.lessonDate, "DD.MM.YYYY H:m").format('YYYY-MM-DDTHH:mm') )
-        })
-        // setValue('lessonDate', asubCourseStore.lessonListAddData?.lessonDate)
+        if (modalStore.ALessonListEditModalStatus) {
+            alessonStore.setErrorEdit(undefined)
+            let oldDate = asubCourseStore.subCourseData?.lessons?.filter(item => item.id === alessonStore.lessonListID)
+            setValue('lessonDate', Moment(oldDate?.shift()?.lessonDate, "DD.MM.YYYY H:m").format('YYYY-MM-DDTHH:mm'))
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [modalStore.ALessonListEditModalStatus])
 
     const onSubmitEdit = (data) => {
-        console.log(data)
         alessonStore.setLessonListEditData({})
-        alessonStore.loadLessonListEdit(data, acourseStore.courseID, asubCourseStore.subCourseID).then(()=> {
+        alessonStore.loadLessonListEdit(data, acourseStore.courseID, asubCourseStore.subCourseID).then(() => {
             if (alessonStore.lessonListEditData?.status) {
+                asubCourseStore.loadSubCourseData(acourseStore.courseID, asubCourseStore.subCourseID)
                 modalStore.ALessonListEditModalClose()
                 alert.success(alessonStore.lessonListEditData?.detail)
             }
@@ -50,7 +46,9 @@ const ALessonListEditModal = inject('userStore', 'modalStore', 'acourseStore' ,'
                             <div className="form-floating ">
                                 <input type={'datetime-local'} className={`form-control`}
                                        id={'lessonDate'} {...register('lessonDate')}
-                                       required placeholder={'Дата начала'} min={`${asubCourseStore.subCourseData?.startDate}T00:00`} max={`${asubCourseStore.subCourseData?.endDate}T23:59`}/>
+                                       required placeholder={'Дата начала'}
+                                       min={`${asubCourseStore.subCourseData?.startDate}T00:00`}
+                                       max={`${asubCourseStore.subCourseData?.endDate}T23:59`}/>
                                 <label htmlFor={'lessonDate'}>Дата начала</label>
                             </div>
                             {alessonStore?.errorsEdit && alessonStore?.errorsEdit['lessonDate'] &&
