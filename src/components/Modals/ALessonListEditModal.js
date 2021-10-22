@@ -5,6 +5,7 @@ import {useForm} from "react-hook-form";
 import ErrorAlert from "../ErrorAlert";
 import {useAlert} from "react-alert";
 import Moment from "moment";
+import {Form} from "react-bootstrap";
 
 const ALessonListEditModal = inject('userStore', 'modalStore', 'acourseStore', 'asubCourseStore', 'alessonStore')(observer((stores) => {
     const {modalStore, acourseStore, asubCourseStore, alessonStore} = stores;
@@ -13,13 +14,15 @@ const ALessonListEditModal = inject('userStore', 'modalStore', 'acourseStore', '
     useEffect(() => {
         if (modalStore.ALessonListEditModalStatus) {
             alessonStore.setErrorEdit(undefined)
-            let oldDate = asubCourseStore.subCourseData?.lessons?.filter(item => item.id === alessonStore.lessonListID)
-            setValue('lessonDate', Moment(oldDate?.shift()?.lessonDate, "DD.MM.YYYY H:m").format('YYYY-MM-DDTHH:mm'))
+            let data = asubCourseStore.subCourseData?.lessons?.filter(item => item.id === alessonStore.lessonListID)
+            setValue('lessonDate', Moment(data?.shift()?.lessonDate, "DD.MM.YYYY H:m").format('YYYY-MM-DDTHH:mm'))
+            // setValue('isOpen', data?.shift()?.isOpen)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [modalStore.ALessonListEditModalStatus])
 
     const onSubmitEdit = (data) => {
+        console.log(data)
         alessonStore.setLessonListEditData({})
         alessonStore.loadLessonListEdit(data, acourseStore.courseID, asubCourseStore.subCourseID).then(() => {
             if (alessonStore.lessonListEditData?.status) {
@@ -53,6 +56,15 @@ const ALessonListEditModal = inject('userStore', 'modalStore', 'acourseStore', '
                             </div>
                             {alessonStore?.errorsEdit && alessonStore?.errorsEdit['lessonDate'] &&
                             <p className={'custom-alert-danger-text'}>{alessonStore?.errorsEdit['lessonDate']}</p>}
+                        </div>
+                        <div className="col-lg-12 col-12 mb-3">
+                            <Form.Check
+                                type="switch"
+                                id="isOpen"
+                                label="Check this switch"
+                                defaultChecked={true}
+                                {...register('isOpen')}
+                            />
                         </div>
                     </div>
                     <button type={"submit"} className={'btn btn-dark'}>Сохранить</button>
