@@ -15,6 +15,11 @@ export default class ALessonStore {
 
     _lessonAddData = {}
 
+    _lessonListAddData = {}
+    _lessonListEditData = {}
+
+    _errorsEdit = undefined
+
     constructor($client) {
         makeObservable(this, {
             _lessonData: observable,
@@ -45,6 +50,15 @@ export default class ALessonStore {
             lessonAddData:computed,
             setlessonAddData:action,
             loadLessonAdd:action,
+
+            _lessonListEditData: observable,
+            lessonListEditData: computed,
+            setLessonListEditData: action,
+            loadLessonListEdit: action,
+
+            _errorsEdit: observable,
+            errorsEdit: computed,
+            setErrorEdit: action,
         })
 
         this.client = $client;
@@ -137,6 +151,43 @@ export default class ALessonStore {
 
     setlessonAddData = (value) => {
         this._lessonListAddData = value;
+    }
+
+    get errorsEdit() {
+        return toJS(this._errorsEdit);
+    }
+
+    setErrorEdit = (value) => {
+        this._errorsEdit = value;
+    }
+
+    loadLessonListEdit = (data, courseID, subCourseID) => {
+        return this.client.post(`/apanel/course${courseID}/sub${subCourseID}/lessonList${this.lessonListID}/edit`, data).then((response) => {
+            // console.log(response.data)
+            this.setLessonListEditData(response.data)
+            this.setErrorEdit(undefined)
+        }).catch(errors => {
+            // console.log(errors.response)
+            this.setLessonListEditData({})
+            if (errors.response.data?.errors) {
+                this.setErrorEdit(errors.response.data?.errors)
+            }
+            if (errors.response.data?.detail) {
+                this.setErrorEdit({error:errors.response.data?.detail})
+            }
+            if (errors.response.data?.error) {
+                this.setErrorEdit({error:errors.response.data?.error})
+            }
+            // this.setErroAddrByKey(this.checkErrors(errors.response.data))
+        })
+    }
+
+    get lessonListEditData() {
+        return toJS(this._lessonListEditData);
+    }
+
+    setLessonListEditData = (value) => {
+        this._lessonListEditData = value;
     }
 
 }
