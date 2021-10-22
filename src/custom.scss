@@ -2541,7 +2541,12 @@ li {
             margin-left: 5px;
           }
         }
+      }
 
+      &__Data {
+        &__Chips {
+          justify-content: space-between;
+        }
       }
     }
   }

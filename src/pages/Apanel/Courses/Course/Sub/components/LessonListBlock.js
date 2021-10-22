@@ -40,6 +40,9 @@ const LessonListBlock = inject('userStore', 'asubCourseStore', 'modalStore', 'al
                             {item.homework && 'Домашка'}
                             {item.files && 'Файл'}
                         </div>
+                        <svg fill="none" height="20" width="20" onClick={modalStore.ALessonListEditModalShow}>
+                            <use xlinkHref={'#icon-pencil'}/>
+                        </svg>
                         {/*{!item.isOpen && <div className="LessonList__Left__Item__Data__Chips__ItemClose">*/}
                         {/*    Черновик*/}
                         {/*</div>}*/}
@@ -65,7 +68,9 @@ const LessonListBlock = inject('userStore', 'asubCourseStore', 'modalStore', 'al
                     <p className={`${item?.isOpen ? 'Open' : 'Close'}`}>{getDate(item.lessonDate)}</p>
                     {/*{item?.isOpen && 'Опубликован'}*/}
                     {/*{!item?.isOpen && 'Черновик'}*/}
-                    <div className="LessonList__Left__Item__Date__Admin" onClick={()=>{alessonStore.setLessonListID(item?.id)}}>
+                    <div className="LessonList__Left__Item__Date__Admin" onClick={() => {
+                        alessonStore.setLessonListID(item?.id)
+                    }}>
                         <svg fill="none" height="20" width="20" onClick={modalStore.ALessonListEditModalShow}>
                             <use xlinkHref={'#icon-pencil'}/>
                         </svg>
@@ -88,13 +93,14 @@ const LessonListBlock = inject('userStore', 'asubCourseStore', 'modalStore', 'al
             <div className="LessonList__Left__RowButton">
                 <Row>
                     <Col>
-                        <button type="button" className={`btn btn-outline-dark`} onClick={modalStore.ALessonListAddModalShow}>
+                        <button type="button" className={`btn btn-outline-dark`}
+                                onClick={modalStore.ALessonListAddModalShow}>
                             добавить занятие
                         </button>
                     </Col>
                 </Row>
             </div>
-                {getItemsLeasons()}
+            {getItemsLeasons()}
         </div>
     )
 }))
