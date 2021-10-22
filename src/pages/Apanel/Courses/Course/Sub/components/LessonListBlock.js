@@ -40,7 +40,7 @@ const LessonListBlock = inject('userStore', 'asubCourseStore', 'modalStore', 'al
                             {item.homework && 'Домашка'}
                             {item.files && 'Файл'}
                         </div>
-                        <svg fill="none" height="20" width="20" onClick={modalStore.ALessonListEditModalShow}>
+                        <svg fill="none" height="20" width="20" onClick={modalStore.ALessonEditModalShow}>
                             <use xlinkHref={'#icon-pencil'}/>
                         </svg>
                         {/*{!item.isOpen && <div className="LessonList__Left__Item__Data__Chips__ItemClose">*/}
