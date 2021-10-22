@@ -9,17 +9,20 @@ export default class ALessonStore {
     _loadError = false
 
     _errorsAdd = undefined
+    _errorsEdit = undefined
+    _errorsLessonEdit = undefined
 
     _lessonID = undefined
     _lessonListID = undefined
 
     _lessonAddData = {}
+    _lessonEditData = {}
+    _lessonDeleteData = {}
 
     _lessonListAddData = {}
     _lessonListEditData = {}
     _lessonListDeleteData = {}
 
-    _errorsEdit = undefined
 
     constructor($client) {
         makeObservable(this, {
@@ -47,10 +50,28 @@ export default class ALessonStore {
             errorsAdd:computed,
             setErrorAdd: action,
 
+            _errorsEdit: observable,
+            errorsEdit: computed,
+            setErrorEdit: action,
+
+            _errorsLessonEdit: observable,
+            errorsLessonEdit: computed,
+            setErrorLessonEdit: action,
+
             _lessonAddData:observable,
             lessonAddData:computed,
             setlessonAddData:action,
             loadLessonAdd:action,
+
+            _lessonEditData:observable,
+            lessonEditData:computed,
+            setlessonEditData:action,
+            loadLessonEdit:action,
+
+            _lessonDeleteData:observable,
+            lessonDeleteData:computed,
+            setlessonDeleteData:action,
+            loadLessonDelete:action,
 
             _lessonListEditData: observable,
             lessonListEditData: computed,
@@ -61,10 +82,6 @@ export default class ALessonStore {
             lessonListDeleteData: computed,
             setLessonListDeleteData: action,
             loadLessonListDelete: action,
-
-            _errorsEdit: observable,
-            errorsEdit: computed,
-            setErrorEdit: action,
         })
 
         this.client = $client;
@@ -158,6 +175,76 @@ export default class ALessonStore {
     setlessonAddData = (value) => {
         this._lessonListAddData = value;
     }
+
+
+
+    get errorsLessonEdit() {
+        return toJS(this._errorsLessonEdit);
+    }
+
+    setErrorLessonEdit = (value) => {
+        this._errorsLessonEdit = value;
+    }
+
+    loadLessonEdit = (data, courseID, subCourseID) => {
+        return this.client.post(`/apanel/course${courseID}/sub${subCourseID}/lesson${this.lessonID}/edit`, data).then((response) => {
+            // console.log(response.data.status)
+            this.setlessonEditData(response.data)
+            this.setErrorLessonEdit(undefined)
+            this.setLessonID(courseID,subCourseID, this.lessonID, true)
+        }).catch(errors => {
+            this.setlessonEditData({})
+            if (errors.response.data?.errors) {
+                this.setErrorLessonEdit(errors.response.data?.errors)
+            }
+            if (errors.response.data?.detail) {
+                this.setErrorLessonEdit({error:errors.response.data?.detail})
+            }
+            if (errors.response.data?.error) {
+                this.setErrorLessonEdit({error:errors.response.data?.error})
+            }
+        })
+    }
+
+    get lessonEditData() {
+        return toJS(this._lessonEditData);
+    }
+
+    setlessonEditData = (value) => {
+        this._lessonEditData = value;
+    }
+
+
+    loadLessonDelete = (data, courseID, subCourseID) => {
+        return this.client.post(`/apanel/course${courseID}/sub${subCourseID}/lessonList${this.lessonListID}/lesson/add`, data).then((response) => {
+            // console.log(response.data.status)
+            this.setlessonAddData(response.data)
+            this.setErrorAdd(undefined)
+            this.setLessonID(courseID,subCourseID, this.lessonAddData?.lessonID)
+        }).catch(errors => {
+            this.setlessonAddData({})
+            if (errors.response.data?.errors) {
+                this.setErrorAdd(errors.response.data?.errors)
+            }
+            if (errors.response.data?.detail) {
+                this.setErrorAdd({error:errors.response.data?.detail})
+            }
+            if (errors.response.data?.error) {
+                this.setErrorAdd({error:errors.response.data?.error})
+            }
+        })
+    }
+
+    get lessonDeleteData() {
+        return toJS(this._lessonListDeleteData);
+    }
+
+    setlessonDeleteData = (value) => {
+        this._lessonListDeleteData = value;
+    }
+
+
+
 
     get errorsEdit() {
         return toJS(this._errorsEdit);

@@ -45,6 +45,7 @@ export default class ModalStore {
             ALessonListAddModalStatus: computed,
             ALessonListEditModalStatus: computed,
             ALessonAddModalStatus: computed,
+            ALessonEditModalStatus: computed,
             LoginModalClose: action,
             LoginModalShow: action,
             RegisterModalClose: action,
@@ -67,6 +68,8 @@ export default class ModalStore {
             ALessonListEditModalClose: action,
             ALessonAddModalShow: action,
             ALessonAddModalClose: action,
+            ALessonEditModalShow: action,
+            ALessonEditModalClose: action,
         })
     }
 
@@ -112,6 +115,10 @@ export default class ModalStore {
 
     get ALessonAddModalStatus() {
         return this._showALessonAddModalStatus;
+    }
+
+    get ALessonEditModalStatus() {
+        return this._showALessonEditModalStatus;
     }
 
     LoginModalClose = () => {
@@ -189,6 +196,13 @@ export default class ModalStore {
     }
     ALessonAddModalShow = () => {
         this._showALessonAddModalStatus = true;
+    }
+
+    ALessonEditModalClose = () => {
+        this._showALessonEditModalStatus = false;
+    }
+    ALessonEditModalShow = () => {
+        this._showALessonEditModalStatus = true;
     }
 
 }

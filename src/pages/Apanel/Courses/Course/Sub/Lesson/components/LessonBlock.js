@@ -9,7 +9,7 @@ import LessonHomeworkBlock from "./LessonHomeworkBlock";
 const LessonBlock = inject('userStore', 'alessonStore')(observer((store) => {
     const {alessonStore} = store
 
-    return (<StickyBox offsetTop={98} offsetBottom={20} className="LessonList__Right">
+    return (<StickyBox offsetTop={66} offsetBottom={20} className="LessonList__Right">
         {alessonStore.spinner.spinnerStatus ? <Spinner type={'local'}/> : <>
             <div className="LessonList__Right__Data">
                 <div className="LessonList__Right__Data__Title">
@@ -20,7 +20,11 @@ const LessonBlock = inject('userStore', 'alessonStore')(observer((store) => {
                 {alessonStore.lessonData?.video && <LessonVideoBlock/>}
                 {alessonStore.lessonData?.files && <LessonFileBlock/>}
                 {alessonStore.lessonData?.homework && <LessonHomeworkBlock/>}
-
+                <div className="LessonList__Right__Data__RowButton">
+                    <button type="button" className={`btn btn-outline-dark`}>
+                        добавить занятие
+                    </button>
+                </div>
                 {alessonStore.lessonData?.description &&
                 <div className="LessonList__Right__Data__Description">
                     {alessonStore.lessonData?.description}
@@ -28,6 +32,7 @@ const LessonBlock = inject('userStore', 'alessonStore')(observer((store) => {
             </div>
         </>}
     </StickyBox>)
-}))
+}
+))
 
 export default LessonBlock;

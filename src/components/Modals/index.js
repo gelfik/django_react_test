@@ -11,6 +11,7 @@ import ALessonAddModal from "./ALessonAddModal";
 import ACourseEditModal from "./ACourseEditModal";
 import ASubCourseEditModal from "./ASubCourseEditModal";
 import ALessonListEditModal from "./ALessonListEditModal";
+import ALessonEditModal from "./ALessonEditModal";
 
 const RootModal = inject('userStore')(observer((stores) => {
     const {userStore} = stores
@@ -31,6 +32,7 @@ const RootModal = inject('userStore')(observer((stores) => {
                 <ALessonAddModal/>
                 <ASubCourseEditModal/>
                 <ALessonListEditModal/>
+                <ALessonEditModal/>
             </>}
         </>}
     </>)
