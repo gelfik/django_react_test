@@ -14,9 +14,9 @@ const ALessonListEditModal = inject('userStore', 'modalStore', 'acourseStore', '
     useEffect(() => {
         if (modalStore.ALessonListEditModalStatus) {
             alessonStore.setErrorEdit(undefined)
-            let data = asubCourseStore.subCourseData?.lessons?.filter(item => item.id === alessonStore.lessonListID)
-            setValue('lessonDate', Moment(data?.shift()?.lessonDate, "DD.MM.YYYY H:m").format('YYYY-MM-DDTHH:mm'))
-            // setValue('isOpen', data?.shift()?.isOpen)
+            let data = asubCourseStore.subCourseData?.lessons?.filter(item => item.id === alessonStore.lessonListID)?.shift()
+            setValue('lessonDate', Moment(data?.lessonDate, "DD.MM.YYYY H:m").format('YYYY-MM-DDTHH:mm'))
+            setValue('isOpen', data?.isOpen)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [modalStore.ALessonListEditModalStatus])
@@ -61,8 +61,7 @@ const ALessonListEditModal = inject('userStore', 'modalStore', 'acourseStore', '
                             <Form.Check
                                 type="switch"
                                 id="isOpen"
-                                label="Check this switch"
-                                defaultChecked={true}
+                                label="Статус доступности"
                                 {...register('isOpen')}
                             />
                         </div>
