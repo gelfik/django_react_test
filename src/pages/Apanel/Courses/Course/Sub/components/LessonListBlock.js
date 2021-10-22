@@ -66,7 +66,7 @@ const LessonListBlock = inject('userStore', 'asubCourseStore', 'modalStore', 'al
                     {/*{item?.isOpen && 'Опубликован'}*/}
                     {/*{!item?.isOpen && 'Черновик'}*/}
                     <div className="LessonList__Left__Item__Date__Admin" onClick={()=>{alessonStore.setLessonListID(item?.id)}}>
-                        <svg fill="none" height="20" width="20">
+                        <svg fill="none" height="20" width="20" onClick={modalStore.ALessonListEditModalShow}>
                             <use xlinkHref={'#icon-pencil'}/>
                         </svg>
                         <svg aria-hidden="true" height="20" width="20" onClick={modalStore.ALessonAddModalShow}>
