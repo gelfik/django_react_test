@@ -6,11 +6,14 @@ import ErrorAlert from "../ErrorAlert";
 import {useAlert} from "react-alert";
 import Moment from "moment";
 import {Form} from "react-bootstrap";
+import {useHistory} from "react-router-dom";
 
 const ALessonListEditModal = inject('userStore', 'modalStore', 'acourseStore', 'asubCourseStore', 'alessonStore')(observer((stores) => {
     const {modalStore, acourseStore, asubCourseStore, alessonStore} = stores;
     const {register, handleSubmit, setValue} = useForm();
     const alert = useAlert();
+    const history = useHistory();
+
     useEffect(() => {
         if (modalStore.ALessonListEditModalStatus) {
             alessonStore.setErrorEdit(undefined)
@@ -22,7 +25,6 @@ const ALessonListEditModal = inject('userStore', 'modalStore', 'acourseStore', '
     }, [modalStore.ALessonListEditModalStatus])
 
     const onSubmitEdit = (data) => {
-        console.log(data)
         alessonStore.setLessonListEditData({})
         alessonStore.loadLessonListEdit(data, acourseStore.courseID, asubCourseStore.subCourseID).then(() => {
             if (alessonStore.lessonListEditData?.status) {
@@ -30,6 +32,16 @@ const ALessonListEditModal = inject('userStore', 'modalStore', 'acourseStore', '
                 modalStore.ALessonListEditModalClose()
                 alert.success(alessonStore.lessonListEditData?.detail)
             }
+        })
+    }
+
+    const onSubmitDelete = () => {
+        modalStore.ALessonListEditModalClose()
+        alessonStore.loadLessonListDelete(acourseStore.courseID, asubCourseStore.subCourseID).then(() => {
+            if (alessonStore.lessonListDeleteData?.status) {
+                alert.success(alessonStore.lessonListDeleteData?.detail)
+                history.push(`/apanel/course${acourseStore.courseID}/sub${asubCourseStore.subCourseID}`)
+            } else alert.error(alessonStore.lessonListDeleteData?.detail)
         })
     }
 
@@ -66,7 +78,14 @@ const ALessonListEditModal = inject('userStore', 'modalStore', 'acourseStore', '
                             />
                         </div>
                     </div>
-                    <button type={"submit"} className={'btn btn-dark'}>Сохранить</button>
+                    <div className="row mb-3">
+                    <div className="col-lg-6 col-6">
+                    <button type={"button"} className={'btn btn-danger w-100'} onClick={() => onSubmitDelete()}>Удалить</button>
+                    </div>
+                    <div className="col-lg-6 col-6">
+                    <button type={"submit"} className={'btn btn-dark w-100'}>Сохранить</button>
+                    </div>
+                    </div>
                 </form>
             </Modal.Body>
         </Modal>
