@@ -3108,7 +3108,12 @@ li {
           a {
             color: #101010;
             overflow-wrap: break-word;
-
+          }
+          span {
+            color: #101010;
+            overflow-wrap: break-word;
+            text-decoration: underline;
+            cursor: pointer;
           }
         }
       }

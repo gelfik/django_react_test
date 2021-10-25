@@ -4,8 +4,8 @@ import Carousel from "react-multi-carousel";
 import {useForm} from "react-hook-form";
 import {Form, FloatingLabel} from "react-bootstrap";
 
-const LessonHomeworkBlock = inject('aCoursePageStore', 'alessonStore')(observer((store) => {
-    const {aCoursePageStore, alessonStore} = store
+const LessonHomeworkBlock = inject('aCoursePageStore', 'alessonStore', 'modalStore')(observer((store) => {
+    const {aCoursePageStore, alessonStore, modalStore} = store
     // const queryParams = useParams()
     const carouselRef = useRef();
 
@@ -165,6 +165,16 @@ const LessonHomeworkBlock = inject('aCoursePageStore', 'alessonStore')(observer(
                 showDots={false}
             >
                 {getItemStepList()}
+                <div
+                 className={`LessonList__Right__Data__Homework__Step__Wrapper`}
+                 onClick={() => {
+                     modalStore.AHomeworkAskAddModalShow()
+                     // purCoursePageStore.setAskActive(item.id)
+                 }}>
+                    <span>
+                        +
+                    </span>
+            </div>
             </Carousel>
         </div>
         <Form onChange={changeAnswer}>
