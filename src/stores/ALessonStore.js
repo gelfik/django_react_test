@@ -14,6 +14,7 @@ export default class ALessonStore {
 
     _lessonID = undefined
     _lessonListID = undefined
+    _lessonFileListID = undefined
 
     _lessonAddData = {}
     _lessonEditData = {}
@@ -22,6 +23,9 @@ export default class ALessonStore {
     _lessonListAddData = {}
     _lessonListEditData = {}
     _lessonListDeleteData = {}
+
+    _lessonFileAdd = {}
+    _lessonFileDelete = {}
 
 
     constructor($client) {
@@ -47,7 +51,7 @@ export default class ALessonStore {
             setLessonListID: action,
 
             _errorsAdd: observable,
-            errorsAdd:computed,
+            errorsAdd: computed,
             setErrorAdd: action,
 
             _errorsEdit: observable,
@@ -58,20 +62,20 @@ export default class ALessonStore {
             errorsLessonEdit: computed,
             setErrorLessonEdit: action,
 
-            _lessonAddData:observable,
-            lessonAddData:computed,
-            setlessonAddData:action,
-            loadLessonAdd:action,
+            _lessonAddData: observable,
+            lessonAddData: computed,
+            setlessonAddData: action,
+            loadLessonAdd: action,
 
-            _lessonEditData:observable,
-            lessonEditData:computed,
-            setlessonEditData:action,
-            loadLessonEdit:action,
+            _lessonEditData: observable,
+            lessonEditData: computed,
+            setlessonEditData: action,
+            loadLessonEdit: action,
 
-            _lessonDeleteData:observable,
-            lessonDeleteData:computed,
-            setLessonDeleteData:action,
-            loadLessonDelete:action,
+            _lessonDeleteData: observable,
+            lessonDeleteData: computed,
+            setLessonDeleteData: action,
+            loadLessonDelete: action,
 
             _lessonListEditData: observable,
             lessonListEditData: computed,
@@ -82,6 +86,19 @@ export default class ALessonStore {
             lessonListDeleteData: computed,
             setLessonListDeleteData: action,
             loadLessonListDelete: action,
+
+            _lessonFileAdd:observable,
+            lessonFileAdd: computed,
+            setLessonFileAdd: action,
+            loadLessonFileAdd: action,
+
+            // _lessonFileDelete:observable,
+            // lessonFileDelete: computed,
+            // setLessonFileDelete: action,
+            // loadLessonFileDelete: action,
+
+
+
         })
 
         this.client = $client;
@@ -153,17 +170,17 @@ export default class ALessonStore {
             // console.log(response.data.status)
             this.setlessonAddData(response.data)
             this.setErrorAdd(undefined)
-            this.setLessonID(courseID,subCourseID, this.lessonAddData?.lessonID)
+            this.setLessonID(courseID, subCourseID, this.lessonAddData?.lessonID)
         }).catch(errors => {
             this.setlessonAddData({})
             if (errors.response.data?.errors) {
                 this.setErrorAdd(errors.response.data?.errors)
             }
             if (errors.response.data?.detail) {
-                this.setErrorAdd({error:errors.response.data?.detail})
+                this.setErrorAdd({error: errors.response.data?.detail})
             }
             if (errors.response.data?.error) {
-                this.setErrorAdd({error:errors.response.data?.error})
+                this.setErrorAdd({error: errors.response.data?.error})
             }
         })
     }
@@ -175,7 +192,6 @@ export default class ALessonStore {
     setlessonAddData = (value) => {
         this._lessonListAddData = value;
     }
-
 
 
     get errorsLessonEdit() {
@@ -191,17 +207,17 @@ export default class ALessonStore {
             // console.log(response.data.status)
             this.setlessonEditData(response.data)
             this.setErrorLessonEdit(undefined)
-            this.loadLessonData(courseID,subCourseID, this.lessonID)
+            this.loadLessonData(courseID, subCourseID, this.lessonID)
         }).catch(errors => {
             this.setlessonEditData({})
             if (errors.response.data?.errors) {
                 this.setErrorLessonEdit(errors.response.data?.errors)
             }
             if (errors.response.data?.detail) {
-                this.setErrorLessonEdit({error:errors.response.data?.detail})
+                this.setErrorLessonEdit({error: errors.response.data?.detail})
             }
             if (errors.response.data?.error) {
-                this.setErrorLessonEdit({error:errors.response.data?.error})
+                this.setErrorLessonEdit({error: errors.response.data?.error})
             }
         })
     }
@@ -236,8 +252,6 @@ export default class ALessonStore {
     }
 
 
-
-
     get errorsEdit() {
         return toJS(this._errorsEdit);
     }
@@ -258,10 +272,10 @@ export default class ALessonStore {
                 this.setErrorEdit(errors.response.data?.errors)
             }
             if (errors.response.data?.detail) {
-                this.setErrorEdit({error:errors.response.data?.detail})
+                this.setErrorEdit({error: errors.response.data?.detail})
             }
             if (errors.response.data?.error) {
-                this.setErrorEdit({error:errors.response.data?.error})
+                this.setErrorEdit({error: errors.response.data?.error})
             }
             // this.setErroAddrByKey(this.checkErrors(errors.response.data))
         })
@@ -293,4 +307,24 @@ export default class ALessonStore {
     setLessonListDeleteData = (value) => {
         this._lessonListDeleteData = value;
     }
+
+    loadLessonFileAdd = (data, courseID, subCourseID) => {
+        this.spinner.setSpinnerStatus(true)
+        return this.client.put(`apanel/course${courseID}/sub${subCourseID}/lesson${this.lessonID}/fileLoad`, data).then((response) => {
+            this.setLessonFileAdd(response.data)
+            this.spinner.setSpinnerStatus(false)
+        }).catch(errors => {
+            this.setLessonFileAdd(errors.response.data)
+            this.spinner.setSpinnerStatus(false)
+        })
+    }
+
+    get lessonFileAdd() {
+        return toJS(this._lessonFileAdd);
+    }
+
+    setLessonFileAdd = (value) => {
+        this._lessonFileAdd = value;
+    }
+
 }

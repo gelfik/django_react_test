@@ -20,11 +20,6 @@ const LessonBlock = inject('userStore', 'alessonStore')(observer((store) => {
                 {alessonStore.lessonData?.video && <LessonVideoBlock/>}
                 {alessonStore.lessonData?.files && <LessonFileBlock/>}
                 {alessonStore.lessonData?.homework && <LessonHomeworkBlock/>}
-                <div className="LessonList__Right__Data__RowButton">
-                    <button type="button" className={`btn btn-outline-dark`}>
-                        добавить занятие
-                    </button>
-                </div>
                 {alessonStore.lessonData?.description &&
                 <div className="LessonList__Right__Data__Description">
                     {alessonStore.lessonData?.description}

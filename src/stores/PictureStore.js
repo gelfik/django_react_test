@@ -9,7 +9,6 @@ export default class PictureStore {
     }
 
     loadImage = (data) => {
-        console.log(data)
         return this.client.put('/users/setAvatar', data).then((response) => {
             return response
         })
