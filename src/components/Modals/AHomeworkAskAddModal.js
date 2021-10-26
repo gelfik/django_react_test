@@ -4,17 +4,19 @@ import Modal from "react-bootstrap/Modal";
 import {useForm, useFieldArray} from "react-hook-form";
 import {FloatingLabel, Form} from "react-bootstrap";
 import ErrorAlert from "../ErrorAlert";
+import {useAlert} from "react-alert";
 
-const AHomeworkAskAddModal = inject('userStore', 'modalStore', 'acourseStore', 'asubCourseStore', 'ahomeworkStore')(observer((stores) => {
-    const {modalStore, ahomeworkStore} = stores;
-    const {register, control, getValues, setValue, reset, handleSubmit} = useForm({defaultValues: {answerList: []}});
-    const {fields, append, remove} = useFieldArray({control, name: "answerList"});
+const AHomeworkAskAddModal = inject('userStore', 'modalStore', 'acourseStore', 'asubCourseStore', 'alessonStore', 'ahomeworkStore')(observer((stores) => {
+    const {modalStore, ahomeworkStore, acourseStore, asubCourseStore, alessonStore} = stores;
+    const {register, control, getValues, setValue, reset, handleSubmit} = useForm({defaultValues: {answerData: []}});
+    const {fields, append, remove} = useFieldArray({control, name: "answerData"});
+    const alert = useAlert();
 
     useEffect(() => {
         if (modalStore.AHomeworkAskAddModalStatus) {
             ahomeworkStore.setHomeworkAddType(undefined)
             ahomeworkStore.setAbcSum(0)
-            ahomeworkStore.setErrorsAdd(undefined)
+            ahomeworkStore.setAddDetailData(undefined)
             reset()
             //  asubCourseStore.setErrorAdd(undefined)
         }
@@ -22,23 +24,35 @@ const AHomeworkAskAddModal = inject('userStore', 'modalStore', 'acourseStore', '
     }, [modalStore.AHomeworkAskAddModalStatus])
     //
     const onSubmitAdd = (data) => {
-        ahomeworkStore.setErrorsAdd(undefined)
+        ahomeworkStore.setAddDetailData(undefined)
+        let askValidStatus = true
         if (data['askType'] === 'select') {
-            if (data.answerList.length === 0) {
-                ahomeworkStore.setErrorsAdd({error: 'Вы не добавили ответы!'})
+            if (data.answerData.length === 0) {
+                ahomeworkStore.setAddDetailData({error: 'Вы не добавили ответы!'})
+                askValidStatus = false
             } else {
                 let askAnswerStatus = true
-                for (let value of data?.answerList) {
+                for (let value of data?.answerData) {
                     if (value?.validStatus === true) {
                         askAnswerStatus = false
                     }
                 }
                 if (askAnswerStatus) {
-                    ahomeworkStore.setErrorsAdd({error: 'Вы не выбрали ни одного верного ответа!'})
+                    ahomeworkStore.setAddDetailData({error: 'Вы не выбрали ни одного верного ответа!'})
+                    askAnswerStatus = false
                 }
             }
         }
         console.log(data)
+        if (askValidStatus) {
+            ahomeworkStore.loadHomeworkAddAdd(data, acourseStore.courseID, asubCourseStore.subCourseID, alessonStore.lessonID).then(r => {
+            if (ahomeworkStore.addDetailData?.status) {
+                alessonStore.loadLessonData(acourseStore.courseID, asubCourseStore.subCourseID, alessonStore.lessonID)
+                alert.success(alessonStore.addDetailData?.detail)
+                // modalStore.AHomeworkAskAddModalClose()
+            }
+        })
+        }
         // asubCourseStore.setlessonListAddData({})
         // asubCourseStore.loadLessonListAdd(data, acourseStore.courseID).then(()=> {
         //     if (asubCourseStore.lessonListAddData?.status) {
@@ -68,7 +82,7 @@ const AHomeworkAskAddModal = inject('userStore', 'modalStore', 'acourseStore', '
         ahomeworkStore.setAbcSum((Number(getValues(abcArray[0])) + Number(getValues(abcArray[1])) + Number(e.target.value)))
     }
 
-    const getAnswerList = () => {
+    const getAnswerData = () => {
         return fields.map((item, index) => {
             return (<div className={"row mb-3"} key={item.id}>
                 <hr/>
@@ -76,19 +90,19 @@ const AHomeworkAskAddModal = inject('userStore', 'modalStore', 'acourseStore', '
                     <div className={"row"}>
                         <div className="col-lg-12 col-12">
                             <FloatingLabel controlId={`floating${index}.answer`} label="Ответ">
-                                <Form.Control required type={"text"} {...register(`answerList.${index}.answer`)}
+                                <Form.Control required type={"text"} {...register(`answerData.${index}.answer`)}
                                               aria-label="Ответ" placeholder="Ответ" control={control}/>
                             </FloatingLabel>
-                            {ahomeworkStore?.errorsAdd && ahomeworkStore?.errorsAdd[`answerList.${index}.answer`] &&
-                            <p className={'custom-alert-danger-text'}>{ahomeworkStore?.errorsAdd[`answerList.${index}.answer`]}</p>}
+                            {ahomeworkStore?.addDetailData && ahomeworkStore?.addDetailData[`answerData.${index}.answer`] &&
+                            <p className={'custom-alert-danger-text'}>{ahomeworkStore?.addDetailData[`answerData.${index}.answer`]}</p>}
                         </div>
                         <div className="col-lg-12 col-12">
-                            <Form.Check id={`answerList.${index}.validStatus`} label={`Верный ответ?`}>
-                                <Form.Check.Input type={'checkbox'} {...register(`answerList.${index}.validStatus`)}/>
+                            <Form.Check id={`answerData.${index}.validStatus`} label={`Верный ответ?`}>
+                                <Form.Check.Input type={'checkbox'} {...register(`answerData.${index}.validStatus`)}/>
                                 <Form.Check.Label style={{cursor: 'pointer'}}>Верный ответ?</Form.Check.Label>
                             </Form.Check>
-                            {ahomeworkStore?.errorsAdd && ahomeworkStore?.errorsAdd[`answerList.${index}.validStatus`] &&
-                            <p className={'custom-alert-danger-text'}>{ahomeworkStore?.errorsAdd[`answerList.${index}.validStatus`]}</p>}
+                            {ahomeworkStore?.addDetailData && ahomeworkStore?.addDetailData[`answerData.${index}.validStatus`] &&
+                            <p className={'custom-alert-danger-text'}>{ahomeworkStore?.addDetailData[`answerData.${index}.validStatus`]}</p>}
                         </div>
                     </div>
                 </div>
@@ -114,8 +128,8 @@ const AHomeworkAskAddModal = inject('userStore', 'modalStore', 'acourseStore', '
             </Modal.Header>
             <Modal.Body>
                 <form className={'d-flex flex-column'} onSubmit={handleSubmit(onSubmitAdd)}>
-                    {ahomeworkStore?.errorsAdd && ahomeworkStore?.errorsAdd['error'] &&
-                    <ErrorAlert error={ahomeworkStore?.errorsAdd['error']}/>}
+                    {ahomeworkStore?.addDetailData && ahomeworkStore?.addDetailData['error'] &&
+                    <ErrorAlert error={ahomeworkStore?.addDetailData['error']}/>}
                     <div className={"row"}>
                         <div className="col-lg-12 col-12 mb-3">
                             <FloatingLabel controlId="floatingSelectAskType" label="Тип вопроса">
@@ -128,8 +142,8 @@ const AHomeworkAskAddModal = inject('userStore', 'modalStore', 'acourseStore', '
                                     <option value={'select'}>С выбором ответа</option>
                                 </Form.Select>
                             </FloatingLabel>
-                            {ahomeworkStore?.errorsAdd && ahomeworkStore?.errorsAdd['askType'] &&
-                            <p className={'custom-alert-danger-text'}>{ahomeworkStore?.errorsAdd['askType']}</p>}
+                            {ahomeworkStore?.addDetailData && ahomeworkStore?.addDetailData['askType'] &&
+                            <p className={'custom-alert-danger-text'}>{ahomeworkStore?.addDetailData['askType']}</p>}
                         </div>
                     </div>
                     {ahomeworkStore.homeworkAddType && <>
@@ -140,8 +154,8 @@ const AHomeworkAskAddModal = inject('userStore', 'modalStore', 'acourseStore', '
                                                   aria-label="Введите вопрос"
                                                   placeholder="Введите вопрос"/>
                                 </FloatingLabel>
-                                {ahomeworkStore?.errorsAdd && ahomeworkStore?.errorsAdd['ask'] &&
-                                <p className={'custom-alert-danger-text'}>{ahomeworkStore?.errorsAdd['ask']}</p>}
+                                {ahomeworkStore?.addDetailData && ahomeworkStore?.addDetailData['ask'] &&
+                                <p className={'custom-alert-danger-text'}>{ahomeworkStore?.addDetailData['ask']}</p>}
                             </div>
                         </div>
                         {ahomeworkStore.homeworkAddType === "input" &&
@@ -149,15 +163,15 @@ const AHomeworkAskAddModal = inject('userStore', 'modalStore', 'acourseStore', '
                             <div className="col-lg-12 col-12">
                                 <FloatingLabel controlId="floatingAnswerInput" label="Ответ">
                                     <Form.Control required type={"text"}
-                                                  aria-label="Введите ответ" {...register("answerInput")}
+                                                  aria-label="Введите ответ" {...register("answer")}
                                                   placeholder="Введите ответ"/>
                                 </FloatingLabel>
-                                {ahomeworkStore?.errorsAdd && ahomeworkStore?.errorsAdd['answerInput'] &&
-                                <p className={'custom-alert-danger-text'}>{ahomeworkStore?.errorsAdd['answerInput']}</p>}
+                                {ahomeworkStore?.addDetailData && ahomeworkStore?.addDetailData['answer'] &&
+                                <p className={'custom-alert-danger-text'}>{ahomeworkStore?.addDetailData['answer']}</p>}
                             </div>
                         </div>}
                         {ahomeworkStore.homeworkAddType === "select" && <>
-                            {getAnswerList()}
+                            {getAnswerData()}
                             <button className={'btn btn-dark'}
                                 type="button"
                                 onClick={() => {
@@ -177,8 +191,8 @@ const AHomeworkAskAddModal = inject('userStore', 'modalStore', 'acourseStore', '
                                                   aria-label="Введите A" {...register("a", {valueAsNumber: true})}
                                                   placeholder="Введите A" onChange={InputMinMax} defaultValue={0}/>
                                 </FloatingLabel>
-                                {ahomeworkStore?.errorsAdd && ahomeworkStore?.errorsAdd['a'] &&
-                                <p className={'custom-alert-danger-text'}>{ahomeworkStore?.errorsAdd['a']}</p>}
+                                {ahomeworkStore?.addDetailData && ahomeworkStore?.addDetailData['a'] &&
+                                <p className={'custom-alert-danger-text'}>{ahomeworkStore?.addDetailData['a']}</p>}
                             </div>
                             <div className="col-lg-3 col-3">
                                 <FloatingLabel controlId="floatingBInput" label="B">
@@ -186,8 +200,8 @@ const AHomeworkAskAddModal = inject('userStore', 'modalStore', 'acourseStore', '
                                                   aria-label="Введите B" {...register("b", {valueAsNumber: true})}
                                                   placeholder="Введите B" onChange={InputMinMax} defaultValue={0}/>
                                 </FloatingLabel>
-                                {ahomeworkStore?.errorsAdd && ahomeworkStore?.errorsAdd['b'] &&
-                                <p className={'custom-alert-danger-text'}>{ahomeworkStore?.errorsAdd['b']}</p>}
+                                {ahomeworkStore?.addDetailData && ahomeworkStore?.addDetailData['b'] &&
+                                <p className={'custom-alert-danger-text'}>{ahomeworkStore?.addDetailData['b']}</p>}
                             </div>
                             <div className="col-lg-3 col-3">
                                 <FloatingLabel controlId="floatingCInput" label="C">
@@ -195,8 +209,8 @@ const AHomeworkAskAddModal = inject('userStore', 'modalStore', 'acourseStore', '
                                                   aria-label="Введите C" {...register("c", {valueAsNumber: true})}
                                                   placeholder="Введите C" onChange={InputMinMax} defaultValue={0}/>
                                 </FloatingLabel>
-                                {ahomeworkStore?.errorsAdd && ahomeworkStore?.errorsAdd['c'] &&
-                                <p className={'custom-alert-danger-text'}>{ahomeworkStore?.errorsAdd['c']}</p>}
+                                {ahomeworkStore?.addDetailData && ahomeworkStore?.addDetailData['c'] &&
+                                <p className={'custom-alert-danger-text'}>{ahomeworkStore?.addDetailData['c']}</p>}
                             </div>
                             <div className="col-lg-3 col-3">
                                 <FloatingLabel controlId="floatingSumOutput" label="A+B+C">
@@ -212,8 +226,8 @@ const AHomeworkAskAddModal = inject('userStore', 'modalStore', 'acourseStore', '
                                                   aria-label="Введите CHL" {...register("chl", {valueAsNumber: true})}
                                                   placeholder="Введите CHL" onChange={InputMinMax} defaultValue={0}/>
                                 </FloatingLabel>
-                                {ahomeworkStore?.errorsAdd && ahomeworkStore?.errorsAdd['chl'] &&
-                                <p className={'custom-alert-danger-text'}>{ahomeworkStore?.errorsAdd['chl']}</p>}
+                                {ahomeworkStore?.addDetailData && ahomeworkStore?.addDetailData['chl'] &&
+                                <p className={'custom-alert-danger-text'}>{ahomeworkStore?.addDetailData['chl']}</p>}
                             </div>
                             <div className="col-lg-6 col-6">
                                 <FloatingLabel controlId="floatingPOLInput" label="POL">
@@ -221,8 +235,8 @@ const AHomeworkAskAddModal = inject('userStore', 'modalStore', 'acourseStore', '
                                                   aria-label="Введите POL" {...register("pol", {valueAsNumber: true})}
                                                   placeholder="Введите POL" onChange={InputMinMax} defaultValue={0}/>
                                 </FloatingLabel>
-                                {ahomeworkStore?.errorsAdd && ahomeworkStore?.errorsAdd['pol'] &&
-                                <p className={'custom-alert-danger-text'}>{ahomeworkStore?.errorsAdd['pol']}</p>}
+                                {ahomeworkStore?.addDetailData && ahomeworkStore?.addDetailData['pol'] &&
+                                <p className={'custom-alert-danger-text'}>{ahomeworkStore?.addDetailData['pol']}</p>}
                             </div>
                         </div>
                         <button type={"submit"}

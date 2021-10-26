@@ -6,13 +6,9 @@ export default class AHomeworkStore {
 
     _homeworkAddType = undefined
 
-    _errorsAdd = undefined
-
-    _errorsEdit = undefined
+    _addDetailData = undefined
 
     _abcSum = 0
-
-
 
     constructor($client) {
         makeObservable(this, {
@@ -20,9 +16,9 @@ export default class AHomeworkStore {
             homeworkAddType: computed,
             setHomeworkAddType: action,
 
-            _errorsAdd: observable,
-            errorsAdd: computed,
-            setErrorsAdd: action,
+            _addDetailData: observable,
+            addDetailData: computed,
+            setAddDetailData: action,
 
             _abcSum: observable,
             abcSum: computed,
@@ -40,12 +36,13 @@ export default class AHomeworkStore {
         this._homeworkAddType = value
     }
 
-    get errorsAdd() {
-        return toJS(this._errorsAdd)
+
+    get addDetailData() {
+        return toJS(this._addDetailData)
     }
 
-    setErrorsAdd = (value) =>{
-        this._errorsAdd = value
+    setAddDetailData = (value) =>{
+        this._addDetailData = value
     }
 
     get abcSum() {
@@ -54,6 +51,23 @@ export default class AHomeworkStore {
 
     setAbcSum = (value) =>{
         this._abcSum = value
+    }
+
+    loadHomeworkAddAdd = (data, courseID, subCourseID, lessonID) => {
+        return this.client.post(`apanel/course${courseID}/sub${subCourseID}/lesson${lessonID}/homework/add`, data).then((response) => {
+            this.setAddDetailData(response.data)
+        }).catch(errors => {
+            this.setAddDetailData({})
+            if (errors.response.data?.errors) {
+                this.setAddDetailData(errors.response.data?.errors)
+            }
+            if (errors.response.data?.detail) {
+                this.setAddDetailData({error:errors.response.data?.detail})
+            }
+            if (errors.response.data?.error) {
+                this.setAddDetailData({error:errors.response.data?.error})
+            }
+        })
     }
 
 }
