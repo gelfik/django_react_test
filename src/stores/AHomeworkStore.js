@@ -1,4 +1,4 @@
-import {action, computed, makeObservable, observable} from "mobx";
+import {action, computed, makeObservable, observable, toJS} from "mobx";
 import SpinnerStore from "./SpinnerStore";
 
 export default class AHomeworkStore {
@@ -20,6 +20,10 @@ export default class AHomeworkStore {
             homeworkAddType: computed,
             setHomeworkAddType: action,
 
+            _errorsAdd: observable,
+            errorsAdd: computed,
+            setErrorsAdd: action,
+
             _abcSum: observable,
             abcSum: computed,
             setAbcSum: action,
@@ -34,6 +38,14 @@ export default class AHomeworkStore {
 
     setHomeworkAddType = (value) =>{
         this._homeworkAddType = value
+    }
+
+    get errorsAdd() {
+        return toJS(this._errorsAdd)
+    }
+
+    setErrorsAdd = (value) =>{
+        this._errorsAdd = value
     }
 
     get abcSum() {
