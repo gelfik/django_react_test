@@ -22,6 +22,11 @@ const AHomeworkAskAddModal = inject('userStore', 'modalStore', 'acourseStore', '
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [modalStore.AHomeworkAskAddModalStatus])
+
+    useEffect(() => {
+        reset()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [ahomeworkStore.homeworkAddType])
     //
     const onSubmitAdd = (data) => {
         ahomeworkStore.setAddDetailData(undefined)
@@ -46,12 +51,12 @@ const AHomeworkAskAddModal = inject('userStore', 'modalStore', 'acourseStore', '
         console.log(data)
         if (askValidStatus) {
             ahomeworkStore.loadHomeworkAddAdd(data, acourseStore.courseID, asubCourseStore.subCourseID, alessonStore.lessonID).then(r => {
-            if (ahomeworkStore.addDetailData?.status) {
-                alessonStore.loadLessonData(acourseStore.courseID, asubCourseStore.subCourseID, alessonStore.lessonID)
-                alert.success(alessonStore.addDetailData?.detail)
-                // modalStore.AHomeworkAskAddModalClose()
-            }
-        })
+                if (ahomeworkStore.addDetailData?.status) {
+                    alessonStore.loadLessonData(acourseStore.courseID, asubCourseStore.subCourseID, alessonStore.lessonID)
+                    alert.success(alessonStore.addDetailData?.detail)
+                    // modalStore.AHomeworkAskAddModalClose()
+                }
+            })
         }
         // asubCourseStore.setlessonListAddData({})
         // asubCourseStore.loadLessonListAdd(data, acourseStore.courseID).then(()=> {
@@ -158,6 +163,23 @@ const AHomeworkAskAddModal = inject('userStore', 'modalStore', 'acourseStore', '
                                 <p className={'custom-alert-danger-text'}>{ahomeworkStore?.addDetailData['ask']}</p>}
                             </div>
                         </div>
+                        {/*<div className={"row mb-3"}>*/}
+                        {/*    <div className="col-lg-12 col-12">*/}
+                        {/*        <Form.Group controlId="floatingAskPicture">*/}
+                        {/*            <Form.Label>Картинка к вопросу</Form.Label>*/}
+                        {/*            <Form.Control type="file" accept=".png,.jpg,.jpeg" {...register("askPicture")}/>*/}
+                        {/*        </Form.Group>*/}
+                        {/*        {ahomeworkStore?.addDetailData && ahomeworkStore?.addDetailData['askPicture'] &&*/}
+                        {/*        <p className={'custom-alert-danger-text'}>{ahomeworkStore?.addDetailData['askPicture']}</p>}*/}
+                        {/*        /!*<FloatingLabel controlId="floatingAskPicture" label="Картинка к вопросу">*!/*/}
+                        {/*        /!*    <Form.Control type={"file"} {...register("askPicture")}*!/*/}
+                        {/*        /!*                  aria-label="Картинка к вопросу"*!/*/}
+                        {/*        /!*                  placeholder="Картинка к вопросу"/>*!/*/}
+                        {/*        /!*</FloatingLabel>*!/*/}
+                        {/*        {ahomeworkStore?.addDetailData && ahomeworkStore?.addDetailData['ask'] &&*/}
+                        {/*        <p className={'custom-alert-danger-text'}>{ahomeworkStore?.addDetailData['ask']}</p>}*/}
+                        {/*    </div>*/}
+                        {/*</div>*/}
                         {ahomeworkStore.homeworkAddType === "input" &&
                         <div className={"row mb-3"}>
                             <div className="col-lg-12 col-12">
@@ -173,10 +195,10 @@ const AHomeworkAskAddModal = inject('userStore', 'modalStore', 'acourseStore', '
                         {ahomeworkStore.homeworkAddType === "select" && <>
                             {getAnswerData()}
                             <button className={'btn btn-dark'}
-                                type="button"
-                                onClick={() => {
-                                    append({answer: "", validStatus: false});
-                                }}
+                                    type="button"
+                                    onClick={() => {
+                                        append({answer: "", validStatus: false});
+                                    }}
                             >
                                 Добавить вариант ответа
                             </button>
