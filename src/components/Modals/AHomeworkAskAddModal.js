@@ -25,6 +25,7 @@ const AHomeworkAskAddModal = inject('userStore', 'modalStore', 'acourseStore', '
 
     useEffect(() => {
         reset()
+        setValue('askType', ahomeworkStore.homeworkAddType)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [ahomeworkStore.homeworkAddType])
     //
