@@ -41,7 +41,6 @@ const LessonHomeworkBlock = inject('aCoursePageStore', 'alessonStore', 'modalSto
                  className={`LessonList__Right__Data__Homework__Step__Wrapper ${aCoursePageStore.askActive === i ? 'active' : ''}`}
                  onClick={() => {
                      aCoursePageStore.setAskActive(i)
-                     // purCoursePageStore.setAskActive(item.id)
                  }}>
                     <span>
                         {i + 1}
@@ -119,7 +118,6 @@ const LessonHomeworkBlock = inject('aCoursePageStore', 'alessonStore', 'modalSto
                     className={`LessonList__Right__Data__Homework__Step__Wrapper`}
                     onClick={() => {
                         modalStore.AHomeworkAskAddModalShow()
-                        // purCoursePageStore.setAskActive(item.id)
                     }}>
                     <span>
                         +

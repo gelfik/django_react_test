@@ -45,11 +45,9 @@ const AHomeworkAskAddModal = inject('userStore', 'modalStore', 'acourseStore', '
                 }
                 if (askAnswerStatus) {
                     ahomeworkStore.setAddDetailData({error: 'Вы не выбрали ни одного верного ответа!'})
-                    askAnswerStatus = false
                 }
             }
         }
-        console.log(data)
         if (askValidStatus) {
             ahomeworkStore.loadHomeworkAddAdd(data, acourseStore.courseID, asubCourseStore.subCourseID, alessonStore.lessonID).then(r => {
                 if (ahomeworkStore.addDetailData?.status) {
@@ -231,6 +229,10 @@ const AHomeworkAskAddModal = inject('userStore', 'modalStore', 'acourseStore', '
                                     </FloatingLabel>
                                 </div>
                             </div>
+                            <button type={"submit"}
+                                    disabled={ahomeworkStore.abcSum !== 100 || (Number(getValues('a')) < 0 || Number(getValues('b')) < 0 || Number(getValues('c')) < 0)}
+                                    className={'btn btn-dark'}>Добавить
+                            </button>
                         </>}
                         {ahomeworkStore.homeworkAddType === "select" && <>
                             {getAnswerData()}
@@ -238,8 +240,7 @@ const AHomeworkAskAddModal = inject('userStore', 'modalStore', 'acourseStore', '
                                     type="button"
                                     onClick={() => {
                                         append({answer: "", validStatus: false});
-                                    }}
-                            >
+                                    }}>
                                 Добавить вариант ответа
                             </button>
                             <div className={"row mb-3"}>
@@ -264,13 +265,8 @@ const AHomeworkAskAddModal = inject('userStore', 'modalStore', 'acourseStore', '
                                     <p className={'custom-alert-danger-text'}>{ahomeworkStore?.addDetailData['pol']}</p>}
                                 </div>
                             </div>
+                            <button type={"submit"} className={'btn btn-dark'}>Добавить</button>
                         </>}
-
-
-                        <button type={"submit"}
-                                disabled={ahomeworkStore.abcSum !== 100 || (Number(getValues('a')) < 0 || Number(getValues('b')) < 0 || Number(getValues('c')) < 0)}
-                                className={'btn btn-dark'}>Добавить
-                        </button>
                     </>}
                 </form>
             </Modal.Body>
