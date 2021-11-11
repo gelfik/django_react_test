@@ -180,21 +180,60 @@ const AHomeworkAskAddModal = inject('userStore', 'modalStore', 'acourseStore', '
                         {/*        <p className={'custom-alert-danger-text'}>{ahomeworkStore?.addDetailData['ask']}</p>}*/}
                         {/*    </div>*/}
                         {/*</div>*/}
-                        {ahomeworkStore.homeworkAddType === "input" &&
-                        <div className={"row mb-3"}>
-                            <div className="col-lg-12 col-12">
-                                <FloatingLabel controlId="floatingAnswerInput" label="Ответ">
-                                    <Form.Control required type={"text"}
-                                                  aria-label="Введите ответ" {...register("answer")}
-                                                  placeholder="Введите ответ"/>
-                                </FloatingLabel>
-                                {ahomeworkStore?.addDetailData && ahomeworkStore?.addDetailData['answer'] &&
-                                <p className={'custom-alert-danger-text'}>{ahomeworkStore?.addDetailData['answer']}</p>}
+                        {ahomeworkStore.homeworkAddType === "input" && <>
+                            <div className={"row mb-3"}>
+                                <div className="col-lg-12 col-12">
+                                    <FloatingLabel controlId="floatingAnswerInput" label="Ответ">
+                                        <Form.Control required type={"text"}
+                                                      aria-label="Введите ответ" {...register("answer")}
+                                                      placeholder="Введите ответ"/>
+                                    </FloatingLabel>
+                                    {ahomeworkStore?.addDetailData && ahomeworkStore?.addDetailData['answer'] &&
+                                    <p className={'custom-alert-danger-text'}>{ahomeworkStore?.addDetailData['answer']}</p>}
+                                </div>
                             </div>
-                        </div>}
+                            <div className={"row mb-3"}>
+                                <div className="col-lg-12 col-12">
+                                    <p className={'text-danger'}>Сумма A+B+C должна быть равна 100!</p>
+                                </div>
+                                <div className="col-lg-3 col-3">
+                                    <FloatingLabel controlId="floatingAInput" label="A">
+                                        <Form.Control required type={"number"}
+                                                      aria-label="Введите A" {...register("a", {valueAsNumber: true})}
+                                                      placeholder="Введите A" onChange={InputMinMax} defaultValue={0}/>
+                                    </FloatingLabel>
+                                    {ahomeworkStore?.addDetailData && ahomeworkStore?.addDetailData['a'] &&
+                                    <p className={'custom-alert-danger-text'}>{ahomeworkStore?.addDetailData['a']}</p>}
+                                </div>
+                                <div className="col-lg-3 col-3">
+                                    <FloatingLabel controlId="floatingBInput" label="B">
+                                        <Form.Control required type={"number"}
+                                                      aria-label="Введите B" {...register("b", {valueAsNumber: true})}
+                                                      placeholder="Введите B" onChange={InputMinMax} defaultValue={0}/>
+                                    </FloatingLabel>
+                                    {ahomeworkStore?.addDetailData && ahomeworkStore?.addDetailData['b'] &&
+                                    <p className={'custom-alert-danger-text'}>{ahomeworkStore?.addDetailData['b']}</p>}
+                                </div>
+                                <div className="col-lg-3 col-3">
+                                    <FloatingLabel controlId="floatingCInput" label="C">
+                                        <Form.Control required type={"number"}
+                                                      aria-label="Введите C" {...register("c", {valueAsNumber: true})}
+                                                      placeholder="Введите C" onChange={InputMinMax} defaultValue={0}/>
+                                    </FloatingLabel>
+                                    {ahomeworkStore?.addDetailData && ahomeworkStore?.addDetailData['c'] &&
+                                    <p className={'custom-alert-danger-text'}>{ahomeworkStore?.addDetailData['c']}</p>}
+                                </div>
+                                <div className="col-lg-3 col-3">
+                                    <FloatingLabel controlId="floatingSumOutput" label="A+B+C">
+                                        <Form.Control type={"number"} readOnly aria-label="Сумма A+B+C"
+                                                      placeholder="Сумма A+B+C" value={ahomeworkStore.abcSum}/>
+                                    </FloatingLabel>
+                                </div>
+                            </div>
+                        </>}
                         {ahomeworkStore.homeworkAddType === "select" && <>
                             {getAnswerData()}
-                            <button className={'btn btn-dark'}
+                            <button className={'btn btn-dark mb-3'}
                                     type="button"
                                     onClick={() => {
                                         append({answer: "", validStatus: false});
@@ -202,65 +241,31 @@ const AHomeworkAskAddModal = inject('userStore', 'modalStore', 'acourseStore', '
                             >
                                 Добавить вариант ответа
                             </button>
+                            <div className={"row mb-3"}>
+                                <div className="col-lg-6 col-6">
+                                    <FloatingLabel controlId="floatingCHLInput" label="CHL">
+                                        <Form.Control required type={"number"}
+                                                      aria-label="Введите CHL" {...register("chl", {valueAsNumber: true})}
+                                                      placeholder="Введите CHL" onChange={InputMinMax}
+                                                      defaultValue={0}/>
+                                    </FloatingLabel>
+                                    {ahomeworkStore?.addDetailData && ahomeworkStore?.addDetailData['chl'] &&
+                                    <p className={'custom-alert-danger-text'}>{ahomeworkStore?.addDetailData['chl']}</p>}
+                                </div>
+                                <div className="col-lg-6 col-6">
+                                    <FloatingLabel controlId="floatingPOLInput" label="POL">
+                                        <Form.Control required type={"number"}
+                                                      aria-label="Введите POL" {...register("pol", {valueAsNumber: true})}
+                                                      placeholder="Введите POL" onChange={InputMinMax}
+                                                      defaultValue={0}/>
+                                    </FloatingLabel>
+                                    {ahomeworkStore?.addDetailData && ahomeworkStore?.addDetailData['pol'] &&
+                                    <p className={'custom-alert-danger-text'}>{ahomeworkStore?.addDetailData['pol']}</p>}
+                                </div>
+                            </div>
                         </>}
-                        <div className={"row mb-3"}>
-                            <div className="col-lg-12 col-12">
-                                <p className={'text-danger'}>Сумма A+B+C должна быть равна 100!</p>
-                            </div>
-                            <div className="col-lg-3 col-3">
-                                <FloatingLabel controlId="floatingAInput" label="A">
-                                    <Form.Control required type={"number"}
-                                                  aria-label="Введите A" {...register("a", {valueAsNumber: true})}
-                                                  placeholder="Введите A" onChange={InputMinMax} defaultValue={0}/>
-                                </FloatingLabel>
-                                {ahomeworkStore?.addDetailData && ahomeworkStore?.addDetailData['a'] &&
-                                <p className={'custom-alert-danger-text'}>{ahomeworkStore?.addDetailData['a']}</p>}
-                            </div>
-                            <div className="col-lg-3 col-3">
-                                <FloatingLabel controlId="floatingBInput" label="B">
-                                    <Form.Control required type={"number"}
-                                                  aria-label="Введите B" {...register("b", {valueAsNumber: true})}
-                                                  placeholder="Введите B" onChange={InputMinMax} defaultValue={0}/>
-                                </FloatingLabel>
-                                {ahomeworkStore?.addDetailData && ahomeworkStore?.addDetailData['b'] &&
-                                <p className={'custom-alert-danger-text'}>{ahomeworkStore?.addDetailData['b']}</p>}
-                            </div>
-                            <div className="col-lg-3 col-3">
-                                <FloatingLabel controlId="floatingCInput" label="C">
-                                    <Form.Control required type={"number"}
-                                                  aria-label="Введите C" {...register("c", {valueAsNumber: true})}
-                                                  placeholder="Введите C" onChange={InputMinMax} defaultValue={0}/>
-                                </FloatingLabel>
-                                {ahomeworkStore?.addDetailData && ahomeworkStore?.addDetailData['c'] &&
-                                <p className={'custom-alert-danger-text'}>{ahomeworkStore?.addDetailData['c']}</p>}
-                            </div>
-                            <div className="col-lg-3 col-3">
-                                <FloatingLabel controlId="floatingSumOutput" label="A+B+C">
-                                    <Form.Control type={"number"} readOnly aria-label="Сумма A+B+C"
-                                                  placeholder="Сумма A+B+C" value={ahomeworkStore.abcSum}/>
-                                </FloatingLabel>
-                            </div>
-                        </div>
-                        <div className={"row mb-3"}>
-                            <div className="col-lg-6 col-6">
-                                <FloatingLabel controlId="floatingCHLInput" label="CHL">
-                                    <Form.Control required type={"number"}
-                                                  aria-label="Введите CHL" {...register("chl", {valueAsNumber: true})}
-                                                  placeholder="Введите CHL" onChange={InputMinMax} defaultValue={0}/>
-                                </FloatingLabel>
-                                {ahomeworkStore?.addDetailData && ahomeworkStore?.addDetailData['chl'] &&
-                                <p className={'custom-alert-danger-text'}>{ahomeworkStore?.addDetailData['chl']}</p>}
-                            </div>
-                            <div className="col-lg-6 col-6">
-                                <FloatingLabel controlId="floatingPOLInput" label="POL">
-                                    <Form.Control required type={"number"}
-                                                  aria-label="Введите POL" {...register("pol", {valueAsNumber: true})}
-                                                  placeholder="Введите POL" onChange={InputMinMax} defaultValue={0}/>
-                                </FloatingLabel>
-                                {ahomeworkStore?.addDetailData && ahomeworkStore?.addDetailData['pol'] &&
-                                <p className={'custom-alert-danger-text'}>{ahomeworkStore?.addDetailData['pol']}</p>}
-                            </div>
-                        </div>
+
+
                         <button type={"submit"}
                                 disabled={ahomeworkStore.abcSum !== 100 || (Number(getValues('a')) < 0 || Number(getValues('b')) < 0 || Number(getValues('c')) < 0)}
                                 className={'btn btn-dark'}>Добавить
