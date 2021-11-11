@@ -55,7 +55,7 @@ const AHomeworkAskAddModal = inject('userStore', 'modalStore', 'acourseStore', '
                 if (ahomeworkStore.addDetailData?.status) {
                     alessonStore.loadLessonData(acourseStore.courseID, asubCourseStore.subCourseID, alessonStore.lessonID)
                     alert.success(alessonStore.addDetailData?.detail)
-                    // modalStore.AHomeworkAskAddModalClose()
+                    modalStore.AHomeworkAskAddModalClose()
                 }
             })
         }

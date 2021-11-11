@@ -2,7 +2,7 @@ import React, {useEffect, useRef} from "react";
 import {inject, observer} from "mobx-react";
 import Carousel from "react-multi-carousel";
 import {useForm} from "react-hook-form";
-import {Form, FloatingLabel} from "react-bootstrap";
+import {Form, FloatingLabel, ListGroup, ListGroupItem} from "react-bootstrap";
 
 const LessonHomeworkBlock = inject('aCoursePageStore', 'alessonStore', 'modalStore')(observer((store) => {
     const {aCoursePageStore, alessonStore, modalStore} = store
@@ -60,23 +60,6 @@ const LessonHomeworkBlock = inject('aCoursePageStore', 'alessonStore', 'modalSto
     //     }
     // }
 
-    const nextAsk = () => {
-        for (let i = 0; i <= aCoursePageStore.askCount; i++) {
-            if ((i === aCoursePageStore.askActive) && (i < aCoursePageStore.askCount)) {
-                aCoursePageStore.setAskActive(i + 1)
-                let values = getValues(`${aCoursePageStore.askActive}`)
-                if ((!values) || (values.length === 0)) break
-            }
-            if (aCoursePageStore.askActive === aCoursePageStore.askCount-1) {
-                aCoursePageStore.setAskActive(0)
-                let values = getValues(`${aCoursePageStore.askActive}`)
-                if ((!values) || (values.length === 0)) break
-            }
-        }
-
-    }
-
-
     const getItemStepList = () => {
         return alessonStore.lessonData?.homework?.askList?.map((item, i) => (
             <div key={i}
@@ -116,22 +99,16 @@ const LessonHomeworkBlock = inject('aCoursePageStore', 'alessonStore', 'modalSto
                         <div className="LessonList__Right__Data__Homework__Test__Answer">
 
                             {item.answerInput &&
-                            <FloatingLabel controlId={`answer_${item.id}`} label="введите ответ">
-                                <Form.Control  {...register(`${item.id}`)} type="text" placeholder="введите ответ"/>
-                            </FloatingLabel>}
-                            {!item.answerInput && <>{getItemAnswerList(item.answerList, item.id)}</>}
+                            <span>Ответ: <b>{item.answerInput}</b></span>}
+                            {!item.answerInput &&
+                            <ListGroup style={{borderRadius:'8px', width:'100%'}} variant="flush">{getItemAnswerList(item.answerList)}</ListGroup>
+                            }
 
                         </div>
 
-                        {aCoursePageStore.askAnswerCount === aCoursePageStore.askCount &&
-                        <button className={'LessonList__Right__Data__Homework__Test__SuccesButton'} type={"submit"}>
-                            отправить решение
-                        </button>}
-
-                        {aCoursePageStore.askAnswerCount !== aCoursePageStore.askCount &&
-                        <button className={'LessonList__Right__Data__Homework__Test__SuccesButton'} type={'button'}
-                                onClick={nextAsk}>
-                            следующий вопрос
+                        {!alessonStore.lessonData?.isOpen &&
+                        <button className={'LessonList__Right__Data__Homework__Test__SuccesButton'} type={'button'}>
+                            редактировать вопрос
                         </button>}
                     </div>
                 </div>
@@ -139,11 +116,9 @@ const LessonHomeworkBlock = inject('aCoursePageStore', 'alessonStore', 'modalSto
         ));
     };
 
-    const getItemAnswerList = (answerList, askID) => {
+    const getItemAnswerList = (answerList) => {
         return answerList?.map((item, i) => (
-            <Form.Check key={i} {...register(`${askID}`)} type='checkbox' id={`${item.id}`}
-                        value={`${item.id}`}
-                        label={`${item.answer}`}/>
+            <ListGroup.Item variant={`${item.validStatus ? 'success' : 'danger'}`} key={i} >{item.answer}</ListGroup.Item>
         ));
     };
 
@@ -165,16 +140,18 @@ const LessonHomeworkBlock = inject('aCoursePageStore', 'alessonStore', 'modalSto
                 showDots={false}
             >
                 {getItemStepList()}
+                {!alessonStore.lessonData?.isOpen &&
                 <div
-                 className={`LessonList__Right__Data__Homework__Step__Wrapper`}
-                 onClick={() => {
-                     modalStore.AHomeworkAskAddModalShow()
-                     // purCoursePageStore.setAskActive(item.id)
-                 }}>
+                    className={`LessonList__Right__Data__Homework__Step__Wrapper`}
+                    onClick={() => {
+                        modalStore.AHomeworkAskAddModalShow()
+                        // purCoursePageStore.setAskActive(item.id)
+                    }}>
                     <span>
                         +
                     </span>
-            </div>
+                </div>
+                }
             </Carousel>
         </div>
         <Form onChange={changeAnswer}>
