@@ -1,19 +1,11 @@
 import React, {useEffect, useRef} from "react";
 import {inject, observer} from "mobx-react";
 import Carousel from "react-multi-carousel";
-import {useForm} from "react-hook-form";
-import {Form, FloatingLabel, ListGroup, ListGroupItem} from "react-bootstrap";
+import {ListGroup} from "react-bootstrap";
 
 const LessonHomeworkBlock = inject('aCoursePageStore', 'alessonStore', 'modalStore')(observer((store) => {
     const {aCoursePageStore, alessonStore, modalStore} = store
-    // const queryParams = useParams()
     const carouselRef = useRef();
-
-    const {register, getValues} = useForm();
-    // const onSubmit = (data) => {
-    //     console.log(JSON.stringify(data));
-    //     alessonStore.loadHomeworkData(queryParams?.purchaseID, queryParams?.subID, queryParams?.lessonID, alessonStore.lessonData?.homework?.id, data)
-    // }
 
     useEffect(() => {
         aCoursePageStore.setAskActive(undefined)
@@ -31,40 +23,22 @@ const LessonHomeworkBlock = inject('aCoursePageStore', 'alessonStore', 'modalSto
     const responsive = {
         desktop: {
             breakpoint: {max: 4000, min: 769},
-            items: 14,
+            items: 10,
             partialVisibilityGutter: 40,
             slidesToSlide: 1,
         },
         mobile: {
             breakpoint: {max: 769, min: 0},
-            items: 8,
+            items: 7,
             partialVisibilityGutter: 80,
             slidesToSlide: 1,
         },
     };
 
-    const changeAnswer = (e) => {
-        aCoursePageStore.setAskAnswerCount(0)
-        for (let key in getValues()) {
-            if (getValues(`${key}`) && getValues(`${key}`)?.length > 0) {
-                aCoursePageStore.setAskAnswerCount(aCoursePageStore.askAnswerCount + 1)
-            }
-        }
-    }
-
-    // const setActiveAskForButton = () => {
-    //     for (let key in getValues()) {
-    //         if (getValues(`${key}`) && getValues(`${key}`)?.length > 0) {
-    //             purCoursePageStore.setAskAnswerCount(purCoursePageStore.askAnswerCount + 1)
-    //         }
-    //     }
-    // }
-
     const getItemStepList = () => {
         return alessonStore.lessonData?.homework?.askList?.map((item, i) => (
             <div key={i}
-                 className={`LessonList__Right__Data__Homework__Step__Wrapper ${aCoursePageStore.askActive === i ? 'active' : ''} 
-                 ${(getValues(`${item.id}`) && getValues(`${item.id}`)?.length > 0) ? 'SuccesAnswer' : ''}`}
+                 className={`LessonList__Right__Data__Homework__Step__Wrapper ${aCoursePageStore.askActive === i ? 'active' : ''}`}
                  onClick={() => {
                      aCoursePageStore.setAskActive(i)
                      // purCoursePageStore.setAskActive(item.id)
@@ -154,9 +128,7 @@ const LessonHomeworkBlock = inject('aCoursePageStore', 'alessonStore', 'modalSto
                 }
             </Carousel>
         </div>
-        <Form onChange={changeAnswer}>
-            {getItemTestsList()}
-        </Form>
+        {getItemTestsList()}
     </div>)
 }))
 
