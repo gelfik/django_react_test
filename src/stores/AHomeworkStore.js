@@ -6,9 +6,11 @@ export default class AHomeworkStore {
 
     _homeworkAddType = undefined
 
-    _addDetailData = undefined
+    _detailData = undefined
 
     _abcSum = 0
+
+    _homeworkData = undefined
 
     constructor($client) {
         makeObservable(this, {
@@ -16,9 +18,13 @@ export default class AHomeworkStore {
             homeworkAddType: computed,
             setHomeworkAddType: action,
 
-            _addDetailData: observable,
-            addDetailData: computed,
-            setAddDetailData: action,
+            _detailData: observable,
+            detailData: computed,
+            setDetailData: action,
+
+            _homeworkData: observable,
+            homeworkData: computed,
+            setHomeworkData: action,
 
             _abcSum: observable,
             abcSum: computed,
@@ -37,12 +43,12 @@ export default class AHomeworkStore {
     }
 
 
-    get addDetailData() {
-        return toJS(this._addDetailData)
+    get detailData() {
+        return toJS(this._detailData)
     }
 
-    setAddDetailData = (value) =>{
-        this._addDetailData = value
+    setDetailData = (value) =>{
+        this._detailData = value
     }
 
     get abcSum() {
@@ -55,19 +61,57 @@ export default class AHomeworkStore {
 
     loadHomeworkAddAdd = (data, courseID, subCourseID, lessonID) => {
         return this.client.post(`apanel/course${courseID}/sub${subCourseID}/lesson${lessonID}/homework/add`, data).then((response) => {
-            this.setAddDetailData(response.data)
+            this.setDetailData(response.data)
         }).catch(errors => {
-            this.setAddDetailData({})
+            this.setDetailData({})
             if (errors.response.data?.errors) {
-                this.setAddDetailData(errors.response.data?.errors)
+                this.setDetailData(errors.response.data?.errors)
             }
             if (errors.response.data?.detail) {
-                this.setAddDetailData({error:errors.response.data?.detail})
+                this.setDetailData({error:errors.response.data?.detail})
             }
             if (errors.response.data?.error) {
-                this.setAddDetailData({error:errors.response.data?.error})
+                this.setDetailData({error:errors.response.data?.error})
             }
         })
     }
 
+    get homeworkData(){
+        return toJS(this._homeworkData)
+    }
+
+    setHomeworkData(list, id){
+        this._homeworkData = list[id]
+    }
+
+    loadHomeworkEdit = (data, courseID, subCourseID, lessonID, askID) => {
+        return this.client.post(`apanel/course${courseID}/sub${subCourseID}/lesson${lessonID}/homework/ask${askID}`, data).then((response) => {
+            this.setDetailData(response.data)
+        }).catch(errors => {
+            this.setDetailData({})
+            if (errors.response.data?.errors) {
+                this.setDetailData(errors.response.data?.errors)
+            }
+            if (errors.response.data?.detail) {
+                this.setDetailData({error:errors.response.data?.detail})
+            }
+            if (errors.response.data?.error) {
+                this.setDetailData({error:errors.response.data?.error})
+            }
+        })
+    }
+
+    loadHomeworkDelete = (courseID, subCourseID, lessonID, askID) => {
+        return this.client.delete(`apanel/course${courseID}/sub${subCourseID}/lesson${lessonID}/homework/ask${askID}`).then((response) => {
+            // console.log(response.data.status)
+            this.setDetailData(response.data)
+        }).catch(errors => {
+            this.setDetailData({})
+            if (errors.response.data?.errors) {
+                this.setDetailData(errors.response.data)
+            }
+        })
+    }
 }
+
+

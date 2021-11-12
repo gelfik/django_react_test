@@ -6,28 +6,47 @@ import {FloatingLabel, Form} from "react-bootstrap";
 import ErrorAlert from "../ErrorAlert";
 import {useAlert} from "react-alert";
 
-const AHomeworkAskAddModal = inject('userStore', 'modalStore', 'acourseStore', 'asubCourseStore', 'alessonStore', 'ahomeworkStore')(observer((stores) => {
-    const {modalStore, ahomeworkStore, acourseStore, asubCourseStore, alessonStore} = stores;
+const AHomeworkAskEditModal = inject('userStore', 'modalStore', 'acourseStore', 'asubCourseStore', 'alessonStore', 'ahomeworkStore', 'aCoursePageStore')(observer((stores) => {
+    const {modalStore, ahomeworkStore, acourseStore, asubCourseStore, alessonStore, aCoursePageStore} = stores;
     const {register, control, getValues, setValue, reset, handleSubmit} = useForm({defaultValues: {answerData: []}});
     const {fields, append, remove} = useFieldArray({control, name: "answerData"});
     const alert = useAlert();
 
     useEffect(() => {
-        if (modalStore.AHomeworkAskAddModalStatus) {
-            ahomeworkStore.setHomeworkAddType(undefined)
-            ahomeworkStore.setAbcSum(0)
-            ahomeworkStore.setDetailData(undefined)
+        if (modalStore.AHomeworkAskEditModalStatus) {
+            ahomeworkStore.setHomeworkData(alessonStore.lessonData?.homework?.askList, aCoursePageStore.askActive)
+            console.log(ahomeworkStore.homeworkData)
             reset()
+            setValue('ask', ahomeworkStore.homeworkData?.ask)
+            if (ahomeworkStore.homeworkData?.answerInput) {
+                ahomeworkStore.setHomeworkAddType('input')
+                setValue('answer', ahomeworkStore.homeworkData?.answerInput)
+                setValue('a', ahomeworkStore.homeworkData?.a)
+                setValue('b', ahomeworkStore.homeworkData?.b)
+                setValue('c', ahomeworkStore.homeworkData?.c)
+                ahomeworkStore.setAbcSum(Number(ahomeworkStore.homeworkData?.a) + Number(ahomeworkStore.homeworkData?.b) + Number(ahomeworkStore.homeworkData?.c))
+            } else {
+                append(ahomeworkStore.homeworkData.answerList)
+                setValue('pol', ahomeworkStore.homeworkData?.pol)
+                setValue('chl', ahomeworkStore.homeworkData?.chl)
+                ahomeworkStore.setHomeworkAddType('select')
+            }
+            setValue('askType', ahomeworkStore.homeworkAddType)
+            ahomeworkStore.setDetailData(undefined)
+            console.log(getValues())
+
+
             //  asubCourseStore.setErrorAdd(undefined)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [modalStore.AHomeworkAskAddModalStatus])
+    }, [modalStore.AHomeworkAskEditModalStatus])
 
-    useEffect(() => {
-        reset()
-        setValue('askType', ahomeworkStore.homeworkAddType)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [ahomeworkStore.homeworkAddType])
+    // useEffect(() => {
+    //     reset()
+    //     setValue('askType', ahomeworkStore.homeworkAddType)
+    //
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [ahomeworkStore.homeworkAddType])
     //
     const onSubmitAdd = (data) => {
         ahomeworkStore.setDetailData(undefined)
@@ -45,27 +64,30 @@ const AHomeworkAskAddModal = inject('userStore', 'modalStore', 'acourseStore', '
                 }
                 if (askAnswerStatus) {
                     ahomeworkStore.setDetailData({error: 'Вы не выбрали ни одного верного ответа!'})
+                    askAnswerStatus = false
                 }
             }
         }
+        console.log(data)
         if (askValidStatus) {
-            ahomeworkStore.loadHomeworkAddAdd(data, acourseStore.courseID, asubCourseStore.subCourseID, alessonStore.lessonID).then(r => {
+            ahomeworkStore.loadHomeworkEdit(data, acourseStore.courseID, asubCourseStore.subCourseID, alessonStore.lessonID, ahomeworkStore.homeworkData?.id).then(r => {
                 if (ahomeworkStore.detailData?.status) {
                     alessonStore.loadLessonData(acourseStore.courseID, asubCourseStore.subCourseID, alessonStore.lessonID)
                     alert.success(alessonStore.detailData?.detail)
-                    modalStore.AHomeworkAskAddModalClose()
+                    modalStore.AHomeworkAskEditModalClose()
                 }
             })
         }
-        // asubCourseStore.setlessonListAddData({})
-        // asubCourseStore.loadLessonListAdd(data, acourseStore.courseID).then(()=> {
-        //     if (asubCourseStore.lessonListAddData?.status) {
-        //         modalStore.ALessonListAddModalClose()
-        //         reset()
-        //         asubCourseStore.setSubCourseID(asubCourseStore.lessonListAddData?.courseID, asubCourseStore.lessonListAddData?.subCourseID, true)
-        //         history.push(`/apanel/course${asubCourseStore.lessonListAddData?.courseID}/sub${asubCourseStore.lessonListAddData?.subCourseID}`)
-        //     }
-        // })
+    }
+
+    const onSubmitDelete = () => {
+        ahomeworkStore.loadHomeworkDelete(acourseStore.courseID, asubCourseStore.subCourseID, alessonStore.lessonID, ahomeworkStore.homeworkData?.id).then(() => {
+            alessonStore.loadLessonData(acourseStore.courseID, asubCourseStore.subCourseID, alessonStore.lessonID)
+            modalStore.AHomeworkAskEditModalClose()
+            if (ahomeworkStore.detailData?.status) {
+                alert.success(ahomeworkStore.detailData?.detail)
+            } else alert.error(ahomeworkStore.detailData?.detail)
+        })
     }
 
     const InputMinMax = (e) => {
@@ -88,7 +110,7 @@ const AHomeworkAskAddModal = inject('userStore', 'modalStore', 'acourseStore', '
 
     const getAnswerData = () => {
         return fields.map((item, index) => {
-            return (<div className={"row mb-3"} key={item.id}>
+            return (<div className={"row mb-3"} key={index}>
                 <hr/>
                 <div className="col-lg-10 col-10">
                     <div className={"row"}>
@@ -124,32 +146,16 @@ const AHomeworkAskAddModal = inject('userStore', 'modalStore', 'acourseStore', '
     }
 
     return (
-        <Modal show={modalStore.AHomeworkAskAddModalStatus} centered onHide={modalStore.AHomeworkAskAddModalClose}>
+        <Modal show={modalStore.AHomeworkAskEditModalStatus} centered onHide={modalStore.AHomeworkAskEditModalClose}>
             <Modal.Header>
-                <Modal.Title>Добавление вопроса</Modal.Title>
+                <Modal.Title>Редактирование вопроса</Modal.Title>
                 <button type="button" className="btn-close" aria-label="Close"
-                        onClick={modalStore.AHomeworkAskAddModalClose}/>
+                        onClick={modalStore.AHomeworkAskEditModalClose}/>
             </Modal.Header>
             <Modal.Body>
                 <form className={'d-flex flex-column'} onSubmit={handleSubmit(onSubmitAdd)}>
                     {ahomeworkStore?.detailData && ahomeworkStore?.detailData['error'] &&
                     <ErrorAlert error={ahomeworkStore?.detailData['error']}/>}
-                    <div className={"row"}>
-                        <div className="col-lg-12 col-12 mb-3">
-                            <FloatingLabel controlId="floatingSelectAskType" label="Тип вопроса">
-                                <Form.Select defaultValue={''} aria-label="Выберите тип" {...register("askType")}
-                                             onChange={(e) => {
-                                                 ahomeworkStore.setHomeworkAddType(e.target.value)
-                                             }}>
-                                    <option value={''} disabled>Выберите тип вопроса</option>
-                                    <option value={'input'}>С вводом ответа</option>
-                                    <option value={'select'}>С выбором ответа</option>
-                                </Form.Select>
-                            </FloatingLabel>
-                            {ahomeworkStore?.detailData && ahomeworkStore?.detailData['askType'] &&
-                            <p className={'custom-alert-danger-text'}>{ahomeworkStore?.detailData['askType']}</p>}
-                        </div>
-                    </div>
                     {ahomeworkStore.homeworkAddType && <>
                         <div className={"row mb-3"}>
                             <div className="col-lg-12 col-12">
@@ -229,10 +235,16 @@ const AHomeworkAskAddModal = inject('userStore', 'modalStore', 'acourseStore', '
                                     </FloatingLabel>
                                 </div>
                             </div>
-                            <button type={"submit"}
-                                    disabled={ahomeworkStore.abcSum !== 100 || (Number(getValues('a')) < 0 || Number(getValues('b')) < 0 || Number(getValues('c')) < 0)}
-                                    className={'btn btn-dark'}>Добавить
-                            </button>
+                            <div className="row mb-3">
+                                <div className="col-lg-6 col-6">
+                                    <button type={"button"} className={'btn btn-danger w-100'}
+                                            onClick={() => onSubmitDelete()}>Удалить
+                                    </button>
+                                </div>
+                                <div className="col-lg-6 col-6">
+                                    <button type={"submit"} className={'btn btn-dark w-100'}>Сохранить</button>
+                                </div>
+                            </div>
                         </>}
                         {ahomeworkStore.homeworkAddType === "select" && <>
                             {getAnswerData()}
@@ -265,7 +277,19 @@ const AHomeworkAskAddModal = inject('userStore', 'modalStore', 'acourseStore', '
                                     <p className={'custom-alert-danger-text'}>{ahomeworkStore?.detailData['pol']}</p>}
                                 </div>
                             </div>
-                            <button type={"submit"} className={'btn btn-dark'}>Добавить</button>
+
+                            <div className="row mb-3">
+                                <div className="col-lg-6 col-6">
+                                    <button type={"button"} className={'btn btn-danger w-100'}
+                                            onClick={() => onSubmitDelete()}>Удалить
+                                    </button>
+                                </div>
+                                <div className="col-lg-6 col-6">
+                                    <button type={"submit"} className={'btn btn-dark w-100'}>Сохранить</button>
+                                </div>
+                            </div>
+
+
                         </>}
                     </>}
                 </form>
@@ -275,4 +299,4 @@ const AHomeworkAskAddModal = inject('userStore', 'modalStore', 'acourseStore', '
 }))
 
 
-export default AHomeworkAskAddModal;
+export default AHomeworkAskEditModal;
