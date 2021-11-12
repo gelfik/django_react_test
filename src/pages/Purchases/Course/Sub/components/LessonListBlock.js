@@ -42,8 +42,8 @@ const LessonListBlock = inject('purchaseStore', 'subCourseStore')(observer((stor
                         </div>
                         {item.homework &&
                         <div className="LessonList__Left__Item__Data__Chips__Item">
-                            {item.homework?.answerStatus && 'решена'}
-                            {!item.homework?.answerStatus && 'не решена'}
+                            {!item.homework?.answerStatus && 'решена'}
+                            {item.homework?.answerStatus && 'не решена'}
                         </div>}
                     </div>
                     <div className="LessonList__Left__Item__Data__Title">
