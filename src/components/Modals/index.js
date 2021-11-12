@@ -14,6 +14,7 @@ import ALessonListEditModal from "./ALessonListEditModal";
 import ALessonEditModal from "./ALessonEditModal";
 import AHomeworkAskAddModal from "./AHomeworkAskAddModal";
 import AHomeworkAskEditModal from "./AHomeworkAskEditModal";
+import AMentorAddModal from "./AMentorAddModal";
 
 const RootModal = inject('userStore')(observer((stores) => {
     const {userStore} = stores
@@ -37,6 +38,7 @@ const RootModal = inject('userStore')(observer((stores) => {
                 <ALessonEditModal/>
                 <AHomeworkAskAddModal/>
                 <AHomeworkAskEditModal/>
+                <AMentorAddModal/>
 
             </>}
         </>}

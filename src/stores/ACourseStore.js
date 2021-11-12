@@ -83,6 +83,9 @@ export default class ACourseStore {
             _courseDeleteData: observable,
             courseDeleteData: computed,
             setCourseDeleteData: action,
+
+            loadMentorAdd: action,
+            loadMentorDelete: action,
         })
 
         this.client = $client;
@@ -285,4 +288,17 @@ export default class ACourseStore {
     setCourseDeleteData = (value) => {
         this._courseDeleteData = value;
     }
+
+    loadMentorAdd = (courseID, mentorID) => {
+        return this.client.post(`apanel/course${courseID}/mentor${mentorID}`).then((response) => {
+            this.loadCourseData(courseID)
+        })
+    }
+
+    loadMentorDelete = (courseID, mentorID) => {
+        return this.client.delete(`apanel/course${courseID}/mentor${mentorID}`).then((response) => {
+            this.loadCourseData(courseID)
+        })
+    }
+
 }

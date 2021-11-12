@@ -1,8 +1,8 @@
 import React from "react";
 import {inject, observer} from "mobx-react";
 
-const MentorBlock = inject('userStore', 'acourseStore', 'modalStore')(observer((store) => {
-    const {acourseStore} = store
+const MentorBlock = inject('userStore', 'acourseStore', 'modalStore', 'amentorStore')(observer((store) => {
+    const {acourseStore, modalStore, amentorStore} = store
 
     const getMentors = () => {
         if (acourseStore?.courseData?.mentors?.length === 0) {
@@ -38,6 +38,18 @@ const MentorBlock = inject('userStore', 'acourseStore', 'modalStore')(observer((
                             <p> перейти</p>
                         </a>
                     </div>
+                    <div className="Course__Contact__Item__Content__Links">
+                        <div className={"Course__Contact__Item__Content__Links__Button"}
+                             onClick={() => {
+                                 amentorStore.setMentorID(item.id)
+                                 acourseStore.loadMentorDelete(acourseStore.courseID, amentorStore.mentorID)
+                             }}>
+                            <svg aria-hidden="true" height="20" width="20">
+                                <use xlinkHref={'#icon-close-2'}/>
+                            </svg>
+                            <p>удалить</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         )
@@ -48,7 +60,7 @@ const MentorBlock = inject('userStore', 'acourseStore', 'modalStore')(observer((
             <div className="Course__Contact__Teacher">
                 <div className="Course__Contact__Title">
                     <span>наставники </span>
-                    <svg aria-hidden="true" height="20" width="20">
+                    <svg aria-hidden="true" height="20" width="20" onClick={modalStore.AMentorAddModalShow}>
                         <use xlinkHref={'#icon-plus'}/>
                     </svg>
                 </div>
