@@ -71,16 +71,28 @@ const LessonHomeworkBlock = inject('aCoursePageStore', 'alessonStore', 'modalSto
                     <div className="LessonList__Right__Data__Homework__Test__Wrapper">
                         <div className="LessonList__Right__Data__Homework__Test__Answer">
 
-                            {item.answerInput &&
-                            <span>Ответ: <b>{item.answerInput}</b></span>}
-                            {!item.answerInput &&
-                            <ListGroup style={{borderRadius:'8px', width:'100%'}} variant="flush">{getItemAnswerList(item.answerList)}</ListGroup>
-                            }
+                            {item.answerInput && <>
+                                <span className={'mb-3'}>Ответ: <b>{item.answerInput}</b></span>
+                                <ListGroup style={{borderRadius: '8px', width: '100%', textAlign: 'center'}} horizontal>
+                                    <ListGroup.Item style={{width: '100%'}}>POL = {item.pol}</ListGroup.Item>
+                                    <ListGroup.Item style={{width: '100%'}}>CHL = {item.chl}</ListGroup.Item>
+                                </ListGroup>
+                            </>}
+                            {!item.answerInput && <>
+                                <ListGroup className={'mb-3'} style={{borderRadius: '8px', width: '100%'}}
+                                           variant="flush">{getItemAnswerList(item.answerList)}</ListGroup>
+                                <ListGroup style={{borderRadius: '8px', width: '100%', textAlign: 'center'}} horizontal>
+                                    <ListGroup.Item style={{width: '100%'}}>A = {item.a}</ListGroup.Item>
+                                    <ListGroup.Item style={{width: '100%'}}>B = {item.b}</ListGroup.Item>
+                                    <ListGroup.Item style={{width: '100%'}}>C = {item.c}</ListGroup.Item>
+                                </ListGroup>
+                            </>}
 
                         </div>
 
                         {!alessonStore.lessonData?.isOpen &&
-                        <button className={'LessonList__Right__Data__Homework__Test__SuccesButton'} type={'button'}>
+                        <button className={'LessonList__Right__Data__Homework__Test__SuccesButton'} type={'button'}
+                                onClick={modalStore.AHomeworkAskEditModalShow}>
                             редактировать вопрос
                         </button>}
                     </div>
@@ -91,7 +103,8 @@ const LessonHomeworkBlock = inject('aCoursePageStore', 'alessonStore', 'modalSto
 
     const getItemAnswerList = (answerList) => {
         return answerList?.map((item, i) => (
-            <ListGroup.Item variant={`${item.validStatus ? 'success' : 'danger'}`} key={i} >{item.answer}</ListGroup.Item>
+            <ListGroup.Item variant={`${item.validStatus ? 'success' : 'danger'}`}
+                            key={i}>{item.answer}</ListGroup.Item>
         ));
     };
 
