@@ -204,4 +204,5 @@ export default class ASubCourseStore {
     setSubCourseDeleteData = (value) => {
         this._subCourseDeleteData = value;
     }
+
 }

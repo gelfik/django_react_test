@@ -159,7 +159,6 @@ export default class ACourseStore {
                 this.setLoadError(false)
                 this.setCourseData(response.data)
                 this.spinner.setSpinnerStatus(false)
-                this.loadPurchaseData(CourseID)
             }).catch(reason => {
                 this.setLoadError(true)
                 this.spinner.setSpinnerStatus(false)
