@@ -26,6 +26,7 @@ import ApanelCoursePage from "../../pages/Apanel/Courses/Course";
 import ApanelSubCoursePage from "../../pages/Apanel/Courses/Course/Sub";
 import ApanelLessonPage from "../../pages/Apanel/Courses/Course/Sub/Lesson";
 import ApanelUsersPage from "../../pages/Apanel/Users";
+import ApanelCoursePurchasePage from "../../pages/Apanel/Courses/Course/Purchase";
 
 const PageService = inject('userStore')(observer((store) => {
         const {userStore} = store
@@ -42,6 +43,9 @@ const PageService = inject('userStore')(observer((store) => {
                     <Route path='/apanel/users' exact
                            render={() => userStore.userAuthStatus && userStore.userData?.isTeacher ?
                                <ApanelUsersPage/> : <Redirect to='/'/>}/>
+                    <Route path='/apanel/course:courseID/purchase' exact
+                           render={() => userStore.userAuthStatus && (userStore.userData?.isTeacher || userStore.userData?.isMentor) ?
+                               <ApanelCoursePurchasePage/> : <Redirect to='/'/>}/>
 
                     <Route path='/apanel/course:courseID/sub:subID/lesson:lessonID' exact
                            render={() => userStore.userAuthStatus && (userStore.userData?.isTeacher || userStore.userData?.isMentor) ?
@@ -76,6 +80,7 @@ const PageService = inject('userStore')(observer((store) => {
                            render={() => !userStore.userAuthStatus ? <Redirect to='/'/> :
                                <CoursesCoursePurchasePage/>}/>
                     <Route path='/courses:courseID' exact component={CoursesCoursePage}/>
+
 
                     <Route path='/user'
                            render={() => !userStore.userAuthStatus ? <Redirect to='/'/> : <UserPage/>}/>
