@@ -1,6 +1,5 @@
 import React, {useEffect} from "react";
 import {inject, observer} from "mobx-react";
-import {Link} from "react-router-dom";
 import Spinner from "../../../../../../components/Spinner";
 import {Col, Row} from "react-bootstrap";
 
