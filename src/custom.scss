@@ -309,11 +309,6 @@ body {
   top: 32px;
   left: 32px;
   color: #fff;
-
-  p {
-    margin-bottom: 1rem;
-  }
-
   @media screen and (max-width: 540px) {
     top: 16px;
     left: 16px;
@@ -323,7 +318,6 @@ body {
 .carousel-caption-p {
   font-size: 36px;
   line-height: 36px;
-
 
   @media screen and (max-width: 540px) {
     font-size: 24px;
@@ -2333,15 +2327,8 @@ li {
   gap: 10px;
   padding: 40px 0;
 
-
   @media (max-width: 767px) {
     display: flex;
-  }
-
-  .UsersList {
-    &__Item {
-      padding: 24px;
-    }
   }
 
   .Course__Contact__Title, .SubCourses__Title {
@@ -3122,7 +3109,6 @@ li {
             color: #101010;
             overflow-wrap: break-word;
           }
-
           span {
             color: #101010;
             overflow-wrap: break-word;
@@ -3543,23 +3529,7 @@ li {
       display: flex;
       flex-direction: column;
 
-      //p {
-      //  font-size: 24px;
-      //  line-height: 28px;
-      //  letter-spacing: .02em;
-      //  margin: 0;
-      //  margin-bottom: 10px;
-      //  @media (max-width: 767px) {
-      //    font-size: 20px;
-      //    line-height: 24px;
-      //  }
-      //}
-
-      .Chips {
-        margin-top: 0;
-      }
-
-      &__Name {
+      p {
         font-size: 24px;
         line-height: 28px;
         letter-spacing: .02em;
@@ -3571,51 +3541,12 @@ li {
         }
       }
 
-      &__Links {
-        display: flex;
-        flex-wrap: wrap;
-        width: 100%;
-        margin-bottom: -10px;
-
-        :hover {
-          background-color: #e0e2e7;
-          color: #101010;
-        }
-
-        &__Button {
-          outline: none;
-          border: none;
-          cursor: pointer;
-          align-items: center;
-          transition: all .1s ease;
-          white-space: nowrap;
-          margin-bottom: 10px;
-          margin-right: 10px;
-          display: inline-flex;
-          padding: 2px;
-          color: #101010;
-          font-size: 14px;
-          line-height: 18px;
-          background-color: #f2f3f5;
-          border-radius: 4px;
-          text-decoration: none;
-
-          p {
-            font-style: normal;
-            font-weight: 400;
-            letter-spacing: .02em;
-            font-size: 14px;
-            line-height: 18px;
-            margin: 0;
-          }
-        }
+      .Chips {
+        margin-top: 0;
       }
-
-
     }
   }
 }
-
 
 .Table {
   padding-top: 16px;
