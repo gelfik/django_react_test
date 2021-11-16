@@ -26,41 +26,30 @@ const PurchaseBlock = inject('userStore', 'apurchaseStore', 'acourseStore')(obse
 
     const getItemPurchase = () => {
         return apurchaseStore?.purchaseData?.map((item, i) =>
-            <Col md={4}>
+            <Col md={6}>
                 <div className="UsersList__Item" key={i}>
                     <div className="UsersList__Item__Content">
                         <div className="UsersList__Item__Wrapper">
-                            <div className="UsersList__Item__Data">
+                            <Link className="UsersList__Item__Data" to={`/apanel/users/user${item?.user?.id}`}>
                                 <div className="UsersList__Item__Avatar">
                                     <img src={item?.user?.avatar?.file?.small}
                                          alt={`${item?.user?.lastName} ${item?.user?.firstName}`}/>
                                 </div>
                                 <div className="UsersList__Item__Title">
-                                    <div className="UsersList__Item__Title__Name">{item?.user?.lastName} {item?.user?.firstName}</div>
-                                    <div className="UsersList__Item__Title__Links">
-                                        <a href={item?.user?.vkLink}
-                                           rel="noreferrer"
-                                           className={"UsersList__Item__Title__Links__Button"}
-                                           target="_blank">
-                                            <svg aria-hidden="true" height="20" width="20">
-                                                <use xlinkHref={'#icon-vk-2'}/>
-                                            </svg>
-                                            <p> перейти</p>
-                                        </a>
+                                    <p>{item?.user?.lastName} {item?.user?.firstName}</p>
+                                    <div className="Chips">
+                                        {item?.user?.username && <div className="Chips__Item">
+                                            {item?.user?.username}
+                                        </div>}
+                                        {item?.user?.email && <div className="Chips__Item">
+                                            {item?.user?.email}
+                                        </div>}
+                                        {item?.user?.phone && <div className="Chips__Item">
+                                            {item?.user?.phone}
+                                        </div>}
                                     </div>
-                                    {/*<div className="Chips">*/}
-                                    {/*    {item?.user?.username && <div className="Chips__Item">*/}
-                                    {/*        {item?.user?.username}*/}
-                                    {/*    </div>}*/}
-                                    {/*    {item?.user?.email && <div className="Chips__Item">*/}
-                                    {/*        {item?.user?.email}*/}
-                                    {/*    </div>}*/}
-                                    {/*    {item?.user?.phone && <div className="Chips__Item">*/}
-                                    {/*        {item?.user?.phone}*/}
-                                    {/*    </div>}*/}
-                                    {/*</div>*/}
                                 </div>
-                            </div>
+                            </Link>
                         </div>
                     </div>
                 </div>
