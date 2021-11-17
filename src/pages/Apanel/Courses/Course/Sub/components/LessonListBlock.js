@@ -30,7 +30,7 @@ const LessonListBlock = inject('userStore', 'asubCourseStore', 'modalStore', 'al
                 alessonStore.setLessonType(type)
                 history.push(`/apanel/course${queryParams?.courseID}/sub${queryParams?.subID}/lesson${lessonID}`)
             }}
-                className={`LessonList__Left__Item__Content ${lessonID === Number(queryParams?.lessonID) ? 'LessonList__Left__Item__Active' : ''} ${item.isOpen ? 'LessonList__Left__Item__ItemOpen' : 'LessonList__Left__Item__ItemClose'}`}>
+                className={`LessonList__Left__Item__Content ${(lessonID === Number(queryParams?.lessonID) && alessonStore.lessonType===type) ? 'LessonList__Left__Item__Active' : ''} ${item.isOpen ? 'LessonList__Left__Item__ItemOpen' : 'LessonList__Left__Item__ItemClose'}`}>
                 <div className="LessonList__Left__Item__Time">
                     {item.time && `${getTime(item.time)}мск`}
                 </div>
@@ -40,7 +40,6 @@ const LessonListBlock = inject('userStore', 'asubCourseStore', 'modalStore', 'al
                             {type === 'lecture' && 'Лекция'}
                             {type === 'testPOL' && 'Тест на пол.'}
                             {type === 'testCHL' && 'Тест на цел.'}
-                            {/*{((type === 'testPOL') || (type === 'testCHL')) && 'Тест'}*/}
                             {type === 'taskABC' && 'Задание'}
                         </div>
                         <svg fill="none" height="20" width="20" onClick={modalStore.ALessonEditModalShow}>
