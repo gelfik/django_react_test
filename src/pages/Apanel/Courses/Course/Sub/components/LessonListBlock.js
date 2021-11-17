@@ -13,75 +13,106 @@ const LessonListBlock = inject('userStore', 'asubCourseStore', 'modalStore', 'al
     const queryParams = useParams()
 
     const getDate = (date) => {
-        const newDate = Moment(date, "DD.MM.YYYY H:m")
+        const newDate = Moment(date, "DD.MM.YYYY")
         return `${newDate.date()} ${mounthText(newDate.month())}, ${dayText(newDate.day())}`
     }
 
     const getTime = (date) => {
-        const newDate = Moment(date, "DD.MM.YYYY H:m")
+        const newDate = Moment(date, "H:m")
         let hour = newDate.hour(newDate.hour()).format('HH')
         let minute = newDate.minute(newDate.minutes()).format('mm')
         return `${hour}:${minute}`
     }
 
-    const getLessons = (data, lessonDate) => {
-        return data?.map((item, i) =>
-            <div key={i} onClick={() => {
-                history.push(`/apanel/course${queryParams?.courseID}/sub${queryParams?.subID}/lesson${item.id}`)
+    const getLesson = (lessonID, item, type) => {
+        return (
+            <div onClick={()=>{
+                alessonStore.setLessonType(type)
+                history.push(`/apanel/course${queryParams?.courseID}/sub${queryParams?.subID}/lesson${lessonID}`)
             }}
-                 className={`LessonList__Left__Item__Content ${item.id === Number(queryParams?.lessonID) ? 'LessonList__Left__Item__Active' : ''} ${item.isOpen ? 'LessonList__Left__Item__ItemOpen' : 'LessonList__Left__Item__ItemClose'}`}>
+                className={`LessonList__Left__Item__Content ${lessonID === Number(queryParams?.lessonID) ? 'LessonList__Left__Item__Active' : ''} ${item.isOpen ? 'LessonList__Left__Item__ItemOpen' : 'LessonList__Left__Item__ItemClose'}`}>
                 <div className="LessonList__Left__Item__Time">
-                    {item.video && `${getTime(lessonDate)}мск`}
+                    {item.time && `${getTime(item.time)}мск`}
                 </div>
                 <div className="LessonList__Left__Item__Data">
                     <div className="LessonList__Left__Item__Data__Chips">
                         <div className="LessonList__Left__Item__Data__Chips__Item">
-                            {item.video && 'Видео'}
-                            {item.homework && 'Домашка'}
-                            {item.files && 'Файл'}
+                            {type === 'lecture' && 'Лекция'}
+                            {type === 'testPOL' && 'Тест на пол.'}
+                            {type === 'testCHL' && 'Тест на цел.'}
+                            {/*{((type === 'testPOL') || (type === 'testCHL')) && 'Тест'}*/}
+                            {type === 'taskABC' && 'Задание'}
                         </div>
                         <svg fill="none" height="20" width="20" onClick={modalStore.ALessonEditModalShow}>
                             <use xlinkHref={'#icon-pencil'}/>
                         </svg>
-                        {/*{!item.isOpen && <div className="LessonList__Left__Item__Data__Chips__ItemClose">*/}
-                        {/*    Черновик*/}
-                        {/*</div>}*/}
-                        {/*{item.isOpen && <div className="LessonList__Left__Item__Data__Chips__ItemOpen">*/}
-                        {/*    Опубликован*/}
-                        {/*</div>}*/}
                     </div>
 
                     <div className="LessonList__Left__Item__Data__Title">
-                        {item.video && item.video?.name}
-                        {item.homework && item.homework?.name}
-                        {item.files && item.files?.name}
+                        {item.name}
                     </div>
                 </div>
             </div>
         )
     }
 
+
+    // const getLessons = (data, lessonDate) => {
+    //     return data?.map((item, i) =>
+    //         <div key={i} onClick={() => {
+    //             history.push(`/apanel/course${queryParams?.courseID}/sub${queryParams?.subID}/lesson${item.id}`)
+    //         }}
+    //              className={`LessonList__Left__Item__Content ${item.id === Number(queryParams?.lessonID) ? 'LessonList__Left__Item__Active' : ''} ${item.isOpen ? 'LessonList__Left__Item__ItemOpen' : 'LessonList__Left__Item__ItemClose'}`}>
+    //             <div className="LessonList__Left__Item__Time">
+    //                 {item.video && `${getTime(lessonDate)}мск`}
+    //             </div>
+    //             <div className="LessonList__Left__Item__Data">
+    //                 <div className="LessonList__Left__Item__Data__Chips">
+    //                     <div className="LessonList__Left__Item__Data__Chips__Item">
+    //                         {item.video && 'Видео'}
+    //                         {item.homework && 'Домашка'}
+    //                         {item.files && 'Файл'}
+    //                     </div>
+    //                     <svg fill="none" height="20" width="20" onClick={modalStore.ALessonEditModalShow}>
+    //                         <use xlinkHref={'#icon-pencil'}/>
+    //                     </svg>
+    //                 </div>
+    //
+    //                 <div className="LessonList__Left__Item__Data__Title">
+    //                     {item.video && item.video?.name}
+    //                     {item.homework && item.homework?.name}
+    //                     {item.files && item.files?.name}
+    //                 </div>
+    //             </div>
+    //         </div>
+    //     )
+    // }
+
     const getItemsLeasons = () => {
         return asubCourseStore?.subCourseData?.lessons?.map((item, i) =>
             <div className="LessonList__Left__Item" key={i}>
                 <StickyBox offsetTop={136} offsetBottom={20} className="LessonList__Left__Item__Date">
-                    <p className={`${item?.isOpen ? 'Open' : 'Close'}`}>{getDate(item.lessonDate)}</p>
-                    {/*{item?.isOpen && 'Опубликован'}*/}
-                    {/*{!item?.isOpen && 'Черновик'}*/}
+                    <p className={`${item?.isOpen ? 'Open' : 'Close'}`}>{getDate(item.date)}</p>
                     <div className="LessonList__Left__Item__Date__Admin" onClick={() => {
                         alessonStore.setLessonListID(item?.id)
                     }}>
                         <svg fill="none" height="20" width="20" onClick={modalStore.ALessonListEditModalShow}>
                             <use xlinkHref={'#icon-pencil'}/>
                         </svg>
-                        <svg aria-hidden="true" height="20" width="20" onClick={modalStore.ALessonAddModalShow}>
+
+                        {(!item.lecture || !item.testPOL || !item.testCHL || !item.taskABC) && <svg aria-hidden="true" height="20" width="20" onClick={modalStore.ALessonAddModalShow}>
                             <use xlinkHref={'#icon-plus'}/>
-                        </svg>
+                        </svg>}
+
                     </div>
                 </StickyBox>
                 <div className="LessonList__Left__Item__Panel">
                     <div className="LessonList__Left__Item__Wrapper">
-                        {getLessons(item.lessonList, item.lessonDate)}
+                        {item.lecture && getLesson(item.id, item.lecture, 'lecture')}
+                        {item.testPOL && getLesson(item.id, item.testPOL, 'testPOL')}
+                        {item.testCHL && getLesson(item.id, item.testCHL, 'testCHL')}
+                        {item.taskABC && getLesson(item.id, item.taskABC, 'taskABC')}
+                        {/*{getLessons(item.lessonList, item.lessonDate)}*/}
                     </div>
                 </div>
             </div>

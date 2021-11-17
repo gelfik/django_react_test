@@ -27,6 +27,8 @@ export default class ALessonStore {
     _lessonFileAdd = {}
     _lessonFileDelete = {}
 
+    _lessonType = undefined
+
 
     constructor($client) {
         makeObservable(this, {
@@ -41,6 +43,10 @@ export default class ALessonStore {
             _loadError: observable,
             loadError: computed,
             setLoadError: action,
+
+            _lessonType: observable,
+            lessonType: computed,
+            setLessonType: action,
 
             _lessonID: observable,
             lessonID: computed,
@@ -124,6 +130,14 @@ export default class ALessonStore {
                 this.setLoadError(true)
                 this.spinner.setSpinnerStatus(false)
             })
+    }
+
+    get lessonType() {
+        return this._lessonType;
+    }
+
+    setLessonType(value) {
+        this._lessonType = value
     }
 
     get lessonID() {
