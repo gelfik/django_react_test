@@ -24,6 +24,8 @@ export default class ModalStore {
 
     _showAMentorAddModalStatus = false
 
+    _showAPurchaseManagementModalStatus = false
+
 
 
     constructor() {
@@ -43,6 +45,7 @@ export default class ModalStore {
             _showAHomeworkAskAddModalStatus: observable,
             _showAHomeworkAskEditModalStatus: observable,
             _showAMentorAddModalStatus: observable,
+            _showAPurchaseManagementModalStatus: observable,
             LoginModalStatus: computed,
             RegisterModalStatus: computed,
             PurchaseDetailModalStatus: computed,
@@ -58,6 +61,7 @@ export default class ModalStore {
             AHomeworkAskAddModalStatus: computed,
             AHomeworkAskEditModalStatus: computed,
             AMentorAddModalStatus:computed,
+            APurchaseManagementModalStatus:computed,
             LoginModalClose: action,
             LoginModalShow: action,
             RegisterModalClose: action,
@@ -88,6 +92,8 @@ export default class ModalStore {
             AHomeworkAskEditModalClose: action,
             AMentorAddModalShow:action,
             AMentorAddModalClose:action,
+            APurchaseManagementModalShow:action,
+            APurchaseManagementModalClose:action,
         })
     }
 
@@ -149,6 +155,10 @@ export default class ModalStore {
 
     get AMentorAddModalStatus() {
         return this._showAMentorAddModalStatus;
+    }
+
+    get APurchaseManagementModalStatus() {
+        return this._showAPurchaseManagementModalStatus;
     }
 
     LoginModalClose = () => {
@@ -254,6 +264,13 @@ export default class ModalStore {
     }
     AMentorAddModalShow = () => {
         this._showAMentorAddModalStatus = true;
+    }
+
+    APurchaseManagementModalClose = () => {
+        this._showAPurchaseManagementModalStatus = false;
+    }
+    APurchaseManagementModalShow = () => {
+        this._showAPurchaseManagementModalStatus = true;
     }
 
 }

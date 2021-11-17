@@ -3,8 +3,8 @@ import {inject, observer} from "mobx-react";
 import Spinner from "../../../../../../components/Spinner";
 import {Col, Row} from "react-bootstrap";
 
-const PurchaseBlock = inject('userStore', 'apurchaseStore', 'acourseStore')(observer((store) => {
-    const {apurchaseStore, acourseStore} = store
+const PurchaseBlock = inject('userStore', 'apurchaseStore', 'acourseStore', 'modalStore', 'apurManageStore')(observer((store) => {
+    const {apurchaseStore, acourseStore, modalStore, apurManageStore} = store
 
 
     useEffect(() => {
@@ -25,11 +25,11 @@ const PurchaseBlock = inject('userStore', 'apurchaseStore', 'acourseStore')(obse
 
     const getItemPurchase = () => {
         return apurchaseStore?.purchaseData?.map((item, i) =>
-            <Col md={4}>
-                <div className="UsersList__Item" key={i}>
+            <Col md={4} key={i}>
+                <div className="UsersList__Item"  onClick={modalStore.APurchaseManagementModalShow}>
                     <div className="UsersList__Item__Content">
                         <div className="UsersList__Item__Wrapper">
-                            <div className="UsersList__Item__Data">
+                            <div className="UsersList__Item__Data" onClick={() => apurManageStore.setPurchase(item)}>
                                 <div className="UsersList__Item__Avatar">
                                     <img src={item?.user?.avatar?.file?.small}
                                          alt={`${item?.user?.lastName} ${item?.user?.firstName}`}/>

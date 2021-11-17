@@ -26,8 +26,8 @@ const UsersBlock = inject('userStore', 'ausersListStore')(observer((store) => {
 
     const getItemCourses = () => {
         return ausersListStore?.usersData?.results?.map((item, i) =>
-            <Col md={4}>
-                <div className="UsersList__Item" key={i}>
+            <Col md={4} key={i}>
+                <div className="UsersList__Item" >
                     <div className="UsersList__Item__Content">
                         <div className="UsersList__Item__Wrapper">
                             <Link className="UsersList__Item__Data" to={`/apanel/users/user${item?.id}`}>

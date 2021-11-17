@@ -15,7 +15,6 @@ const AHomeworkAskEditModal = inject('userStore', 'modalStore', 'acourseStore', 
     useEffect(() => {
         if (modalStore.AHomeworkAskEditModalStatus) {
             ahomeworkStore.setHomeworkData(alessonStore.lessonData?.homework?.askList, aCoursePageStore.askActive)
-            console.log(ahomeworkStore.homeworkData)
             reset()
             setValue('ask', ahomeworkStore.homeworkData?.ask)
             if (ahomeworkStore.homeworkData?.answerInput) {
@@ -68,7 +67,6 @@ const AHomeworkAskEditModal = inject('userStore', 'modalStore', 'acourseStore', 
                 }
             }
         }
-        console.log(data)
         if (askValidStatus) {
             ahomeworkStore.loadHomeworkEdit(data, acourseStore.courseID, asubCourseStore.subCourseID, alessonStore.lessonID, ahomeworkStore.homeworkData?.id).then(r => {
                 if (ahomeworkStore.detailData?.status) {
