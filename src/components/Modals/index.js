@@ -6,14 +6,8 @@ import PurchaseDetailModal from "./PurchaseDetailModal";
 import ACourseAddModal from "./ACourseAddModal";
 import APurchaseUserModal from "./APurchaseUserModal";
 import ASubCourseAddModal from "./ASubCourseAddModal";
-import ALessonListAddModal from "./ALessonListAddModal";
-import ALessonAddModal from "./ALessonAddModal";
 import ACourseEditModal from "./ACourseEditModal";
 import ASubCourseEditModal from "./ASubCourseEditModal";
-import ALessonListEditModal from "./ALessonListEditModal";
-import ALessonEditModal from "./ALessonEditModal";
-import AHomeworkAskAddModal from "./AHomeworkAskAddModal";
-import AHomeworkAskEditModal from "./AHomeworkAskEditModal";
 import AMentorAddModal from "./AMentorAddModal";
 import APurchaseManagementModal from "./APurchaseManagementModal";
 
@@ -32,13 +26,7 @@ const RootModal = inject('userStore')(observer((stores) => {
                 <ACourseEditModal/>
                 <APurchaseUserModal/>
                 <ASubCourseAddModal/>
-                <ALessonListAddModal/>
-                <ALessonAddModal/>
                 <ASubCourseEditModal/>
-                <ALessonListEditModal/>
-                <ALessonEditModal/>
-                <AHomeworkAskAddModal/>
-                <AHomeworkAskEditModal/>
                 <AMentorAddModal/>
                 <APurchaseManagementModal/>
             </>}

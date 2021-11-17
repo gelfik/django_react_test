@@ -39,7 +39,7 @@ const ApanelLessonPage = inject('userStore', 'acourseStore', 'acoursesListStore'
     useEffect(() => {
         acourseStore.setCourseID(queryParams?.courseID)
         asubCourseStore.setSubCourseID(queryParams?.courseID, queryParams?.subID)
-        alessonStore.setLessonID(queryParams?.courseID, queryParams?.subID, queryParams?.lessonID)
+        // alessonStore.setLessonID(queryParams?.courseID, queryParams?.subID, queryParams?.lessonID)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [queryParams?.courseID, queryParams?.subID, queryParams?.lessonID])
 

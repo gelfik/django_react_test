@@ -2,9 +2,6 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 import StickyBox from "react-sticky-box";
 import Spinner from "../../../../../../../components/Spinner";
-import LessonVideoBlock from "./LessonVideoBlock";
-import LessonFileBlock from "./LessonFileBlock";
-import LessonHomeworkBlock from "./LessonHomeworkBlock";
 
 const LessonBlock = inject('userStore', 'alessonStore')(observer((store) => {
     const {alessonStore} = store
@@ -17,9 +14,6 @@ const LessonBlock = inject('userStore', 'alessonStore')(observer((store) => {
                     {alessonStore.lessonData?.video && alessonStore.lessonData?.video?.name}
                     {alessonStore.lessonData?.files && alessonStore.lessonData?.files?.name}
                 </div>
-                {alessonStore.lessonData?.video && <LessonVideoBlock/>}
-                {alessonStore.lessonData?.files && <LessonFileBlock/>}
-                {alessonStore.lessonData?.homework && <LessonHomeworkBlock/>}
                 {alessonStore.lessonData?.description &&
                 <div className="LessonList__Right__Data__Description">
                     {alessonStore.lessonData?.description}

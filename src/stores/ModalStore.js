@@ -19,13 +19,9 @@ export default class ModalStore {
     _showALessonListEditModalStatus = false
     _showALessonEditModalStatus = false
 
-    _showAHomeworkAskAddModalStatus = false
-    _showAHomeworkAskEditModalStatus = false
-
     _showAMentorAddModalStatus = false
 
     _showAPurchaseManagementModalStatus = false
-
 
 
     constructor() {
@@ -42,8 +38,6 @@ export default class ModalStore {
             _showALessonAddModalStatus: observable,
             _showALessonListEditModalStatus: observable,
             _showALessonEditModalStatus: observable,
-            _showAHomeworkAskAddModalStatus: observable,
-            _showAHomeworkAskEditModalStatus: observable,
             _showAMentorAddModalStatus: observable,
             _showAPurchaseManagementModalStatus: observable,
             LoginModalStatus: computed,
@@ -58,8 +52,6 @@ export default class ModalStore {
             ALessonListEditModalStatus: computed,
             ALessonAddModalStatus: computed,
             ALessonEditModalStatus: computed,
-            AHomeworkAskAddModalStatus: computed,
-            AHomeworkAskEditModalStatus: computed,
             AMentorAddModalStatus:computed,
             APurchaseManagementModalStatus:computed,
             LoginModalClose: action,
@@ -86,10 +78,6 @@ export default class ModalStore {
             ALessonAddModalClose: action,
             ALessonEditModalShow: action,
             ALessonEditModalClose: action,
-            AHomeworkAskAddModalShow: action,
-            AHomeworkAskAddModalClose: action,
-            AHomeworkAskEditModalShow: action,
-            AHomeworkAskEditModalClose: action,
             AMentorAddModalShow:action,
             AMentorAddModalClose:action,
             APurchaseManagementModalShow:action,
@@ -143,14 +131,6 @@ export default class ModalStore {
 
     get ALessonEditModalStatus() {
         return this._showALessonEditModalStatus;
-    }
-
-     get AHomeworkAskAddModalStatus() {
-        return this._showAHomeworkAskAddModalStatus;
-    }
-
-     get AHomeworkAskEditModalStatus() {
-        return this._showAHomeworkAskEditModalStatus;
     }
 
     get AMentorAddModalStatus() {
@@ -245,19 +225,6 @@ export default class ModalStore {
         this._showALessonEditModalStatus = true;
     }
 
-    AHomeworkAskAddModalClose = () => {
-        this._showAHomeworkAskAddModalStatus = false;
-    }
-    AHomeworkAskAddModalShow = () => {
-        this._showAHomeworkAskAddModalStatus = true;
-    }
-
-    AHomeworkAskEditModalClose = () => {
-        this._showAHomeworkAskEditModalStatus = false;
-    }
-    AHomeworkAskEditModalShow = () => {
-        this._showAHomeworkAskEditModalStatus = true;
-    }
 
     AMentorAddModalClose = () => {
         this._showAMentorAddModalStatus = false;
