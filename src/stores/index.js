@@ -29,6 +29,7 @@ import AGroupListStore from "./AGroupListStore";
 import AHomeworkStore from "./AHomeworkStore";
 import AMentorStore from "./AMentorStore";
 import APurchaseStore from "./APurchaseStore";
+import APurManageStore from "./APurManageStore";
 
 
 class RootStore {
@@ -68,6 +69,8 @@ class RootStore {
 
         this.agroupListStore = new AGroupListStore(this.$axios);
         this.ausersListStore = new AUsersListStore(this.$axios, this.agroupListStore);
+
+        this.apurManageStore = new APurManageStore(this.$axios)
 
 
         this.uiStore = new UiStore();
