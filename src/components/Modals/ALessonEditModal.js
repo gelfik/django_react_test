@@ -19,15 +19,14 @@ const ALessonEditModal = inject('userStore', 'modalStore', 'acourseStore', 'asub
         if (alessonStore.lessonType === 'lecture') {
             setValue('name', alessonStore.lessonData?.lecture?.name)
             setValue('video', alessonStore.lessonData?.lecture?.video)
+            setValue('time', alessonStore.lessonData?.lecture?.time)
             setValue('description', alessonStore.lessonData?.lecture?.description)
             setValue('isOpen', alessonStore.lessonData?.lecture?.isOpen)
         } else if (alessonStore.lessonType === 'testPOL') {
             setValue('name', alessonStore.lessonData?.testPOL?.name)
-            setValue('description', alessonStore.lessonData?.testPOL?.description)
             setValue('isOpen', alessonStore.lessonData?.testPOL?.isOpen)
         } else if (alessonStore.lessonType === 'testCHL') {
             setValue('name', alessonStore.lessonData?.testCHL?.name)
-            setValue('description', alessonStore.lessonData?.testCHL?.description)
             setValue('isOpen', alessonStore.lessonData?.testCHL?.isOpen)
         } else if (alessonStore.lessonType === 'taskABC') {
             setValue('name', alessonStore.lessonData?.taskABC?.name)
@@ -86,6 +85,7 @@ const ALessonEditModal = inject('userStore', 'modalStore', 'acourseStore', 'asub
                                 {alessonStore?.response && alessonStore?.response['name'] &&
                                 <p className={'custom-alert-danger-text'}>{alessonStore?.response['name']}</p>}
                             </div>
+                            {(alessonStore.lessonType !== 'testPOL' && alessonStore.lessonType !== 'testCHL') &&
                             <div className="col-lg-12 col-12 mb-3">
                                 <div className="form-floating ">
                                 <textarea className={`form-control`}
@@ -95,7 +95,7 @@ const ALessonEditModal = inject('userStore', 'modalStore', 'acourseStore', 'asub
                                 </div>
                                 {alessonStore?.response && alessonStore?.response['description'] &&
                                 <p className={'custom-alert-danger-text'}>{alessonStore?.response['description']}</p>}
-                            </div>
+                            </div>}
                             {alessonStore.lessonType === 'lecture' &&
                             <div className="col-lg-12 col-12 mb-3">
                                 <div className="form-floating ">
