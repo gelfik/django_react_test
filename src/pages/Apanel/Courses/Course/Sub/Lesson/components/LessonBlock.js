@@ -20,7 +20,7 @@ const LessonBlock = inject('userStore', 'alessonStore')(observer((store) => {
             alessonStore.setLessonType('taskABC')
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [alessonStore.lessonData])
+    }, [alessonStore.lessonData?.id])
 
     return (<StickyBox offsetTop={66} offsetBottom={20} className="LessonList__Right">
         {alessonStore.spinner.spinnerStatus ? <Spinner type={'local'}/> : <>

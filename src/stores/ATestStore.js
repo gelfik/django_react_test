@@ -88,7 +88,7 @@ export default class ATestStore {
     }
     
     loadAskEdit = (data, courseID, subCourseID, lessonID, askID) => {
-        return this.client.post(`apanel/course${courseID}/sub${subCourseID}/lesson${lessonID}/ask${askID}`, data).then((response) => {
+        return this.client.put(`apanel/course${courseID}/sub${subCourseID}/lesson${lessonID}/ask${askID}`, data).then((response) => {
             this.setResponse(response.data)
         }).catch(errors => {
             this.setResponse({})

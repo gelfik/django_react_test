@@ -8,8 +8,8 @@ import {useAlert} from "react-alert";
 
 const ATestAskEditModal = inject('userStore', 'modalStore', 'acourseStore', 'asubCourseStore', 'alessonStore', 'atestStore')(observer((stores) => {
     const {modalStore, atestStore, acourseStore, asubCourseStore, alessonStore} = stores;
-    const {register, control, setValue, reset, handleSubmit} = useForm({defaultValues: {answerData: []}});
-    const {fields, append, remove} = useFieldArray({control, name: "answerData"});
+    const {register, control, setValue, reset, handleSubmit} = useForm({defaultValues: {answerList: []}});
+    const {fields, append, remove} = useFieldArray({control, name: "answerList"});
     const alert = useAlert();
 
     useEffect(() => {
@@ -19,7 +19,7 @@ const ATestAskEditModal = inject('userStore', 'modalStore', 'acourseStore', 'asu
             setValue('ask', atestStore.ask?.ask)
             if (atestStore.ask?.answerInput) {
                 atestStore.setAskType('input')
-                setValue('answer', atestStore.ask?.answerInput)
+                setValue('answerInput', atestStore.ask?.answerInput)
             } else {
                 append(atestStore.ask?.answerList)
                 atestStore.setAskType('select')
@@ -44,12 +44,12 @@ const ATestAskEditModal = inject('userStore', 'modalStore', 'acourseStore', 'asu
         atestStore.setResponse({})
         let askValidStatus = true
         if (data['askType'] === 'select') {
-            if (data.answerData.length === 0) {
+            if (data.answerList.length === 0) {
                 atestStore.setResponse({error: 'Вы не добавили ответы!'})
                 askValidStatus = false
             } else {
                 let askAnswerStatus = true
-                for (let value of data?.answerData) {
+                for (let value of data?.answerList) {
                     if (value?.validStatus === true) {
                         askAnswerStatus = false
                     }
@@ -89,19 +89,19 @@ const ATestAskEditModal = inject('userStore', 'modalStore', 'acourseStore', 'asu
                     <div className={"row"}>
                         <div className="col-lg-12 col-12">
                             <FloatingLabel controlId={`floating${index}.answer`} label="Ответ">
-                                <Form.Control required type={"text"} {...register(`answerData.${index}.answer`)}
+                                <Form.Control required type={"text"} {...register(`answerList.${index}.answer`)}
                                               aria-label="Ответ" placeholder="Ответ" control={control}/>
                             </FloatingLabel>
-                            {atestStore?.response && atestStore?.response[`answerData.${index}.answer`] &&
-                            <p className={'custom-alert-danger-text'}>{atestStore?.response[`answerData.${index}.answer`]}</p>}
+                            {atestStore?.response && atestStore?.response[`answerList.${index}.answer`] &&
+                            <p className={'custom-alert-danger-text'}>{atestStore?.response[`answerList.${index}.answer`]}</p>}
                         </div>
                         <div className="col-lg-12 col-12">
                             <Form.Check id={`answerData.${index}.validStatus`} label={`Верный ответ?`}>
-                                <Form.Check.Input type={'checkbox'} {...register(`answerData.${index}.validStatus`)}/>
+                                <Form.Check.Input type={'checkbox'} {...register(`answerList.${index}.validStatus`)}/>
                                 <Form.Check.Label style={{cursor: 'pointer'}}>Верный ответ?</Form.Check.Label>
                             </Form.Check>
-                            {atestStore?.response && atestStore?.response[`answerData.${index}.validStatus`] &&
-                            <p className={'custom-alert-danger-text'}>{atestStore?.response[`answerData.${index}.validStatus`]}</p>}
+                            {atestStore?.response && atestStore?.response[`answerList.${index}.validStatus`] &&
+                            <p className={'custom-alert-danger-text'}>{atestStore?.response[`answerList.${index}.validStatus`]}</p>}
                         </div>
                     </div>
                 </div>
@@ -163,11 +163,11 @@ const ATestAskEditModal = inject('userStore', 'modalStore', 'acourseStore', 'asu
                                 <div className="col-lg-12 col-12">
                                     <FloatingLabel controlId="floatingAnswerInput" label="Ответ">
                                         <Form.Control required type={"text"}
-                                                      aria-label="Введите ответ" {...register("answer")}
+                                                      aria-label="Введите ответ" {...register("answerInput")}
                                                       placeholder="Введите ответ"/>
                                     </FloatingLabel>
-                                    {atestStore?.response && atestStore?.response['answer'] &&
-                                    <p className={'custom-alert-danger-text'}>{atestStore?.response['answer']}</p>}
+                                    {atestStore?.response && atestStore?.response['answerInput'] &&
+                                    <p className={'custom-alert-danger-text'}>{atestStore?.response['answerInput']}</p>}
                                 </div>
                             </div>
                             <div className="row mb-3">
