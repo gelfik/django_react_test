@@ -103,9 +103,11 @@ export default class ALessonStore {
     }
 
     loadLessonEdit = (data, courseID, subCourseID) => {
-        return this.client.post(`/apanel/course${courseID}/sub${subCourseID}/lesson${this.lessonID}/edit`, data).then((response) => {
-            this.setResponse(response.data)
-            this.loadLessonData(courseID, subCourseID, this.lessonID)
+        return this.client.put(`/apanel/course${courseID}/sub${subCourseID}/lesson${this.lessonID}`, data).then((response) => {
+            this.setResponse({status: true})
+            this.setLessonData(response.data)
+            // this.loadLessonData(courseID, subCourseID, this.lessonID)
+            // this.loadLessonData(courseID, subCourseID, this.lessonID)
         }).catch(errors => {
             this.setResponse({})
             if (errors.response.data?.errors) {

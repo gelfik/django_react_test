@@ -19,7 +19,6 @@ const ALessonEditModal = inject('userStore', 'modalStore', 'acourseStore', 'asub
         if (alessonStore.lessonType === 'lecture') {
             setValue('name', alessonStore.lessonData?.lecture?.name)
             setValue('video', alessonStore.lessonData?.lecture?.video)
-            setValue('files', alessonStore.lessonData?.lecture?.files)
             setValue('description', alessonStore.lessonData?.lecture?.description)
             setValue('isOpen', alessonStore.lessonData?.lecture?.isOpen)
         } else if (alessonStore.lessonType === 'testPOL') {
@@ -41,7 +40,9 @@ const ALessonEditModal = inject('userStore', 'modalStore', 'acourseStore', 'asub
 
     const onSubmitEdit = (data) => {
         alessonStore.setResponse({})
-        alessonStore.loadLessonEdit(data, acourseStore.courseID, asubCourseStore.subCourseID).then(() => {
+        let localData = {}
+        localData[alessonStore.lessonType] = data
+        alessonStore.loadLessonEdit(localData, acourseStore.courseID, asubCourseStore.subCourseID).then(() => {
             if (alessonStore.response?.status) {
                 modalStore.ALessonEditModalClose()
                 alert.success(alessonStore.response?.detail)
