@@ -23,6 +23,9 @@ export default class ModalStore {
 
     _showAPurchaseManagementModalStatus = false
 
+    _showATestAskAddModalStatus = false
+    _showATestAskEditModalStatus = false
+
 
     constructor() {
         makeObservable(this, {
@@ -40,6 +43,8 @@ export default class ModalStore {
             _showALessonEditModalStatus: observable,
             _showAMentorAddModalStatus: observable,
             _showAPurchaseManagementModalStatus: observable,
+            _showATestAskAddModalStatus: observable,
+            _showATestAskEditModalStatus: observable,
             LoginModalStatus: computed,
             RegisterModalStatus: computed,
             PurchaseDetailModalStatus: computed,
@@ -54,6 +59,8 @@ export default class ModalStore {
             ALessonEditModalStatus: computed,
             AMentorAddModalStatus:computed,
             APurchaseManagementModalStatus:computed,
+            ATestAskAddModalStatus:computed,
+            ATestAskEditModalStatus:computed,
             LoginModalClose: action,
             LoginModalShow: action,
             RegisterModalClose: action,
@@ -82,6 +89,10 @@ export default class ModalStore {
             AMentorAddModalClose:action,
             APurchaseManagementModalShow:action,
             APurchaseManagementModalClose:action,
+            ATestAskAddModalShow:action,
+            ATestAskAddModalClose:action,
+            ATestAskEditModalShow:action,
+            ATestAskEditModalClose:action,
         })
     }
 
@@ -139,6 +150,14 @@ export default class ModalStore {
 
     get APurchaseManagementModalStatus() {
         return this._showAPurchaseManagementModalStatus;
+    }
+
+    get ATestAskAddModalStatus() {
+        return this._showATestAskAddModalStatus;
+    }
+
+    get ATestAskEditModalStatus() {
+        return this._showATestAskEditModalStatus;
     }
 
     LoginModalClose = () => {
@@ -238,6 +257,20 @@ export default class ModalStore {
     }
     APurchaseManagementModalShow = () => {
         this._showAPurchaseManagementModalStatus = true;
+    }
+
+    ATestAskAddModalClose = () => {
+        this._showATestAskAddModalStatus = false;
+    }
+    ATestAskAddModalShow = () => {
+        this._showATestAskAddModalStatus = true;
+    }
+
+    ATestAskEditModalClose = () => {
+        this._showATestAskEditModalStatus = false;
+    }
+    ATestAskEditModalShow = () => {
+        this._showATestAskEditModalStatus = true;
     }
 
 }

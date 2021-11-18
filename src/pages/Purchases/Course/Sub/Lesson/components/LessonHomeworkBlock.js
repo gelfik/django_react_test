@@ -13,7 +13,7 @@ const LessonHomeworkBlock = inject('purchaseStore', 'purCoursePageStore', 'lesso
     const {register, getValues, handleSubmit} = useForm();
     const onSubmit = (data) => {
         console.log(JSON.stringify(data));
-        lessonStore.loadHomeworkData(queryParams?.purchaseID, queryParams?.subID, queryParams?.lessonID, lessonStore.lessonData?.homework?.id, data)
+        lessonStore.loadask(queryParams?.purchaseID, queryParams?.subID, queryParams?.lessonID, lessonStore.lessonData?.homework?.id, data)
     }
 
     useEffect(() => {
