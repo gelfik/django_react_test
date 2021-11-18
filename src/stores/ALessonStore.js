@@ -8,6 +8,7 @@ export default class ALessonStore {
     _lessonData = {}
     _lessonType = undefined
     _response = {}
+    _lessonAddType = undefined
 
 
     constructor($client) {
@@ -35,6 +36,10 @@ export default class ALessonStore {
             _response: observable,
             response: computed,
             setResponse: action,
+
+            _lessonAddType: observable,
+            lessonAddType: computed,
+            setLessonAddType: action,
 
             getTest: action,
         })
@@ -100,6 +105,14 @@ export default class ALessonStore {
 
     setResponse = (value) => {
         this._response = value
+    }
+
+    get lessonAddType() {
+        return toJS(this._lessonAddType);
+    }
+
+    setLessonAddType = (value) => {
+        this._lessonAddType = value
     }
 
     loadLessonEdit = (data, courseID, subCourseID) => {
@@ -180,6 +193,17 @@ export default class ALessonStore {
             if (errors.response.data?.error) {
                 this.setResponse({error: errors.response.data?.error})
             }
+        })
+    }
+
+    loadLectureFileAdd = (data, courseID, subCourseID) => {
+        this.spinner.setSpinnerStatus(true)
+        return this.client.put(`apanel/course${courseID}/sub${subCourseID}/lesson${this.lessonID}/fileLoad`, data).then((response) => {
+            this.setResponse(response.data)
+            this.spinner.setSpinnerStatus(false)
+        }).catch(errors => {
+            this.setResponse(errors.response.data)
+            this.spinner.setSpinnerStatus(false)
         })
     }
 

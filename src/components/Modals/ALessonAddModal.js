@@ -65,6 +65,26 @@ const ALessonAddModal = inject('userStore', 'modalStore', 'acourseStore', 'asubC
                             </div>
                         </div>
                     </div>
+                    <div className={"row"}>
+                        <div className="col-lg-12 col-12 mb-3">
+                            <div className="form-floating ">
+                                <input type={'time'} className={`form-control`}
+                                       id={'time'} {...register('time')}
+                                       required placeholder={'Время начала'}/>
+                                <label htmlFor={'time'}>Время начала</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={"row"}>
+                        <div className="col-lg-12 col-12 mb-3">
+                            <div className="form-floating ">
+                                <input type={'description'} className={`form-control`}
+                                       id={'description'} {...register('description')}
+                                       required placeholder={'Описание'}/>
+                                <label htmlFor={'name'}>Описание</label>
+                            </div>
+                        </div>
+                    </div>
                     <button type={"submit"} className={'btn btn-dark'}>Добавить</button>
                 </form>
             </Modal.Body>
