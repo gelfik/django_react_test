@@ -6,8 +6,8 @@ import StickyBox from "react-sticky-box";
 import {useHistory, useParams} from "react-router-dom";
 import {Col, Row} from "react-bootstrap";
 
-const LessonListBlock = inject('userStore', 'asubCourseStore', 'modalStore', 'alessonStore')(observer((store) => {
-    const {asubCourseStore, modalStore, alessonStore} = store
+const LessonListBlock = inject('userStore', 'asubCourseStore', 'modalStore', 'alessonStore', 'acourseStore')(observer((store) => {
+    const {asubCourseStore, modalStore, alessonStore, acourseStore} = store
 
     const history = useHistory();
     const queryParams = useParams()
@@ -93,7 +93,7 @@ const LessonListBlock = inject('userStore', 'asubCourseStore', 'modalStore', 'al
                 <StickyBox offsetTop={136} offsetBottom={20} className="LessonList__Left__Item__Date">
                     <p className={`${item?.isOpen ? 'Open' : 'Close'}`}>{getDate(item.date)}</p>
                     <div className="LessonList__Left__Item__Date__Admin" onClick={() => {
-                        alessonStore.setLessonListID(item?.id)
+                        alessonStore.setLessonID(acourseStore.courseID, asubCourseStore.subCourseID, item.id)
                     }}>
                         <svg fill="none" height="20" width="20" onClick={modalStore.ALessonListEditModalShow}>
                             <use xlinkHref={'#icon-pencil'}/>

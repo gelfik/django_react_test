@@ -7,6 +7,7 @@ export default class ALessonStore {
     _lessonID = undefined
     _lessonData = {}
     _lessonType = undefined
+    _response = {}
 
 
     constructor($client) {
@@ -30,6 +31,10 @@ export default class ALessonStore {
             _lessonType: observable,
             lessonType: computed,
             setLessonType: action,
+
+            _response: observable,
+            response: computed,
+            setResponse: action,
 
             getTest: action,
         })
@@ -87,6 +92,93 @@ export default class ALessonStore {
 
     setLessonType(value) {
         this._lessonType = value
+    }
+
+    get response() {
+        return toJS(this._response);
+    }
+
+    setResponse = (value) => {
+        this._response = value
+    }
+
+    loadLessonEdit = (data, courseID, subCourseID) => {
+        return this.client.post(`/apanel/course${courseID}/sub${subCourseID}/lesson${this.lessonID}/edit`, data).then((response) => {
+            this.setResponse(response.data)
+            this.loadLessonData(courseID, subCourseID, this.lessonID)
+        }).catch(errors => {
+            this.setResponse({})
+            if (errors.response.data?.errors) {
+                this.setResponse(errors.response.data?.errors)
+            }
+            if (errors.response.data?.detail) {
+                this.setResponse({error: errors.response.data?.detail})
+            }
+            if (errors.response.data?.error) {
+                this.setResponse({error: errors.response.data?.error})
+            }
+        })
+    }
+
+    loadLessonDelete = (courseID, subCourseID) => {
+        return this.client.delete(`/apanel/course${courseID}/sub${subCourseID}/lesson${this.lessonID}/delete`).then((response) => {
+            this.setResponse(response.data)
+        }).catch(errors => {
+            this.setResponse({})
+            if (errors.response.data?.errors) {
+                this.setResponse(errors.response.data)
+            }
+        })
+    }
+
+    loadLessonListEdit = (data, courseID, subCourseID) => {
+        return this.client.post(`/apanel/course${courseID}/sub${subCourseID}/lesson${this.lessonID}/edit`, data).then((response) => {
+            // console.log(response.data)
+            this.setResponse(response.data)
+        }).catch(errors => {
+            // console.log(errors.response)
+            this.setResponse({})
+            if (errors.response.data?.errors) {
+                this.setResponse(errors.response.data?.errors)
+            }
+            if (errors.response.data?.detail) {
+                this.setResponse({error: errors.response.data?.detail})
+            }
+            if (errors.response.data?.error) {
+                this.setResponse({error: errors.response.data?.error})
+            }
+            // this.setErroAddrByKey(this.checkErrors(errors.response.data))
+        })
+    }
+
+    loadLessonListDelete = (courseID, subCourseID) => {
+        return this.client.delete(`/apanel/course${courseID}/sub${subCourseID}/lesson${this.lessonID}`).then((response) => {
+            // console.log(response.data)
+            this.setResponse(response.data)
+        }).catch(errors => {
+            // console.log(errors.response)
+            this.setResponse(errors.response.data)
+            // this.setErroAddrByKey(this.checkErrors(errors.response.data))
+        })
+    }
+
+    loadLessonAdd = (data, courseID, subCourseID) => {
+        return this.client.post(`/apanel/course${courseID}/sub${subCourseID}/lesson${this.lessonID}/add`, data).then((response) => {
+            // console.log(response.data.status)
+            this.setResponse(response.data)
+            this.setLessonID(courseID, subCourseID, this.response?.lessonID)
+        }).catch(errors => {
+            this.setResponse({})
+            if (errors.response.data?.errors) {
+                this.setResponse(errors.response.data?.errors)
+            }
+            if (errors.response.data?.detail) {
+                this.setResponse({error: errors.response.data?.detail})
+            }
+            if (errors.response.data?.error) {
+                this.setResponse({error: errors.response.data?.error})
+            }
+        })
     }
 
     getTest = () => {
