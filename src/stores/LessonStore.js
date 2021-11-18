@@ -17,7 +17,7 @@ export default class LessonStore {
             lessonData: computed,
             setLessonData: action,
             loadLessonData: action,
-            loadHomeworkData: action,
+            loadask: action,
 
             _spinner: observable,
             spinner: computed,
@@ -81,7 +81,7 @@ export default class LessonStore {
     }
 
 
-    loadHomeworkData = (purchaseID, subID, lessonID, homeworkID, data) => {
+    loadask = (purchaseID, subID, lessonID, homeworkID, data) => {
         this.spinner.setSpinnerStatus(true)
         return this.client.post(`/purchase${purchaseID}/homework${homeworkID}`, data)
             .then(response => {

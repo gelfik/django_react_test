@@ -11,13 +11,13 @@ import MentorBlock from "../../components/MentorsBlock";
 import {Col, Container, Row} from "react-bootstrap";
 import StickyBox from "react-sticky-box";
 
-const ApanelLessonPage = inject('userStore', 'acourseStore', 'acoursesListStore', 'asubCourseStore', 'alessonStore')(observer((store) => {
+const ApanelLessonPage = inject('userStore', 'acourseStore', 'asubCourseStore', 'alessonStore')(observer((store) => {
     useEffect(() => {
         document.body.className = 'bg-light min-vh-100'
         window.scrollTo(0, 0)
     }, []);
 
-    const {acourseStore, acoursesListStore, asubCourseStore, alessonStore} = store
+    const {acourseStore, asubCourseStore, alessonStore} = store
     const history = useHistory();
     const queryParams = useParams()
 
@@ -39,14 +39,14 @@ const ApanelLessonPage = inject('userStore', 'acourseStore', 'acoursesListStore'
     useEffect(() => {
         acourseStore.setCourseID(queryParams?.courseID)
         asubCourseStore.setSubCourseID(queryParams?.courseID, queryParams?.subID)
-        // alessonStore.setLessonID(queryParams?.courseID, queryParams?.subID, queryParams?.lessonID)
+        alessonStore.setLessonID(queryParams?.courseID, queryParams?.subID, queryParams?.lessonID)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [queryParams?.courseID, queryParams?.subID, queryParams?.lessonID])
 
-    useEffect(() => {
-        acoursesListStore.loadFilterData()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    // useEffect(() => {
+    //     acoursesListStore.loadFilterData()
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [])
 
     return (
         <main className={'mt_navbar bg-content'}>
