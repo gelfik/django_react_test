@@ -8,7 +8,7 @@ const TaskBlock = inject('userStore', 'alessonStore')(observer((store) => {
         <div className="LessonList__Right__Data__Title">
             {alessonStore.lessonData?.taskABC?.name}
         </div>
-        {alessonStore.lessonData?.lecture?.description &&
+        {alessonStore.lessonData?.taskABC?.description &&
         <div className="LessonList__Right__Data__Description">
             {alessonStore.lessonData?.taskABC?.description}
         </div>}

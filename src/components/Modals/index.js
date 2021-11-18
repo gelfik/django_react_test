@@ -12,6 +12,10 @@ import AMentorAddModal from "./AMentorAddModal";
 import APurchaseManagementModal from "./APurchaseManagementModal";
 import ATestAskAddModal from "./ATestAskAddModal";
 import ATestAskEditModal from "./ATestAskEditModal";
+import ALessonEditModal from "./ALessonEditModal";
+import ALessonListEditModal from "./ALessonListEditModal";
+import ALessonListAddModal from "./ALessonListAddModal";
+import ALessonAddModal from "./ALessonAddModal";
 
 const RootModal = inject('userStore')(observer((stores) => {
     const {userStore} = stores
@@ -33,6 +37,10 @@ const RootModal = inject('userStore')(observer((stores) => {
                 <APurchaseManagementModal/>
                 <ATestAskAddModal/>
                 <ATestAskEditModal/>
+                <ALessonEditModal/>
+                <ALessonListEditModal/>
+                <ALessonListAddModal/>
+                <ALessonAddModal/>
             </>}
         </>}
     </>)
