@@ -100,7 +100,7 @@ const ALessonEditModal = inject('userStore', 'modalStore', 'acourseStore', 'asub
                                 <div className="form-floating ">
                                     <input className={`form-control`}
                                            id={'video'} {...register('video')}
-                                           required placeholder={'Youtube видео ID'}/>
+                                           placeholder={'Youtube видео ID'}/>
                                     <label htmlFor={'video'}>Youtube видео ID</label>
                                 </div>
                                 {alessonStore?.response && alessonStore?.response['video'] &&

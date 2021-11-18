@@ -20,7 +20,7 @@ const LectureBlock = inject('userStore', 'alessonStore')(observer((store) => {
         {alessonStore.lessonData?.lecture?.video &&
         <div className="LessonList__Right__Data__Video">
             <div className="LessonList__Right__Data__Video__Box">
-                <YouTube videoId="2g811Eo7K8U"/>
+                <YouTube videoId={`${alessonStore.lessonData?.lecture?.video}`}/>
             </div>
         </div>}
         <div className="LessonList__Right__Data__File">
