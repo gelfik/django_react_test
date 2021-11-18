@@ -63,7 +63,7 @@ export default class ATestStore {
     }
     
     loadAskAdd = (data, courseID, subCourseID, lessonID) => {
-        return this.client.post(`apanel/course${courseID}/sub${subCourseID}/lesson${lessonID}/test/askAdd`, data).then((response) => {
+        return this.client.post(`apanel/course${courseID}/sub${subCourseID}/lesson${lessonID}/ask/add`, data).then((response) => {
             this.setResponse(response.data)
         }).catch(errors => {
             this.setResponse({})
@@ -88,7 +88,7 @@ export default class ATestStore {
     }
     
     loadAskEdit = (data, courseID, subCourseID, lessonID, askID) => {
-        return this.client.post(`apanel/course${courseID}/sub${subCourseID}/lesson${lessonID}/test/askEdit${askID}`, data).then((response) => {
+        return this.client.post(`apanel/course${courseID}/sub${subCourseID}/lesson${lessonID}/ask${askID}`, data).then((response) => {
             this.setResponse(response.data)
         }).catch(errors => {
             this.setResponse({})
@@ -105,7 +105,7 @@ export default class ATestStore {
     }
 
     loadAskDelete = (courseID, subCourseID, lessonID, askID) => {
-        return this.client.delete(`apanel/course${courseID}/sub${subCourseID}/lesson${lessonID}/test/askDelete${askID}`).then((response) => {
+        return this.client.delete(`apanel/course${courseID}/sub${subCourseID}/lesson${lessonID}/ask${askID}`).then((response) => {
             // console.log(response.data.status)
             this.setResponse(response.data)
         }).catch(errors => {
