@@ -135,8 +135,8 @@ export default class ALessonStore {
         })
     }
 
-    loadLessonDelete = (courseID, subCourseID) => {
-        return this.client.delete(`/apanel/course${courseID}/sub${subCourseID}/lesson${this.lessonID}/delete`).then((response) => {
+    loadLessonDelete = (data, courseID, subCourseID) => {
+        return this.client.delete(`/apanel/course${courseID}/sub${subCourseID}/lesson${this.lessonID}`, {params: data}).then((response) => {
             this.setResponse(response.data)
         }).catch(errors => {
             this.setResponse({})

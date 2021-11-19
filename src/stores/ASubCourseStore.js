@@ -122,7 +122,7 @@ export default class ASubCourseStore {
     }
 
     loadLessonListAdd = (data, courseID) => {
-        return this.client.post(`/apanel/course${courseID}/sub${this.subCourseID}/lessonList/add`, data).then((response) => {
+        return this.client.post(`/apanel/course${courseID}/sub${this.subCourseID}/lesson/add`, data).then((response) => {
             // console.log(response.data.status)
             this.setlessonListAddData(response.data)
             this.setErrorAdd(undefined)

@@ -25,8 +25,8 @@ const ALessonListEditModal = inject('userStore', 'modalStore', 'acourseStore', '
     }, [modalStore.ALessonListEditModalStatus])
 
     const onSubmitEdit = (data) => {
-        alessonStore.response({})
-        alessonStore.loadLessonListEdit(data, acourseStore.courseID, asubCourseStore.subCourseID).then(() => {
+        alessonStore.setResponse({})
+        alessonStore.loadLessonEdit(data, acourseStore.courseID, asubCourseStore.subCourseID).then(() => {
             if (alessonStore.response?.status) {
                 asubCourseStore.loadSubCourseData(acourseStore.courseID, asubCourseStore.subCourseID)
                 modalStore.ALessonListEditModalClose()
@@ -37,7 +37,7 @@ const ALessonListEditModal = inject('userStore', 'modalStore', 'acourseStore', '
 
     const onSubmitDelete = () => {
         modalStore.ALessonListEditModalClose()
-        alessonStore.loadLessonListDelete(acourseStore.courseID, asubCourseStore.subCourseID).then(() => {
+        alessonStore.loadLessonDelete({}, acourseStore.courseID, asubCourseStore.subCourseID).then(() => {
             if (alessonStore.response?.status) {
                 alert.success(alessonStore.response?.detail)
                 asubCourseStore.loadSubCourseData(acourseStore.courseID, asubCourseStore.subCourseID)

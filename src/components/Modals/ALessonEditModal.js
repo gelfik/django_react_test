@@ -10,12 +10,13 @@ import Spinner from "../Spinner";
 
 const ALessonEditModal = inject('userStore', 'modalStore', 'acourseStore', 'asubCourseStore', 'alessonStore')(observer((stores) => {
     const {modalStore, acourseStore, asubCourseStore, alessonStore} = stores;
-    const {register, handleSubmit, setValue} = useForm();
+    const {register, handleSubmit, setValue, reset} = useForm();
     const alert = useAlert();
     const history = useHistory();
 
     useEffect(() => {
         alessonStore.setResponse(undefined)
+        reset()
         if (alessonStore.lessonType === 'lecture') {
             setValue('name', alessonStore.lessonData?.lecture?.name)
             setValue('video', alessonStore.lessonData?.lecture?.video)
@@ -52,7 +53,10 @@ const ALessonEditModal = inject('userStore', 'modalStore', 'acourseStore', 'asub
     }
 
     const onSubmitDelete = () => {
-        alessonStore.loadLessonDelete(acourseStore.courseID, asubCourseStore.subCourseID).then(() => {
+        alessonStore.setResponse({})
+        let localData = {}
+        localData[alessonStore.lessonType] = 'delete'
+        alessonStore.loadLessonDelete(localData, acourseStore.courseID, asubCourseStore.subCourseID).then(() => {
             modalStore.ALessonEditModalClose()
             if (alessonStore.response?.status) {
                 alert.success(alessonStore.response?.detail)
