@@ -37,10 +37,10 @@ const ApanelSubCoursePage = inject('userStore', 'acourseStore', 'acoursesListSto
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [queryParams?.courseID, queryParams?.subID])
 
-    useEffect(() => {
-        acoursesListStore.loadFilterData()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    // useEffect(() => {
+    //     acoursesListStore.loadFilterData()
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [])
 
     return (
         <main className={'mt_navbar bg-content'}>
