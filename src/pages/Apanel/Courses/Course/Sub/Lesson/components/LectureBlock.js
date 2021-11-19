@@ -1,10 +1,12 @@
 import React, {useRef, useState} from "react";
 import {inject, observer} from "mobx-react";
 import YouTube from 'react-youtube';
+import {useAlert} from "react-alert";
 
 const LectureBlock = inject('userStore', 'alessonStore', 'acourseStore', 'asubCourseStore')(observer((store) => {
     const {alessonStore, acourseStore, asubCourseStore} = store
     const fileRef = useRef();
+    const alert = useAlert();
 
     const [visibility, setVisibility] = useState(false)
 
@@ -23,10 +25,22 @@ const LectureBlock = inject('userStore', 'alessonStore', 'acourseStore', 'asubCo
         })
     }
 
+    const onSubmitDeleteFile = (fileID) => {
+        alessonStore.setResponse({})
+        alessonStore.setFileID(fileID)
+        alessonStore.loadLectureFileDelete(acourseStore.courseID, asubCourseStore.subCourseID).then(() => {
+            if (alessonStore.response?.status) {
+                alert.success(alessonStore.response?.detail)
+                // alessonStore.loadLessonData(acourseStore.courseID, asubCourseStore.subCourseID, alessonStore.lessonID)
+            } else alert.error(alessonStore.response?.detail)
+        })
+    }
+
+
     const getItemFiles = (fileList) => {
         return fileList?.map((item, i) =>
             <p key={i}>
-                {visibility && <svg aria-hidden="true" height="20" width="20">
+                {visibility && <svg aria-hidden="true" height="20" width="20" onClick={() => {onSubmitDeleteFile(item.id)}}>
                     <use xlinkHref={'#icon-close-2'}/>
                 </svg>}
                 <a href={`${item.file}`} rel="noreferrer" target="_blank">{item.name}</a>
@@ -62,6 +76,7 @@ const LectureBlock = inject('userStore', 'alessonStore', 'acourseStore', 'asubCo
             }
             {alessonStore.lessonData?.lecture?.files?.length !== 0 && <>
                 {getItemFiles(alessonStore.lessonData?.lecture?.files)}
+                <hr/>
                 {InputFileLoad()}
                 {!visibility &&
                 <p style={{display: 'inline-block', marginLeft: 10}} onClick={() => setVisibility(!visibility)}><span>удалить файл</span>

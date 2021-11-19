@@ -9,6 +9,7 @@ export default class ALessonStore {
     _lessonType = undefined
     _response = {}
     _lessonAddType = undefined
+    _fileID = undefined
 
 
     constructor($client) {
@@ -40,6 +41,10 @@ export default class ALessonStore {
             _lessonAddType: observable,
             lessonAddType: computed,
             setLessonAddType: action,
+
+            _fileID:observable,
+            fileID:computed,
+            setFileID:action,
 
             getTest: action,
         })
@@ -115,6 +120,14 @@ export default class ALessonStore {
         this._lessonAddType = value
     }
 
+    get fileID() {
+        return this._fileID
+    }
+
+    setFileID = (value) => {
+        this._fileID = value
+    }
+
     loadLessonEdit = (data, courseID, subCourseID) => {
         return this.client.put(`/apanel/course${courseID}/sub${subCourseID}/lesson${this.lessonID}`, data).then((response) => {
             this.setResponse({status: true})
@@ -164,12 +177,24 @@ export default class ALessonStore {
 
     loadLectureFileAdd = (data, courseID, subCourseID) => {
         this.spinner.setSpinnerStatus(true)
-        return this.client.put(`apanel/course${courseID}/sub${subCourseID}/lesson${this.lessonID}/fileLoad`, data).then((response) => {
+        return this.client.put(`apanel/course${courseID}/sub${subCourseID}/lesson${this.lessonID}/file/add`, data).then((response) => {
             this.setResponse(response.data)
             this.spinner.setSpinnerStatus(false)
         }).catch(errors => {
             this.setResponse(errors.response.data)
             this.spinner.setSpinnerStatus(false)
+        })
+    }
+
+    loadLectureFileDelete = (courseID, subCourseID) => {
+        return this.client.delete(`apanel/course${courseID}/sub${subCourseID}/lesson${this.lessonID}/file${this.fileID}`).then((response) => {
+            this.setResponse(response.data)
+            this.loadLessonData(courseID, subCourseID, this.lessonID)
+        }).catch(errors => {
+            this.setResponse({})
+            if (errors.response.data?.errors) {
+                this.setResponse(errors.response.data)
+            }
         })
     }
 
