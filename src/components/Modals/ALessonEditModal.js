@@ -15,7 +15,6 @@ const ALessonEditModal = inject('userStore', 'modalStore', 'acourseStore', 'asub
     const history = useHistory();
 
     useEffect(() => {
-        console.log(alessonStore.lessonData)
         alessonStore.setResponse(undefined)
         reset()
         if (alessonStore.lessonType === 'lecture') {
