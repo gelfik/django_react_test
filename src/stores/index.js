@@ -24,6 +24,7 @@ import ACourseStore from "./ACourseStore";
 import ASubCourseStore from "./ASubCourseStore";
 import ALessonStore from "./ALessonStore";
 import ATestStore from "./ATestStore";
+import TestStore from "./TestStore";
 import AUsersListStore from "./AUsersListStore";
 import AGroupListStore from "./AGroupListStore";
 import AMentorStore from "./AMentorStore";
@@ -57,6 +58,7 @@ class RootStore {
         this.purchasePageStore = new PurchasePageStore(this.$axios, this.buyCourseStore)
         this.purCoursePageStore = new PurCoursePageStore(this.$axios)
         this.atestStore = new ATestStore(this.$axios)
+        this.testStore = new TestStore(this.$axios)
 
         this.acoursesListStore = new ACoursesListStore(this.$axios);
         this.acourseStore = new ACourseStore(this.$axios)
