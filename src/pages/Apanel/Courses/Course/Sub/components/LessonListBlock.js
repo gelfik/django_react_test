@@ -26,11 +26,11 @@ const LessonListBlock = inject('userStore', 'asubCourseStore', 'modalStore', 'al
 
     const getLesson = (lessonID, item, type) => {
         return (
-            <div onClick={()=>{
+            <div onClick={() => {
                 alessonStore.setLessonType(type)
                 history.push(`/apanel/course${queryParams?.courseID}/sub${queryParams?.subID}/lesson${lessonID}`)
             }}
-                className={`LessonList__Left__Item__Content ${(lessonID === Number(queryParams?.lessonID) && alessonStore.lessonType===type) ? 'LessonList__Left__Item__Active' : ''} ${item.isOpen ? 'LessonList__Left__Item__ItemOpen' : 'LessonList__Left__Item__ItemClose'}`}>
+                 className={`LessonList__Left__Item__Content ${(lessonID === Number(queryParams?.lessonID) && alessonStore.lessonType === type) ? 'LessonList__Left__Item__Active' : ''} ${item.isOpen ? 'LessonList__Left__Item__ItemOpen' : 'LessonList__Left__Item__ItemClose'}`}>
                 <div className="LessonList__Left__Item__Time">
                     {item.time && `${getTime(item.time)}мск`}
                 </div>
@@ -99,7 +99,8 @@ const LessonListBlock = inject('userStore', 'asubCourseStore', 'modalStore', 'al
                             <use xlinkHref={'#icon-pencil'}/>
                         </svg>
 
-                        {(!item.lecture || !item.testPOL || !item.testCHL || !item.taskABC) && <svg aria-hidden="true" height="20" width="20" onClick={modalStore.ALessonAddModalShow}>
+                        {(!item.lecture || !item.testPOL || !item.testCHL || !item.taskABC) &&
+                        <svg aria-hidden="true" height="20" width="20" onClick={modalStore.ALessonAddModalShow}>
                             <use xlinkHref={'#icon-plus'}/>
                         </svg>}
 

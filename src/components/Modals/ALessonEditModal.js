@@ -15,6 +15,7 @@ const ALessonEditModal = inject('userStore', 'modalStore', 'acourseStore', 'asub
     const history = useHistory();
 
     useEffect(() => {
+        console.log(alessonStore.lessonData)
         alessonStore.setResponse(undefined)
         reset()
         if (alessonStore.lessonType === 'lecture') {
@@ -35,7 +36,7 @@ const ALessonEditModal = inject('userStore', 'modalStore', 'acourseStore', 'asub
             setValue('isOpen', alessonStore.lessonData?.taskABC?.isOpen)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [alessonStore.lessonType])
+    }, [alessonStore.lessonType, alessonStore.lessonData?.id])
 
 
     const onSubmitEdit = (data) => {
