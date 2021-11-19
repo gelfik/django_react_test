@@ -4,12 +4,11 @@ import SpinnerStore from "./SpinnerStore";
 
 export default class LessonStore {
     _lessonData = {}
-
     _spinner = new SpinnerStore()
-
     _loadError = false
-
     _lessonID = undefined
+    _lessonType = undefined
+    _response = {}
 
     constructor($client) {
         makeObservable(this, {
@@ -29,6 +28,14 @@ export default class LessonStore {
             _lessonID: observable,
             lessonID: computed,
             setLessonID: action,
+
+            _lessonType: observable,
+            lessonType: computed,
+            setLessonType: action,
+
+            _response: observable,
+            response: computed,
+            setResponse: action,
         })
         this.client = $client;
     }
@@ -92,6 +99,27 @@ export default class LessonStore {
                 this.setLoadError(true)
                 this.spinner.setSpinnerStatus(false)
             })
+    }
+
+    get lessonType() {
+        return this._lessonType;
+    }
+
+    setLessonType(value) {
+        this._lessonType = value
+    }
+
+    get response() {
+        return toJS(this._response);
+    }
+
+    setResponse = (value) => {
+        this._response = value
+    }
+
+    getTest = () => {
+        if (this.lessonType === 'testPOL') return this.lessonData?.testPOL
+        if (this.lessonType === 'testCHL') return this.lessonData?.testCHL
     }
 
 }
