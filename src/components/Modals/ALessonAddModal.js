@@ -28,13 +28,15 @@ const ALessonAddModal = inject('userStore', 'modalStore', 'acourseStore', 'asubC
     //
     const onSubmitAdd = (data) => {
         alessonStore.setResponse({})
-        alessonStore.loadLessonAdd(data, acourseStore.courseID, asubCourseStore.subCourseID).then(() => {
+        let localData = {}
+        localData[alessonStore.lessonAddType] = data
+        alessonStore.loadLessonAdd(localData, acourseStore.courseID, asubCourseStore.subCourseID).then(() => {
             if (alessonStore.response?.status) {
                 modalStore.ALessonAddModalClose()
                 reset()
-                asubCourseStore.setSubCourseID(alessonStore.response?.courseID, alessonStore.response?.subCourseID, true)
-                alessonStore.setLessonID(alessonStore.response?.courseID, alessonStore.response?.subCourseID, alessonStore.response?.lessonID, true)
-                history.push(`/apanel/course${alessonStore.response?.courseID}/sub${alessonStore.response?.subCourseID}/lesson${alessonStore.response?.lessonID}`)
+                alessonStore.setLessonType(alessonStore.lessonAddType)
+                asubCourseStore.loadSubCourseData(acourseStore.courseID, asubCourseStore.subCourseID)
+                history.push(`/apanel/course${acourseStore?.courseID}/sub${asubCourseStore?.subCourseID}/lesson${alessonStore?.lessonID}`)
             }
         })
     }

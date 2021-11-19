@@ -119,8 +119,6 @@ export default class ALessonStore {
         return this.client.put(`/apanel/course${courseID}/sub${subCourseID}/lesson${this.lessonID}`, data).then((response) => {
             this.setResponse({status: true})
             this.setLessonData(response.data)
-            // this.loadLessonData(courseID, subCourseID, this.lessonID)
-            // this.loadLessonData(courseID, subCourseID, this.lessonID)
         }).catch(errors => {
             this.setResponse({})
             if (errors.response.data?.errors) {
@@ -146,42 +144,10 @@ export default class ALessonStore {
         })
     }
 
-    loadLessonListEdit = (data, courseID, subCourseID) => {
-        return this.client.post(`/apanel/course${courseID}/sub${subCourseID}/lesson${this.lessonID}/edit`, data).then((response) => {
-            // console.log(response.data)
-            this.setResponse(response.data)
-        }).catch(errors => {
-            // console.log(errors.response)
-            this.setResponse({})
-            if (errors.response.data?.errors) {
-                this.setResponse(errors.response.data?.errors)
-            }
-            if (errors.response.data?.detail) {
-                this.setResponse({error: errors.response.data?.detail})
-            }
-            if (errors.response.data?.error) {
-                this.setResponse({error: errors.response.data?.error})
-            }
-            // this.setErroAddrByKey(this.checkErrors(errors.response.data))
-        })
-    }
-
-    loadLessonListDelete = (courseID, subCourseID) => {
-        return this.client.delete(`/apanel/course${courseID}/sub${subCourseID}/lesson${this.lessonID}`).then((response) => {
-            // console.log(response.data)
-            this.setResponse(response.data)
-        }).catch(errors => {
-            // console.log(errors.response)
-            this.setResponse(errors.response.data)
-            // this.setErroAddrByKey(this.checkErrors(errors.response.data))
-        })
-    }
-
     loadLessonAdd = (data, courseID, subCourseID) => {
-        return this.client.post(`/apanel/course${courseID}/sub${subCourseID}/lesson${this.lessonID}/add`, data).then((response) => {
-            // console.log(response.data.status)
+        return this.client.post(`/apanel/course${courseID}/sub${subCourseID}/lesson${this.lessonID}`, data).then((response) => {
             this.setResponse(response.data)
-            this.setLessonID(courseID, subCourseID, this.response?.lessonID)
+            this.loadLessonData(courseID, subCourseID, this.lessonID)
         }).catch(errors => {
             this.setResponse({})
             if (errors.response.data?.errors) {
