@@ -108,7 +108,7 @@ export default class ALessonStore {
     }
 
     get lessonAddType() {
-        return toJS(this._lessonAddType);
+        return this._lessonAddType
     }
 
     setLessonAddType = (value) => {

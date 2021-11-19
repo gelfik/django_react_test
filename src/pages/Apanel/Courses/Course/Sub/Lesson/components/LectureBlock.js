@@ -1,10 +1,12 @@
-import React, {useRef} from "react";
+import React, {useRef, useState} from "react";
 import {inject, observer} from "mobx-react";
 import YouTube from 'react-youtube';
 
 const LectureBlock = inject('userStore', 'alessonStore', 'acourseStore', 'asubCourseStore')(observer((store) => {
     const {alessonStore, acourseStore, asubCourseStore} = store
     const fileRef = useRef();
+
+    const [visibility, setVisibility] = useState(false)
 
     const loadfile = event => {
         const files = event.target.files;
@@ -24,6 +26,9 @@ const LectureBlock = inject('userStore', 'alessonStore', 'acourseStore', 'asubCo
     const getItemFiles = (fileList) => {
         return fileList?.map((item, i) =>
             <p key={i}>
+                {visibility && <svg aria-hidden="true" height="20" width="20">
+                    <use xlinkHref={'#icon-close-2'}/>
+                </svg>}
                 <a href={`${item.file}`} rel="noreferrer" target="_blank">{item.name}</a>
             </p>
         )
@@ -31,7 +36,7 @@ const LectureBlock = inject('userStore', 'alessonStore', 'acourseStore', 'asubCo
 
     const InputFileLoad = () => {
         return <label htmlFor={'fileLoadInput'}>
-            <p>
+            <p style={{display: 'inline-block'}}>
                 <span>добавить файл</span>
             </p>
             <input type="file" accept=".png,.jpg,.jpeg, .pdf, .doc, .docx, .xlsx, .xls"
@@ -58,6 +63,15 @@ const LectureBlock = inject('userStore', 'alessonStore', 'acourseStore', 'asubCo
             {alessonStore.lessonData?.lecture?.files?.length !== 0 && <>
                 {getItemFiles(alessonStore.lessonData?.lecture?.files)}
                 {InputFileLoad()}
+                {!visibility &&
+                <p style={{display: 'inline-block', marginLeft: 10}} onClick={() => setVisibility(!visibility)}><span>удалить файл</span>
+                </p>
+                }
+                {visibility &&
+                <p style={{display: 'inline-block', marginLeft: 10}} onClick={() => setVisibility(!visibility)}>
+                    <span>отменить</span>
+                </p>
+                }
             </>}
         </div>
         {alessonStore.lessonData?.lecture?.description &&
