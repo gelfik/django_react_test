@@ -88,13 +88,13 @@ export default class LessonStore {
     }
 
 
-    loadask = (purchaseID, subID, lessonID, homeworkID, data) => {
+    loadask = (data, purchaseID, subID) => {
         this.spinner.setSpinnerStatus(true)
-        return this.client.post(`/purchase${purchaseID}/homework${homeworkID}`, data)
+        return this.client.post(`/purchase${purchaseID}/test${this.getTest().id}`, data)
             .then(response => {
                 this.setLoadError(false)
                 this.spinner.setSpinnerStatus(false)
-                this.loadLessonData(purchaseID, subID, lessonID)
+                this.loadLessonData(purchaseID, subID)
             }).catch(reason => {
                 this.setLoadError(true)
                 this.spinner.setSpinnerStatus(false)
