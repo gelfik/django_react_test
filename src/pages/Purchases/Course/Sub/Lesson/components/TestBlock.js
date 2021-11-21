@@ -1,41 +1,71 @@
-import React, {useEffect, useRef} from "react";
+import React, {useEffect} from "react";
 import {inject, observer} from "mobx-react";
-import Carousel from "react-multi-carousel";
+import {useForm} from "react-hook-form";
+import {FloatingLabel, Form} from "react-bootstrap";
+import {useParams} from "react-router-dom";
 
-const TestBlock = inject('testStore', 'lessonStore', 'modalStore')(observer((store) => {
-    const {testStore, lessonStore, modalStore} = store
-    const carouselRef = useRef();
+const TestBlock = inject('testStore', 'lessonStore')(observer((store) => {
+    const {testStore, lessonStore} = store
+    const queryParams = useParams()
+    const {register, handleSubmit, getValues, reset} = useForm();
+
+
+    const onSubmit = (data) => {
+        let list = {}
+        for (const [key, value] of Object.entries(data)) {
+                if (Array.isArray(value)){
+                    let localList = []
+                    value.forEach((item, i) => {
+                        localList.push(Number(item))
+                    })
+                    list[key] = localList
+                } else list[key] = value
+        }
+        lessonStore.loadask(data, queryParams?.purchaseID, queryParams?.subID)
+    }
 
     useEffect(() => {
         testStore.setAskActive(0)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [lessonStore.lessonType])
 
-    const responsive = {
-        desktop: {
-            breakpoint: {max: 4000, min: 769},
-            items: 10,
-            partialVisibilityGutter: 40,
-            slidesToSlide: 1,
-        },
-        mobile: {
-            breakpoint: {max: 769, min: 0},
-            items: 7,
-            partialVisibilityGutter: 80,
-            slidesToSlide: 1,
-        },
-    };
+    useEffect(() => {
+        if (lessonStore.lessonType === 'testPOL' || lessonStore.lessonType === 'testCHL') {
+            reset()
+            testStore.setAskActive(undefined)
+            testStore.setAskCount(undefined)
+            testStore.setAskAnswerCount(undefined)
+            if (lessonStore.lessonData?.testPOL || lessonStore.lessonData?.testCHL) {
+                // testStore.setAskActive(lessonStore.lessonData?.homework?.askList[0]?.id)
+                testStore.setAskActive(0)
+                testStore.setAskCount(lessonStore.getTest()?.askList?.length)
+                testStore.setAskAnswerCount(0)
+            }
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [lessonStore.lessonType])
+
+    const changeAnswer = (e) => {
+        testStore.setAskAnswerCount(0)
+        for (let key in getValues()) {
+            if (getValues(`${key}`) && getValues(`${key}`)?.length > 0) {
+                testStore.setAskAnswerCount(testStore.askAnswerCount + 1)
+            }
+        }
+    }
 
     const getItemStepList = () => {
         return lessonStore.getTest()?.askList?.map((item, i) => (
-            <div key={i}
-                 className={`LessonList__Right__Data__Homework__Step__Wrapper ${testStore.askActive === i ? 'active' : ''}`}
-                 onClick={() => {
-                     testStore.setAskActive(i)
-                 }}>
+            <div key={i} className={'LessonList__Right__Data__Homework__Step__Slide'}>
+                <div
+                    className={`LessonList__Right__Data__Homework__Step__Wrapper ${testStore.askActive === i ? 'active' : ''} ${(getValues(`${item.id}`) && getValues(`${item.id}`)?.length > 0) ? 'SuccesAnswer' : ''}`}
+                    onClick={() => {
+                        testStore.setAskActive(i)
+                    }}>
                     <span>
                         {i + 1}
                     </span>
+                </div>
             </div>
         ));
     };
@@ -62,47 +92,49 @@ const TestBlock = inject('testStore', 'lessonStore', 'modalStore')(observer((sto
                     <div className="LessonList__Right__Data__Homework__Test__Wrapper">
                         <div className="LessonList__Right__Data__Homework__Test__Answer">
                             {item.answerInput &&
-                                <span className={'mb-3'}>Ответ: <b>{item.answerInput}</b></span>
-                            }
+                            <FloatingLabel controlId={`answer_${item.id}`} label="введите ответ">
+                                <Form.Control  {...register(`${item.id}`)} type="text" placeholder="введите ответ"/>
+                            </FloatingLabel>}
+                            {!item.answerInput && <>{getItemAnswerList(item.answerList, item.id)}</>}
                         </div>
+                        {testStore.askAnswerCount === testStore.askCount &&
+                        <button className={'LessonList__Right__Data__Homework__Test__SuccesButton'} type={"submit"}>
+                            отправить решение
+                        </button>}
+                        {/*{testStore.askAnswerCount !== testStore.askCount &&*/}
+                        {/*<button className={'LessonList__Right__Data__Homework__Test__SuccesButton'} type={'button'}*/}
+                        {/*        onClick={carouselRef.current.next}>*/}
+                        {/*    следующий вопрос*/}
+                        {/*</button>}*/}
                     </div>
                 </div>
             </div>
         ));
     };
 
+    const getItemAnswerList = (answerList, askID) => {
+        return answerList?.map((item, i) => (
+            <Form.Check key={i} {...register(`${askID}`)} type='checkbox' id={`${item.id}`}
+                        value={`${item.id}`}
+                        label={`${item.answer}`}/>
+        ));
+    };
+
 
     return (<div className="LessonList__Right__Data__Homework">
-        <div className="LessonList__Right__Data__Homework__Step">
-            <Carousel
-                responsive={responsive}
-                ref={carouselRef}
-                arrows={false}
-                infinite={true}
-                autoPlay={false}
-                partialVisible={true}
-                centerMode={false}
-                containerClass={'LessonList__Right__Data__Homework__Step__Slider'}
-                sliderClass={'LessonList__Right__Data__Homework__Step__Slider__Wrapper'}
-                itemClass={'LessonList__Right__Data__Homework__Step__Slide'}
-                renderArrowsWhenDisabled={false}
-                showDots={false}
-            >
-                {getItemStepList()}
-                {!lessonStore.getTest()?.isOpen &&
-                <div
-                    className={`LessonList__Right__Data__Homework__Step__Wrapper`}
-                    onClick={() => {
-                        modalStore.ATestAskAddModalShow()
-                    }}>
-                    <span>
-                        +
-                    </span>
-                </div>
-                }
-            </Carousel>
+        <div className="LessonList__Right__Data__Homework__Status">
+            <p>Решено {testStore.askAnswerCount} заданий из {testStore.askCount}</p>
         </div>
-        {getItemTestsList()}
+        <div className="LessonList__Right__Data__Homework__Step">
+            <div className={'LessonList__Right__Data__Homework__Step__Slider'}>
+                <div className={'LessonList__Right__Data__Homework__Step__Slider__Wrapper'}>
+                    {getItemStepList()}
+                </div>
+            </div>
+        </div>
+        <Form onChange={changeAnswer} onSubmit={handleSubmit(onSubmit)}>
+            {getItemTestsList()}
+        </Form>
     </div>)
 }))
 

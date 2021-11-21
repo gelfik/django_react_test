@@ -13,7 +13,7 @@ const LessonListBlock = inject('userStore', 'asubCourseStore', 'modalStore', 'al
     const queryParams = useParams()
 
     const getDate = (date) => {
-        const newDate = Moment(date, "DD.MM.YYYY")
+        const newDate = Moment(date, "YYYY-MM-DD")
         return `${newDate.date()} ${mounthText(newDate.month())}, ${dayText(newDate.day())}`
     }
 

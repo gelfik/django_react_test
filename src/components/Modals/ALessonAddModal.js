@@ -112,8 +112,7 @@ const ALessonAddModal = inject('userStore', 'modalStore', 'acourseStore', 'asubC
                             <div className="col-lg-12 col-12 mb-3">
                                 <div className="form-floating ">
                                     <textarea style={{height: '100px'}} className={`form-control`}
-                                      id={'description'} {...register('description')}
-                                      required placeholder={'Описание'}/>
+                                      id={'description'} {...register('description')} placeholder={'Описание'}/>
                                     <label htmlFor={'description'}>Описание</label>
                                 </div>
                             </div>

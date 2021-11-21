@@ -8,6 +8,8 @@ export default class ATestStore {
     _askType = undefined
     _response = {}
     _ask = undefined
+    _askCount = undefined
+    _askAnswerCount = undefined
 
     constructor($client) {
         makeObservable(this, {
@@ -29,6 +31,14 @@ export default class ATestStore {
             _ask: observable,
             ask: computed,
             setAsk: action,
+
+            _askCount: observable,
+            askCount: computed,
+            setAskCount: action,
+
+            _askAnswerCount: observable,
+            askAnswerCount: computed,
+            setAskAnswerCount: action,
         })
         this.client = $client;
     }
@@ -68,6 +78,22 @@ export default class ATestStore {
 
     setAsk(list){
         this._ask = list[this.askActive]
+    }
+
+    get askAnswerCount() {
+        return this._askAnswerCount;
+    }
+
+    setAskAnswerCount = (value) => {
+        this._askAnswerCount = value
+    }
+
+    get askCount() {
+        return this._askCount;
+    }
+
+    setAskCount = (value) => {
+        this._askCount = value
     }
 
 }

@@ -3171,7 +3171,7 @@ li {
 
           @media (max-width: 767px) {
             margin-left: -10px;
-            width: calc(100% + 40px);
+            //width: calc(100% + 40px);
           }
 
           &__Slider {
@@ -3180,10 +3180,11 @@ li {
             &__Wrapper {
               flex-wrap: wrap;
               height: auto;
+              display: flex;
 
-              @media (max-width: 767px) {
-                flex-wrap: nowrap;
-              }
+              //@media (max-width: 767px) {
+              //  flex-wrap: nowrap;
+              //}
             }
           }
 
