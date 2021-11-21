@@ -9,32 +9,26 @@ const TestBlock = inject('testStore', 'lessonStore')(observer((store) => {
     const queryParams = useParams()
     const {register, handleSubmit, getValues, reset} = useForm();
 
-
     const onSubmit = (data) => {
         let list = {}
         for (const [key, value] of Object.entries(data)) {
-                if (Array.isArray(value)){
-                    let localList = []
-                    value.forEach((item, i) => {
-                        localList.push(Number(item))
-                    })
-                    list[key] = localList
-                } else list[key] = value
+            if (Array.isArray(value)) {
+                let localList = []
+                value.forEach((item, i) => {
+                    localList.push(Number(item))
+                })
+                list[key] = localList
+            } else list[key] = value
         }
-        lessonStore.loadask(data, queryParams?.purchaseID, queryParams?.subID)
+        lessonStore.loadask(list, queryParams?.purchaseID, queryParams?.subID)
     }
-
-    useEffect(() => {
-        testStore.setAskActive(0)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [lessonStore.lessonType])
 
     useEffect(() => {
         if (lessonStore.lessonType === 'testPOL' || lessonStore.lessonType === 'testCHL') {
             reset()
-            testStore.setAskActive(undefined)
-            testStore.setAskCount(undefined)
-            testStore.setAskAnswerCount(undefined)
+            testStore.setAskActive(0)
+            testStore.setAskCount(0)
+            testStore.setAskAnswerCount(0)
             if (lessonStore.lessonData?.testPOL || lessonStore.lessonData?.testCHL) {
                 // testStore.setAskActive(lessonStore.lessonData?.homework?.askList[0]?.id)
                 testStore.setAskActive(0)
@@ -52,6 +46,19 @@ const TestBlock = inject('testStore', 'lessonStore')(observer((store) => {
                 testStore.setAskAnswerCount(testStore.askAnswerCount + 1)
             }
         }
+    }
+
+    const nextAsk = () => {
+        let arr = lessonStore.getTest().askList
+        if (testStore.askActive === arr.length - 1) testStore.setAskActive(0)
+        else testStore.setAskActive(testStore.askActive + 1)
+
+    }
+
+    const previousAsk = () => {
+        let arr = lessonStore.getTest().askList
+        if (testStore.askActive === 0) testStore.setAskActive(arr.length - 1)
+        else testStore.setAskActive(testStore.askActive - 1)
     }
 
     const getItemStepList = () => {
@@ -101,11 +108,16 @@ const TestBlock = inject('testStore', 'lessonStore')(observer((store) => {
                         <button className={'LessonList__Right__Data__Homework__Test__SuccesButton'} type={"submit"}>
                             отправить решение
                         </button>}
-                        {/*{testStore.askAnswerCount !== testStore.askCount &&*/}
-                        {/*<button className={'LessonList__Right__Data__Homework__Test__SuccesButton'} type={'button'}*/}
-                        {/*        onClick={carouselRef.current.next}>*/}
-                        {/*    следующий вопрос*/}
-                        {/*</button>}*/}
+                        {testStore.askAnswerCount !== testStore.askCount &&
+                        <button className={'LessonList__Right__Data__Homework__Test__SuccesButton'} type={'button'}
+                                onClick={previousAsk}>
+                            предыдущий вопрос
+                        </button>}
+                        {testStore.askAnswerCount !== testStore.askCount &&
+                        <button className={'LessonList__Right__Data__Homework__Test__SuccesButton'} type={'button'}
+                                onClick={nextAsk}>
+                            следующий вопрос
+                        </button>}
                     </div>
                 </div>
             </div>
