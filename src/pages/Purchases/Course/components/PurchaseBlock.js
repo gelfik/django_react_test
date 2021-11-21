@@ -39,13 +39,13 @@ const PurchaseBlock = inject('purchaseStore', 'modalStore')(observer((store) => 
 
 
     const getButtonSubCourses = () => {
-        return purchaseStore?.purchaseData?.courseSub?.map((item, i) =>
+        return purchaseStore?.purchaseData?.pay?.map((item, i) =>
             <button type="button"
-                    className={`btn btn-outline-dark SubCourses__ButtonSubActive ${item.id === Number(queryParams?.subID) ? 'active' : ''}`}
+                    className={`btn btn-outline-dark SubCourses__ButtonSubActive ${item.courseSub.id === Number(queryParams?.subID) ? 'active' : ''}`}
                     key={i} onClick={() => {
-                history.push(`/purchases${queryParams?.purchaseID}/sub${item.id}`)
+                history.push(`/purchases${queryParams?.purchaseID}/sub${item.courseSub.id}`)
             }}>
-                {item.name}
+                {item.courseSub.name}
             </button>
         )
     }

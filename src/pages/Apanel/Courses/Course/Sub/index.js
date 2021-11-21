@@ -15,7 +15,7 @@ const ApanelSubCoursePage = inject('userStore', 'acourseStore', 'acoursesListSto
         window.scrollTo(0, 0)
     }, []);
 
-    const {acourseStore, acoursesListStore, asubCourseStore} = store
+    const {acourseStore, asubCourseStore} = store
     const history = useHistory();
     const queryParams = useParams()
 
@@ -37,10 +37,6 @@ const ApanelSubCoursePage = inject('userStore', 'acourseStore', 'acoursesListSto
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [queryParams?.courseID, queryParams?.subID])
 
-    // useEffect(() => {
-    //     acoursesListStore.loadFilterData()
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [])
 
     return (
         <main className={'mt_navbar bg-content'}>
