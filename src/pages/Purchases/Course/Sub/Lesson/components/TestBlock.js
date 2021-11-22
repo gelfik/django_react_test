@@ -10,16 +10,18 @@ const TestBlock = inject('testStore', 'lessonStore')(observer((store) => {
     const {register, handleSubmit, getValues, reset} = useForm();
 
     const onSubmit = (data) => {
-        let list = {}
-        for (const [key, value] of Object.entries(data)) {
-            if (Array.isArray(value)) {
-                let localList = []
-                value.forEach((item, i) => {
-                    localList.push(Number(item))
-                })
-                list[key] = localList
-            } else list[key] = value
-        }
+        let list = {answerData: data}
+        // for (const [key, value] of Object.entries(data)) {
+        //     if (Array.isArray(value)) {
+        //         let localList = []
+        //         value.forEach((item, i) => {
+        //             localList.push(Number(item))
+        //         })
+        //         // list[key] = localList
+        //         list.answerData[key] = localList
+        //     } else list.answerData[key] = value
+        // }
+        list['testType'] = lessonStore.lessonType
         lessonStore.loadask(list, queryParams?.purchaseID, queryParams?.subID)
     }
 

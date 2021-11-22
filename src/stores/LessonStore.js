@@ -90,11 +90,11 @@ export default class LessonStore {
 
     loadask = (data, purchaseID, subID) => {
         this.spinner.setSpinnerStatus(true)
-        return this.client.post(`/purchase${purchaseID}/test${this.getTest().id}`, data)
+        return this.client.post(`/purchase${purchaseID}/sub${subID}/lesson${this.lessonID}/test${this.getTest().id}`, data)
             .then(response => {
                 this.setLoadError(false)
                 this.spinner.setSpinnerStatus(false)
-                this.loadLessonData(purchaseID, subID)
+                this.loadLessonData(purchaseID, subID, this.lessonID)
             }).catch(reason => {
                 this.setLoadError(true)
                 this.spinner.setSpinnerStatus(false)
