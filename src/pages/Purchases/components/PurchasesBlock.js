@@ -54,12 +54,13 @@ const PurchasesBlock = inject('userStore', 'purchasesListStore', 'modalStore', '
                                 <p>Курс куплен полностью</p>
                             </span>}
                             {!item?.courseSubAll &&
-                            <Link to={`/purchases${item?.id}/purchase`} className="Course__Item__PayInfo__Link">Докупить
+                            <Link to={`/purchases${item?.id}/purchase`} className="Course__Item__PayInfo__Link">докупить
                                 курс</Link>}
                             <div className="Course__Item__PayInfo__Link" onClick={()=>{
                                 purchaseStore.setPurchaseData(item)
                                 modalStore.PurchaseDetailModalShow();
                             }}>история платежей</div>
+                            <Link to={`/purchases${item?.id}/statistics`} className="Course__Item__PayInfo__Link">моя статистика</Link>
                         </div>
                     </div>
                 </div>

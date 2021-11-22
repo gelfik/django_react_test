@@ -122,4 +122,10 @@ export default class LessonStore {
         if (this.lessonType === 'testCHL') return this.lessonData?.testCHL
     }
 
+    getResultTest = () => {
+        if (this.lessonType === 'testPOL') return this.lessonData?.result?.testPOL
+        if (this.lessonType === 'testCHL') return this.lessonData?.result?.testCHL
+        if (this.lessonType === 'taskABC') return this.lessonData?.result?.taskABC
+    }
+
 }

@@ -4,6 +4,7 @@ import StickyBox from "react-sticky-box";
 import Spinner from "../../../../../../components/Spinner";
 import LectureBlock from "./LectureBlock";
 import TestBlock from "./TestBlock";
+import TestAnswerBlock from "./TestAnswerBlock";
 import TaskBlock from "./TaskBlock";
 
 const LessonBlock = inject('subCourseStore', 'lessonStore', 'purchaseStore')(observer((store) => {
@@ -29,7 +30,8 @@ const LessonBlock = inject('subCourseStore', 'lessonStore', 'purchaseStore')(obs
             <div className="LessonList__Right__Data">
                 {/*<div className="LessonList__Right__Data__Title">*/}
                     {lessonStore.lessonType === 'lecture' && <LectureBlock/>}
-                    {(lessonStore.lessonType === 'testCHL' || lessonStore.lessonType === 'testPOL') && <TestBlock/>}
+                    {((lessonStore.lessonType === 'testCHL' || lessonStore.lessonType === 'testPOL') && !lessonStore.getResultTest()) &&  <TestBlock/>}
+                    {((lessonStore.lessonType === 'testCHL' || lessonStore.lessonType === 'testPOL') && lessonStore.getResultTest()) &&  <TestAnswerBlock/>}
                     {lessonStore.lessonType === 'taskABC' && <TaskBlock/>}
                 {/*</div>*/}
                 {/*{lessonStore.lessonData?.homework && <>*/}
