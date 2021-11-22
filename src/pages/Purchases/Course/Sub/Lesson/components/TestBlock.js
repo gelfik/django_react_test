@@ -104,20 +104,22 @@ const TestBlock = inject('testStore', 'lessonStore')(observer((store) => {
                             </FloatingLabel>}
                             {!item.answerInput && <>{getItemAnswerList(item.answerList, item.id)}</>}
                         </div>
-                        {testStore.askAnswerCount === testStore.askCount &&
-                        <button className={'LessonList__Right__Data__Homework__Test__SuccesButton'} type={"submit"}>
-                            отправить решение
-                        </button>}
-                        {testStore.askAnswerCount !== testStore.askCount &&
-                        <button className={'LessonList__Right__Data__Homework__Test__SuccesButton'} type={'button'}
-                                onClick={previousAsk}>
-                            предыдущий вопрос
-                        </button>}
-                        {testStore.askAnswerCount !== testStore.askCount &&
-                        <button className={'LessonList__Right__Data__Homework__Test__SuccesButton'} type={'button'}
-                                onClick={nextAsk}>
-                            следующий вопрос
-                        </button>}
+                        <div style={{display:'flex'}}>
+                            {testStore.askAnswerCount === testStore.askCount &&
+                            <button className={'LessonList__Right__Data__Homework__Test__SuccesButton'} type={"submit"}>
+                                отправить решение
+                            </button>}
+                            {testStore.askAnswerCount !== testStore.askCount &&
+                            <button className={'LessonList__Right__Data__Homework__Test__SuccesButton'} type={'button'}
+                                    onClick={previousAsk}>
+                                предыдущий вопрос
+                            </button>}
+                            {testStore.askAnswerCount !== testStore.askCount &&
+                            <button style={{marginLeft:10}} className={'LessonList__Right__Data__Homework__Test__SuccesButton'} type={'button'}
+                                    onClick={nextAsk}>
+                                следующий вопрос
+                            </button>}
+                        </div>
                     </div>
                 </div>
             </div>

@@ -29,7 +29,7 @@ const LessonListBlock = inject('purchaseStore', 'subCourseStore', 'lessonStore',
                 lessonStore.setLessonType(type)
                 history.push(`/purchases${queryParams?.purchaseID}/sub${queryParams?.subID}/lesson${lessonID}`)
             }}
-                 className={`LessonList__Left__Item__Content ${(lessonID === Number(queryParams?.lessonID) && lessonStore.lessonType === type) ? 'LessonList__Left__Item__Active' : ''}`}>
+                 className={`LessonList__Left__Item__Content ${(lessonID === Number(queryParams?.lessonID) && lessonStore.lessonType === type) ? 'LessonList__Left__Item__Active' : ''} LessonList__Left__Item__ItemDefault`}>
                 <div className="LessonList__Left__Item__Time">
                     {item.time && `${getTime(item.time)}мск`}
                 </div>
