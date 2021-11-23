@@ -66,7 +66,7 @@ export default class AProgressStore {
 
     loadCourseData = (CourseID) => {
         this.spinner.setSpinnerStatus(true)
-        return this.client.get(`/apanel/course${CourseID}`)
+        return this.client.get(`/apanel/progress${CourseID}`)
             .then(response => {
                 this.setLoadError(false)
                 this.setCourseData(response.data)

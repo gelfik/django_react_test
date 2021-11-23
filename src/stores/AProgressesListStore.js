@@ -73,7 +73,7 @@ export default class AProgressesListStore {
     }
 
     loadCoursesData = () => {
-        return this.client.get('/apanel/course/list')
+        return this.client.get('/apanel/progress/list')
             .then(response => {
                 this.setCoursesData(response.data)
             })
@@ -116,7 +116,7 @@ export default class AProgressesListStore {
         }
         this.spinner.setSpinnerStatus(true)
         this.setFilterRequestOld(data)
-        return this.client.get(`/apanel/course/list`, {params: data})
+        return this.client.get(`/apanel/progress/list`, {params: data})
             .then(response => {
                 this.setCoursesData(response.data)
                 this.spinner.setSpinnerStatus(false)
