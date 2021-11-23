@@ -91,7 +91,7 @@ export default class LessonStore {
         this.spinner.setSpinnerStatus(true)
         return this.client.post(`/purchase${purchaseID}/sub${subID}/lesson${this.lessonID}/test${this.getTest().id}`, data)
             .then(response => {
-                this.setResponse({})
+                this.setResponse({status: true})
                 this.spinner.setSpinnerStatus(false)
                 this.loadLessonData(purchaseID, subID, this.lessonID)
             }).catch(errors => {
@@ -112,7 +112,7 @@ export default class LessonStore {
         this.spinner.setSpinnerStatus(true)
         return this.client.put(`/purchase${purchaseID}/sub${subID}/lesson${this.lessonID}/task${this.getTest().id}`, data)
             .then(response => {
-                this.setResponse({})
+                this.setResponse({status: true})
                 this.spinner.setSpinnerStatus(false)
                 this.loadLessonData(purchaseID, subID, this.lessonID)
             }).catch(errors => {
