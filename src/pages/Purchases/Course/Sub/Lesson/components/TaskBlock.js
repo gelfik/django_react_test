@@ -2,24 +2,27 @@ import React, {useRef} from "react";
 import {inject, observer} from "mobx-react";
 import {useAlert} from "react-alert";
 import {Form} from "react-bootstrap";
+import {useParams} from "react-router-dom";
+import ErrorAlert from "../../../../../../components/ErrorAlert";
 
-const TaskBlock = inject('userStore', 'lessonStore', 'courseStore', 'subCourseStore')(observer((store) => {
-    const {lessonStore, courseStore, subCourseStore} = store
+const TaskBlock = inject('userStore', 'lessonStore')(observer((store) => {
+    const {lessonStore} = store
     const fileRef = useRef();
-    const alert = useAlert();
+    const queryParams = useParams()
+    const alert = useAlert()
 
     const loadfile = event => {
         const files = event.target.files;
         const oneFile = files[0];
         const formData = new FormData();
 
+        // formData.append('file', oneFile);
         formData.append('file', oneFile);
-
-        lessonStore.loadLectureFileAdd(formData, courseStore.courseID, subCourseStore.subCourseID).then(r => {
+        formData.append('testType', lessonStore.lessonType);
+        lessonStore.loadTaskFile(formData, queryParams?.purchaseID, queryParams?.subID).then(r => {
             if (lessonStore.response?.status) {
-                lessonStore.loadLessonData(courseStore.courseID, subCourseStore.subCourseID, lessonStore.lessonID)
-                alert.success(lessonStore.response?.detail)
-            } else alert.error(lessonStore.response?.detail)
+                alert.success(lessonStore.response?.error)
+            } else alert.error(lessonStore.response?.error)
         })
     }
 
@@ -43,7 +46,7 @@ const TaskBlock = inject('userStore', 'lessonStore', 'courseStore', 'subCourseSt
 
             <Form.Group controlId="fileLoadInput" className="mb-3">
                 <Form.Label>Загрузите файл с ответом на задание:</Form.Label>
-                <Form.Control type="file" name={'file'} id={'fileLoadInput'} ref={fileRef} onChange={loadfile}/>
+                <Form.Control type="file" name={'file'} ref={fileRef} onChange={loadfile}/>
             </Form.Group>
         </label>
     }
@@ -60,6 +63,12 @@ const TaskBlock = inject('userStore', 'lessonStore', 'courseStore', 'subCourseSt
 
             {/*InputFileLoad()*/}
             {/*{getItemFiles(lessonStore.lessonData?.lecture?.files)}*/}
+            {lessonStore?.response && lessonStore?.response['error'] &&
+            <ErrorAlert error={lessonStore?.response['error']}/>}
+            {lessonStore?.response && lessonStore?.response['detail'] &&
+            <ErrorAlert error={lessonStore?.response['detail']}/>}
+            {lessonStore?.response && lessonStore?.response['file'] &&
+            <p className={'custom-alert-danger-text'}>{lessonStore?.response['file']}</p>}
             {InputFileLoad()}
         </div>
     </>)

@@ -28,6 +28,9 @@ import ApanelLessonPage from "../../pages/Apanel/Courses/Course/Sub/Lesson";
 import ApanelUsersPage from "../../pages/Apanel/Users";
 import ApanelCoursePurchasePage from "../../pages/Apanel/Courses/Course/Purchase";
 import StatsPage from "../../pages/Purchases/Stats";
+import ApanelProgressesPage from "../../pages/Apanel/Progresses";
+import ApanelProgressPage from "../../pages/Apanel/Progresses/Progress";
+
 
 const PageService = inject('userStore')(observer((store) => {
         const {userStore} = store
@@ -60,6 +63,14 @@ const PageService = inject('userStore')(observer((store) => {
                     <Route path='/apanel/course' exact
                            render={() => userStore.userAuthStatus && (userStore.userData?.isTeacher || userStore.userData?.isMentor) ?
                                <ApanelCoursesPage/> : <Redirect to='/'/>}/>
+
+
+                    <Route path='/apanel/progress:courseID' exact
+                           render={() => userStore.userAuthStatus && (userStore.userData?.isTeacher || userStore.userData?.isMentor) ?
+                               <ApanelProgressPage/> : <Redirect to='/'/>}/>
+                    <Route path='/apanel/progress' exact
+                           render={() => userStore.userAuthStatus && (userStore.userData?.isTeacher || userStore.userData?.isMentor) ?
+                               <ApanelProgressesPage/> : <Redirect to='/'/>}/>
 
                     <Route path='/apanel' exact
                            render={() => userStore.userAuthStatus && (userStore.userData?.isTeacher || userStore.userData?.isMentor) ?
