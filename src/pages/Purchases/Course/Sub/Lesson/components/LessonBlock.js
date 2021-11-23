@@ -10,6 +10,13 @@ import TaskBlock from "./TaskBlock";
 const LessonBlock = inject('subCourseStore', 'lessonStore', 'purchaseStore')(observer((store) => {
     const {lessonStore} = store
 
+     useEffect(() => {
+        if (lessonStore.lessonType !== 'taskABC') {
+            lessonStore.setResponse({})
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [lessonStore.lessonType])
+
     useEffect(() => {
             if (!lessonStore.lessonType) {
                 if (lessonStore.lessonData?.lecture) {

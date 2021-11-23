@@ -26,12 +26,19 @@ const ComandBlock = inject('userStore')(observer((store) => {
                     </svg>
                     <span>курсы</span>
                 </Link>
+                <Link to={'/apanel/progress'} className={`Navigation__Item ${history.location.pathname.startsWith('/apanel/progress') && 'Active'}`}>
+                    <svg width="32" height="32">
+                        <use xlinkHref={'#icon-user'}/>
+                    </svg>
+                    <span>успеваемость</span>
+                </Link>
                 <Link to={'/apanel/users'} className={`Navigation__Item ${history.location.pathname.startsWith('/apanel/users') && 'Active'}`}>
                     <svg width="32" height="32">
                         <use xlinkHref={'#icon-user'}/>
                     </svg>
                     <span>пользователи</span>
                 </Link>
+
             </div>
         // </div>
     )

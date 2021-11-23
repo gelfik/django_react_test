@@ -41,7 +41,6 @@ export default class LessonStore {
     }
 
 
-
     get lessonID() {
         return this._lessonID;
     }
@@ -92,11 +91,40 @@ export default class LessonStore {
         this.spinner.setSpinnerStatus(true)
         return this.client.post(`/purchase${purchaseID}/sub${subID}/lesson${this.lessonID}/test${this.getTest().id}`, data)
             .then(response => {
-                this.setLoadError(false)
+                this.setResponse({})
                 this.spinner.setSpinnerStatus(false)
                 this.loadLessonData(purchaseID, subID, this.lessonID)
-            }).catch(reason => {
-                this.setLoadError(true)
+            }).catch(errors => {
+                if (errors.response.data?.errors) {
+                    this.setResponse(errors.response.data?.errors)
+                }
+                if (errors.response.data?.detail) {
+                    this.setResponse({error: errors.response.data?.detail})
+                }
+                if (errors.response.data?.error) {
+                    this.setResponse({error: errors.response.data?.error})
+                }
+                this.spinner.setSpinnerStatus(false)
+            })
+    }
+
+    loadTaskFile = (data, purchaseID, subID) => {
+        this.spinner.setSpinnerStatus(true)
+        return this.client.put(`/purchase${purchaseID}/sub${subID}/lesson${this.lessonID}/task${this.getTest().id}`, data)
+            .then(response => {
+                this.setResponse({})
+                this.spinner.setSpinnerStatus(false)
+                this.loadLessonData(purchaseID, subID, this.lessonID)
+            }).catch(errors => {
+                if (errors.response.data?.errors) {
+                    this.setResponse(errors.response.data?.errors)
+                }
+                if (errors.response.data?.detail) {
+                    this.setResponse({error: errors.response.data?.detail})
+                }
+                if (errors.response.data?.error) {
+                    this.setResponse({error: errors.response.data?.error})
+                }
                 this.spinner.setSpinnerStatus(false)
             })
     }
@@ -120,6 +148,7 @@ export default class LessonStore {
     getTest = () => {
         if (this.lessonType === 'testPOL') return this.lessonData?.testPOL
         if (this.lessonType === 'testCHL') return this.lessonData?.testCHL
+        if (this.lessonType === 'taskABC') return this.lessonData?.taskABC
     }
 
     getResultTest = () => {
