@@ -3068,6 +3068,38 @@ li {
 
     &__Data {
 
+      &__Status {
+        display: -webkit-box;
+        display: block;
+        width: 100%;
+        -webkit-box-align: start;
+        align-items: flex-start;
+        min-height: 40px;
+        //margin-bottom: 24px;
+
+        @media (max-width: 767px) {
+          flex-wrap: wrap;
+          //min-height: auto;
+        }
+
+        p {
+          margin: 15px 0 0;
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 18px;
+          letter-spacing: .02em;
+        }
+
+        .Result {
+          font-size: 24px;
+        }
+
+        .NotCheck {
+          color: #ff613f;
+        }
+
+      }
+
       &__Title {
         margin-bottom: 24px;
         font-style: normal;
@@ -3133,7 +3165,6 @@ li {
             text-decoration: underline;
             cursor: pointer;
           }
-
         }
       }
 
@@ -3264,7 +3295,7 @@ li {
             border: 2px solid #ff613f;
           }
 
-          .active.SuccesAnswer,.active.ValidAnswer,.active.ErrorAnswer {
+          .active.SuccesAnswer, .active.ValidAnswer, .active.ErrorAnswer {
             &:after {
               content: "";
               position: absolute;

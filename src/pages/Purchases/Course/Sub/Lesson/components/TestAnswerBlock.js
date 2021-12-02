@@ -122,8 +122,8 @@ const TestBlock = inject('testStore', 'lessonStore')(observer((store) => {
         <div className="LessonList__Right__Data__Title">
             {lessonStore.getTest()?.name}
         </div>
-        <div className="LessonList__Right__Data__Homework__Status">
-            <p style={{fontSize:24}}>Ваш результат: {lessonStore.getResultTest()?.result}</p>
+        <div className="LessonList__Right__Data__Status">
+            <p className="Result">Ваш результат: {lessonStore.getResultTest()?.result}</p>
             <p>Решено {testStore.askAnswerCount} заданий из {testStore.askCount}</p>
         </div>
         <div className="LessonList__Right__Data__Homework__Step">
