@@ -17,7 +17,9 @@ const TaskAnswerBlock = inject('userStore', 'lessonStore')(observer((store) => {
             {lessonStore.lessonData?.taskABC?.description}
         </div>}
         <div className="LessonList__Right__Data__File">
-            <p>Загруженная работа: <a href={`${lessonStore.getResultTest()?.file}`} rel="noreferrer" target="_blank">скачать</a></p>
+            <p>Загруженная работа: <a href={`${lessonStore.getResultTest()?.file}`} rel="noreferrer"
+                                      target="_blank">скачать</a>
+            </p>
         </div>
     </>)
 }))

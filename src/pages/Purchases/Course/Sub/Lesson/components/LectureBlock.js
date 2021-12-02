@@ -24,11 +24,10 @@ const LectureBlock = inject('userStore', 'lessonStore', 'acourseStore', 'asubCou
                 <YouTube videoId={`${lessonStore.lessonData?.lecture?.video}`}/>
             </div>
         </div>}
+        {lessonStore.lessonData?.lecture?.files?.length !== 0 &&
         <div className="LessonList__Right__Data__File">
-            {lessonStore.lessonData?.lecture?.files?.length !== 0 && <>
-                {getItemFiles(lessonStore.lessonData?.lecture?.files)}
-            </>}
-        </div>
+            {getItemFiles(lessonStore.lessonData?.lecture?.files)}
+        </div>}
         {lessonStore.lessonData?.lecture?.description &&
         <div className="LessonList__Right__Data__Description">
             {lessonStore.lessonData?.lecture?.description}
