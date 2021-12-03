@@ -175,11 +175,7 @@ const PurchaseBlock = inject('purchaseStore', 'modalStore')(observer((store) => 
 }))
 
 
-const TeacherSocial = (
-        {
-            type, teacher
-        }
-    ) => {
+const TeacherSocial = ({type, teacher}) => {
         const svgType = () => {
             switch (type) {
                 case "vk":

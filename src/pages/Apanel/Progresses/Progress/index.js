@@ -6,6 +6,7 @@ import Spinner from "../../../../components/Spinner";
 import SubCourseButtonsBlock from "./components/SubCourseButtonsBlock";
 import {Container, Row, Col} from "react-bootstrap";
 import CourseBlock from "./components/CourseBlock";
+import CourseRadarDiagramBlock from "./components/CourseRadarDiagramBlock";
 
 const ApanelProgressPage = inject('userStore', 'aprogressStore')(observer((store) => {
     useEffect(() => {
@@ -45,6 +46,7 @@ const ApanelProgressPage = inject('userStore', 'aprogressStore')(observer((store
                                 <Row>
                                     <Col md={9}>
                                         <CourseBlock/>
+                                        <CourseRadarDiagramBlock/>
                                     </Col>
                                     <Col md={3}>
                                         <SubCourseButtonsBlock/>

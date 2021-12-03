@@ -1973,6 +1973,8 @@ li {
     }
   }
 
+
+
   &__Item {
     display: flex;
     -webkit-box-orient: vertical;
@@ -1993,7 +1995,6 @@ li {
       -ms-flex-direction: column;
       flex-direction: column;
       width: 100%;
-
     }
 
     &__Header {
