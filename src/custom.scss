@@ -2129,7 +2129,6 @@ li {
   }
 
 
-
   &__Item {
     display: flex;
     -webkit-box-orient: vertical;
@@ -3611,6 +3610,7 @@ li {
           }
 
           .Valid {
+            //color: #12da67;
             :checked {
               background-color: #12da67;
               border-color: #12da67;

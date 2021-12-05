@@ -99,18 +99,17 @@ const TestBlock = inject('testStore', 'lessonStore')(observer((store) => {
     const getPropsForAnswer = (data, answer) => {
         let props = {}
         for (let key in data?.answerList) {
-            if (data?.ask?.answerList[key]?.answer === answer) {
+            if (data?.answerList[key] === answer) {
                 props['checked'] = true
             }
         }
-
         return props
     }
 
     const getItemAnswerList = (data) => {
         return data?.ask?.answerList?.map((item, i) => (
-            <Form.Check {...getPropsForAnswer(data, item.answer)} disabled={true} key={i}
-                        name={`${data.ask.id}`} type='checkbox' id={`${item.id}`}
+            <Form.Check {...getPropsForAnswer(data, item.id)} disabled={true} key={i}
+                        name={`${item.id}`} type='checkbox' id={`${item.id}`}
                         className={`${item.validStatus ? 'Valid' : 'Error'}`}
                         value={`${item.id}`}
                         label={`${item.answer}`}/>
