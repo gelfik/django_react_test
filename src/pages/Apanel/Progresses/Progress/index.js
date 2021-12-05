@@ -6,7 +6,7 @@ import Spinner from "../../../../components/Spinner";
 import SubCourseButtonsBlock from "./components/SubCourseButtonsBlock";
 import {Container, Row, Col} from "react-bootstrap";
 import CourseBlock from "./components/CourseBlock";
-import CourseRadarDiagramBlock from "./components/CourseRadarDiagramBlock";
+import RadarDiagramBlock from "./components/RadarDiagramBlock";
 
 const ApanelProgressPage = inject('userStore', 'aprogressStore')(observer((store) => {
     useEffect(() => {
@@ -41,12 +41,27 @@ const ApanelProgressPage = inject('userStore', 'aprogressStore')(observer((store
                     </div>
                     <div className="Content-Wrapper">
                         {aprogressStore.spinner.spinnerStatus ? <Spinner type={'local'}/> :
-
                             <Container>
                                 <Row>
                                     <Col md={9}>
                                         <CourseBlock/>
-                                        <CourseRadarDiagramBlock/>
+                                        <div className="WhiteBlock__Item">
+                                            <div className="WhiteBlock__Item__Content">
+                                                <div className="WhiteBlock__Item__Header">
+                                                    <div className="WhiteBlock__Item__Data">
+                                                        <div className="WhiteBlock__Item__Title">
+                                                            <p>Отображается статистика по КУРСУ</p>
+                                                            <span>Курс: <b>{aprogressStore.courseData?.name}</b></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {aprogressStore?.courseData?.userProgress?.length > 0 ?
+                                            <RadarDiagramBlock list={aprogressStore?.courseData?.userProgress}/> :
+                                            <div className="display-6">
+                                                Еще никто не прошел тестирование по данному курсу
+                                            </div>}
                                     </Col>
                                     <Col md={3}>
                                         <SubCourseButtonsBlock/>

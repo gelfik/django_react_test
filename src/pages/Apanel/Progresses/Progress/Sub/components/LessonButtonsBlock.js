@@ -2,8 +2,8 @@ import React, {useEffect, useState} from "react";
 import {inject, observer} from "mobx-react";
 import {useHistory, useParams} from "react-router-dom";
 
-const SubCourseButtonsBlock = inject('userStore', 'aprogressStore', 'aprogressSubStore')(observer((store) => {
-        const {aprogressStore, aprogressSubStore} = store
+const LessonButtonsBlock = inject('userStore', 'aprogressSubStore', 'aprogressLessonStore')(observer((store) => {
+        const {aprogressSubStore, aprogressLessonStore} = store
         const queryParams = useParams()
         const history = useHistory();
         const [accordionStatus, SetAccordion] = useState(false);
@@ -11,17 +11,17 @@ const SubCourseButtonsBlock = inject('userStore', 'aprogressStore', 'aprogressSu
         useEffect(() => {
             SetAccordion(false)
             // eslint-disable-next-line react-hooks/exhaustive-deps
-        }, [queryParams?.subID])
+        }, [queryParams?.lessonID])
 
 
-        const getButtonSubCourses = () => {
-            return aprogressStore?.courseData?.subCourses?.map((item, i) =>
+        const getButtonLessons = () => {
+            return aprogressSubStore?.subData?.lessons?.map((item, i) =>
                 <button type="button"
-                        className={`btn btn-outline-dark SubCourses__ButtonSubActive ${item.id === Number(queryParams?.subID) ? 'active' : ''}`}
+                        className={`btn btn-outline-dark SubCourses__ButtonSubActive ${item.id === Number(queryParams?.lessonID) ? 'active' : ''}`}
                         key={i} onClick={() => {
-                    history.push(`/apanel/progress${queryParams?.courseID}/sub${item.id}`)
+                    history.push(`/apanel/progress${queryParams?.courseID}/sub${queryParams?.subID}/lesson${item.id}`)
                 }}>
-                    {item.name}
+                    {item.date}
                 </button>
             )
         }
@@ -29,33 +29,33 @@ const SubCourseButtonsBlock = inject('userStore', 'aprogressStore', 'aprogressSu
         const getNotActive = () => {
             return <div className={'SubCourses'}>
                 <div className={'SubCourses__Title'}>
-                    <span>подкурсы </span>
+                    <span>занятия </span>
                 </div>
-                {getButtonSubCourses()}
+                {getButtonLessons()}
             </div>
         }
 
         const getActive = () => {
             return <>{accordionStatus ? <div className={'SubCourses'}>
                 <div className={'SubCourses__Title'}>
-                    <span>подкурсы </span>
+                    <span>занятия </span>
                 </div>
-                {getButtonSubCourses()}
+                {getButtonLessons()}
             </div> : <div className={'SubCourses'}>
                 <div className={'SubCourses__Title'}>
-                    <span>активный подкурс </span>
+                    <span>активное занятие </span>
                 </div>
                 <button type="button"
                         className={`btn btn-outline-dark SubCourses__ButtonSubActive active`}>
-                    {aprogressSubStore.subData?.name}
+                    {aprogressLessonStore.lessonData?.date}
                 </button>
                 <button type="button"
                         className={`btn btn-outline-dark SubCourses__ButtonSubActive`}
                         onClick={() => {
                             SetAccordion(true)
-                            history.push(`/apanel/progress${queryParams?.courseID}`)
+                            history.push(`/apanel/progress${queryParams?.courseID}/sub${queryParams?.subID}`)
                         }}>
-                    сменить подкурс
+                    сменить занятие
                 </button>
             </div>}
 
@@ -63,9 +63,9 @@ const SubCourseButtonsBlock = inject('userStore', 'aprogressStore', 'aprogressSu
         }
 
         return (
-            <>{queryParams?.subID ? getActive() : getNotActive()}</>
+            <>{queryParams?.lessonID ? getActive() : getNotActive()}</>
         )
     })
 )
 
-export default SubCourseButtonsBlock;
+export default LessonButtonsBlock;
