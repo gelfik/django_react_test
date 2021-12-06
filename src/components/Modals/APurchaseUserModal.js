@@ -6,24 +6,24 @@ const APurchaseUserModal = inject('modalStore', 'acourseStore')(observer((stores
     const {modalStore, acourseStore} = stores;
 
     const getPayData = () => {
-        return acourseStore?.courseData?.purchaseList[acourseStore?.purchaseUserID]?.purchasePay?.map((item, i) =>
+        return acourseStore?.courseData?.purchaseList[acourseStore?.purchaseUserID]?.pay?.map((item, i) =>
             <div key={i} className="Table__Row">
                 <div className="Table__Col">
                     {item.date}
                 </div>
                 <div className="Table__Col">
-                    {item.sumPay === 0 ? 'бесплатно' : 'онлайн оплата'}
+                    {item.courseSub?.name}
                 </div>
                 <div className="Table__Col">
-                    {item.sumPay === 0 ? '-' : `${item.sumPay} ₽`}
+                    {item.sumPay === 0 ? 'бесплатно' : `${item.sumPay} ₽`}
                 </div>
             </div>
         )
     }
 
     const getSubCourseData = () => {
-        return acourseStore?.courseData?.purchaseList[acourseStore?.purchaseUserID]?.courseSub?.map((item, i) =>
-            <div className='Purchase__Item__SubCourse__Data__Name' key={i}>{item.name}</div>
+        return acourseStore?.courseData?.purchaseList[acourseStore?.purchaseUserID]?.pay?.map((item, i) =>
+            <div className='Purchase__Item__SubCourse__Data__Name' key={i}>{item.courseSub?.name}</div>
         )
     }
 
@@ -57,7 +57,7 @@ const APurchaseUserModal = inject('modalStore', 'acourseStore')(observer((stores
                                                 дата
                                             </div>
                                             <div className="Table__Col">
-                                                тип оплаты
+                                                подкурс
                                             </div>
                                             <div className="Table__Col">
                                                 сумма

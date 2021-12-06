@@ -7,16 +7,16 @@ const PurchaseDetailModal = inject('userStore', 'modalStore', 'purchaseStore')(o
     const {modalStore, purchaseStore} = stores;
 
     const getPayData = () => {
-        return purchaseStore?.purchaseData?.purchasePay?.map((item, i) =>
+        return purchaseStore?.purchaseData?.pay?.map((item, i) =>
             <div key={i} className="Table__Row">
                 <div className="Table__Col">
                     {item.date}
                 </div>
                 <div className="Table__Col">
-                    {item.sumPay === 0 ? 'бесплатно' : 'онлайн оплата'}
+                    {item.courseSub?.name}
                 </div>
                 <div className="Table__Col">
-                    {item.sumPay === 0 ? '-' : `${item.sumPay} ₽`}
+                    {item.sumPay === 0 ? 'бесплатно' : `${item.sumPay} ₽`}
                 </div>
             </div>
         )
@@ -80,7 +80,7 @@ const PurchaseDetailModal = inject('userStore', 'modalStore', 'purchaseStore')(o
                                                 дата
                                             </div>
                                             <div className="Table__Col">
-                                                тип оплаты
+                                                подкурс
                                             </div>
                                             <div className="Table__Col">
                                                 сумма

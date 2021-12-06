@@ -8,16 +8,16 @@ const APurchaseManagementModal = inject('modalStore', 'acourseStore', 'apurManag
 
 
     const getItemSub = () => {
-        return apurManageStore?.purchase?.purchasePay.map((item, i) =>
+        return apurManageStore?.purchase?.pay.map((item, i) =>
             <div key={i} className="Table__Row">
                 <div className="Table__Col">
                     {item.date}
                 </div>
                 <div className="Table__Col">
-                    {item.sumPay === 0 ? 'бесплатно' : 'онлайн оплата'}
+                    {item.courseSub?.name}
                 </div>
                 <div className="Table__Col">
-                    {item.sumPay === 0 ? '-' : `${item.sumPay} ₽`}
+                    {item.sumPay === 0 ? 'бесплатно' : `${item.sumPay} ₽`}
                 </div>
             </div>
         )
