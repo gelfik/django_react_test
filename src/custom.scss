@@ -3678,6 +3678,38 @@ li {
         border-radius: 8px;
         white-space: pre-wrap;
       }
+
+      &__Accordion {
+
+        &__Valid{
+          color: #12da67;
+        }
+
+        &__Invalid{
+          color: #e60000;
+        }
+
+        &__Left {
+          display: block;
+          float: left;
+          width: 100%;
+        }
+
+        &__Right {
+          display: block;
+          float: right;
+          width: 100%;
+          text-align: end;
+          margin-right: 5px;
+        }
+
+        &__Link {
+            color: #101010;
+            overflow-wrap: break-word;
+          }
+
+
+      }
     }
   }
 }

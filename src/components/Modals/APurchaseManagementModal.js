@@ -46,9 +46,6 @@ const APurchaseManagementModal = inject('modalStore', 'acourseStore', 'apurManag
                                 <p>E-Mail: {apurManageStore.purchase?.user?.email}</p>
                                 <p>Телефон: {apurManageStore.purchase?.user?.phone}</p>
                             </Tab>
-                            <Tab eventKey="courseProgress" title="Прогресс">
-                                courseProgress
-                            </Tab>
                             <Tab eventKey="transactions" title="Транзакции">
                                 {getItemSub()}
                             </Tab>

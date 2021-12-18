@@ -10,6 +10,7 @@ export default class ALessonStore {
     _response = {}
     _lessonAddType = undefined
     _fileID = undefined
+    _resultID = undefined
 
 
     constructor($client) {
@@ -45,6 +46,10 @@ export default class ALessonStore {
             _fileID:observable,
             fileID:computed,
             setFileID:action,
+
+            _resultID: observable,
+            resultID: computed,
+            setResultID: action,
 
             getTest: action,
         })
@@ -194,6 +199,32 @@ export default class ALessonStore {
             this.setResponse({})
             if (errors.response.data?.errors) {
                 this.setResponse(errors.response.data)
+            }
+        })
+    }
+
+    get resultID() {
+        return this._resultID;
+    }
+
+    setResultID = (ResultID) => {
+        this._resultID = ResultID
+    }
+
+    loadResult = (data, courseID, subCourseID) => {
+        return this.client.put(`/apanel/course/result${this.resultID}`, data).then((response) => {
+            this.setResponse(response.data)
+            this.loadLessonData(courseID, subCourseID, this.lessonID)
+        }).catch(errors => {
+            this.setResponse({})
+            if (errors.response.data?.errors) {
+                this.setResponse(errors.response.data?.errors)
+            }
+            if (errors.response.data?.detail) {
+                this.setResponse({error: errors.response.data?.detail})
+            }
+            if (errors.response.data?.error) {
+                this.setResponse({error: errors.response.data?.error})
             }
         })
     }

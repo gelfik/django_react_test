@@ -1,38 +1,93 @@
-import React from "react";
+import React, {useState} from "react";
 import {inject, observer} from "mobx-react";
 import {Accordion} from "react-bootstrap";
-// import Moment from "moment";
+import {useForm} from "react-hook-form";
 
-const TaskBlock = inject('userStore', 'alessonStore')(observer((store) => {
-    const {alessonStore} = store
+const TaskBlock = inject('userStore', 'alessonStore', 'acourseStore', 'asubCourseStore')(observer((store) => {
+    const {alessonStore, acourseStore, asubCourseStore} = store
+    const {register, handleSubmit, setValue} = useForm();
+    const [visibility, setVisibility] = useState(false)
 
-    // const getTime = (date) => {
-    //     return  Moment(date, "YYYY-MM-DDTH:m").format("DD-MM-YYYY HH:mm")
-    // }
+    const InputMinMax = (e) => {
+        if (e.target.value < 0) e.target.value = 0;
+        if (e.target.value > 100) e.target.value = 100;
+    }
+
+    const onSubmitResult = (data) => {
+        setVisibility(false)
+        alessonStore.loadResult(data, acourseStore.courseID, asubCourseStore.subCourseID)
+    }
+
+
+    const getResults = () => {
+        return alessonStore.lessonData?.result?.map((item, i) => (
+            <Accordion.Item key={i} eventKey={i} >
+                {/*<Accordion.Header>*/}
+                <Accordion.Button onClick= {() => {
+                    alessonStore.setResultID(item?.taskABC?.id)
+                    setVisibility(false)
+                    setValue('result', '')
+                }}
+                    className={`${item?.taskABC?.result ? "LessonList__Right__Data__Accordion__Valid" : "LessonList__Right__Data__Accordion__Invalid"}`}>
+                        <span
+                            className="LessonList__Right__Data__Accordion__Left">{item?.user?.firstName} {item?.user?.lastName}</span>
+                    <span
+                        className="LessonList__Right__Data__Accordion__Right">{item?.taskABC?.result ? `Результат: ${item?.taskABC?.result}` : 'Не проверено'}</span>
+                </Accordion.Button>
+                {/*</Accordion.Header>*/}
+                <Accordion.Body>
+                    {item?.taskABC?.result ? <>{visibility ? getForm(item) : getResult(item)}</> : getForm(item)}
+                </Accordion.Body>
+            </Accordion.Item>
+        ));
+    };
+
+    const getResult = (item) => {
+        return <>
+            <p>Дата и время загрузки: {item?.taskABC?.loadTime}</p>
+            <p>Загруженная работа: <a className="LessonList__Right__Data__Accordion__Link"
+                                      href={`${item?.taskABC?.file}`} rel="noreferrer"
+                                      target="_blank">скачать</a></p>
+            <p>Результат: {item?.taskABC?.result}</p>
+            <button type={"button"} className={'btn btn-dark w-100 mt-2'} onClick={() => {setValue('result', item?.taskABC?.result);setVisibility(true)}}>Изменить оценку</button>
+        </>
+    }
+
+
+    const getForm = (item) => {
+        return <>
+            <p>Дата и время загрузки: {item?.taskABC?.loadTime}</p>
+            <p>Загруженная работа: <a className="LessonList__Right__Data__Accordion__Link"
+                                      href={`${item?.taskABC?.file}`} rel="noreferrer"
+                                      target="_blank">скачать</a></p>
+            <form className={'mt-2'} onSubmit={handleSubmit(onSubmitResult)}>
+                <div className="form-floating">
+                    <input type={'number'} className={`form-control`}
+                           id={'result'} {...register('result', {valueAsNumber:true})}
+                           onChange={InputMinMax} required placeholder={'Оценка'}
+                           min='0' max='100'/>
+                    <label htmlFor={'result'}>Оценка</label>
+                </div>
+                <button type={"submit"} className={'btn btn-dark w-100 mt-2'}>Оценить</button>
+            </form>
+        </>
+    }
 
     return (<>
         <div className="LessonList__Right__Data__Title">
             {alessonStore.lessonData?.taskABC?.name}
         </div>
         {alessonStore.lessonData?.taskABC?.description &&
-        <div style={{marginBottom:24}} className="LessonList__Right__Data__Description">
+        <div style={{marginBottom: 24}} className="LessonList__Right__Data__Description">
             {alessonStore.lessonData?.taskABC?.description}
         </div>}
-        <Accordion>
-            <Accordion.Item eventKey="0">
-                <Accordion.Header>Проверить задания</Accordion.Header>
-                <Accordion.Body>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                    veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                    commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                    velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                    cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-                    est laborum.
-                </Accordion.Body>
-            </Accordion.Item>
+        {alessonStore.lessonData?.result &&
+        <Accordion flush>
+            {getResults()}
         </Accordion>
+        }
     </>)
 }))
+
 
 export default TaskBlock;
