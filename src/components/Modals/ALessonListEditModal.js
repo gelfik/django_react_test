@@ -18,7 +18,7 @@ const ALessonListEditModal = inject('userStore', 'modalStore', 'acourseStore', '
         if (modalStore.ALessonListEditModalStatus) {
             alessonStore.setResponse(undefined)
             let data = asubCourseStore.subCourseData?.lessons?.filter(item => item.id === alessonStore.lessonID)?.shift()
-            setValue('date', Moment(data?.date, "DD.MM.YYYY").format('YYYY-MM-DD'))
+            setValue('date', Moment(data?.date, "YYYY-MM-DD").format('yyyy-MM-DD'))
             setValue('isOpen', data?.isOpen)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -61,7 +61,7 @@ const ALessonListEditModal = inject('userStore', 'modalStore', 'acourseStore', '
                         <div className="col-lg-12 col-12 mb-3">
                             <div className="form-floating ">
                                 <input type={'date'} className={`form-control`}
-                                       id={'date'} {...register('date')}
+                                       id={'date'} {...register('date') }
                                        required placeholder={'Дата начала'}
                                        min={`${asubCourseStore.subCourseData?.startDate}`}
                                        max={`${asubCourseStore.subCourseData?.endDate}`}/>
