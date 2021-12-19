@@ -2,10 +2,12 @@ import React, {useEffect} from "react";
 import {inject, observer} from "mobx-react";
 import Spinner from "../../../../../../components/Spinner";
 import {Col, Row} from "react-bootstrap";
+import {Link, useParams} from "react-router-dom";
 
-const PurchaseBlock = inject('userStore', 'apurchaseStore', 'acourseStore', 'modalStore', 'apurManageStore')(observer((store) => {
-    const {apurchaseStore, acourseStore, modalStore, apurManageStore} = store
+const PurchaseBlock = inject('userStore', 'apurchaseStore', 'acourseStore', 'apurManageStore')(observer((store) => {
+    const {apurchaseStore, acourseStore, apurManageStore} = store
 
+    const queryParams = useParams()
 
     useEffect(() => {
         if (!apurchaseStore.spinner.spinnerStatus) {
@@ -15,7 +17,7 @@ const PurchaseBlock = inject('userStore', 'apurchaseStore', 'acourseStore', 'mod
     }, [apurchaseStore.filterRequest])
 
     const getPurchaseList = () => {
-        if (apurchaseStore?.purchaseData?.length === 0) {
+        if (apurchaseStore?.purchaseListData?.length === 0) {
             return <div className="display-6">
                 Покупатели не найдены!
             </div>
@@ -24,9 +26,10 @@ const PurchaseBlock = inject('userStore', 'apurchaseStore', 'acourseStore', 'mod
     }
 
     const getItemPurchase = () => {
-        return apurchaseStore?.purchaseData?.map((item, i) =>
+        return apurchaseStore?.purchaseListData?.map((item, i) =>
             <Col md={4} key={i}>
-                <div className="UsersList__Item"  onClick={modalStore.APurchaseManagementModalShow}>
+                {/*<div className="UsersList__Item"  onClick={modalStore.APurchaseManagementModalShow}>*/}
+                <Link to={`/apanel/course${queryParams?.courseID}/purchase${item?.id}/management`} className="UsersList__Item">
                     <div className="UsersList__Item__Content">
                         <div className="UsersList__Item__Wrapper">
                             <div className="UsersList__Item__Data" onClick={() => apurManageStore.setPurchase(item)}>
@@ -62,7 +65,8 @@ const PurchaseBlock = inject('userStore', 'apurchaseStore', 'acourseStore', 'mod
                             </div>
                         </div>
                     </div>
-                </div>
+                </Link>
+                {/*</div>*/}
             </Col>
         )
     }

@@ -28,7 +28,7 @@ const ComandBlock = inject('userStore')(observer((store) => {
                 </Link>
                 <Link to={'/apanel/progress'} className={`Navigation__Item ${history.location.pathname.startsWith('/apanel/progress') && 'Active'}`}>
                     <svg width="32" height="32">
-                        <use xlinkHref={'#icon-user'}/>
+                        <use xlinkHref={'#icon-perfomance'}/>
                     </svg>
                     <span>успеваемость</span>
                 </Link>

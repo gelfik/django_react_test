@@ -2,9 +2,11 @@ import React from "react";
 import {inject, observer} from "mobx-react";
 import Modal from "react-bootstrap/Modal";
 import {Tabs, Tab} from "react-bootstrap";
+import {useForm} from "react-hook-form";
 
 const APurchaseManagementModal = inject('modalStore', 'acourseStore', 'apurManageStore')(observer((stores) => {
     const {modalStore, apurManageStore, acourseStore} = stores;
+    const {register, handleSubmit} = useForm();
 
 
     const getItemSub = () => {
@@ -22,6 +24,12 @@ const APurchaseManagementModal = inject('modalStore', 'acourseStore', 'apurManag
             </div>
         )
     }
+
+    // const getUnboughtCourses = () => {
+    //     return acoursesListStore?.filterData?.predmet?.map((item, i) =>
+    //         <option key={i} value={item.id}>{item.name}</option>
+    //     )
+    // }
 
     return (
         <Modal show={modalStore.APurchaseManagementModalStatus} centered
@@ -48,6 +56,15 @@ const APurchaseManagementModal = inject('modalStore', 'acourseStore', 'apurManag
                             </Tab>
                             <Tab eventKey="transactions" title="Транзакции">
                                 {getItemSub()}
+                                <form className={'d-flex flex-column'} onSubmit={handleSubmit()}>
+                                    <div className="form-floating">
+                                        <select className="form-select" id={'coursePick'}
+                                                required placeholder={'Курс'} {...register('coursePick')}>
+                                            {/*{getItemPredmet()}*/}
+                                        </select>
+                                        <label htmlFor={'coursePick'}>Курс</label>
+                                    </div>
+                                </form>
                             </Tab>
                             <Tab eventKey="courseManagement" title="Управление курсами">
                                 courseManagement
