@@ -2982,6 +2982,25 @@ li {
   box-shadow: 0 1px 2px #ebeced;
   border-radius: 8px;
 
+
+  &__Grid {
+    width: 100%;
+    margin-bottom: 16px;
+    padding: 24px 24px;
+    background-color: #fff;
+    box-shadow: 0 1px 2px #ebeced;
+    border-radius: 8px;
+    display: grid;
+  }
+
+  &__Title {
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: .02em;
+    color: #101010;
+    margin-bottom: 10px;
+  }
+
   @media (max-width: 767px) {
     display: grid;
   }
@@ -3681,11 +3700,11 @@ li {
 
       &__Accordion {
 
-        &__Valid{
+        &__Valid {
           color: #12da67;
         }
 
-        &__Invalid{
+        &__Invalid {
           color: #e60000;
         }
 
@@ -3704,9 +3723,9 @@ li {
         }
 
         &__Link {
-            color: #101010;
-            overflow-wrap: break-word;
-          }
+          color: #101010;
+          overflow-wrap: break-word;
+        }
 
 
       }
