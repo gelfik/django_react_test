@@ -34,6 +34,9 @@ import AProgressesListStore from "./AProgressesListStore";
 import AProgressStore from "./AProgressStore";
 import AProgressSubStore from "./AProgressSubStore";
 import AProgressLessonStore from "./AProgressLessonStore";
+import ProgressStore from "./ProgressStore";
+import ProgressSubStore from "./ProgressSubStore";
+import ProgressLessonStore from "./ProgressLessonStore"
 
 
 class RootStore {
@@ -63,6 +66,10 @@ class RootStore {
         this.purCoursePageStore = new PurCoursePageStore(this.$axios)
         this.atestStore = new ATestStore(this.$axios)
         this.testStore = new TestStore(this.$axios)
+
+        this.progressStore = new ProgressStore(this.$axios)
+        this.progressSubStore = new ProgressSubStore(this.$axios)
+        this.progressLessonStore = new ProgressLessonStore(this.$axios)
 
         this.acoursesListStore = new ACoursesListStore(this.$axios);
         this.acourseStore = new ACourseStore(this.$axios)

@@ -60,7 +60,7 @@ const PurchasesBlock = inject('userStore', 'purchasesListStore', 'modalStore', '
                                 purchaseStore.setPurchaseData(item)
                                 modalStore.PurchaseDetailModalShow();
                             }}>история платежей</div>
-                            <Link to={`/purchases${item?.id}/statistics`} className="Course__Item__PayInfo__Link">моя статистика</Link>
+                            <Link to={`/purchases${item?.id}/stats`} className="Course__Item__PayInfo__Link">моя статистика</Link>
                         </div>
                     </div>
                 </div>

@@ -32,6 +32,8 @@ import ApanelProgressesPage from "../../pages/Apanel/Progresses";
 import ApanelProgressPage from "../../pages/Apanel/Progresses/Progress";
 import ApanelProgressSubPage from "../../pages/Apanel/Progresses/Progress/Sub";
 import ApanelProgressLessonPage from "../../pages/Apanel/Progresses/Progress/Sub/Lesson";
+import StatsSubPage from "../../pages/Purchases/Stats/Sub";
+import StatsLessonPage from "../../pages/Purchases/Stats/Sub/Lesson";
 
 
 const PageService = inject('userStore')(observer((store) => {
@@ -88,14 +90,19 @@ const PageService = inject('userStore')(observer((store) => {
                            render={() => !userStore.userAuthStatus ? <Redirect to='/'/> : <PurchasesLessonPage/>}/>
                     <Route path='/purchases:purchaseID/sub:subID' exact
                            render={() => !userStore.userAuthStatus ? <Redirect to='/'/> : <PurchasesSubPage/>}/>
-                    <Route path='/purchases:purchaseID/statistics' exact
-                           render={() => !userStore.userAuthStatus ? <Redirect to='/'/> : <StatsPage/>}/>
                     <Route path='/purchases:purchaseID/purchase' exact
                            render={() => !userStore.userAuthStatus ? <Redirect to='/'/> : <PurchasesPurchasePage/>}/>
                     <Route path='/purchases:purchaseID' exact
                            render={() => !userStore.userAuthStatus ? <Redirect to='/'/> : <PurchasesCoursePage/>}/>
                     <Route path='/purchases' exact
                            render={() => !userStore.userAuthStatus ? <Redirect to='/'/> : <PurchasesPage/>}/>
+
+                    <Route path='/purchases:purchaseID/stats/sub:subID/lesson:lessonID' exact
+                           render={() => !userStore.userAuthStatus ? <Redirect to='/'/> : <StatsLessonPage/>}/>
+                    <Route path='/purchases:purchaseID/stats/sub:subID' exact
+                           render={() => !userStore.userAuthStatus ? <Redirect to='/'/> : <StatsSubPage/>}/>
+                    <Route path='/purchases:purchaseID/stats' exact
+                           render={() => !userStore.userAuthStatus ? <Redirect to='/'/> : <StatsPage/>}/>
 
                     <Route path='/courses' component={CoursesPage} exact/>
                     <Route path='/courses:courseID/purchase' exact

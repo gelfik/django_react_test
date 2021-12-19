@@ -1,55 +1,50 @@
 import React, {useEffect} from "react";
 import {inject, observer} from "mobx-react";
-import ComandBlock from "../../../components/ComandBlock";
-import CourseBlock from "../components/CourseBlock";
+import CourseBlock from "../../components/CourseBlock";
 import {useHistory, useParams} from "react-router-dom";
 import Spinner from "../../../../../components/Spinner";
-import SubCourseButtonsBlock from "../components/SubCourseButtonsBlock";
+import SubCourseButtonsBlock from "../../components/SubCourseButtonsBlock";
 import {Col, Container, Row} from "react-bootstrap";
-import LessonButtonsBlock from "./components/LessonButtonsBlock";
-import RadarDiagramBlock from "../components/RadarDiagramBlock";
+import LessonButtonsBlock from "../components/LessonButtonsBlock";
+import RadarDiagramBlock from "../../components/RadarDiagramBlock";
 
-
-const ApanelProgressSubPage = inject('userStore', 'aprogressStore', 'aprogressSubStore')(observer((store) => {
+const StatsLessonPage = inject('userStore', 'progressStore', 'progressSubStore', 'progressLessonStore')(observer((store) => {
     useEffect(() => {
         document.body.className = 'bg-light min-vh-100'
         window.scrollTo(0, 0)
     }, []);
 
-    const {aprogressStore, aprogressSubStore} = store
+    const {progressStore, progressSubStore, progressLessonStore} = store
     const history = useHistory();
     const queryParams = useParams()
 
 
     useEffect(() => {
-        if (aprogressStore.loadError || aprogressSubStore.loadError) {
-            history.push(`/apanel/progress`)
+        if (progressStore.loadError || progressSubStore.loadError || progressLessonStore.loadError) {
+            history.push(`/purchases`)
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [aprogressStore.loadError, aprogressSubStore.loadError])
+    }, [progressStore.loadError, progressSubStore.loadError, progressLessonStore.loadError])
 
     useEffect(() => {
         window.scrollTo(0, 0)
-        aprogressStore.setCourseID(queryParams?.courseID)
-        aprogressSubStore.setSubID(queryParams?.courseID, queryParams?.subID)
+        progressStore.setPurchaseID(queryParams?.purchaseID)
+        progressSubStore.setSubID(queryParams?.purchaseID, queryParams?.subID)
+        progressLessonStore.setLessonID(queryParams?.purchaseID, queryParams?.subID, queryParams?.lessonID)
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [aprogressStore?.courseID, aprogressSubStore?.subID])
+    }, [progressStore?.purchaseID, progressSubStore?.subID, queryParams?.lessonID])
 
 
     return (
         <main className={'mt_navbar bg-content'}>
-            <section className="ContainerContent">
-                <div className="APanel">
-                    <div className="Navigation-Wrapper">
-                        <ComandBlock/>
-                    </div>
+            <section className="ContainerContent CoursePage">
                     <div className="Content-Wrapper">
-                        {aprogressStore.spinner.spinnerStatus ? <Spinner type={'local'}/> : <>
+                        {progressStore.spinner.spinnerStatus ? <Spinner type={'local'}/> : <>
                             <Container>
                                 <Row>
                                     <Col md={9}>
                                         <CourseBlock/>
-                                        {aprogressSubStore.spinner.spinnerStatus ?
+                                        {(progressSubStore.spinner.spinnerStatus || progressLessonStore.spinner.spinnerStatus) ?
                                             <Spinner type={'local'}/> :
                                             <>
                                                 <div className="WhiteBlock__Item">
@@ -57,19 +52,20 @@ const ApanelProgressSubPage = inject('userStore', 'aprogressStore', 'aprogressSu
                                                         <div className="WhiteBlock__Item__Header">
                                                             <div className="WhiteBlock__Item__Data">
                                                                 <div className="WhiteBlock__Item__Title">
-                                                                    <p>Отображается статистика по ПОДКУРСУ</p>
-                                                                    <span>Курс: <b>{aprogressStore.courseData?.name}</b></span>
-                                                                    <span>Подкурс: <b>{aprogressSubStore.subData?.name}</b></span>
+                                                                    <p>Отображается статистика по ЗАНЯТИЮ</p>
+                                                                    <span>Курс: <b>{progressStore.purchaseData?.course?.name}</b></span>
+                                                                    <span>Подкурс: <b>{progressSubStore.subData?.name}</b></span>
+                                                                    <span>Занятие: <b>{progressLessonStore.lessonData?.date}</b></span>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                {aprogressSubStore?.subData?.userProgress?.length > 0 ?
+                                                {progressLessonStore?.lessonData?.userProgress ?
                                                     <RadarDiagramBlock
-                                                        list={aprogressSubStore?.subData?.userProgress}/> :
+                                                        item={progressLessonStore?.lessonData?.userProgress}/> :
                                                     <div className="display-6">
-                                                        Еще никто не прошел тестирование по данному подкурсу
+                                                        Еще никто не прошел тестирование по данному занятию
                                                     </div>}
                                             </>}
                                     </Col>
@@ -81,10 +77,9 @@ const ApanelProgressSubPage = inject('userStore', 'aprogressStore', 'aprogressSu
                             </Container>
                         </>}
                     </div>
-                </div>
             </section>
         </main>
     )
 }))
 
-export default ApanelProgressSubPage;
+export default StatsLessonPage;
