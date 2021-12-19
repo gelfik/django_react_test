@@ -3,9 +3,13 @@ import SpinnerStore from "./SpinnerStore";
 
 export default class APurchaseStore {
 
-    _purchaseData = []
+    _purchaseData = undefined
+    _notPurchaseData = []
     _loadError = false
     _purchaseUserID = undefined
+    _purchaseID = undefined
+    _purchaseListData = []
+    _response = {}
 
     _spinner = new SpinnerStore()
 
@@ -31,7 +35,7 @@ export default class APurchaseStore {
             _purchaseData: observable,
             purchaseData: computed,
             setPurchaseData: action,
-            loadPurchaseData: action,
+            // loadPurchaseData: action,
 
             _filterRequest: observable,
             setFilterRequest: action,
@@ -41,6 +45,25 @@ export default class APurchaseStore {
             _filterRequestOld: observable,
             setFilterRequestOld: action,
             filterRequestOld: computed,
+
+            _notPurchaseData: observable,
+            notPurchaseData: computed,
+            setNotPurchaseData: action,
+            loadNotPurchaseData: action,
+
+            _purchaseID: observable,
+            purchaseID: computed,
+            setPurchaseID: action,
+
+            _purchaseListData: observable,
+            purchaseListData: computed,
+            setPurchaseListData: action,
+            loadPurchaseListData: action,
+
+            _response: observable,
+            response: computed,
+            setResponse: action,
+
         })
 
         this.client = $client;
@@ -58,15 +81,13 @@ export default class APurchaseStore {
         this._purchaseData = value
     }
 
-    loadPurchaseData = (CourseID) => {
+    loadPurchaseListData = (CourseID) => {
         this.spinner.setSpinnerStatus(true)
         return this.client.get(`/apanel/course${CourseID}/purchaseList`)
             .then(response => {
-                this.setLoadError(false)
-                this.setPurchaseData(response.data)
+                this.setPurchaseListData(response.data)
                 this.spinner.setSpinnerStatus(false)
             }).catch(reason => {
-                this.setLoadError(true)
                 this.spinner.setSpinnerStatus(false)
             })
     }
@@ -115,7 +136,7 @@ export default class APurchaseStore {
         this.setFilterRequestOld(data)
         return this.client.get(`/apanel/course${CourseID}/purchaseList`, {params: data})
             .then(response => {
-                this.setPurchaseData(response.data)
+                this.setPurchaseListData(response.data)
                 // this.spinner.setSpinnerStatus(false)
             })
     }
@@ -126,6 +147,85 @@ export default class APurchaseStore {
 
     setFilterRequestOld = (value) => {
         this._filterRequestOld = value;
+    }
+
+    get notPurchaseData() {
+        return toJS(this._notPurchaseData);
+    }
+
+    setNotPurchaseData = (value) => {
+        this._notPurchaseData = value
+    }
+
+    loadNotPurchaseData = (PurchaseID) => {
+        this.spinner.setSpinnerStatus(true)
+        return this.client.get(`/purchase${PurchaseID}/noBuy`)
+            .then(response => {
+                this.setNotPurchaseData(response.data)
+                this.spinner.setSpinnerStatus(false)
+            }).catch(reason => {
+                this.spinner.setSpinnerStatus(false)
+            })
+    }
+
+    get purchaseID() {
+        return this._purchaseID;
+    }
+
+
+    setPurchaseID = (value, force = false) => {
+        if ((this.purchaseID !== value) || (force)) {
+            this._purchaseID = value
+            this.loadPurchaseData(this.purchaseID)
+            this.loadNotPurchaseData(this.purchaseID)
+        }
+    }
+
+    loadPurchaseData = (PurchaseID) => {
+        this.spinner.setSpinnerStatus(true)
+        return this.client.get(`/purchase${PurchaseID}`)
+            .then(response => {
+                this.setPurchaseData(response.data)
+                this.spinner.setSpinnerStatus(false)
+            }).catch(reason => {
+                this.spinner.setSpinnerStatus(false)
+            })
+    }
+
+    get purchaseListData() {
+        return toJS(this._purchaseListData);
+    }
+
+    setPurchaseListData = (value) => {
+        this._purchaseListData = value
+    }
+
+    loadPurchaseAdd = (data, CourseID, PurchaseID) => {
+        this.spinner.setSpinnerStatus(true)
+        return this.client.put(`/apanel/course${CourseID}/purchase${PurchaseID}`, data)
+            .then(response => {
+                this.loadPurchaseData(PurchaseID)
+                this.spinner.setSpinnerStatus(false)
+            }).catch(errors => {
+                this.spinner.setSpinnerStatus(false)
+                if (errors.response.data?.errors) {
+                    this.setResponse(errors.response.data?.errors)
+                }
+                if (errors.response.data?.detail) {
+                    this.setResponse({error: errors.response.data?.detail})
+                }
+                if (errors.response.data?.error) {
+                    this.setResponse({error: errors.response.data?.error})
+                }
+            })
+    }
+
+    get response() {
+        return toJS(this._response);
+    }
+
+    setResponse = (value) => {
+        this._response = value
     }
 
 }
