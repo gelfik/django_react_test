@@ -3,10 +3,10 @@ import axios from "axios";
 
 const initAxios = (tokenStore) => {
     const $axios = axios.create({
-        baseURL: 'https://izzibrain.gelfik.dev/api'
-        // baseURL: 'http://127.0.0.1:8000/api'
-        // baseURL: 'http://192.168.1.64:8000/api'
-    })
+      baseURL: process.env.REACT_APP_PUBLIC_API_URL,
+      // baseURL: process.env.REACT_APP_LOCAL_API_URL
+      // baseURL: process.env.REACT_APP_EXTRA_LOCAL_API_URL
+    });
     $axios.defaults.headers.post['Content-Type'] = 'application/json';
     $axios.defaults.headers.put['Content-Type'] = 'multipart/form-data';
     $axios.defaults.headers.patch['Content-Type'] = 'application/json';
