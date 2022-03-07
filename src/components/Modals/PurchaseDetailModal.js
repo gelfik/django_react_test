@@ -80,7 +80,7 @@ const PurchaseDetailModal = inject('userStore', 'modalStore', 'purchaseStore')(o
                                                 дата
                                             </div>
                                             <div className="Table__Col">
-                                                подкурс
+                                                раздел
                                             </div>
                                             <div className="Table__Col">
                                                 сумма

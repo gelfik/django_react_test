@@ -1,11 +1,11 @@
 import React from "react";
 import {
-  BrowserRouter as Router,
-  Redirect,
-  Route,
-  Switch,
+    BrowserRouter as Router,
+    Redirect,
+    Route,
+    Switch,
 } from "react-router-dom";
-import { inject, observer } from "mobx-react";
+import {inject, observer} from "mobx-react";
 import MainPage from "../../pages";
 // import LoginPage from "../../pages/login-page";
 // import RegisterPage from "../../pages/register-page";
@@ -25,7 +25,6 @@ import PurchasesCoursePage from "../../pages/Purchases/Course";
 import PurchasesSubPage from "../../pages/Purchases/Course/Sub";
 import PurchasesLessonPage from "../../pages/Purchases/Course/Sub/Lesson";
 import PurchasesPurchasePage from "../../pages/Purchases/Course/Purchase";
-import ApanelPage from "../../pages/Apanel";
 import ApanelCoursesPage from "../../pages/Apanel/Courses";
 import ApanelCoursePage from "../../pages/Apanel/Courses/Course";
 import ApanelSubCoursePage from "../../pages/Apanel/Courses/Course/Sub";
@@ -42,295 +41,260 @@ import StatsLessonPage from "../../pages/Purchases/Stats/Sub/Lesson";
 import ANotPurchasePage from "../../pages/Apanel/Courses/Course/Purchase/NotPurchase";
 import SmartPageContainer from "./smartPageContainer";
 
-const PageService = inject("userStore")(
-  observer((store) => {
-    const { userStore } = store;
+const PageService = inject("userStore")(observer((store) => {
+    const {userStore} = store;
     if (userStore.firstSpinnerStore.spinnerStatus) {
-      return <Spinner />;
+        return <Spinner/>;
     }
     return (
-      <Router>
-        {/*<ScrollToTop/>*/}
-        <Header />
-        <Switch>
-          <Route path="/" component={MainPage} exact />
+        <Router>
+            {/*<ScrollToTop/>*/}
+            <Header/>
+            <Switch>
+                <Route path="/" component={MainPage} exact/>
 
-          <Route
-            path="/apanel/users"
-            exact
-            render={() =>
-              userStore.userAuthStatus && userStore.userData?.isTeacher ? (
-                <ApanelUsersPage />
-              ) : (
-                <Redirect to="/" />
-              )
-            }
-          />
-          <Route
-            path="/apanel/course:courseID/purchase:purchaseID/management"
-            exact
-            render={() =>
-              userStore.userAuthStatus &&
-              (userStore.userData?.isTeacher ||
-                userStore.userData?.isMentor) ? (
-                <ANotPurchasePage />
-              ) : (
-                <Redirect to="/" />
-              )
-            }
-          />
-          <Route
-            path="/apanel/course:courseID/purchase"
-            exact
-            render={() =>
-              userStore.userAuthStatus &&
-              (userStore.userData?.isTeacher ||
-                userStore.userData?.isMentor) ? (
-                <ApanelCoursePurchasePage />
-              ) : (
-                <Redirect to="/" />
-              )
-            }
-          />
+                <Route path="/apanel/users" exact
+                       render={() =>
+                           userStore.userAuthStatus && userStore.userData?.isTeacher ? (
+                               <ApanelUsersPage/>
+                           ) : (
+                               <Redirect to="/"/>
+                           )
+                       }
+                />
+                <Route path="/apanel/course:courseID/purchase:purchaseID/management" exact
+                       render={() =>
+                           userStore.userAuthStatus &&
+                           (userStore.userData?.isTeacher ||
+                               userStore.userData?.isMentor) ? (
+                               <ANotPurchasePage/>
+                           ) : (
+                               <Redirect to="/"/>
+                           )
+                       }
+                />
+                <Route path="/apanel/course:courseID/purchase" exact
+                       render={() =>
+                           userStore.userAuthStatus &&
+                           (userStore.userData?.isTeacher ||
+                               userStore.userData?.isMentor) ? (
+                               <ApanelCoursePurchasePage/>
+                           ) : (
+                               <Redirect to="/"/>
+                           )
+                       }
+                />
 
-          <Route
-            path="/apanel/course:courseID/sub:subID/lesson:lessonID"
-            exact
-            render={() =>
-              userStore.userAuthStatus &&
-              (userStore.userData?.isTeacher ||
-                userStore.userData?.isMentor) ? (
-                <ApanelLessonPage />
-              ) : (
-                <Redirect to="/" />
-              )
-            }
-          />
-          <Route
-            path="/apanel/course:courseID/sub:subID"
-            exact
-            render={() =>
-              userStore.userAuthStatus &&
-              (userStore.userData?.isTeacher ||
-                userStore.userData?.isMentor) ? (
-                <ApanelSubCoursePage />
-              ) : (
-                <Redirect to="/" />
-              )
-            }
-          />
-          <Route
-            path="/apanel/course:courseID"
-            exact
-            render={() =>
-              userStore.userAuthStatus &&
-              (userStore.userData?.isTeacher ||
-                userStore.userData?.isMentor) ? (
-                <ApanelCoursePage />
-              ) : (
-                <Redirect to="/" />
-              )
-            }
-          />
-          <Route
-            path="/apanel/course"
-            exact
-            render={() =>
-              userStore.userAuthStatus &&
-              (userStore.userData?.isTeacher ||
-                userStore.userData?.isMentor) ? (
-                <ApanelCoursesPage />
-              ) : (
-                <Redirect to="/" />
-              )
-            }
-          />
+                <Route path="/apanel/course:courseID/sub:subID/lesson:lessonID" exact
+                       render={() =>
+                           userStore.userAuthStatus &&
+                           (userStore.userData?.isTeacher ||
+                               userStore.userData?.isMentor) ? (
+                               <ApanelLessonPage/>
+                           ) : (
+                               <Redirect to="/"/>
+                           )
+                       }
+                />
+                <Route path="/apanel/course:courseID/sub:subID" exact
+                       render={() =>
+                           userStore.userAuthStatus &&
+                           (userStore.userData?.isTeacher ||
+                               userStore.userData?.isMentor) ? (
+                               <ApanelSubCoursePage/>
+                           ) : (
+                               <Redirect to="/"/>
+                           )
+                       }
+                />
+                <Route path="/apanel/course:courseID" exact
+                       render={() =>
+                           userStore.userAuthStatus &&
+                           (userStore.userData?.isTeacher ||
+                               userStore.userData?.isMentor) ? (
+                               <ApanelCoursePage/>
+                           ) : (
+                               <Redirect to="/"/>
+                           )
+                       }
+                />
+                <Route path="/apanel/course" exact
+                       render={() =>
+                           userStore.userAuthStatus &&
+                           (userStore.userData?.isTeacher ||
+                               userStore.userData?.isMentor) ? (
+                               <ApanelCoursesPage/>
+                           ) : (
+                               <Redirect to="/"/>
+                           )
+                       }
+                />
+                <Route path="/apanel/progress:courseID/sub:subID/lesson:lessonID" exact
+                       render={() =>
+                           userStore.userAuthStatus &&
+                           (userStore.userData?.isTeacher ||
+                               userStore.userData?.isMentor) ? (
+                               <ApanelProgressLessonPage/>
+                           ) : (
+                               <Redirect to="/"/>
+                           )
+                       }
+                />
+                <Route path="/apanel/progress:courseID/sub:subID" exact
+                       render={() =>
+                           userStore.userAuthStatus &&
+                           (userStore.userData?.isTeacher ||
+                               userStore.userData?.isMentor) ? (
+                               <ApanelProgressSubPage/>
+                           ) : (
+                               <Redirect to="/"/>
+                           )
+                       }
+                />
+                <Route path="/apanel/progress:courseID" exact
+                       render={() =>
+                           <SmartPageContainer isAuthorized isMentorOrTeacher to={"/"}>
+                               <ApanelProgressPage/>
+                           </SmartPageContainer>
+                       }
+                />
+                <Route path="/apanel/progress" exact
+                       render={() =>
+                           <SmartPageContainer isAuthorized isMentorOrTeacher to={"/"}>
+                               <ApanelProgressesPage/>
+                           </SmartPageContainer>
+                       }
+                />
+                <Route
+                    path="/apanel"
+                    exact
+                    render={() => (
+                        <SmartPageContainer isAuthorized isMentorOrTeacher to={"/"}>
+                            {/*<ApanelPage/>*/}
+                            <Redirect to="/apanel/course"/>
+                        </SmartPageContainer>
+                    )}
+                />
 
-          <Route
-            path="/apanel/progress:courseID/sub:subID/lesson:lessonID"
-            exact
-            render={() =>
-              userStore.userAuthStatus &&
-              (userStore.userData?.isTeacher ||
-                userStore.userData?.isMentor) ? (
-                <ApanelProgressLessonPage />
-              ) : (
-                <Redirect to="/" />
-              )
-            }
-          />
-          <Route
-            path="/apanel/progress:courseID/sub:subID"
-            exact
-            render={() =>
-              userStore.userAuthStatus &&
-              (userStore.userData?.isTeacher ||
-                userStore.userData?.isMentor) ? (
-                <ApanelProgressSubPage />
-              ) : (
-                <Redirect to="/" />
-              )
-            }
-          />
-          <Route
-            path="/apanel/progress:courseID"
-            exact
-            render={() =>
-              userStore.userAuthStatus &&
-              (userStore.userData?.isTeacher ||
-                userStore.userData?.isMentor) ? (
-                <ApanelProgressPage />
-              ) : (
-                <Redirect to="/" />
-              )
-            }
-          />
-          <Route
-            path="/apanel/progress"
-            exact
-            render={() =>
-              userStore.userAuthStatus &&
-              (userStore.userData?.isTeacher ||
-                userStore.userData?.isMentor) ? (
-                <ApanelProgressesPage />
-              ) : (
-                <Redirect to="/" />
-              )
-            }
-          />
+                <Route path="/purchases:purchaseID/sub:subID/lesson:lessonID" exact
+                       render={() =>
+                           !userStore.userAuthStatus ? (
+                               <Redirect to="/"/>
+                           ) : (
+                               <PurchasesLessonPage/>
+                           )
+                       }
+                />
+                <Route
+                    path="/purchases:purchaseID/sub:subID"
+                    exact
+                    render={() =>
+                        !userStore.userAuthStatus ? (
+                            <Redirect to="/"/>
+                        ) : (
+                            <PurchasesSubPage/>
+                        )
+                    }
+                />
+                <Route
+                    path="/purchases:purchaseID/purchase"
+                    exact
+                    render={() =>
+                        !userStore.userAuthStatus ? (
+                            <Redirect to="/"/>
+                        ) : (
+                            <PurchasesPurchasePage/>
+                        )
+                    }
+                />
+                <Route
+                    path="/purchases:purchaseID"
+                    exact
+                    render={() =>
+                        !userStore.userAuthStatus ? (
+                            <Redirect to="/"/>
+                        ) : (
+                            <PurchasesCoursePage/>
+                        )
+                    }
+                />
+                <Route
+                    path="/purchases"
+                    exact
+                    render={() =>
+                        !userStore.userAuthStatus ? (
+                            <Redirect to="/"/>
+                        ) : (
+                            <PurchasesPage/>
+                        )
+                    }
+                />
 
-          <Route
-            path="/apanel"
-            exact
-            render={() => (
-              <SmartPageContainer isAuthorized isMentorOrTeacher to={"/"}>
-                <ApanelPage />
-              </SmartPageContainer>
-            )}
-          />
+                <Route
+                    path="/purchases:purchaseID/stats/sub:subID/lesson:lessonID"
+                    exact
+                    render={() =>
+                        !userStore.userAuthStatus ? (
+                            <Redirect to="/"/>
+                        ) : (
+                            <StatsLessonPage/>
+                        )
+                    }
+                />
+                <Route
+                    path="/purchases:purchaseID/stats/sub:subID"
+                    exact
+                    render={() =>
+                        !userStore.userAuthStatus ? <Redirect to="/"/> : <StatsSubPage/>
+                    }
+                />
+                <Route
+                    path="/purchases:purchaseID/stats"
+                    exact
+                    render={() =>
+                        !userStore.userAuthStatus ? <Redirect to="/"/> : <StatsPage/>
+                    }
+                />
 
-          <Route
-            path="/purchases:purchaseID/sub:subID/lesson:lessonID"
-            exact
-            render={() =>
-              !userStore.userAuthStatus ? (
-                <Redirect to="/" />
-              ) : (
-                <PurchasesLessonPage />
-              )
-            }
-          />
-          <Route
-            path="/purchases:purchaseID/sub:subID"
-            exact
-            render={() =>
-              !userStore.userAuthStatus ? (
-                <Redirect to="/" />
-              ) : (
-                <PurchasesSubPage />
-              )
-            }
-          />
-          <Route
-            path="/purchases:purchaseID/purchase"
-            exact
-            render={() =>
-              !userStore.userAuthStatus ? (
-                <Redirect to="/" />
-              ) : (
-                <PurchasesPurchasePage />
-              )
-            }
-          />
-          <Route
-            path="/purchases:purchaseID"
-            exact
-            render={() =>
-              !userStore.userAuthStatus ? (
-                <Redirect to="/" />
-              ) : (
-                <PurchasesCoursePage />
-              )
-            }
-          />
-          <Route
-            path="/purchases"
-            exact
-            render={() =>
-              !userStore.userAuthStatus ? (
-                <Redirect to="/" />
-              ) : (
-                <PurchasesPage />
-              )
-            }
-          />
+                <Route path="/courses" component={CoursesPage} exact/>
+                <Route
+                    path="/courses:courseID/purchase"
+                    exact
+                    render={() =>
+                        !userStore.userAuthStatus ? (
+                            <Redirect to="/"/>
+                        ) : (
+                            <CoursesCoursePurchasePage/>
+                        )
+                    }
+                />
+                <Route path="/courses:courseID" exact component={CoursesCoursePage}/>
 
-          <Route
-            path="/purchases:purchaseID/stats/sub:subID/lesson:lessonID"
-            exact
-            render={() =>
-              !userStore.userAuthStatus ? (
-                <Redirect to="/" />
-              ) : (
-                <StatsLessonPage />
-              )
-            }
-          />
-          <Route
-            path="/purchases:purchaseID/stats/sub:subID"
-            exact
-            render={() =>
-              !userStore.userAuthStatus ? <Redirect to="/" /> : <StatsSubPage />
-            }
-          />
-          <Route
-            path="/purchases:purchaseID/stats"
-            exact
-            render={() =>
-              !userStore.userAuthStatus ? <Redirect to="/" /> : <StatsPage />
-            }
-          />
-
-          <Route path="/courses" component={CoursesPage} exact />
-          <Route
-            path="/courses:courseID/purchase"
-            exact
-            render={() =>
-              !userStore.userAuthStatus ? (
-                <Redirect to="/" />
-              ) : (
-                <CoursesCoursePurchasePage />
-              )
-            }
-          />
-          <Route path="/courses:courseID" exact component={CoursesCoursePage} />
-
-          <Route
-            path="/user"
-            render={() =>
-              !userStore.userAuthStatus ? <Redirect to="/" /> : <UserPage />
-            }
-          />
-          <Route
-            path="/logout"
-            render={() =>
-              !userStore.userAuthStatus ? <Redirect to="/" /> : <LogoutPage />
-            }
-            exact
-          />
-          {/*<Route path='/login'*/}
-          {/*       render={() => props.userStore.userAuthStatus ? <Redirect to='/'/> : <LoginPage/>} exact/>*/}
-          {/*<Route path='/register'*/}
-          {/*       render={() => props.userStore.userAuthStatus ? <Redirect to='/'/> : <RegisterPage/>}*/}
-          {/*       exact/>*/}
-          <Route component={Page404} />
-        </Switch>
-        <Footer />
-        <SVG />
-        <RootModal />
-      </Router>
+                <Route
+                    path="/user"
+                    render={() =>
+                        !userStore.userAuthStatus ? <Redirect to="/"/> : <UserPage/>
+                    }
+                />
+                <Route
+                    path="/logout"
+                    render={() =>
+                        !userStore.userAuthStatus ? <Redirect to="/"/> : <LogoutPage/>
+                    }
+                    exact
+                />
+                {/*<Route path='/login'*/}
+                {/*       render={() => props.userStore.userAuthStatus ? <Redirect to='/'/> : <LoginPage/>} exact/>*/}
+                {/*<Route path='/register'*/}
+                {/*       render={() => props.userStore.userAuthStatus ? <Redirect to='/'/> : <RegisterPage/>}*/}
+                {/*       exact/>*/}
+                <Route component={Page404}/>
+            </Switch>
+            <Footer/>
+            <SVG/>
+            <RootModal/>
+        </Router>
     );
-  })
-);
+}));
 
 export default PageService;

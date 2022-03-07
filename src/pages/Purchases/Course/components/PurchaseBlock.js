@@ -105,7 +105,7 @@ const PurchaseBlock = inject('purchaseStore', 'modalStore')(observer((store) => 
                             </div>
                         </div>
                         <div className={'SubCourses'}>
-                            <h3>подкурсы</h3>
+                            <h3>разделы</h3>
                             {getButtonSubCourses()}
                         </div>
                     </div>

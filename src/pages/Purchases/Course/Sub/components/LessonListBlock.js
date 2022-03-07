@@ -39,7 +39,7 @@ const LessonListBlock = inject('purchaseStore', 'subCourseStore', 'lessonStore',
                             {type === 'lecture' && 'Лекция'}
                             {type === 'testPOL' && 'Тест на пол.'}
                             {type === 'testCHL' && 'Тест на цел.'}
-                            {type === 'taskABC' && 'Задание'}
+                            {type === 'taskABC' && 'Лабораторная работа'}
                         </div>
                         {/*{item.homework &&*/}
                         {/*<div className="LessonList__Left__Item__Data__Chips__Item">*/}

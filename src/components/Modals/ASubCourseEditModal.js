@@ -45,7 +45,7 @@ const ASubCourseEditModal = inject('userStore', 'modalStore', 'acourseStore', 'a
     return (
         <Modal show={modalStore.ASubCourseEditModalStatus} centered onHide={modalStore.ASubCourseEditModalClose}>
             <Modal.Header>
-                <Modal.Title>Редактирование подкурса</Modal.Title>
+                <Modal.Title>Редактирование раздела</Modal.Title>
                 <button type="button" className="btn-close" aria-label="Close"
                         onClick={modalStore.ASubCourseEditModalClose}/>
             </Modal.Header>

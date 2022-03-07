@@ -26,16 +26,16 @@ const TransactionAdd = inject('userStore', 'apurchaseStore')(observer((store) =>
                 <div className="Course__Item__Header">
                     <div className="Course__Item__Data Course__Item__Block">
                         <div className="Course__Item__Title">
-                            <p>Добавить в подкурс</p>
+                            <p>Добавить в раздел</p>
                         </div>
                         <form className={'d-flex flex-column'} onSubmit={handleSubmit(onSubmitAdd)}>
                             <Row className={'mb-3'}>
                                 <Col md={8}>
                                     <div className="form-floating">
                                         <select className="form-select" id={'subCourse'}
-                                                required defaultValue={''} aria-label="Выберите подкурс"
+                                                required defaultValue={''} aria-label="Выберите раздел"
                                                 placeholder={'Курс'} {...register('subCourse', {valueAsNumber: true})}>
-                                            <option value={''} disabled>Выберите подкурс</option>
+                                            <option value={''} disabled>Выберите раздел</option>
                                             {getUnboughtCourses()}
                                         </select>
                                         <label htmlFor={'subCourse'}>Курс</label>

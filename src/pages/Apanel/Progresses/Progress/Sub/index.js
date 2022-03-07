@@ -57,9 +57,9 @@ const ApanelProgressSubPage = inject('userStore', 'aprogressStore', 'aprogressSu
                                                         <div className="WhiteBlock__Item__Header">
                                                             <div className="WhiteBlock__Item__Data">
                                                                 <div className="WhiteBlock__Item__Title">
-                                                                    <p>Отображается статистика по ПОДКУРСУ</p>
+                                                                    <p>Отображается статистика по РАЗДЕЛУ</p>
                                                                     <span>Курс: <b>{aprogressStore.courseData?.name}</b></span>
-                                                                    <span>Подкурс: <b>{aprogressSubStore.subData?.name}</b></span>
+                                                                    <span>Раздел: <b>{aprogressSubStore.subData?.name}</b></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -69,7 +69,7 @@ const ApanelProgressSubPage = inject('userStore', 'aprogressStore', 'aprogressSu
                                                     <RadarDiagramBlock
                                                         list={aprogressSubStore?.subData?.userProgress}/> :
                                                     <div className="display-6">
-                                                        Еще никто не прошел тестирование по данному подкурсу
+                                                        Еще никто не прошел тестирование по данному разделу
                                                     </div>}
                                             </>}
                                     </Col>

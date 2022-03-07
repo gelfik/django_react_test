@@ -21,11 +21,11 @@ const FilterBlock = inject('userStore', 'modalStore', 'acourseStore', 'apurchase
                 </FloatingLabel>
             </div>
             <div className="col-lg-4 col-12">
-                <FloatingLabel controlId="floatingSelectSubCourseName" label="Подкурс">
-                    <Form.Select aria-label="Выберите подкурс" onChange={e => {
+                <FloatingLabel controlId="floatingSelectSubCourseName" label="раздел">
+                    <Form.Select aria-label="Выберите раздел" onChange={e => {
                         apurchaseStore.setFilterRequest('courseSub', e.target.value)
                     }}>
-                        <option value={'Все подкурсы'}>Все подкурсы</option>
+                        <option value={'Все разделы'}>Все разделы</option>
                         {getItemGroupName()}
                     </Form.Select>
                 </FloatingLabel>

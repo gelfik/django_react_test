@@ -110,7 +110,7 @@ const Header = inject("userStore", "modalStore", "uiStore")(observer((stores) =>
                                     </Nav.Link>
                                 </> : <>
                                     <Nav.Link as={Link} to={"/apanel"}>
-                                        Управление
+                                        Преподавательская
                                     </Nav.Link>
                                 </>}
                             </>}

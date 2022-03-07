@@ -67,7 +67,7 @@ const ALessonAddModal = inject('userStore', 'modalStore', 'acourseStore', 'asubC
                                      {!alessonStore.lessonData?.testCHL &&
                                     <option value={'testCHL'}>Тест на целостность</option>}
                                     {!alessonStore.lessonData?.taskABC &&
-                                    <option value={'taskABC'}>Задание</option>}
+                                    <option value={'taskABC'}>Лабораторная работа</option>}
                                 </Form.Select>
                             </FloatingLabel>
                             {alessonStore?.response && alessonStore?.response['lessonType'] &&

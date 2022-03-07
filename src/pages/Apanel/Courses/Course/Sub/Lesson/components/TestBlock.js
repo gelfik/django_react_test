@@ -90,6 +90,9 @@ const TestBlock = inject('atestStore', 'alessonStore', 'modalStore')(observer((s
 
 
     return (<div className="LessonList__Right__Data__Homework">
+        <div className="LessonList__Right__Data__Title">
+            {alessonStore.getTest()?.name}
+        </div>
         <div className="LessonList__Right__Data__Homework__Step">
             <Carousel
                 responsive={responsive}

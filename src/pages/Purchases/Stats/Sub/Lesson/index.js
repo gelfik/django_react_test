@@ -54,7 +54,7 @@ const StatsLessonPage = inject('userStore', 'progressStore', 'progressSubStore',
                                                                 <div className="WhiteBlock__Item__Title">
                                                                     <p>Отображается статистика по ЗАНЯТИЮ</p>
                                                                     <span>Курс: <b>{progressStore.purchaseData?.course?.name}</b></span>
-                                                                    <span>Подкурс: <b>{progressSubStore.subData?.name}</b></span>
+                                                                    <span>Раздел: <b>{progressSubStore.subData?.name}</b></span>
                                                                     <span>Занятие: <b>{progressLessonStore.lessonData?.date}</b></span>
                                                                 </div>
                                                             </div>

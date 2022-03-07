@@ -59,7 +59,7 @@ const ApanelProgressLessonPage = inject('userStore', 'aprogressStore', 'aprogres
                                                                 <div className="WhiteBlock__Item__Title">
                                                                     <p>Отображается статистика по ЗАНЯТИЮ</p>
                                                                     <span>Курс: <b>{aprogressStore.courseData?.name}</b></span>
-                                                                    <span>Подкурс: <b>{aprogressSubStore.subData?.name}</b></span>
+                                                                    <span>Раздел: <b>{aprogressSubStore.subData?.name}</b></span>
                                                                     <span>Занятие: <b>{aprogressLessonStore.lessonData?.date}</b></span>
                                                                 </div>
                                                             </div>

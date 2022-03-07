@@ -39,7 +39,7 @@ const APurchaseUserModal = inject('modalStore', 'acourseStore')(observer((stores
                     <div className="Purchase__Item__Content">
                         <div className="Purchase__Item__SubCourse">
                             <div className="Purchase__Item__SubCourse__Title">
-                                купленные подкурсы
+                                купленные разделы
                             </div>
                             <div className="Purchase__Item__SubCourse__Data">
                                 {acourseStore?.courseData?.purchaseList?.length > 0 && getSubCourseData()}
@@ -57,7 +57,7 @@ const APurchaseUserModal = inject('modalStore', 'acourseStore')(observer((stores
                                                 дата
                                             </div>
                                             <div className="Table__Col">
-                                                подкурс
+                                                раздел
                                             </div>
                                             <div className="Table__Col">
                                                 сумма

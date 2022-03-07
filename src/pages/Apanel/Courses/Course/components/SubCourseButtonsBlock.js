@@ -29,7 +29,7 @@ const SubCourseButtonsBlock = inject('userStore', 'acourseStore', 'modalStore', 
         const getNotActive = () => {
             return <div className={'SubCourses'}>
                 <div className={'SubCourses__Title'}>
-                    <span>подкурсы </span>
+                    <span>разделы </span>
                     {acourseStore.courseData?.draft &&
                     <svg aria-hidden="true" height="20" width="20" className={'SubCourses__PlusButton'}
                          onClick={modalStore.ASubCourseAddModalShow}>
@@ -43,7 +43,7 @@ const SubCourseButtonsBlock = inject('userStore', 'acourseStore', 'modalStore', 
         const getActive = () => {
             return <>{accordionStatus ? <div className={'SubCourses'}>
                 <div className={'SubCourses__Title'}>
-                    <span>подкурсы </span>
+                    <span>разделы </span>
                     {acourseStore.courseData?.draft &&
                     <svg aria-hidden="true" height="20" width="20" className={'SubCourses__PlusButton'}
                          onClick={modalStore.ASubCourseAddModalShow}>
@@ -60,7 +60,7 @@ const SubCourseButtonsBlock = inject('userStore', 'acourseStore', 'modalStore', 
                 {/*</button>*/}
             </div> : <div className={'SubCourses'}>
                 <div className={'SubCourses__Title'}>
-                    <span>активный подкурс </span>
+                    <span>активный раздел </span>
                 </div>
                 <button type="button"
                         className={`btn btn-outline-dark SubCourses__ButtonSubActive active`}>
@@ -77,7 +77,7 @@ const SubCourseButtonsBlock = inject('userStore', 'acourseStore', 'modalStore', 
                             SetAccordion(true)
                             history.push(`/apanel/course${queryParams?.courseID}`)
                         }}>
-                    сменить подкурс
+                    сменить раздел
                 </button>
             </div>}
 

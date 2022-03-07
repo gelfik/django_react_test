@@ -14,7 +14,7 @@ export default class APurchaseStore {
     _spinner = new SpinnerStore()
 
     _filterRequest = {
-        courseSub: 'Все подкурсы',
+        courseSub: 'Все разделы',
         search: '',
         page: 1
     }
@@ -111,7 +111,7 @@ export default class APurchaseStore {
     loadFilterRequest = (CourseID) => {
         // let query = '?'
         const data = {}
-        if (this.filterRequest['courseSub'] !== 'Все подкурсы') {
+        if (this.filterRequest['courseSub'] !== 'Все разделы') {
             data['courseSub'] = this.filterRequest['courseSub']
             if (this.filterRequestOld['courseSub'] !== data['courseSub']) {
                 this.filterRequest['courseSub'] = 1

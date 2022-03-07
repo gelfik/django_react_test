@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import {inject, observer} from "mobx-react";
 import {Link} from "react-router-dom";
 import Spinner from "../../../../components/Spinner";
+import {declOfNum, PurchasesDict} from "../../../../utils/DeclOfNumService";
 
 const CoursesBlock = inject('userStore', 'acoursesListStore')(observer((store) => {
     const {acoursesListStore} = store
@@ -55,7 +56,7 @@ const CoursesBlock = inject('userStore', 'acoursesListStore')(observer((store) =
                             </div>}
                             {!item?.draft &&
                             <div className="Course__Item__APanel__UserCount">
-                                <p>{item?.purchaseCount} покупок</p>
+                                <p>{item?.purchaseCount} {declOfNum(item?.purchaseCount, PurchasesDict)}</p>
                             </div>}
                         </div>
                     </div>

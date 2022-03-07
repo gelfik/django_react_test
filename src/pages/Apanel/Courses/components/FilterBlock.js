@@ -90,7 +90,9 @@ const FilterBlock = inject('userStore', 'acoursesListStore', 'modalStore')(obser
                 </FloatingLabel>
             </div>
             <div className="col-lg-2 col-12">
-                <button className={'btn btn-dark ButtonCentered'} onClick={modalStore.CourseAddModalShow}>Добавить курс</button>
+                <button className={'btn btn-dark ButtonCentered'} onClick={modalStore.CourseAddModalShow}>Добавить
+                    курс
+                </button>
             </div>
         </div>
     )

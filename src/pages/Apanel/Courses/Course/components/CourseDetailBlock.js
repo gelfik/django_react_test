@@ -55,16 +55,7 @@ const CourseDetailBlock = inject('userStore', 'acourseStore', 'modalStore')(obse
                                     {acourseStore?.courseData?.shortDescription}
                                 </div>
                                 <div className="Description">
-                                    {acourseStore?.courseData?.description} Lorem ipsum dolor sit amet,
-                                    consectetur
-                                    adipisicing elit. Ad adipisci alias aliquam aspernatur commodi, deserunt ea fugit
-                                    harum
-                                    illum impedit molestiae necessitatibus optio quo repudiandae tempora temporibus
-                                    tenetur
-                                    veniam. Adipisci esse fuga harum incidunt nostrum reiciendis veniam voluptatem? Ea
-                                    exercitationem minus quos reprehenderit. Animi enim expedita perspiciatis tempora
-                                    unde
-                                    ut.
+                                    {acourseStore?.courseData?.description}
                                 </div>
                                 <div className="EditData">
                                     {acourseStore?.courseData?.draft &&

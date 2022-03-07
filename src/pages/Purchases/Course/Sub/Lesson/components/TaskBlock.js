@@ -45,7 +45,7 @@ const TaskBlock = inject('userStore', 'lessonStore')(observer((store) => {
             {/*       className={'fileLoadInput'} ref={fileRef} onChange={loadfile}/>*/}
 
             <Form.Group controlId="fileLoadInput" className="mb-3">
-                <Form.Label>Загрузите файл с ответом на задание:</Form.Label>
+                <Form.Label>Загрузите файл с решением лабораторной работы:</Form.Label>
                 <Form.Control type="file" name={'file'} ref={fileRef} onChange={loadfile}/>
             </Form.Group>
         </label>

@@ -53,9 +53,9 @@ const StatsSubPage = inject('userStore', 'progressStore', 'progressSubStore')(ob
                                                         <div className="WhiteBlock__Item__Header">
                                                             <div className="WhiteBlock__Item__Data">
                                                                 <div className="WhiteBlock__Item__Title">
-                                                                    <p>Отображается статистика по ПОДКУРСУ</p>
+                                                                    <p>Отображается статистика по РАЗДЕЛУ</p>
                                                                     <span>Курс: <b>{progressStore.purchaseData?.course?.name}</b></span>
-                                                                    <span>Подкурс: <b>{progressSubStore.subData?.name}</b></span>
+                                                                    <span>Раздел: <b>{progressSubStore.subData?.name}</b></span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -65,7 +65,7 @@ const StatsSubPage = inject('userStore', 'progressStore', 'progressSubStore')(ob
                                                     <RadarDiagramBlock
                                                         item={progressSubStore?.subData?.userProgress}/> :
                                                     <div className="display-6">
-                                                        Вы ещё не прошли тестирование по данному подкурсу
+                                                        Вы ещё не прошли тестирование по данному разделу
                                                     </div>}
                                             </>}
                                     </Col>

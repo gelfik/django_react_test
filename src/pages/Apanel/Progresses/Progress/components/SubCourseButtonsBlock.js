@@ -29,7 +29,7 @@ const SubCourseButtonsBlock = inject('userStore', 'aprogressStore', 'aprogressSu
         const getNotActive = () => {
             return <div className={'SubCourses'}>
                 <div className={'SubCourses__Title'}>
-                    <span>подкурсы </span>
+                    <span>разделы </span>
                 </div>
                 {getButtonSubCourses()}
             </div>
@@ -38,12 +38,12 @@ const SubCourseButtonsBlock = inject('userStore', 'aprogressStore', 'aprogressSu
         const getActive = () => {
             return <>{accordionStatus ? <div className={'SubCourses'}>
                 <div className={'SubCourses__Title'}>
-                    <span>подкурсы </span>
+                    <span>разделы </span>
                 </div>
                 {getButtonSubCourses()}
             </div> : <div className={'SubCourses'}>
                 <div className={'SubCourses__Title'}>
-                    <span>активный подкурс </span>
+                    <span>активный раздел </span>
                 </div>
                 <button type="button"
                         className={`btn btn-outline-dark SubCourses__ButtonSubActive active`}>
@@ -55,7 +55,7 @@ const SubCourseButtonsBlock = inject('userStore', 'aprogressStore', 'aprogressSu
                             SetAccordion(true)
                             history.push(`/apanel/progress${queryParams?.courseID}`)
                         }}>
-                    сменить подкурс
+                    сменить раздел
                 </button>
             </div>}
 

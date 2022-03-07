@@ -21,7 +21,7 @@ const SubCoursesButtonBlock = inject('purchaseStore', 'purCoursePageStore', 'sub
 
     return (
         <section className={'SubCourses'}>
-            <h3>подкурсы</h3>
+            <h3>разделы</h3>
             {getButtonSubCourses()}
         </section>
     )

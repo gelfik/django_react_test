@@ -33,7 +33,7 @@ const TransactionBlock = inject('userStore', 'apurchaseStore')(observer((store) 
                                 дата
                             </div>
                             <div className="Table__Col">
-                                подкурс
+                                раздел
                             </div>
                             <div className="Table__Col">
                                 сумма

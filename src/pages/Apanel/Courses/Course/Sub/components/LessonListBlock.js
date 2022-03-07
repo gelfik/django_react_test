@@ -40,7 +40,7 @@ const LessonListBlock = inject('userStore', 'asubCourseStore', 'modalStore', 'al
                             {type === 'lecture' && 'Лекция'}
                             {type === 'testPOL' && 'Тест на пол.'}
                             {type === 'testCHL' && 'Тест на цел.'}
-                            {type === 'taskABC' && 'Задание'}
+                            {type === 'taskABC' && 'Лабораторная работа'}
                         </div>
                         <svg fill="none" height="20" width="20" onClick={modalStore.ALessonEditModalShow}>
                             <use xlinkHref={'#icon-pencil'}/>

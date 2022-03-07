@@ -59,16 +59,7 @@ const BannerBlock = inject('userStore', 'coursePageStore', 'modalStore', 'course
                                         </div>
                                     </div>
                                     <div className="Description">
-                                        {courseStore?.courseData?.shortDescription} Lorem ipsum dolor sit amet,
-                                        consectetur
-                                        adipisicing elit. Ad adipisci alias aliquam aspernatur commodi, deserunt ea fugit
-                                        harum
-                                        illum impedit molestiae necessitatibus optio quo repudiandae tempora temporibus
-                                        tenetur
-                                        veniam. Adipisci esse fuga harum incidunt nostrum reiciendis veniam voluptatem? Ea
-                                        exercitationem minus quos reprehenderit. Animi enim expedita perspiciatis tempora
-                                        unde
-                                        ut.
+                                        {courseStore?.courseData?.shortDescription}
                                     </div>
                                     <div className="DetailCourse">
                                         <div className="DetailCourse__Item DetailCourse__CourseData">
