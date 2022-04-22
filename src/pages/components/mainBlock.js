@@ -3,6 +3,7 @@ import { inject, observer } from "mobx-react";
 import macbookBack from "../../img/macbook-back.png";
 import macbookFace from "../../img/macbook-face.png";
 import sitePage from "../../img/site-page.png";
+import { Link } from "react-router-dom";
 
 const MainBlock = inject(
   "userStore",
@@ -20,12 +21,15 @@ const MainBlock = inject(
                 <div className="banner-logo d-flex align-items-center justify-content-center">
                   <div className="banner-logo__title">izzibrain</div>
                 </div>
-                <div className="banner-button d-flex align-items-center">
+                <Link
+                  to={`/courses`}
+                  className="banner-button d-flex align-items-center"
+                >
                   <div className="banner-button__title">вперед к знаниям</div>
                   <svg width="117" height="23">
                     <use xlinkHref={"#icon-arrow"} />
                   </svg>
-                </div>
+                </Link>
               </div>
             </div>
             <div className="banner-width mobile-none">
