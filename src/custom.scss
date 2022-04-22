@@ -283,10 +283,19 @@ body {
   margin-bottom: 0;
 }
 
+.bg-gray {
+  background-color: #e7e9ed;
+}
+
 .new-section {
-  padding-top: 100px;
-  padding-bottom: 50px;
-  @extend .rounded-4;
+  padding-top: 80px;
+  padding-bottom: 200px;
+  //@extend .rounded-4;
+
+  @media (max-width: 767px) {
+    padding-top: 40px;
+    padding-bottom: 100px;
+  }
 }
 
 .dropdown-menu-dark {
@@ -2114,13 +2123,13 @@ li {
       }
     }
 
-    &__Block{
+    &__Block {
       display: block;
     }
   }
 
-  .WhiteBlock__Item{
-      height: 100%;
+  .WhiteBlock__Item {
+    height: 100%;
   }
 
 }
@@ -4342,6 +4351,201 @@ li {
       }
     }
   }
+}
+
+.banner {
+  .new-line {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &-width {
+    width: 50%;
+    @media (max-width: 767px) {
+      width: 100%
+    }
+  }
+
+  &-title {
+    font-family: 'Gilroy';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 96px;
+    //line-height: 127.52%;
+    line-height: 122px;
+
+    letter-spacing: -0.025em;
+
+    color: #212121;
+    padding: 0;
+    padding-bottom: 78px;
 
 
+    @media (max-width: 767px) {
+      font-size: 80px;
+      line-height: 70px;
+    }
+  }
+
+  &-logo {
+    align-items: center !important;
+    justify-content: center !important;
+    display: flex !important;
+    position: absolute;
+    width: 165px;
+    height: 54px;
+    background: #EF5858;
+    transform: rotate(-25.68deg);
+    left: calc(50% - 680px + 275px);
+    top: 350px;
+    animation: my-animation 4s infinite linear;
+    border-radius: 5px;
+
+    @media (max-width: 767px) {
+      left: calc(50% - 399px + 395px);
+      top: 295px;
+    }
+
+    &__title {
+      font-family: 'Gilroy';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 36px;
+      line-height: 42px;
+      color: #FFFFFF;
+    }
+  }
+
+  &-button {
+    border: 1px solid #212121;
+    box-sizing: border-box;
+    cursor: pointer;
+    margin-bottom: 182px;
+    padding: 0 24px 0 24px;
+    border-radius: 5px;
+    background: #FFFFFF;
+
+    @media (max-width: 767px) {
+      margin-bottom: 90px;
+    }
+
+    &__title {
+      font-family: 'Gilroy';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 40px;
+      line-height: 46px;
+      color: #212121;
+      padding-right: 37px;
+      padding-bottom: 8px;
+    }
+  }
+
+  &-right {
+    justify-content: flex-end !important;
+
+    &-ellipse {
+      height: 510px;
+      width: 510px;
+      background-color: #414141;
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    &-macbook_back {
+      position: absolute;
+      z-index: 2;
+      width: 588px;
+      height: 356px;
+      left: calc(50% - 680px + 570px);
+      top: 200px;
+    }
+
+    &-macbook_face {
+      position: absolute;
+      z-index: 3;
+      width: 714px;
+      height: 356px;
+      left: calc(50% - 680px + 810px);
+      top: 200px;
+    }
+
+    &-site_page {
+      position: absolute;
+      z-index: 3;
+      width: 408px;
+      height: 320px;
+      left: calc(50% - 680px + 822px);
+      top: 208px;
+    }
+
+    &-logo {
+      z-index: 4;
+      align-items: center !important;
+      justify-content: center !important;
+      display: flex !important;
+      position: absolute;
+      width: 345px;
+      height: 54px;
+      background: #EFCE58;
+      transform: rotate(29.17deg);
+      left: calc(50% - 680px + 650px);
+      top: 470px;
+      border-radius: 5px;
+
+      &__title {
+        font-family: 'Gilroy';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 36px;
+        line-height: 42px;
+        color: #FFFFFF;
+      }
+    }
+  }
+
+  &-badge {
+    :not(:last-child) {
+      margin-right: 50px;
+    }
+
+    &__item {
+      width: 200px;
+      height: 150px;
+      background: #383838;
+      border-radius: 33px;
+    }
+  }
+}
+
+
+@keyframes my-animation {
+  from {
+    opacity: 1;
+    transform: translateX(0px) translateY(0px) rotate(-25.68deg) scale(1, 1);
+    animation-timing-function: linear;
+  }
+
+  25% {
+    opacity: 1;
+    transform: translateX(10px) translateY(-7px) rotate(-25.68deg) scale(1, 1);
+    animation-timing-function: linear;
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateX(-20px) translateY(-17px) rotate(-25.68deg) scale(1, 1);
+    animation-timing-function: linear;
+  }
+
+  75% {
+    opacity: 1;
+    transform: translateX(-30px px) translateY(-7px) rotate(-25.68deg) scale(1, 1);
+    animation-timing-function: linear;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0px) translateY(0px) rotate(-25.68deg) scale(1, 1);
+  }
 }
