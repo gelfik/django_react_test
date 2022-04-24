@@ -68,7 +68,9 @@ $utilities: map-merge(
 );
 
 @import "../node_modules/bootstrap/scss/bootstrap";
-@import "mixins";
+@import "styles/mixins";
+
+@import "styles/Gilroy.css";
 
 p {
   margin-bottom: 0;
@@ -4354,6 +4356,10 @@ li {
 }
 
 .banner {
+
+  font-family: 'Gilroy';
+  font-style: normal;
+
   .new-line {
     display: flex;
     flex-wrap: wrap;
@@ -4367,10 +4373,8 @@ li {
   }
 
   &-title {
-    font-family: 'Gilroy';
-    font-style: normal;
     font-weight: 500;
-    font-size: 96px;
+    font-size: 94px;
     //line-height: 127.52%;
     line-height: 122px;
 
@@ -4382,8 +4386,9 @@ li {
 
 
     @media (max-width: 767px) {
-      font-size: 80px;
-      line-height: 70px;
+      font-size: 62px;
+      line-height: 56px;
+      padding-bottom: 28px;
     }
   }
 
@@ -4395,20 +4400,20 @@ li {
     width: 165px;
     height: 54px;
     background: #EF5858;
-    transform: rotate(-25.68deg);
+    transform: rotate(-26deg);
     left: calc(50% - 680px + 275px);
     top: 350px;
     animation: my-animation 4s infinite linear;
     border-radius: 5px;
 
     @media (max-width: 767px) {
-      left: calc(50% - 399px + 395px);
-      top: 295px;
+      left: calc(50% - 399px + 415px);
+      top: 100px;
+      animation: my-animation-mobile 4s infinite linear;
+      transform: rotate(15deg);
     }
 
     &__title {
-      font-family: 'Gilroy';
-      font-style: normal;
       font-weight: 400;
       font-size: 36px;
       line-height: 42px;
@@ -4426,13 +4431,17 @@ li {
     border-radius: 5px;
     background: #FFFFFF;
 
+    transition: .2s ease-in-out all;
+
+    &:hover {
+      transform: scale(1.1, 1.1);
+    }
+
     @media (max-width: 767px) {
-      margin-bottom: 90px;
+      margin-bottom: 35px;
     }
 
     &__title {
-      font-family: 'Gilroy';
-      font-style: normal;
       font-weight: 400;
       font-size: 40px;
       line-height: 46px;
@@ -4465,7 +4474,7 @@ li {
     &-macbook_face {
       position: absolute;
       z-index: 3;
-      width: 714px;
+      width: 591px;
       height: 356px;
       left: calc(50% - 680px + 810px);
       top: 200px;
@@ -4495,8 +4504,6 @@ li {
       border-radius: 5px;
 
       &__title {
-        font-family: 'Gilroy';
-        font-style: normal;
         font-weight: 400;
         font-size: 36px;
         line-height: 42px;
@@ -4506,13 +4513,8 @@ li {
   }
 
   &-badge {
-    :not(:last-child) {
-      margin-right: 50px;
-    }
-
-
     &__item {
-      width: 20%;
+      width: calc(25% - 20px);
       height: 150px;
       background: #383838;
       border-radius: 33px;
@@ -4521,13 +4523,21 @@ li {
       justify-content: center !important;
       align-items: center !important;
 
-      div {
-        margin: 0 !important;
+      margin: 10px;
+
+      transition: .2s ease-in-out all;
+
+      &:hover {
+        transform: scale(1.1, 1.1);
       }
 
+      @media (max-width: 767px) {
+        width: calc(50% - 20px);
+        border-radius: 20px;
+      }
+
+
       &__title {
-        font-family: 'Gilroy';
-        font-style: normal;
         font-weight: 600;
         font-size: 44px;
         line-height: 44px;
@@ -4536,11 +4546,15 @@ li {
         height: 50%;
         align-items: flex-end !important;
         display: flex;
+
+        @media (max-width: 767px) {
+          align-items: center !important;
+          font-size: 22px;
+          line-height: 22px;
+        }
       }
 
       &__text {
-        font-family: 'Gilroy';
-        font-style: normal;
         font-weight: 500;
         font-size: 22px;
         line-height: 28px;
@@ -4550,6 +4564,11 @@ li {
         height: 50%;
         align-items: center !important;
         display: flex;
+
+        @media (max-width: 767px) {
+          font-size: 18px;
+          line-height: 20px;
+        }
       }
     }
   }
@@ -4559,30 +4578,61 @@ li {
 @keyframes my-animation {
   from {
     opacity: 1;
-    transform: translateX(0px) translateY(0px) rotate(-25.68deg) scale(1, 1);
+    transform: translateX(0px) translateY(0px) rotate(-26deg) scale(1, 1);
     animation-timing-function: linear;
   }
 
   25% {
     opacity: 1;
-    transform: translateX(10px) translateY(-7px) rotate(-25.68deg) scale(1, 1);
+    transform: translateX(10px) translateY(-7px) rotate(-26deg) scale(1, 1);
     animation-timing-function: linear;
   }
 
   50% {
     opacity: 1;
-    transform: translateX(-20px) translateY(-17px) rotate(-25.68deg) scale(1, 1);
+    transform: translateX(-20px) translateY(-17px) rotate(-26deg) scale(1, 1);
     animation-timing-function: linear;
   }
 
   75% {
     opacity: 1;
-    transform: translateX(-30px px) translateY(-7px) rotate(-25.68deg) scale(1, 1);
+    transform: translateX(-30px px) translateY(-7px) rotate(-26deg) scale(1, 1);
     animation-timing-function: linear;
   }
 
   100% {
     opacity: 1;
-    transform: translateX(0px) translateY(0px) rotate(-25.68deg) scale(1, 1);
+    transform: translateX(0px) translateY(0px) rotate(-26deg) scale(1, 1);
+  }
+}
+
+@keyframes my-animation-mobile {
+  from {
+    opacity: 1;
+    transform: translateX(0px) translateY(0px) rotate(15deg) scale(1, 1);
+    animation-timing-function: linear;
+  }
+
+  25% {
+    opacity: 1;
+    transform: translateX(10px) translateY(-7px) rotate(15deg) scale(1, 1);
+    animation-timing-function: linear;
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateX(-20px) translateY(-17px) rotate(15deg) scale(1, 1);
+    animation-timing-function: linear;
+  }
+
+  75% {
+    opacity: 1;
+    transform: translateX(-30px px) translateY(-7px) rotate(15deg) scale(1, 1);
+    animation-timing-function: linear;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0px) translateY(0px) rotate(15deg) scale(1, 1);
   }
 }
