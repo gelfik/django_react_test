@@ -242,6 +242,7 @@ p {
 body {
   @extend .min-vh-100;
   overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 
@@ -4453,6 +4454,9 @@ li {
 
   &-right {
     justify-content: flex-end !important;
+    position: relative;
+    //overflow: hidden;
+    clip-path: inset(-100vw 0 -100vw -100vw);
 
     &-ellipse {
       height: 510px;
@@ -4467,8 +4471,8 @@ li {
       z-index: 2;
       width: 588px;
       height: 356px;
-      left: calc(50% - 680px + 570px);
-      top: 200px;
+      left: calc(50% - 410px);
+      top: 40px;
     }
 
     &-macbook_face {
@@ -4476,8 +4480,8 @@ li {
       z-index: 3;
       width: 716px;
       height: 356px;
-      left: calc(50% - 680px + 810px);
-      top: 200px;
+      left: calc(50% - 170px);
+      top: 40px;
     }
 
     &-site_page {
@@ -4485,8 +4489,8 @@ li {
       z-index: 3;
       width: 408px;
       height: 320px;
-      left: calc(50% - 680px + 822px);
-      top: 208px;
+      left: calc(50% - 158px);
+      top: 46px;
     }
 
     &-logo {
@@ -4499,8 +4503,8 @@ li {
       height: 54px;
       background: #EFCE58;
       transform: rotate(29.17deg);
-      left: calc(50% - 680px + 650px);
-      top: 470px;
+      left: calc(50% - 270px);
+      top: 350px;
       border-radius: 5px;
 
       &__title {
