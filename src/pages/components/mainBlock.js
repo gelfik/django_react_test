@@ -59,10 +59,28 @@ const MainBlock = inject(
             </div>
           </div>
           <div className="new-line justify-content-center pt-3 banner-badge">
-            <div className="banner-badge__item"></div>
-            <div className="banner-badge__item"></div>
-            <div className="banner-badge__item"></div>
-            <div className="banner-badge__item"></div>
+            <div className="banner-badge__item">
+              <div className="banner-badge__item__title">24/7</div>
+              <div className="banner-badge__item__text">
+                поддержка от личных кураторов
+              </div>
+            </div>
+            <div className="banner-badge__item">
+              <div className="banner-badge__item__title">ДОМАШКА</div>
+              <div className="banner-badge__item__text">проверка и разбор</div>
+            </div>
+            <div className="banner-badge__item">
+              <div className="banner-badge__item__title">В 5 РАЗ</div>
+              <div className="banner-badge__item__text">
+                дешевле, чем занятия с репетитором
+              </div>
+            </div>
+            <div className="banner-badge__item">
+              <div className="banner-badge__item__title">ПРЕПОД</div>
+              <div className="banner-badge__item__text">
+                эксперт в своей области
+              </div>
+            </div>
           </div>
         </div>
       </div>

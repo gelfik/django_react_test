@@ -4510,11 +4510,47 @@ li {
       margin-right: 50px;
     }
 
+
     &__item {
-      width: 200px;
+      width: 20%;
       height: 150px;
       background: #383838;
       border-radius: 33px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center !important;
+      align-items: center !important;
+
+      div {
+        margin: 0 !important;
+      }
+
+      &__title {
+        font-family: 'Gilroy';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 44px;
+        line-height: 44px;
+        color: #FFFFFF;
+
+        height: 50%;
+        align-items: flex-end !important;
+        display: flex;
+      }
+
+      &__text {
+        font-family: 'Gilroy';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 22px;
+        line-height: 28px;
+        color: #FFFFFF;
+        text-align: center;
+
+        height: 50%;
+        align-items: center !important;
+        display: flex;
+      }
     }
   }
 }
