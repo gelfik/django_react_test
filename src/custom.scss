@@ -70,7 +70,7 @@ $utilities: map-merge(
 @import "../node_modules/bootstrap/scss/bootstrap";
 @import "styles/mixins";
 
-@import "styles/Gilroy.css";
+@import "styles/Gilroy";
 
 p {
   margin-bottom: 0;
@@ -4357,7 +4357,6 @@ li {
 }
 
 .banner {
-
   font-family: 'Gilroy';
   font-style: normal;
 
