@@ -76,48 +76,17 @@ const TeacherBlock = inject(
 );
 
 const TeacherSocial = ({ type, teacher }) => {
-  const svgType = () => {
-    switch (type) {
-      case "vk":
-        return (
-          <svg aria-hidden="true" height="25" width="25">
-            <use xlinkHref={"#icon-vk"} />
-          </svg>
-        );
-      // case "instagram":
-      //   return (
-      //     <svg aria-hidden="true" height="25" width="25">
-      //       <use xlinkHref={"#icon-instagram"} />
-      //     </svg>
-      //   );
-      case "telegram":
-        return (
-          <svg aria-hidden="true" height="25" width="25">
-            <use xlinkHref={"#icon-telegram"} />
-          </svg>
-        );
-      case "youtube":
-        return (
-          <svg aria-hidden="true" height="25" width="25">
-            <use xlinkHref={"#icon-youtube"} />
-          </svg>
-        );
-      default:
-        return null;
-    }
-  };
-
   return (
     <li className="list-inline-item m-0">
       <a
         href={teacher.teacherLink[type]}
         rel="noreferrer"
-        className={
-          "icon-social icon-social--black icon-social--md icon-social--bg-blue"
-        }
+        className="icon-social icon-social--black icon-social--md icon-social--bg-blue"
         target="_blank"
       >
-        {svgType()}
+        <svg aria-hidden="true" height="25" width="25">
+          <use xlinkHref={`#icon-${type}`} />
+        </svg>
       </a>
     </li>
   );
