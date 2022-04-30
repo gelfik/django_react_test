@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { inject, observer } from "mobx-react";
 import TeacherBlock from "./components/teacherBlock";
-import EducationBlock from "./components/educationBlock";
 import MainBlock from "./components/mainBlock";
+import EducationBlock from "./components/educationBlock";
 
 const MainPage = inject("userStore")(
   observer((props) => {
