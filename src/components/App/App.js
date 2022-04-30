@@ -2,6 +2,7 @@ import React from "react";
 import { observer, Provider } from "mobx-react";
 import RootStore from "../../stores";
 import PageService from "../../utils/PageService";
+import "react-multi-carousel/lib/styles.css";
 import { positions, Provider as AlertProvider } from "react-alert";
 import { Alert } from "react-bootstrap";
 
