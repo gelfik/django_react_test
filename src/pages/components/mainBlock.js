@@ -17,7 +17,7 @@ const MainBlock = inject(
           <div className="new-line">
             <div className="banner-width">
               <div className="new-line">
-                <div className="banner-title">учись ускоренно и легко</div>
+                <div className="banner-title">учись быстро и легко</div>
                 <div className="banner-logo d-flex align-items-center justify-content-center">
                   <div className="banner-logo__title">izzibrain</div>
                 </div>
