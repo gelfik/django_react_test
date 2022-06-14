@@ -20,7 +20,6 @@ const AlertTemplate = ({ style, options, message, close }) => (
   <div style={style}>
     {options.type === "info" && (
       <Alert variant="info" onClose={close} dismissible>
-        {/*<Alert.Heading>Oh snap! You got an info!</Alert.Heading>*/}
         <p>{message}</p>
       </Alert>
     )}
@@ -36,8 +35,6 @@ const AlertTemplate = ({ style, options, message, close }) => (
         <p>{message}</p>
       </Alert>
     )}
-
-    {/*<button onClick={close}>X</button>*/}
   </div>
 );
 
