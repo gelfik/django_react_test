@@ -66,7 +66,7 @@ const MainBlock = inject(
               </div>
             </div>
             <div className="banner-badge__item">
-              <div className="banner-badge__item__title">ДОМАШКА</div>
+              <div className="banner-badge__item__title">Д/З</div>
               <div className="banner-badge__item__text">проверка и разбор</div>
             </div>
             <div className="banner-badge__item">
@@ -76,7 +76,7 @@ const MainBlock = inject(
               </div>
             </div>
             <div className="banner-badge__item">
-              <div className="banner-badge__item__title">ПРЕПОД</div>
+              <div className="banner-badge__item__title">УЧИТЕЛЬ</div>
               <div className="banner-badge__item__text">
                 эксперт в своей области
               </div>
