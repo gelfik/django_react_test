@@ -39,6 +39,7 @@ const LoginModal = inject('userStore', 'modalStore', 'loginStore')(observer((sto
                     <button type="submit" className="btn btn-dark" disabled={!loginStore.isButtonDisabled}>Войти
                     </button>
                 </form>
+                <script async src="https://telegram.org/js/telegram-widget.js?21" data-telegram-login="rbgrgsrgv_bot" data-size="large" data-auth-url="https://izzibraindev.gelfik.dev" data-request-access="write">ыкмм</script>
             </Modal.Body>
         </Modal>
     )
