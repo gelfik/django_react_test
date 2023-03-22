@@ -78,7 +78,7 @@ const BuyBlock = inject('purchasePageStore', 'purchaseCourseStore', 'purchaseSto
         purchasePageStore.buyPurchaseData(queryParams?.purchaseID).then(() => {
             if (purchasePageStore.buyCourseStore.buyText.valid !== '') {
                 purchaseStore.setPurchaseID(queryParams?.purchaseID, true)
-                history.push(`/purchases/${queryParams?.purchaseID}`)
+                history.push(`/purchases${queryParams?.purchaseID}`)
             }
         })
     }
@@ -154,7 +154,7 @@ const BuyBlock = inject('purchasePageStore', 'purchaseCourseStore', 'purchaseSto
                     </div>
                     {purchaseCourseStore?.courseData?.countDuration > 1 && <>{!purchasePageStore.payType &&
                     <div className="CourseInfo__SubType">
-                        <h3>выберите подкурс</h3>
+                        <h3>выберите раздел</h3>
                         <div className="CourseInfo__SubType__Data">
                             {getSubCourses()}
                             {/*<div className="CourseInfo__SubType__Data__Wrapper">*/}
@@ -248,13 +248,13 @@ const BuyBlock = inject('purchasePageStore', 'purchaseCourseStore', 'purchaseSto
                             </li>
                             {!purchasePageStore.payType &&
                             <li>
-                                <span>выбранный подкурс</span>
+                                <span>выбранный раздел</span>
                                 <span>{purchasePageStore.buySub.text}</span>
                             </li>
                             }
                             {purchasePageStore.payType &&
                             <li>
-                                <span>кол-во подкурсов</span>
+                                <span>кол-во разделов</span>
                                 <span>{purchaseCourseStore?.courseData?.countDuration}</span>
                             </li>
                             }

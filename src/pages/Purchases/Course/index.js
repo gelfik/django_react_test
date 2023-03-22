@@ -2,7 +2,6 @@ import React, {useEffect} from "react";
 import {inject, observer} from "mobx-react";
 import Spinner from "../../../components/Spinner";
 import PurchaseBlock from "./components/PurchaseBlock";
-import SubCoursesButtonBlock from "./components/SubCoursesButtonBlock";
 import {useHistory, useParams} from "react-router-dom";
 
 const PurchasesCoursePage = inject('userStore', 'purchaseStore')(observer((store) => {
@@ -17,21 +16,20 @@ const PurchasesCoursePage = inject('userStore', 'purchaseStore')(observer((store
         window.scrollTo(0, 0)
     }, [purchaseStore?.purchaseData]);
 
+    useEffect(() => {
+        purchaseStore.setLoadError(false)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     useEffect(() => {
-        if (queryParams?.purchaseID) {
-            purchaseStore.setPurchaseID(queryParams?.purchaseID)
-            if (purchaseStore.loadError) {
-                history.push(`/purchases`)
-            }
-            // if ((purchaseStore.purchaseData.length === 0) || (purchaseStore?.purchaseData?.id !== Number(queryParams?.purchaseID))) {
-            //     purchaseStore.loadPurchaseData(queryParams?.purchaseID).then(() => {
-            //         if (purchaseStore.loadError) {
-            //             history.push(`/purchases`)
-            //         }
-            //     })
-            // }
+        if (purchaseStore.loadError) {
+            history.push(`/purchases`)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [purchaseStore.loadError])
+
+    useEffect(() => {
+        purchaseStore.setPurchaseID(queryParams?.purchaseID)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [queryParams?.purchaseID])
 
@@ -41,7 +39,7 @@ const PurchasesCoursePage = inject('userStore', 'purchaseStore')(observer((store
                 {purchaseStore.spinner.spinnerStatus ? <Spinner type={'local'}/> : <>
                     {!purchaseStore.loadError && <>
                         <PurchaseBlock/>
-                        <SubCoursesButtonBlock/>
+                        {/*<SubCoursesButtonBlock/>*/}
                     </>}
                 </>}
             </div>

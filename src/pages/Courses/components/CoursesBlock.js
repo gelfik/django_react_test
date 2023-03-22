@@ -34,7 +34,7 @@ const CoursesBlock = inject('userStore', 'coursesPageStore')(observer((store) =>
         return coursesPageStore?.coursesData?.results?.map((item, i) =>
                 // <div key={i} className="col-lg-4 col-12">
                 <li key={i} className="trainings__item rounded-4">
-                    <Link className={'card-training'} to={`/courses/${item.id}`}>
+                    <Link className={'card-training'} to={`/courses${item.id}`}>
                         <div className="card-training__info">
                             <div className="card-training__title">
                                 <h3>{item.name}</h3>
@@ -79,7 +79,7 @@ const CoursesBlock = inject('userStore', 'coursesPageStore')(observer((store) =>
             // </div>
         )
     }
-    // {coursesPageStore.spinner.spinnerStatus ? <Spinner type={'local'}/> : <CoursesBlock/>}
+    // {coursesPageStore.spinner.spinnerStatus ? <Spinner type={'local'}/> : <CourseBlock/>}
 
     return (
         <>

@@ -54,8 +54,8 @@ const DesktopUserIcon = inject("userStore")(
     })
 );
 
-const Header = inject("userStore", "modalStore")(observer((stores) => {
-    const {userStore, modalStore} = stores;
+const Header = inject("userStore", "modalStore", "uiStore")(observer((stores) => {
+    const {userStore, modalStore, uiStore} = stores;
     const [expanded, setExpanded] = useState(false);
 
     const getHeaderType = () => {
@@ -94,6 +94,27 @@ const Header = inject("userStore", "modalStore")(observer((stores) => {
                         <Nav.Link as={Link} to={"/purchases"}>
                             Мои курсы
                         </Nav.Link>}
+                        {userStore.userAuthStatus && <>
+                            {userStore.userData.isTeacher &&
+                            <>
+                                {uiStore.deviceType === 'mobile' ? <>
+                                    <hr/>
+                                    <Nav.Link as={Link} to={"/apanel/course"}>
+                                        Курсы
+                                    </Nav.Link>
+                                    <Nav.Link as={Link} to={"/apanel/progress"}>
+                                        Успеваемость
+                                    </Nav.Link>
+                                    <Nav.Link as={Link} to={"/apanel/users"}>
+                                        Пользователи
+                                    </Nav.Link>
+                                </> : <>
+                                    <Nav.Link as={Link} to={"/apanel"}>
+                                        Преподавательская
+                                    </Nav.Link>
+                                </>}
+                            </>}
+                        </>}
                         <div className={"Custom-nav-bar-items"}>
                             {userStore.userAuthStatus &&
                             <div className={"Custom-nav-bar-items-login-mobile"}>

@@ -6,7 +6,6 @@ import PaginationBlock from "./components/PaginationBlock";
 
 const CoursesPage = inject('userStore', 'coursesPageStore', 'spinnerStore')(observer((store) => {
     useEffect(() => {
-        document.title = "Курсы"
         document.body.className = 'bg-light min-vh-100'
         window.scrollTo(0, 0)
     }, []);

@@ -4,12 +4,11 @@ import SpinnerStore from "./SpinnerStore";
 
 export default class LessonStore {
     _lessonData = {}
-
     _spinner = new SpinnerStore()
-
     _loadError = false
-
     _lessonID = undefined
+    _lessonType = undefined
+    _response = {}
 
     constructor($client) {
         makeObservable(this, {
@@ -17,7 +16,7 @@ export default class LessonStore {
             lessonData: computed,
             setLessonData: action,
             loadLessonData: action,
-            loadHomeworkData: action,
+            loadask: action,
 
             _spinner: observable,
             spinner: computed,
@@ -29,10 +28,17 @@ export default class LessonStore {
             _lessonID: observable,
             lessonID: computed,
             setLessonID: action,
+
+            _lessonType: observable,
+            lessonType: computed,
+            setLessonType: action,
+
+            _response: observable,
+            response: computed,
+            setResponse: action,
         })
         this.client = $client;
     }
-
 
 
     get lessonID() {
@@ -69,7 +75,7 @@ export default class LessonStore {
 
     loadLessonData = (purchaseID, subID, lessonID) => {
         this.spinner.setSpinnerStatus(true)
-        return this.client.get(`/purchase/${purchaseID}/sub/${subID}/lesson/${lessonID}/`)
+        return this.client.get(`/purchase${purchaseID}/sub${subID}/lesson${lessonID}`)
             .then(response => {
                 this.setLoadError(false)
                 this.spinner.setSpinnerStatus(false)
@@ -81,17 +87,74 @@ export default class LessonStore {
     }
 
 
-    loadHomeworkData = (purchaseID, subID, lessonID, homeworkID, data) => {
+    loadask = (data, purchaseID, subID) => {
         this.spinner.setSpinnerStatus(true)
-        return this.client.post(`/purchase/${purchaseID}/homework/${homeworkID}/`, data)
+        return this.client.post(`/purchase${purchaseID}/sub${subID}/lesson${this.lessonID}/test${this.getTest().id}`, data)
             .then(response => {
-                this.setLoadError(false)
+                this.setResponse({status: true})
                 this.spinner.setSpinnerStatus(false)
-                this.loadLessonData(purchaseID, subID, lessonID)
-            }).catch(reason => {
-                this.setLoadError(true)
+                this.loadLessonData(purchaseID, subID, this.lessonID)
+            }).catch(errors => {
+                if (errors.response.data?.errors) {
+                    this.setResponse(errors.response.data?.errors)
+                }
+                if (errors.response.data?.detail) {
+                    this.setResponse({error: errors.response.data?.detail})
+                }
+                if (errors.response.data?.error) {
+                    this.setResponse({error: errors.response.data?.error})
+                }
                 this.spinner.setSpinnerStatus(false)
             })
+    }
+
+    loadTaskFile = (data, purchaseID, subID) => {
+        this.spinner.setSpinnerStatus(true)
+        return this.client.put(`/purchase${purchaseID}/sub${subID}/lesson${this.lessonID}/task${this.getTest().id}`, data)
+            .then(response => {
+                this.setResponse({status: true})
+                this.spinner.setSpinnerStatus(false)
+                this.loadLessonData(purchaseID, subID, this.lessonID)
+            }).catch(errors => {
+                if (errors.response.data?.errors) {
+                    this.setResponse(errors.response.data?.errors)
+                }
+                if (errors.response.data?.detail) {
+                    this.setResponse({error: errors.response.data?.detail})
+                }
+                if (errors.response.data?.error) {
+                    this.setResponse({error: errors.response.data?.error})
+                }
+                this.spinner.setSpinnerStatus(false)
+            })
+    }
+
+    get lessonType() {
+        return this._lessonType;
+    }
+
+    setLessonType(value) {
+        this._lessonType = value
+    }
+
+    get response() {
+        return toJS(this._response);
+    }
+
+    setResponse = (value) => {
+        this._response = value
+    }
+
+    getTest = () => {
+        if (this.lessonType === 'testPOL') return this.lessonData?.testPOL
+        if (this.lessonType === 'testCHL') return this.lessonData?.testCHL
+        if (this.lessonType === 'taskABC') return this.lessonData?.taskABC
+    }
+
+    getResultTest = () => {
+        if (this.lessonType === 'testPOL') return this.lessonData?.result?.testPOL
+        if (this.lessonType === 'testCHL') return this.lessonData?.result?.testCHL
+        if (this.lessonType === 'taskABC') return this.lessonData?.result?.taskABC
     }
 
 }

@@ -7,16 +7,16 @@ const PurchaseDetailModal = inject('userStore', 'modalStore', 'purchaseStore')(o
     const {modalStore, purchaseStore} = stores;
 
     const getPayData = () => {
-        return purchaseStore?.purchaseData?.purchasePay?.map((item, i) =>
-            <div key={item} className="Table__Row">
+        return purchaseStore?.purchaseData?.pay?.map((item, i) =>
+            <div key={i} className="Table__Row">
                 <div className="Table__Col">
                     {item.date}
                 </div>
                 <div className="Table__Col">
-                    {item.sumPay === 0 ? 'бесплатно' : 'онлайн оплата'}
+                    {item.courseSub?.name}
                 </div>
                 <div className="Table__Col">
-                    {item.sumPay === 0 ? '-' : `${item.sumPay} ₽`}
+                    {item.sumPay === 0 ? 'бесплатно' : `${item.sumPay} ₽`}
                 </div>
             </div>
         )
@@ -63,7 +63,7 @@ const PurchaseDetailModal = inject('userStore', 'modalStore', 'purchaseStore')(o
                                     </span>
                                 }
                                 {!purchaseStore?.purchaseData?.courseSubAll &&
-                                <Link to={`/purchases/${purchaseStore?.purchaseData?.id}/purchase`}
+                                <Link to={`/purchases${purchaseStore?.purchaseData?.id}/purchase`}
                                       className="Purchase__Item__PayInfo__Link"  onClick={modalStore.PurchaseDetailModalClose}>Докупить
                                     курс</Link>}
                             </div>
@@ -80,7 +80,7 @@ const PurchaseDetailModal = inject('userStore', 'modalStore', 'purchaseStore')(o
                                                 дата
                                             </div>
                                             <div className="Table__Col">
-                                                тип оплаты
+                                                раздел
                                             </div>
                                             <div className="Table__Col">
                                                 сумма

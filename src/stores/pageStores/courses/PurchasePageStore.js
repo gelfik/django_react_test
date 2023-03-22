@@ -107,7 +107,7 @@ export default class PurchasePageStore {
 
     loadCheckBuy = (courseID) => {
         this.spinner.setSpinnerStatus(true)
-        return this.client.post(`/purchase/checkbuy/`, {courseID: courseID})
+        return this.client.post(`/purchase/checkbuy`, {courseID: courseID})
             .then(response => {
                 this.setBuyStatus(response?.data)
                 this.spinner.setSpinnerStatus(false)
@@ -143,7 +143,7 @@ export default class PurchasePageStore {
     }
 
     loadPromocodeData = (promocode, courseID, courseType) => {
-        return this.client.post(`/promocode/validate/`, {promocode: promocode, courseID: courseID, courseType: courseType})
+        return this.client.post(`/promocode/validate`, {promocode: promocode, courseID: courseID, courseType: courseType})
             .then(response => {
                 if (response?.data?.error) {
                     // console.log(response?.data?.error)

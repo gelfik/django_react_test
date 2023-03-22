@@ -48,7 +48,7 @@ export default class PurchaseCourseStore {
 
     loadCourseData = (purchaseID) => {
         this.spinner.setSpinnerStatus(true)
-        return this.client.get(`/purchase/${purchaseID}/subBuy/`)
+        return this.client.get(`/purchase${purchaseID}/subBuy`)
             .then(response => {
                 this.setCourseError(false)
                 this.setCourseData(response.data)

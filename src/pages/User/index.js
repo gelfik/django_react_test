@@ -7,7 +7,6 @@ const UserPage = inject('userStore', 'pictureStore')(observer((stores) => {
     //     return this.charAt(0).toUpperCase() + this.slice(1);
     // }
     useEffect(() => {
-        document.title = "Профиль"
         document.body.className = 'bg-light min-vh-100'
         window.scrollTo(0, 0)
     }, []);

@@ -35,7 +35,7 @@ export default class MainPageStore {
     }
 
     loadTeacherData = () =>{
-        return this.client.get('/main/teacherlist/')
+        return this.client.get('/main/teacherlist')
             .then(response => {
                 this.setTeacherData(response.data)
                 // console.log(this.teacherData)
@@ -43,7 +43,7 @@ export default class MainPageStore {
     }
 
     loadEducationData = () =>{
-        return this.client.get('/main/educationlist/')
+        return this.client.get('/main/educationlist')
             .then(response => {
                 this.setEducationData(response.data)
             })

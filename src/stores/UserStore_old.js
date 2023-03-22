@@ -96,7 +96,7 @@ export default class UserStore {
     }
 
     login = data => {
-        return this.requestService._post('/login/', data).then(([response, status]) => {
+        return this.requestService._post('/login', data).then(([response, status]) => {
             if (status) {
                 const {token} = response;
                 this.cookieService.setCookie('Authorization', `Token ${token}`)
@@ -108,7 +108,7 @@ export default class UserStore {
     }
 
     registration = data => {
-        return this.requestService._post('/register/', data).then(([response, status]) => {
+        return this.requestService._post('/register', data).then(([response, status]) => {
             return [response, status]
         })
     }
@@ -118,7 +118,7 @@ export default class UserStore {
     }
 
     async getUserData() {
-        const [res, status] = await this.requestService._get('/User/')
+        const [res, status] = await this.requestService._get('/User')
         if (status) {
             return this._transformUserData(res)
         } else {

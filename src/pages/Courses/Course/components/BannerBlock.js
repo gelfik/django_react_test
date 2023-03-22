@@ -22,7 +22,7 @@ const BannerBlock = inject('userStore', 'coursePageStore', 'modalStore', 'course
         const buyFreeSubmit = () => {
             coursePageStore.buyFreeData(queryParams?.courseID).then(() => {
                 if (coursePageStore.buyCourseStore.buyText.valid !== '') {
-                    history.push(`/purchases/${queryParams?.courseID}`)
+                    history.push(`/purchases`)
                 }
             })
         }
@@ -59,16 +59,7 @@ const BannerBlock = inject('userStore', 'coursePageStore', 'modalStore', 'course
                                         </div>
                                     </div>
                                     <div className="Description">
-                                        {courseStore?.courseData?.shortDescription} Lorem ipsum dolor sit amet,
-                                        consectetur
-                                        adipisicing elit. Ad adipisci alias aliquam aspernatur commodi, deserunt ea fugit
-                                        harum
-                                        illum impedit molestiae necessitatibus optio quo repudiandae tempora temporibus
-                                        tenetur
-                                        veniam. Adipisci esse fuga harum incidunt nostrum reiciendis veniam voluptatem? Ea
-                                        exercitationem minus quos reprehenderit. Animi enim expedita perspiciatis tempora
-                                        unde
-                                        ut.
+                                        {courseStore?.courseData?.shortDescription}
                                     </div>
                                     <div className="DetailCourse">
                                         <div className="DetailCourse__Item DetailCourse__CourseData">
@@ -100,7 +91,7 @@ const BannerBlock = inject('userStore', 'coursePageStore', 'modalStore', 'course
                                                 buyFreeSubmit()
                                             }}>приобрести курс</div>}
                                             {Number(courseStore?.courseData?.price) !== 0 &&
-                                            <Link to={`/courses/${queryParams?.courseID}/purchase`}
+                                            <Link to={`/courses${queryParams?.courseID}/purchase`}
                                                   className="BuyData__Button">приобрести курс</Link>}
                                         </>}
                                         <span className="BuyData__Price desktop-none">

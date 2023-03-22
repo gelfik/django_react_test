@@ -15,10 +15,11 @@ const BuyBlock = inject('purchasePageStore', 'courseStore')(observer((store) => 
     useEffect(() => {
         purchasePageStore.setPromocodeData('', '', 0)
         purchasePageStore.setPromoText('', '')
+        purchasePageStore.buyCourseStore.setBuyText('','')
 
         purchasePageStore.loadCheckBuy(queryParams?.courseID).then(() => {
             if (purchasePageStore.buyStatus.status) {
-                history.push(`/purchases/${purchasePageStore.buyStatus?.id}`)
+                history.push(`/purchases${purchasePageStore.buyStatus?.id}`)
             } else {
                 if ((courseStore.courseData.length === 0) || (Number(courseStore?.courseData?.id) !== Number(queryParams?.courseID))) {
                     courseStore.loadCourseData(queryParams?.courseID).then(()=>{
@@ -75,9 +76,10 @@ const BuyBlock = inject('purchasePageStore', 'courseStore')(observer((store) => 
 
     const buySubmit = () => {
         purchasePageStore.buyData(queryParams?.courseID).then(() => {
-            console.log(purchasePageStore.buyCourseStore.buyText)
             if (purchasePageStore.buyCourseStore.buyText.valid !== '') {
                 history.push(`/purchases`)
+            } else {
+                console.log(purchasePageStore.buyCourseStore.buyText.error)
             }
         })
     }

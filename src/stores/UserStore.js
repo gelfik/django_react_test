@@ -107,7 +107,7 @@ export default class UserStore {
     }
 
     // login = data => {
-    //     return this.requestService._post('/login/', data).then(([response, status]) => {
+    //     return this.requestService._post('/login', data).then(([response, status]) => {
     //         if (status) {
     //             const {token} = response;
     //             this.tokenStore.setToken(`Token ${token}`)
@@ -118,7 +118,7 @@ export default class UserStore {
     // }
 
     login = (data) => {
-        return this.client.post('/users/login/', data).then((response) => {
+        return this.client.post('/users/login', data).then((response) => {
             this.tokenStore.setToken(`Token ${response.data.token}`)
             this.setUserAuthStatus(true)
             this.getUserData().then(userData => {
@@ -150,7 +150,7 @@ export default class UserStore {
     }
 
     registration = data => {
-        return this.client.post('/users/register/', data).then((response) => {
+        return this.client.post('/users/register', data).then((response) => {
             // console.log(response)
             this.tokenStore.setToken(`Token ${response.data.token}`)
             this.setUserAuthStatus(true)
@@ -162,7 +162,7 @@ export default class UserStore {
 
 
     updateUser = (data) => {
-        return this.client.post('/users/edit/', data).then((response) => {
+        return this.client.post('/users/edit', data).then((response) => {
             this.setUserData(response.data)
             // this.getUserData().then(userData => {
             //     this.setUserData(userData)
@@ -178,7 +178,7 @@ export default class UserStore {
     }
 
     getUserData = () => {
-        return this.client.get('/users/user/')
+        return this.client.get('/users/user')
             .then(response => {
                 this.setUserAuthStatus(true)
                 return response.data
@@ -211,7 +211,7 @@ export default class UserStore {
     }
 
     _transformUserData(userData) {
-        return {
+        let data = {
             email: userData.email,
             username: userData.username,
             phone: userData.phone,
@@ -221,7 +221,14 @@ export default class UserStore {
             patronymic: userData.patronymic,
             avatar: this._transformAvatarData(userData.avatar?.file),
             // avatar: userData.avatar,
-            isActive: userData.is_active
+            isActive: userData.is_active,
         }
+        if (userData.isTeacher) {
+            data['isTeacher'] = userData.isTeacher
+        }
+        if (userData.isMentor) {
+            data['isMentor'] = userData.isMentor
+        }
+        return data
     }
 }

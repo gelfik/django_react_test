@@ -58,7 +58,7 @@ export default class CoursesPageStore {
     }
 
     loadFilterData = () => {
-        return this.client.get('/courses/filterdata/')
+        return this.client.get('/courses/filterdata')
             .then(response => {
                 this.setFilterData(response.data)
             })
@@ -73,7 +73,7 @@ export default class CoursesPageStore {
     }
 
     loadCoursesData = () => {
-        return this.client.get('/courses/list/')
+        return this.client.get('/courses/list')
             .then(response => {
                 this.setCoursesData(response.data)
             })
@@ -128,7 +128,7 @@ export default class CoursesPageStore {
         }
         this.spinner.setSpinnerStatus(true)
         this.setFilterRequestOld(data)
-        return this.client.get(`/courses/list/`, {params: data})
+        return this.client.get(`/courses/list`, {params: data})
             .then(response => {
                 this.setCoursesData(response.data)
                 this.spinner.setSpinnerStatus(false)
